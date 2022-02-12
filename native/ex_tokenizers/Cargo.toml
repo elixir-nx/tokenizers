@@ -1,0 +1,16 @@
+[package]
+name = "ex_tokenizers"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[lib]
+name = "ex_tokenizers"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1"
+rustler = "0.23.0"
+thiserror = "1"
+tokenizers = "0.11.0"

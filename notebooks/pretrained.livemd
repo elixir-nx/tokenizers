@@ -1,0 +1,91 @@
+# Pretrained Tokenizers
+
+## Setup
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.5.2"},
+  {:tokenizers, path: "../"}
+])
+```
+
+## Get a tokenizer
+
+```elixir
+{:ok, tokenizer} = Tokenizers.from_pretrained("bert-base-cased")
+```
+
+## Save and load
+
+```elixir
+input = Kino.Input.text("Path")
+```
+
+```elixir
+path = Kino.Input.read(input)
+Tokenizers.save(tokenizer, path)
+```
+
+```elixir
+{:ok, tokenizer} = Tokenizers.from_file(path)
+```
+
+## Check the tokenizer
+
+```elixir
+{:ok, vocab} = Tokenizers.get_vocab(tokenizer)
+```
+
+```elixir
+vocab["Jaguar"]
+```
+
+```elixir
+Tokenizers.token_to_id(tokenizer, "Jaguar")
+```
+
+```elixir
+Tokenizers.id_to_token(tokenizer, 21694)
+```
+
+```elixir
+Tokenizers.get_vocab_size(tokenizer)
+```
+
+```elixir
+map_size(vocab)
+```
+
+## Encode and decode
+
+```elixir
+{:ok, encoding} = Tokenizers.encode(tokenizer, "Hello there!")
+```
+
+```elixir
+Tokenizers.get_tokens(encoding)
+```
+
+```elixir
+{:ok, ids} = Tokenizers.get_ids(encoding)
+```
+
+```elixir
+Tokenizers.decode(tokenizer, ids)
+```
+
+```elixir
+{:ok, encodings} = Tokenizers.encode(tokenizer, ["Hello there!", "This is a test."])
+```
+
+```elixir
+list_of_ids =
+  Enum.map(encodings, fn encoding ->
+    {:ok, ids} = Tokenizers.get_ids(encoding)
+    ids
+  end)
+```
+
+```elixir
+Tokenizers.decode(tokenizer, list_of_ids)
+```
