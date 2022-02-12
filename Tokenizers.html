@@ -10,7 +10,7 @@
     <title>Tokenizers — Tokenizers v0.1.0-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
-    <script src="dist/sidebar_items-cccad9abf8.js"></script>
+    <script src="dist/sidebar_items-b007168529.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -159,6 +159,16 @@ Tokenizers
 
       <div class="summary-row">
         <div class="summary-signature">
+          <a href="#get_attention_mask/1" translate="no">get_attention_mask(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Get the attention_mask from an encoding.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
           <a href="#get_ids/1" translate="no">get_ids(encoding)</a>
 
         </div>
@@ -224,6 +234,16 @@ Tokenizers
         </div>
 
           <div class="summary-synopsis"><p>Convert a given token to its id.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#truncate/3" translate="no">truncate(encoding, max_len, stride)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Truncate the encoding.</p></div>
 
       </div>
 
@@ -359,6 +379,36 @@ Functions
 <p>Instantiate a new tokenizer from an existing file on the Hugging Face Hub.</p>
   </section>
 </section>
+<section class="detail" id="get_attention_mask/1">
+
+  <div class="detail-header">
+    <a href="#get_attention_mask/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_attention_mask(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L76" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_attention_mask(<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()) ::
+  {:ok, [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Get the attention_mask from an encoding.</p>
+  </section>
+</section>
 <section class="detail" id="get_ids/1">
 
   <div class="detail-header">
@@ -485,7 +535,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">id_to_token(tokenizer, id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L76" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L82" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -544,7 +594,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">token_to_id(tokenizer, token)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L82" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L88" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -563,6 +613,36 @@ Functions
       </div>
 
 <p>Convert a given token to its id.</p>
+  </section>
+</section>
+<section class="detail" id="truncate/3">
+
+  <div class="detail-header">
+    <a href="#truncate/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(encoding, max_len, stride)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L94" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">truncate(<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) ::
+  {:ok, <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Truncate the encoding.</p>
   </section>
 </section>
 
