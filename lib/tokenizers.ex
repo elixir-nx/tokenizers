@@ -86,4 +86,10 @@ defmodule Tokenizers do
   """
   @spec token_to_id(Tokenizer.t(), binary()) :: {:ok, integer()} | {:error, term()}
   def token_to_id(tokenizer, token), do: Native.token_to_id(tokenizer, token)
+
+  @doc """
+  Truncate the encoding.
+  """
+  @spec truncate(Encoding.t(), integer(), integer()) :: {:ok, Encoding.t()} | {:error, term()}
+  def truncate(encoding, max_len, stride), do: Native.truncate(encoding, max_len, stride)
 end
