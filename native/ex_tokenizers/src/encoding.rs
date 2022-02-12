@@ -32,3 +32,19 @@ pub fn get_tokens(encoding: ExTokenizersEncoding) -> Result<Vec<String>, ExToken
 pub fn get_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
     Ok(encoding.resource.0.get_ids().to_vec())
 }
+
+#[rustler::nif]
+pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
+    Ok(encoding.resource.0.get_attention_mask().to_vec())
+}
+
+#[rustler::nif]
+pub fn truncate(
+    encoding: ExTokenizersEncoding,
+    max_len: usize,
+    stride: usize,
+) -> Result<ExTokenizersEncoding, ExTokenizersError> {
+    let mut new_encoding = encoding.resource.0.clone();
+    new_encoding.truncate(max_len, stride);
+    Ok(ExTokenizersEncoding::new(new_encoding))
+}
