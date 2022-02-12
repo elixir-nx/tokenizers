@@ -70,6 +70,12 @@ defmodule Tokenizers do
   def get_ids(encoding), do: Native.get_ids(encoding)
 
   @doc """
+  Get the attention_mask from an encoding.
+  """
+  @spec get_attention_mask(Encoding.t()) :: {:ok, [integer()]} | {:error, term()}
+  def get_attention_mask(encoding), do: Native.get_attention_mask(encoding)
+
+  @doc """
   Convert a given id to its token.
   """
   @spec id_to_token(Tokenizer.t(), integer()) :: {:ok, binary()} | {:error, term()}

@@ -23,6 +23,7 @@ rustler::init!(
         encode_batch,
         from_file,
         from_pretrained,
+        get_attention_mask,
         get_ids,
         get_tokens,
         get_vocab,
