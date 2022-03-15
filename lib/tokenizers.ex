@@ -1,6 +1,14 @@
 defmodule Tokenizers do
   @moduledoc """
-  Documentation for `Tokenizers`.
+  Elixir bindings to [Hugging Face Tokenizers](https://github.com/huggingface/tokenizers).
+
+  Hugging Face describes the Tokenizers library as:
+
+  > Fast State-of-the-art tokenizers, optimized for both research and production
+  >
+  > 🤗 Tokenizers provides an implementation of today’s most used tokenizers, with a focus on performance and versatility. These tokenizers are also used in 🤗 Transformers.
+
+  This library has bindings to use pretrained tokenizers. Support for building and training a tokenizer from scratch is forthcoming.
   """
 
   alias Tokenizers.Encoding

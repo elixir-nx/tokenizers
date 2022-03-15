@@ -28,7 +28,21 @@ Mix.install([
 ])
 ```
 
+## Quick example
+
+```elixir
+# Go get a tokenizer -- any from the Hugging Face models repo will do
+{:ok, tokenizer} = Tokenizers.from_pretrained("bert-base-cased")
+{:ok, encoding} = Tokenizers.encode(tokenizer, "Hello there!")
+Tokenizers.get_tokens(encoding)
+# {:ok, ["Hello", "there", "!"]}
+Tokenizers.get_ids(encoding)
+# {:ok, [8667, 1175, 106]}
+```
+
 The [notebooks](./notebooks) directory has [an introductory Livebook](./notebooks/pretrained.livemd) to give you a feel for the API.
+
+While this project is prerelease, the docs can be accessed on [GitHub pages](https://elixir-nx.github.io/tokenizers/).
 
 ## License
 
