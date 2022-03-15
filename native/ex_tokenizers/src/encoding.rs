@@ -46,5 +46,22 @@ pub fn truncate(
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
     let mut new_encoding = encoding.resource.0.clone();
     new_encoding.truncate(max_len, stride);
+
+#[rustler::nif]
+pub fn pad(
+    encoding: ExTokenizersEncoding,
+    target_length: usize,
+    pad_id: u32,
+    pad_type_id: u32,
+    pad_token: &str,
+    direction: &str,
+) -> Result<ExTokenizersEncoding, ExTokenizersError> {
+    let direction: PaddingDirection = match direction {
+        "left" => PaddingDirection::Left,
+        "right" => PaddingDirection::Right,
+        _ => panic!("direction must be right or left"),
+    };
+    let mut new_encoding = encoding.resource.0.clone();
+    new_encoding.pad(target_length, pad_id, pad_type_id, pad_token, direction);
     Ok(ExTokenizersEncoding::new(new_encoding))
 }

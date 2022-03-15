@@ -89,7 +89,28 @@ defmodule Tokenizers do
 
   @doc """
   Truncate the encoding.
+  @doc """
+  Pad the encoding to the given length.
+
+  ## Options
+    * `direction` - The padding direction. Can be `:right` or `:left`. Default: `:right`.
+    * `pad_id` - The id corresponding to the padding token. Default: `0`.
+    * `pad_token` - The padding token to use. Default: `"[PAD]"`.
+    * `pad_type_id` - The type ID corresponding to the padding token. Default: `0`.
   """
-  @spec truncate(Encoding.t(), integer(), integer()) :: {:ok, Encoding.t()} | {:error, term()}
-  def truncate(encoding, max_len, stride), do: Native.truncate(encoding, max_len, stride)
+  @spec pad(encoding :: Encoding.t(), length :: pos_integer(), opts :: Keyword.t()) ::
+          Encoding.t()
+  def pad(encoding, length, opts \\ []) do
+    opts =
+      Keyword.validate!(opts, direction: :right, pad_id: 0, pad_type_id: 0, pad_token: "[PAD]")
+
+    Native.pad(
+      encoding,
+      length,
+      opts[:pad_id],
+      opts[:pad_type_id],
+      opts[:pad_token],
+      "#{opts[:direction]}"
+    )
+  end
 end
