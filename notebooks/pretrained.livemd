@@ -5,7 +5,8 @@
 ```elixir
 Mix.install([
   {:kino, "~> 0.5.2"},
-  {:tokenizers, path: "../"}
+  {:scidata, "~> 0.1.5"},
+  {:tokenizers, path: "./"}
 ])
 ```
 
@@ -88,4 +89,41 @@ list_of_ids =
 
 ```elixir
 Tokenizers.decode(tokenizer, list_of_ids)
+```
+
+## Get a tensor
+
+In order to get a tensor, we need sequences that are all of the same length. We'll get some data from `Scidata` and use `Tokenizers.pad/3` and `Tokenizers.truncate/3` to yield a tensor.
+
+```elixir
+%{review: reviews} = Scidata.YelpPolarityReviews.download_test()
+```
+
+```elixir
+tensor =
+  reviews
+  |> Enum.take(10)
+  |> Enum.map(fn review ->
+    {:ok, tokenized} = Tokenizers.encode(tokenizer, review)
+    {:ok, padded} = Tokenizers.pad(tokenized, 200)
+    {:ok, truncated} = Tokenizers.truncate(padded, 200, [])
+    {:ok, indices} = Tokenizers.get_ids(truncated)
+    indices
+  end)
+  |> Nx.tensor()
+```
+
+And we can reverse the operation to see our data. Note the `[PAD]` tokens.
+
+```elixir
+tensor
+|> Nx.to_batched_list(1)
+|> Enum.map(fn tensor_review ->
+  {:ok, decoded} =
+    tensor_review
+    |> Nx.to_flat_list()
+    |> then(&Tokenizers.decode(tokenizer, &1))
+
+  decoded
+end)
 ```
