@@ -807,6 +807,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "macro_rules_attribute"
+version = "0.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "641c64af6cd80b81cf9c2f2f6ee382b1050c71ce63e20800499971a4a4195005"
+dependencies = [
+ "macro_rules_attribute-proc_macro",
+]
+
+[[package]]
+name = "macro_rules_attribute-proc_macro"
+version = "0.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eb246ada5a8c47b8b6e90c9f9a0f84f294939cdf558f1bc8d17fbb30f9706598"
+
+[[package]]
 name = "matches"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -987,6 +1002,12 @@ dependencies = [
  "pkg-config",
  "vcpkg",
 ]
+
+[[package]]
+name = "paste"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0744126afe1a6dd7f394cb50a716dbe086cb06e255e53d8d0185d82828358fb5"
 
 [[package]]
 name = "percent-encoding"
@@ -1533,10 +1554,11 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokenizers"
-version = "0.11.0"
+version = "0.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f5c159c4c2efb7d3fbed139b726cb5c0135b12d68e2c09afc1a851f8f2534e8"
+checksum = "60c79b46b9e4a7c8a4926531d1b81521a976cab19f1651627385504aa68799f2"
 dependencies = [
+ "aho-corasick",
  "cached-path",
  "clap",
  "derive_builder",
@@ -1546,7 +1568,9 @@ dependencies = [
  "itertools 0.9.0",
  "lazy_static",
  "log",
+ "macro_rules_attribute",
  "onig",
+ "paste",
  "rand 0.7.3",
  "rayon",
  "rayon-cond",
