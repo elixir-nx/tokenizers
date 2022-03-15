@@ -88,7 +88,19 @@ defmodule Tokenizers do
   def token_to_id(tokenizer, token), do: Native.token_to_id(tokenizer, token)
 
   @doc """
-  Truncate the encoding.
+  Truncate the encoding to the given length.
+
+  ## Options
+    * `direction` - The truncation direction. Can be `:right` or `:left`. Default: `:right`.
+    * `stride` - The length of previous content to be included in each overflowing piece. Default: `0`.
+  """
+  @spec truncate(encoding :: Encoding.t(), length :: integer(), opts :: Keyword.t()) ::
+          {:ok, Encoding.t()} | {:error, term()}
+  def truncate(encoding, max_len, opts \\ []) do
+    opts = Keyword.validate!(opts, direction: :right, stride: 0)
+    Native.truncate(encoding, max_len, opts[:stride], "#{opts[:direction]}")
+  end
+
   @doc """
   Pad the encoding to the given length.
 

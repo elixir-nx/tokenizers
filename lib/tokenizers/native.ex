@@ -17,7 +17,7 @@ defmodule Tokenizers.Native do
   def id_to_token(_tokenizer, _id), do: err()
   def save(_tokenizer, _path, _pretty), do: err()
   def token_to_id(_tokenizer, _token), do: err()
-  def truncate(_encoding, _max_len, _stride), do: err()
+  def truncate(_encoding, _max_len, _stride, _direction), do: err()
   def pad(_encoding, _target_length, _pad_id, _pad_type_id, _pad_token, _direction), do: err()
 
   defp err(), do: :erlang.nif_error(:nif_not_loaded)
