@@ -29,6 +29,7 @@ rustler::init!(
         get_vocab,
         get_vocab_size,
         id_to_token,
+        pad,
         save,
         token_to_id,
         truncate
