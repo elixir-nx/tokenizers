@@ -10,7 +10,7 @@
     <title>Tokenizers — Tokenizers v0.1.0-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
-    <script src="dist/sidebar_items-b007168529.js"></script>
+    <script src="dist/sidebar_items-2d546984b2.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -99,7 +99,7 @@ Tokenizers
 
 
   <section id="moduledoc">
-<p>Documentation for <a href="Tokenizers.html#content"><code class="inline">Tokenizers</code></a>.</p>
+<p>Elixir bindings to <a href="https://github.com/huggingface/tokenizers">Hugging Face Tokenizers</a>.</p><p>Hugging Face describes the Tokenizers library as:</p><blockquote><p>Fast State-of-the-art tokenizers, optimized for both research and production</p><p>🤗 Tokenizers provides an implementation of today’s most used tokenizers, with a focus on performance and versatility. These tokenizers are also used in 🤗 Transformers.</p></blockquote><p>This library has bindings to use pretrained tokenizers. Support for building and training a tokenizer from scratch is forthcoming.</p>
   </section>
 
 
@@ -219,6 +219,16 @@ Tokenizers
 
       <div class="summary-row">
         <div class="summary-signature">
+          <a href="#pad/3" translate="no">pad(encoding, length, opts \\ [])</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Pad the encoding to the given length.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
           <a href="#save/2" translate="no">save(tokenizer, path)</a>
 
         </div>
@@ -239,11 +249,11 @@ Tokenizers
 
       <div class="summary-row">
         <div class="summary-signature">
-          <a href="#truncate/3" translate="no">truncate(encoding, max_len, stride)</a>
+          <a href="#truncate/3" translate="no">truncate(encoding, max_len, opts \\ [])</a>
 
         </div>
 
-          <div class="summary-synopsis"><p>Truncate the encoding.</p></div>
+          <div class="summary-synopsis"><p>Truncate the encoding to the given length.</p></div>
 
       </div>
 
@@ -270,7 +280,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">decode(tokenizer, ids)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L50" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -300,7 +310,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">encode(tokenizer, input)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L40" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -330,7 +340,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">from_file(path)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L20" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L28" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -359,7 +369,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">from_pretrained(identifier)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L14" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L22" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -388,7 +398,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L76" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L84" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -418,7 +428,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L70" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L78" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -447,7 +457,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L64" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L72" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -476,7 +486,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_vocab(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L52" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L60" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -506,7 +516,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_vocab_size(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L58" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L66" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -535,7 +545,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">id_to_token(tokenizer, id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L82" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L90" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -556,6 +566,46 @@ Functions
 <p>Convert a given id to its token.</p>
   </section>
 </section>
+<section class="detail" id="pad/3">
+
+    <span id="pad/2"></span>
+
+  <div class="detail-header">
+    <a href="#pad/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pad(encoding, length, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L123" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">pad(
+  encoding :: <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>(),
+  length :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pos_integer</a>(),
+  opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()
+) ::
+  <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()</pre>
+
+      </div>
+
+<p>Pad the encoding to the given length.</p><h2 id="pad/3-options" class="section-heading">
+  <a href="#pad/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a>
+  Options
+</h2>
+<ul><li><code class="inline">direction</code> - The padding direction. Can be <code class="inline">:right</code> or <code class="inline">:left</code>. Default: <code class="inline">:right</code>.</li><li><code class="inline">pad_id</code> - The id corresponding to the padding token. Default: <code class="inline">0</code>.</li><li><code class="inline">pad_token</code> - The padding token to use. Default: <code class="inline">&quot;[PAD]&quot;</code>.</li><li><code class="inline">pad_type_id</code> - The type ID corresponding to the padding token. Default: <code class="inline">0</code>.</li></ul>
+  </section>
+</section>
 <section class="detail" id="save/2">
 
   <div class="detail-header">
@@ -565,7 +615,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">save(tokenizer, path)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L26" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L34" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -594,7 +644,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">token_to_id(tokenizer, token)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L88" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L96" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -617,14 +667,16 @@ Functions
 </section>
 <section class="detail" id="truncate/3">
 
+    <span id="truncate/2"></span>
+
   <div class="detail-header">
     <a href="#truncate/3" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">truncate(encoding, max_len, stride)</h1>
+    <h1 class="signature" translate="no">truncate(encoding, max_len, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L94" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers.ex#L107" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -637,12 +689,20 @@ Functions
       <h2>Specs</h2>
       <div class="specs">
 
-          <pre translate="no">truncate(<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) ::
+          <pre translate="no">truncate(
+  encoding :: <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>(),
+  length :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
+  opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()
+) ::
   {:ok, <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
-<p>Truncate the encoding.</p>
+<p>Truncate the encoding to the given length.</p><h2 id="truncate/3-options" class="section-heading">
+  <a href="#truncate/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a>
+  Options
+</h2>
+<ul><li><code class="inline">direction</code> - The truncation direction. Can be <code class="inline">:right</code> or <code class="inline">:left</code>. Default: <code class="inline">:right</code>.</li><li><code class="inline">stride</code> - The length of previous content to be included in each overflowing piece. Default: <code class="inline">0</code>.</li></ul>
   </section>
 </section>
 
