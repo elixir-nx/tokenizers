@@ -1,7 +1,14 @@
 defmodule Tokenizers.Native do
-  use Rustler,
+  mix_config = Mix.Project.config()
+  version = mix_config[:version]
+  github_url = mix_config[:package][:links]["GitHub"]
+
+  use RustlerPrecompiled,
     otp_app: :tokenizers,
-    crate: :ex_tokenizers
+    crate: "ex_tokenizers",
+    version: version,
+    base_url: "#{github_url}/releases/download/v#{version}",
+    force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"]
 
   def decode(_tokenizer, _ids, _skip_special_tokens), do: err()
   def decode_batch(_tokenizer, _ids, _skip_special_tokens), do: err()
