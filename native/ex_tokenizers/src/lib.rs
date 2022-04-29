@@ -32,7 +32,7 @@ rustler::init!(
         pad,
         save,
         token_to_id,
-        truncate
+        truncate,
     ],
     load = on_load
 );

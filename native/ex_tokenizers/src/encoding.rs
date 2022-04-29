@@ -6,7 +6,7 @@ use tokenizers::Encoding;
 pub struct ExTokenizersEncodingRef(pub Encoding);
 
 #[derive(rustler::NifStruct)]
-#[module = "ExTokenizers.Encoding"]
+#[module = "Tokenizers.Encoding"]
 pub struct ExTokenizersEncoding {
     pub resource: rustler::resource::ResourceArc<ExTokenizersEncodingRef>,
 }

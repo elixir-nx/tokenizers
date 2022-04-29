@@ -8,7 +8,7 @@ use crate::error::ExTokenizersError;
 pub struct ExTokenizersTokenizerRef(pub Tokenizer);
 
 #[derive(rustler::NifStruct)]
-#[module = "ExTokenizers.Tokenizer"]
+#[module = "Tokenizers.Tokenizer"]
 pub struct ExTokenizersTokenizer {
     pub resource: rustler::resource::ResourceArc<ExTokenizersTokenizerRef>,
 }
