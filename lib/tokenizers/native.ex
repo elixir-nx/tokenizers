@@ -28,6 +28,7 @@ defmodule Tokenizers.Native do
   def pad(_encoding, _target_length, _pad_id, _pad_type_id, _pad_token, _direction), do: err()
   def get_model(_tokenizer), do: err()
   def get_model_details(_model), do: err()
+  def n_tokens(_encoding), do: err()
 
   defp err(), do: :erlang.nif_error(:nif_not_loaded)
 end

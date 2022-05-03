@@ -59,5 +59,12 @@ defmodule Tokenizers.Encoding do
       opts[:pad_token],
       "#{opts[:direction]}"
     )
+
+  @doc """
+  Returns the number of tokens in an `Encoding.t()`.
+  """
+  @spec n_tokens(encoding :: Encoding.t()) :: non_neg_integer()
+  def n_tokens(encoding), do: encoding |> Native.n_tokens() |> Shared.unwrap()
+end
   end
 end

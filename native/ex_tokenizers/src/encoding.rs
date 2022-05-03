@@ -41,6 +41,11 @@ pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, Ex
 }
 
 #[rustler::nif]
+pub fn n_tokens(encoding: ExTokenizersEncoding) -> Result<usize, ExTokenizersError> {
+    Ok(encoding.resource.0.len())
+}
+
+#[rustler::nif]
 pub fn truncate(
     encoding: ExTokenizersEncoding,
     max_len: usize,
