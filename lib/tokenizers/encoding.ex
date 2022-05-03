@@ -3,24 +3,25 @@ defmodule Tokenizers.Encoding do
   defstruct resource: nil, reference: nil
 
   alias Tokenizers.Native
+  alias Tokenizers.Shared
 
   @doc """
   Get the tokens from an encoding.
   """
-  @spec get_tokens(Encoding.t()) :: {:ok, [binary()]} | {:error, term()}
-  def get_tokens(encoding), do: Native.get_tokens(encoding)
+  @spec get_tokens(Encoding.t()) :: [binary()]
+  def get_tokens(encoding), do: encoding |> Native.get_tokens() |> Shared.unwrap()
 
   @doc """
   Get the ids from an encoding.
   """
-  @spec get_ids(Encoding.t()) :: {:ok, [integer()]} | {:error, term()}
-  def get_ids(encoding), do: Native.get_ids(encoding)
+  @spec get_ids(Encoding.t()) :: [integer()]
+  def get_ids(encoding), do: encoding |> Native.get_ids() |> Shared.unwrap()
 
   @doc """
   Get the attention_mask from an encoding.
   """
-  @spec get_attention_mask(Encoding.t()) :: {:ok, [integer()]} | {:error, term()}
-  def get_attention_mask(encoding), do: Native.get_attention_mask(encoding)
+  @spec get_attention_mask(Encoding.t()) :: [integer()]
+  def get_attention_mask(encoding), do: encoding |> Native.get_attention_mask() |> Shared.unwrap()
 
   @doc """
   Truncate the encoding to the given length.
@@ -30,10 +31,10 @@ defmodule Tokenizers.Encoding do
     * `stride` - The length of previous content to be included in each overflowing piece. Default: `0`.
   """
   @spec truncate(encoding :: Encoding.t(), length :: integer(), opts :: Keyword.t()) ::
-          {:ok, Encoding.t()} | {:error, term()}
+          Encoding.t()
   def truncate(encoding, max_len, opts \\ []) do
     opts = Keyword.validate!(opts, direction: :right, stride: 0)
-    Native.truncate(encoding, max_len, opts[:stride], "#{opts[:direction]}")
+    encoding |> Native.truncate(max_len, opts[:stride], "#{opts[:direction]}") |> Shared.unwrap()
   end
 
   @doc """
@@ -51,14 +52,16 @@ defmodule Tokenizers.Encoding do
     opts =
       Keyword.validate!(opts, direction: :right, pad_id: 0, pad_type_id: 0, pad_token: "[PAD]")
 
-    Native.pad(
-      encoding,
+    encoding
+    |> Native.pad(
       length,
       opts[:pad_id],
       opts[:pad_type_id],
       opts[:pad_token],
       "#{opts[:direction]}"
     )
+    |> Shared.unwrap()
+  end
 
   @doc """
   Returns the number of tokens in an `Encoding.t()`.
