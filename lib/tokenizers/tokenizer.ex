@@ -2,6 +2,7 @@ defmodule Tokenizers.Tokenizer do
   @type t :: %__MODULE__{resource: binary(), reference: reference()}
   defstruct resource: nil, reference: nil
 
+  alias Tokenizers.Model
   alias Tokenizers.Native
   alias Tokenizers.Shared
 
@@ -66,6 +67,11 @@ defmodule Tokenizers.Tokenizer do
   """
   @spec token_to_id(Tokenizer.t(), binary()) :: non_neg_integer()
   def token_to_id(tokenizer, token), do: tokenizer |> Native.token_to_id(token) |> Shared.unwrap()
+  @doc """
+  Get the `Tokenizer`'s `Model`.
+  """
+  @spec get_model(Tokenizer.t()) :: Model.t()
+  def get_model(tokenizer), do: tokenizer |> Native.get_model() |> Shared.unwrap()
 end
 
 defimpl Inspect, for: Tokenizers.Tokenizer do

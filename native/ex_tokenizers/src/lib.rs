@@ -1,8 +1,10 @@
 mod encoding;
 mod error;
 mod tokenizer;
+mod model;
 
 use encoding::*;
+use model::*;
 use rustler::{Env, Term};
 use tokenizer::*;
 
@@ -11,6 +13,7 @@ pub use error::ExTokenizersError;
 fn on_load(env: Env, _info: Term) -> bool {
     rustler::resource!(ExTokenizersTokenizerRef, env);
     rustler::resource!(ExTokenizersEncodingRef, env);
+    rustler::resource!(ExTokenizersModelRef, env);
     true
 }
 
@@ -25,6 +28,8 @@ rustler::init!(
         from_pretrained,
         get_attention_mask,
         get_ids,
+        get_model,
+        get_model_details,
         get_tokens,
         get_vocab,
         get_vocab_size,

@@ -4,6 +4,7 @@ use tokenizers::Tokenizer;
 
 use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
+use crate::model::ExTokenizersModel;
 
 pub struct ExTokenizersTokenizerRef(pub Tokenizer);
 
@@ -127,3 +128,11 @@ pub fn save(
 ) -> Result<(), ExTokenizersError> {
     Ok(tokenizer.resource.0.save(path, pretty)?)
 }
+
+#[rustler::nif]
+pub fn get_model(
+    tokenizer: ExTokenizersTokenizer,
+) -> Result<ExTokenizersModel, ExTokenizersError> {
+    Ok(ExTokenizersModel::new(tokenizer.resource.0.get_model().clone()))
+}
+
