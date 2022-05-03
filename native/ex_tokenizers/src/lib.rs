@@ -1,7 +1,7 @@
 mod encoding;
 mod error;
-mod tokenizer;
 mod model;
+mod tokenizer;
 
 use encoding::*;
 use model::*;

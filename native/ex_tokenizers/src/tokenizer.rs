@@ -130,9 +130,8 @@ pub fn save(
 }
 
 #[rustler::nif]
-pub fn get_model(
-    tokenizer: ExTokenizersTokenizer,
-) -> Result<ExTokenizersModel, ExTokenizersError> {
-    Ok(ExTokenizersModel::new(tokenizer.resource.0.get_model().clone()))
+pub fn get_model(tokenizer: ExTokenizersTokenizer) -> Result<ExTokenizersModel, ExTokenizersError> {
+    Ok(ExTokenizersModel::new(
+        tokenizer.resource.0.get_model().clone(),
+    ))
 }
-
