@@ -69,5 +69,18 @@ defmodule Tokenizers.Encoding do
   @spec n_tokens(encoding :: Encoding.t()) :: non_neg_integer()
   def n_tokens(encoding), do: encoding |> Native.n_tokens() |> Shared.unwrap()
 end
+
+defimpl Inspect, for: Tokenizers.Encoding do
+  import Inspect.Algebra
+
+  alias Tokenizers.Encoding
+
+  def inspect(encoding, opts) do
+    attrs = [
+      n_tokens: Encoding.n_tokens(encoding),
+      ids: Encoding.get_ids(encoding)
+    ]
+
+    concat(["#Tokenizers.Tokenizer<", to_doc(attrs, opts), ">"])
   end
 end

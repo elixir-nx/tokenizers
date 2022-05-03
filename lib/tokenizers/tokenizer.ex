@@ -84,10 +84,24 @@ end
 defimpl Inspect, for: Tokenizers.Tokenizer do
   import Inspect.Algebra
 
+  alias Tokenizers.Model
   alias Tokenizers.Tokenizer
 
   def inspect(tokenizer, opts) do
-    attrs = [vocab_size: Tokenizer.get_vocab_size(tokenizer)]
-    concat(["#Tokenizer<", to_doc(attrs, opts), ">"])
+    model_details =
+      tokenizer
+      |> Tokenizer.get_model()
+      |> Model.get_model_details()
+      |> Keyword.new(fn {k, v} -> {String.to_atom(k), v} end)
+
+    attrs =
+      Keyword.merge(
+        [
+          vocab_size: Tokenizer.get_vocab_size(tokenizer)
+        ],
+        model_details
+      )
+
+    concat(["#Tokenizers.Tokenizer<", to_doc(attrs, opts), ">"])
   end
 end
