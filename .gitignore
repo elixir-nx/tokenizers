@@ -30,3 +30,5 @@ tokenizers-*.tar
 
 # Shared objects build by Rust.
 *.so
+
+.nix-*
