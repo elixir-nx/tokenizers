@@ -57,10 +57,10 @@ defmodule Tokenizers.Tokenizer do
     do_decode(tokenizer, ids, skip_special_tokens)
   end
 
-  def do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_integer(first),
+  defp do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_integer(first),
     do: Native.decode(tokenizer, ids, skip_special_tokens)
 
-  def do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_list(first),
+  defp do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_list(first),
     do: Native.decode_batch(tokenizer, ids, skip_special_tokens)
 
   @doc """
