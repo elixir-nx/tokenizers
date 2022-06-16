@@ -32,23 +32,36 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Encode the given sequence or batch of sequences to a `Tokenizers.Encoding.t()`.
   """
-  @spec encode(Tokenizer.t(), String.t() | [String.t()]) ::
+  @spec encode(Tokenizer.t(), String.t() | [String.t()], Keyword.t()) ::
           {:ok, Encoding.t() | [Encoding.t()]} | {:error, term()}
-  def encode(tokenizer, input) when is_binary(input), do: Native.encode(tokenizer, input, false)
+  def encode(tokenizer, input, opts \\ []) do
+    add_special_tokens = Keyword.get(opts, :add_special_tokens, false)
+    do_encode(tokenizer, input, add_special_tokens)
+  end
 
-  def encode(tokenizer, input) when is_list(input),
-    do: Native.encode_batch(tokenizer, input, false)
+  defp do_encode(tokenizer, input, add_special_tokens) when is_binary(input) do
+    Native.encode(tokenizer, input, add_special_tokens)
+  end
+
+  defp do_encode(tokenizer, input, add_special_tokens) when is_list(input) do
+    Native.encode_batch(tokenizer, input, add_special_tokens)
+  end
 
   @doc """
   Decode the given list of ids or list of lists of ids back to strings.
   """
-  @spec decode(Tokenizer.t(), non_neg_integer() | [non_neg_integer()]) ::
+  @spec decode(Tokenizer.t(), non_neg_integer() | [non_neg_integer()], Keyword.t()) ::
           {:ok, String.t() | [String.t()]} | {:error, term()}
-  def decode(tokenizer, [first | _] = ids) when is_integer(first),
-    do: Native.decode(tokenizer, ids, false)
+  def decode(tokenizer, ids, opts \\ []) do
+    skip_special_tokens = Keyword.get(opts, :skip_special_tokens, false)
+    do_decode(tokenizer, ids, skip_special_tokens)
+  end
 
-  def decode(tokenizer, [first | _] = ids) when is_list(first),
-    do: Native.decode_batch(tokenizer, ids, false)
+  defp do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_integer(first),
+    do: Native.decode(tokenizer, ids, skip_special_tokens)
+
+  defp do_decode(tokenizer, [first | _] = ids, skip_special_tokens) when is_list(first),
+    do: Native.decode_batch(tokenizer, ids, skip_special_tokens)
 
   @doc """
   Get the tokenizer's vocabulary as a map of token to id.

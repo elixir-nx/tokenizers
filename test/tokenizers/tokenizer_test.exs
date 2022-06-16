@@ -30,6 +30,14 @@ defmodule Tokenizers.TokenizerTest do
       assert match?({:ok, %Tokenizers.Encoding{}}, Tokenizer.encode(tokenizer, "This is a test"))
     end
 
+    test "can encode a single string with special characters", %{tokenizer: tokenizer} do
+      seq = "This is a test"
+      {:ok, encoding_clean} = Tokenizer.encode(tokenizer, seq)
+      {:ok, encoding_special} = Tokenizer.encode(tokenizer, seq, add_special_tokens: true)
+
+      refute Encoding.n_tokens(encoding_clean) == Encoding.n_tokens(encoding_special)
+    end
+
     test "can encode a batch of strings", %{tokenizer: tokenizer} do
       assert match?(
                {:ok, [%Tokenizers.Encoding{} | _]},
@@ -43,6 +51,18 @@ defmodule Tokenizers.TokenizerTest do
       ids = Encoding.get_ids(encoding)
       {:ok, decoded} = Tokenizer.decode(tokenizer, ids)
       assert decoded == text
+    end
+
+    test "can decode a single encoding skipping special characters", %{tokenizer: tokenizer} do
+      seq = "This is a test"
+      {:ok, encoding} = Tokenizer.encode(tokenizer, seq, add_special_tokens: true)
+      ids = Encoding.get_ids(encoding)
+
+      {:ok, seq_clean} = Tokenizer.decode(tokenizer, ids, skip_special_tokens: true)
+      {:ok, seq_special} = Tokenizer.decode(tokenizer, ids)
+
+      refute seq_special == seq
+      assert seq_clean == seq
     end
 
     test "can decode a batch of encodings", %{tokenizer: tokenizer} do

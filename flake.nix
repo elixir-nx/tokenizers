@@ -9,14 +9,16 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachSystem [
       flake-utils.lib.system.x86_64-linux
-      flake-utils.lib.system.aarch64-darwin
       flake-utils.lib.system.x86_64-darwin
-    ] (system:
-      let pkgs = import nixpkgs { inherit system; };
-      in {
-        devShell = pkgs.mkShell {
-          buildInputs = with pkgs;
-            [
+      flake-utils.lib.system.aarch64-darwin
+      flake-utils.lib.system.aarch64-linux
+    ]
+      (system:
+        let pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          devShell = pkgs.mkShell {
+            buildInputs = with pkgs; [
               act
               binutils
               cargo
