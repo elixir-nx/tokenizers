@@ -10,7 +10,7 @@
     <title>Tokenizers.Tokenizer — Tokenizers v0.1.0-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
-    <script src="dist/sidebar_items-2d546984b2.js"></script>
+    <script src="dist/sidebar_items-caa278cd98.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -98,6 +98,10 @@ Tokenizers
 </h1>
 
 
+  <section id="moduledoc">
+<p>The struct and associated functions for a tokenizer.</p><p>A <code class="inline">Tokenizers.Tokenizer.t()</code> is a container that holds the constituent parts of the tokenization pipeline.</p><p>When you call <a href="#encode/3"><code class="inline">Tokenizers.Tokenizer.encode/3</code></a>, the input text goes through the following pipeline:</p><ul><li>normalization</li><li>pre-tokenization</li><li>model</li><li>post-processing</li></ul><p>This returns a <code class="inline">Tokenizers.Encoding.t()</code>, which can then give you the token ids for each token in the input text. These token ids are usually used as the input for natural language processing machine learning models.</p>
+  </section>
+
 
   <section id="summary" class="details-list">
     <h1 class="section-heading">
@@ -118,6 +122,113 @@ Tokenizers
           <a href="#t:t/0" translate="no">t()</a>
 
         </div>
+
+      </div>
+
+  </div>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#decode/3" translate="no">decode(tokenizer, ids, opts \\ [])</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Decode the given list of ids or list of lists of ids back to strings.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#encode/3" translate="no">encode(tokenizer, input, opts \\ [])</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Encode the given sequence or batch of sequences to a <code class="inline">Tokenizers.Encoding.t()</code>.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#from_file/1" translate="no">from_file(path)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Instantiate a new tokenizer from the file at the given path.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#from_pretrained/1" translate="no">from_pretrained(identifier)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Instantiate a new tokenizer from an existing file on the Hugging Face Hub.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_model/1" translate="no">get_model(tokenizer)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Get the <code class="inline">Tokenizer</code>'s <code class="inline">Model</code>.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_vocab/1" translate="no">get_vocab(tokenizer)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Get the tokenizer's vocabulary as a map of token to id.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_vocab_size/1" translate="no">get_vocab_size(tokenizer)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Get the number of tokens in the vocabulary.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#id_to_token/2" translate="no">id_to_token(tokenizer, id)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Convert a given id to its token.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#save/2" translate="no">save(tokenizer, path)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Save the tokenizer to the provided path.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#token_to_id/2" translate="no">token_to_id(tokenizer, token)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Convert a given token to its id.</p></div>
 
       </div>
 
@@ -144,7 +255,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L2" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L17" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -168,7 +279,332 @@ Types
     </div>
   </section>
 
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="decode/3">
+
+    <span id="decode/2"></span>
+
+  <div class="detail-header">
+    <a href="#decode/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">decode(tokenizer, ids, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L70" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">decode(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()], <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Decode the given list of ids or list of lists of ids back to strings.</p>
+  </section>
+</section>
+<section class="detail" id="encode/3">
+
+    <span id="encode/2"></span>
+
+  <div class="detail-header">
+    <a href="#encode/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">encode(tokenizer, input, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L52" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">encode(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()], <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
+  {:ok, Encoding.t() | [Encoding.t()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Encode the given sequence or batch of sequences to a <code class="inline">Tokenizers.Encoding.t()</code>.</p>
+  </section>
+</section>
+<section class="detail" id="from_file/1">
+
+  <div class="detail-header">
+    <a href="#from_file/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">from_file(path)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L34" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">from_file(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Instantiate a new tokenizer from the file at the given path.</p>
+  </section>
+</section>
+<section class="detail" id="from_pretrained/1">
+
+  <div class="detail-header">
+    <a href="#from_pretrained/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">from_pretrained(identifier)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L28" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">from_pretrained(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Instantiate a new tokenizer from an existing file on the Hugging Face Hub.</p>
+  </section>
+</section>
+<section class="detail" id="get_model/1">
+
+  <div class="detail-header">
+    <a href="#get_model/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_model(tokenizer)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L109" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_model(Tokenizer.t()) :: <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()</pre>
+
+      </div>
+
+<p>Get the <code class="inline">Tokenizer</code>'s <code class="inline">Model</code>.</p>
+  </section>
+</section>
+<section class="detail" id="get_vocab/1">
+
+  <div class="detail-header">
+    <a href="#get_vocab/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_vocab(tokenizer)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L85" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_vocab(Tokenizer.t()) :: %{required(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}</pre>
+
+      </div>
+
+<p>Get the tokenizer's vocabulary as a map of token to id.</p>
+  </section>
+</section>
+<section class="detail" id="get_vocab_size/1">
+
+  <div class="detail-header">
+    <a href="#get_vocab_size/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_vocab_size(tokenizer)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L91" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_vocab_size(Tokenizer.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
+
+      </div>
+
+<p>Get the number of tokens in the vocabulary.</p>
+  </section>
+</section>
+<section class="detail" id="id_to_token/2">
+
+  <div class="detail-header">
+    <a href="#id_to_token/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">id_to_token(tokenizer, id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L97" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">id_to_token(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()</pre>
+
+      </div>
+
+<p>Convert a given id to its token.</p>
+  </section>
+</section>
+<section class="detail" id="save/2">
+
+  <div class="detail-header">
+    <a href="#save/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">save(tokenizer, path)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L40" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">save(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+
+      </div>
+
+<p>Save the tokenizer to the provided path.</p>
+  </section>
+</section>
+<section class="detail" id="token_to_id/2">
+
+  <div class="detail-header">
+    <a href="#token_to_id/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">token_to_id(tokenizer, token)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/tokenizer.ex#L103" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">token_to_id(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
+
+      </div>
+
+<p>Convert a given token to its id.</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
       <footer class="footer">
+
+          <p>
+            On Hex.pm:
+
+            <span class="line">
+              <a href="https://hex.pm/packages/tokenizers/0.1.0-dev" class="line footer-hex-package">Package</a>
+              <a href="https://preview.hex.pm/preview/tokenizers/0.1.0-dev" class="line">Preview</a>
+
+                <a href="https://preview.hex.pm/preview/tokenizers/0.1.0-dev/show/lib/tokenizers/tokenizer.ex">(current file)</a>
+
+            </span>
+
+            <button class="line footer-button display-quick-switch">
+              Search
+            </button>
+          </p>
 
         <p>
           Built using
