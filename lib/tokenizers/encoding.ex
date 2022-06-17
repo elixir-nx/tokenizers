@@ -1,4 +1,10 @@
 defmodule Tokenizers.Encoding do
+  @moduledoc """
+  The struct and associated functions for an encoding, the output of a tokenizer.
+
+  Use these functions to retrieve the inputs needed for a natural language processing machine learning model.
+  """
+
   @type t :: %__MODULE__{resource: binary(), reference: reference()}
   defstruct resource: nil, reference: nil
 

@@ -1,4 +1,19 @@
 defmodule Tokenizers.Tokenizer do
+  @moduledoc """
+  The struct and associated functions for a tokenizer.
+
+  A `Tokenizers.Tokenizer.t()` is a container that holds the constituent parts of the tokenization pipeline.
+
+  When you call `Tokenizers.Tokenizer.encode/3`, the input text goes through the following pipeline:
+
+  - normalization
+  - pre-tokenization
+  - model
+  - post-processing
+
+  This returns a `Tokenizers.Encoding.t()`, which can then give you the token ids for each token in the input text. These token ids are usually used as the input for natural language processing machine learning models.
+  """
+
   @type t :: %__MODULE__{resource: binary(), reference: reference()}
   defstruct resource: nil, reference: nil
 
