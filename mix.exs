@@ -8,10 +8,16 @@ defmodule Tokenizers.MixProject do
     [
       app: :tokenizers,
       name: "Tokenizers",
+      description: "Bindings to Hugging Face Tokenizers for Elixir",
       version: @version,
       elixir: "~> 1.13",
+      package: package(),
       deps: deps(),
-      docs: docs()
+      docs: docs(),
+      preferred_cli_env: [
+        docs: :docs,
+        "hex.publish": :docs
+      ]
     ]
   end
 
@@ -21,8 +27,8 @@ defmodule Tokenizers.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
-      {:nx, "~> 0.1"},
+      {:ex_doc, "~> 0.28", only: :docs, runtime: false},
+      {:rustler, ">= 0.0.0", optional: true},
       {:rustler_precompiled, "~> 0.3"}
     ]
   end
@@ -31,7 +37,23 @@ defmodule Tokenizers.MixProject do
     [
       main: "Tokenizers",
       source_ref: "v#{@version}",
-      source_url: @source_url
+      source_url: @source_url,
+      extras: ["LICENSE", "notebooks/pretrained.livemd"]
+    ]
+  end
+
+  defp package do
+    [
+      files: [
+        "lib",
+        "native",
+        "checksum-*.exs",
+        "mix.exs",
+        "LICENSE"
+      ],
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => @source_url},
+      maintainers: ["Christopher Grainger"]
     ]
   end
 end

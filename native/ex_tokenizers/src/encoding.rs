@@ -6,7 +6,7 @@ use tokenizers::Encoding;
 pub struct ExTokenizersEncodingRef(pub Encoding);
 
 #[derive(rustler::NifStruct)]
-#[module = "ExTokenizers.Encoding"]
+#[module = "Tokenizers.Encoding"]
 pub struct ExTokenizersEncoding {
     pub resource: rustler::resource::ResourceArc<ExTokenizersEncodingRef>,
 }
@@ -38,6 +38,11 @@ pub fn get_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersE
 #[rustler::nif]
 pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
     Ok(encoding.resource.0.get_attention_mask().to_vec())
+}
+
+#[rustler::nif]
+pub fn n_tokens(encoding: ExTokenizersEncoding) -> Result<usize, ExTokenizersError> {
+    Ok(encoding.resource.0.len())
 }
 
 #[rustler::nif]

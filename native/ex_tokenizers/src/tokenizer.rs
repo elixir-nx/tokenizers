@@ -4,11 +4,12 @@ use tokenizers::Tokenizer;
 
 use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
+use crate::model::ExTokenizersModel;
 
 pub struct ExTokenizersTokenizerRef(pub Tokenizer);
 
 #[derive(rustler::NifStruct)]
-#[module = "ExTokenizers.Tokenizer"]
+#[module = "Tokenizers.Tokenizer"]
 pub struct ExTokenizersTokenizer {
     pub resource: rustler::resource::ResourceArc<ExTokenizersTokenizerRef>,
 }
@@ -27,19 +28,19 @@ impl ExTokenizersTokenizer {
     }
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyIo")]
 pub fn from_pretrained(identifier: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
     let tokenizer = Tokenizer::from_pretrained(identifier, None)?;
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyIo")]
 pub fn from_file(path: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
     let tokenizer = Tokenizer::from_file(path)?;
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 pub fn encode(
     tokenizer: ExTokenizersTokenizer,
     input: &str,
@@ -49,7 +50,7 @@ pub fn encode(
     Ok(ExTokenizersEncoding::new(encoding))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 pub fn encode_batch(
     tokenizer: ExTokenizersTokenizer,
     inputs: Vec<&str>,
@@ -66,7 +67,7 @@ pub fn encode_batch(
     Ok(ex_encodings)
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 pub fn decode(
     tokenizer: ExTokenizersTokenizer,
     ids: Vec<u32>,
@@ -75,7 +76,7 @@ pub fn decode(
     Ok(tokenizer.resource.0.decode(ids, skip_special_tokens)?)
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 pub fn decode_batch(
     tokenizer: ExTokenizersTokenizer,
     sentences: Vec<Vec<u32>>,
@@ -126,4 +127,11 @@ pub fn save(
     pretty: bool,
 ) -> Result<(), ExTokenizersError> {
     Ok(tokenizer.resource.0.save(path, pretty)?)
+}
+
+#[rustler::nif]
+pub fn get_model(tokenizer: ExTokenizersTokenizer) -> Result<ExTokenizersModel, ExTokenizersError> {
+    Ok(ExTokenizersModel::new(
+        tokenizer.resource.0.get_model().clone(),
+    ))
 }
