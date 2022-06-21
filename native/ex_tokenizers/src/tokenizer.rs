@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 
-use tokenizers::Tokenizer;
+use rustler::{Term};
+
+use tokenizers::{Tokenizer, EncodeInput};
 
 use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
@@ -43,9 +45,10 @@ pub fn from_file(path: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError>
 #[rustler::nif(schedule = "DirtyCpu")]
 pub fn encode(
     tokenizer: ExTokenizersTokenizer,
-    input: &str,
+    input: Term,
     add_special_tokens: bool,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
+    let input = term_to_encode_input(&input)?;
     let encoding = tokenizer.resource.0.encode(input, add_special_tokens)?;
     Ok(ExTokenizersEncoding::new(encoding))
 }
@@ -53,9 +56,13 @@ pub fn encode(
 #[rustler::nif(schedule = "DirtyCpu")]
 pub fn encode_batch(
     tokenizer: ExTokenizersTokenizer,
-    inputs: Vec<&str>,
+    inputs: Vec<Term>,
     add_special_tokens: bool,
 ) -> Result<Vec<ExTokenizersEncoding>, ExTokenizersError> {
+    let inputs = inputs
+        .iter()
+        .map(|input| term_to_encode_input(input))
+        .collect::<Result<Vec<EncodeInput>, ExTokenizersError>>()?;
     let encodings = tokenizer
         .resource
         .0
@@ -65,6 +72,16 @@ pub fn encode_batch(
         .map(|x| ExTokenizersEncoding::new(x.to_owned()))
         .collect();
     Ok(ex_encodings)
+}
+
+fn term_to_encode_input<'a>(term: &'a Term) -> Result<EncodeInput<'a>, ExTokenizersError> {
+    if let Ok(seq) = term.decode::<String>() {
+        Ok(EncodeInput::Single(seq.into()))
+    } else if let Ok((seq1, seq2)) = term.decode::<(String, String)>() {
+        Ok(EncodeInput::Dual(seq1.into(), seq2.into()))
+    } else {
+        Err(ExTokenizersError::Other(String::from("input must be either a string or a tuple")))
+    }
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
