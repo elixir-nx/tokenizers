@@ -24,10 +24,16 @@ defmodule Tokenizers.Encoding do
   def get_ids(encoding), do: encoding |> Native.get_ids() |> Shared.unwrap()
 
   @doc """
-  Get the attention_mask from an encoding.
+  Get the attention mask from an encoding.
   """
   @spec get_attention_mask(Encoding.t()) :: [integer()]
   def get_attention_mask(encoding), do: encoding |> Native.get_attention_mask() |> Shared.unwrap()
+
+  @doc """
+  Get token type ids from an encoding.
+  """
+  @spec get_type_ids(Encoding.t()) :: [integer()]
+  def get_type_ids(encoding), do: encoding |> Native.get_type_ids() |> Shared.unwrap()
 
   @doc """
   Truncate the encoding to the given length.

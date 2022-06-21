@@ -41,6 +41,11 @@ pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, Ex
 }
 
 #[rustler::nif]
+pub fn get_type_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
+    Ok(encoding.resource.0.get_type_ids().to_vec())
+}
+
+#[rustler::nif]
 pub fn n_tokens(encoding: ExTokenizersEncoding) -> Result<usize, ExTokenizersError> {
     Ok(encoding.resource.0.len())
 }
