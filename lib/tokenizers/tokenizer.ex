@@ -56,13 +56,13 @@ defmodule Tokenizers.Tokenizer do
 
   ## Options
 
-    * `:add_special_tokens` - whether to add special tokens to the encoding
+    * `:add_special_tokens` - whether to add special tokens to the encoding. Defaults to `true`.
 
   """
   @spec encode(Tokenizer.t(), encode_input() | [encode_input()], Keyword.t()) ::
           {:ok, Encoding.t() | [Encoding.t()]} | {:error, term()}
   def encode(tokenizer, input, opts \\ []) do
-    add_special_tokens = Keyword.get(opts, :add_special_tokens, false)
+    add_special_tokens = Keyword.get(opts, :add_special_tokens, true)
     do_encode(tokenizer, input, add_special_tokens)
   end
 
@@ -76,11 +76,15 @@ defmodule Tokenizers.Tokenizer do
 
   @doc """
   Decode the given list of ids or list of lists of ids back to strings.
+
+  ## Options
+
+    * `:skip_special_tokens` - whether the special tokens should be removed from the decoded string. Defaults to `true`.
   """
   @spec decode(Tokenizer.t(), non_neg_integer() | [non_neg_integer()], Keyword.t()) ::
           {:ok, String.t() | [String.t()]} | {:error, term()}
   def decode(tokenizer, ids, opts \\ []) do
-    skip_special_tokens = Keyword.get(opts, :skip_special_tokens, false)
+    skip_special_tokens = Keyword.get(opts, :skip_special_tokens, true)
     do_decode(tokenizer, ids, skip_special_tokens)
   end
 
