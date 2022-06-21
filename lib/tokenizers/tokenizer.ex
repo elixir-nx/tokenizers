@@ -21,6 +21,13 @@ defmodule Tokenizers.Tokenizer do
   alias Tokenizers.Native
   alias Tokenizers.Shared
 
+  @typedoc """
+  An input being a subject to tokenization.
+
+  Can be either a single sequence, or a pair of sequences.
+  """
+  @type encode_input :: String.t() | {String.t(), String.t()}
+
   @doc """
   Instantiate a new tokenizer from an existing file on the Hugging Face Hub.
   """
@@ -46,20 +53,25 @@ defmodule Tokenizers.Tokenizer do
 
   @doc """
   Encode the given sequence or batch of sequences to a `Tokenizers.Encoding.t()`.
+
+  ## Options
+
+    * `:add_special_tokens` - whether to add special tokens to the encoding
+
   """
-  @spec encode(Tokenizer.t(), String.t() | [String.t()], Keyword.t()) ::
+  @spec encode(Tokenizer.t(), encode_input() | [encode_input()], Keyword.t()) ::
           {:ok, Encoding.t() | [Encoding.t()]} | {:error, term()}
   def encode(tokenizer, input, opts \\ []) do
     add_special_tokens = Keyword.get(opts, :add_special_tokens, false)
     do_encode(tokenizer, input, add_special_tokens)
   end
 
-  defp do_encode(tokenizer, input, add_special_tokens) when is_binary(input) do
-    Native.encode(tokenizer, input, add_special_tokens)
-  end
-
   defp do_encode(tokenizer, input, add_special_tokens) when is_list(input) do
     Native.encode_batch(tokenizer, input, add_special_tokens)
+  end
+
+  defp do_encode(tokenizer, input, add_special_tokens) do
+    Native.encode(tokenizer, input, add_special_tokens)
   end
 
   @doc """

@@ -27,6 +27,7 @@ rustler::init!(
         from_file,
         from_pretrained,
         get_attention_mask,
+        get_type_ids,
         get_ids,
         get_model,
         get_model_details,

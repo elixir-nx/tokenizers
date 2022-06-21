@@ -27,7 +27,7 @@ defmodule Tokenizers.TokenizerTest do
 
   describe "encode/decode" do
     test "can encode a single string", %{tokenizer: tokenizer} do
-      assert match?({:ok, %Tokenizers.Encoding{}}, Tokenizer.encode(tokenizer, "This is a test"))
+      assert {:ok, %Tokenizers.Encoding{}} = Tokenizer.encode(tokenizer, "This is a test")
     end
 
     test "can encode a single string with special characters", %{tokenizer: tokenizer} do
@@ -38,11 +38,18 @@ defmodule Tokenizers.TokenizerTest do
       refute Encoding.n_tokens(encoding_clean) == Encoding.n_tokens(encoding_special)
     end
 
+    test "can encode a pair of strings", %{tokenizer: tokenizer} do
+      assert {:ok, %Tokenizers.Encoding{}} = Tokenizer.encode(tokenizer, {"Question?", "Answer"})
+    end
+
     test "can encode a batch of strings", %{tokenizer: tokenizer} do
-      assert match?(
-               {:ok, [%Tokenizers.Encoding{} | _]},
+      assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
                Tokenizer.encode(tokenizer, ["This is a test", "And so is this"])
-             )
+    end
+
+    test "can encode a batch of strings and pairs", %{tokenizer: tokenizer} do
+      assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
+               Tokenizer.encode(tokenizer, ["This is a test", {"Question?", "Answer"}])
     end
 
     test "can decode a single encoding", %{tokenizer: tokenizer} do
