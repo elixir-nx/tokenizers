@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use rustler::{Term};
+use rustler::Term;
 
-use tokenizers::{Tokenizer, EncodeInput};
+use tokenizers::{EncodeInput, Tokenizer};
 
 use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
@@ -80,7 +80,9 @@ fn term_to_encode_input<'a>(term: &'a Term) -> Result<EncodeInput<'a>, ExTokeniz
     } else if let Ok((seq1, seq2)) = term.decode::<(String, String)>() {
         Ok(EncodeInput::Dual(seq1.into(), seq2.into()))
     } else {
-        Err(ExTokenizersError::Other(String::from("input must be either a string or a tuple")))
+        Err(ExTokenizersError::Other(String::from(
+            "input must be either a string or a tuple",
+        )))
     }
 }
 
