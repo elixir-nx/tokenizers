@@ -10,7 +10,7 @@
     <title>Tokenizers.Encoding — Tokenizers v0.1.0-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
-    <script src="dist/sidebar_items-caa278cd98.js"></script>
+    <script src="dist/sidebar_items-ede1d5f468.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -138,7 +138,7 @@ Tokenizers
 
         </div>
 
-          <div class="summary-synopsis"><p>Get the attention_mask from an encoding.</p></div>
+          <div class="summary-synopsis"><p>Get the attention mask from an encoding.</p></div>
 
       </div>
 
@@ -159,6 +159,16 @@ Tokenizers
         </div>
 
           <div class="summary-synopsis"><p>Get the tokens from an encoding.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_type_ids/1" translate="no">get_type_ids(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Get token type ids from an encoding.</p></div>
 
       </div>
 
@@ -274,7 +284,7 @@ Functions
 
       </div>
 
-<p>Get the attention_mask from an encoding.</p>
+<p>Get the attention mask from an encoding.</p>
   </section>
 </section>
 <section class="detail" id="get_ids/1">
@@ -335,6 +345,35 @@ Functions
 <p>Get the tokens from an encoding.</p>
   </section>
 </section>
+<section class="detail" id="get_type_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_type_ids/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_type_ids(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L36" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_type_ids(Encoding.t()) :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()]</pre>
+
+      </div>
+
+<p>Get token type ids from an encoding.</p>
+  </section>
+</section>
 <section class="detail" id="n_tokens/1">
 
   <div class="detail-header">
@@ -344,7 +383,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">n_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L76" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L82" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -375,7 +414,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">pad(encoding, length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L57" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L63" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -411,7 +450,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">truncate(encoding, max_len, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L41" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.0-dev/lib/tokenizers/encoding.ex#L47" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
