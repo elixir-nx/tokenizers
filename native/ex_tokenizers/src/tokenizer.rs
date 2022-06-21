@@ -61,7 +61,7 @@ pub fn encode_batch(
 ) -> Result<Vec<ExTokenizersEncoding>, ExTokenizersError> {
     let inputs = inputs
         .iter()
-        .map(|input| term_to_encode_input(input))
+        .map(term_to_encode_input)
         .collect::<Result<Vec<EncodeInput>, ExTokenizersError>>()?;
     let encodings = tokenizer
         .resource
