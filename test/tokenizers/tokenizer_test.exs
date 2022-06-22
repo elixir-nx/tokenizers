@@ -32,8 +32,8 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can encode a single string with special characters", %{tokenizer: tokenizer} do
       seq = "This is a test"
-      {:ok, encoding_clean} = Tokenizer.encode(tokenizer, seq)
-      {:ok, encoding_special} = Tokenizer.encode(tokenizer, seq, add_special_tokens: true)
+      {:ok, encoding_clean} = Tokenizer.encode(tokenizer, seq, add_special_tokens: false)
+      {:ok, encoding_special} = Tokenizer.encode(tokenizer, seq)
 
       refute Encoding.n_tokens(encoding_clean) == Encoding.n_tokens(encoding_special)
     end
@@ -62,11 +62,11 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can decode a single encoding skipping special characters", %{tokenizer: tokenizer} do
       seq = "This is a test"
-      {:ok, encoding} = Tokenizer.encode(tokenizer, seq, add_special_tokens: true)
+      {:ok, encoding} = Tokenizer.encode(tokenizer, seq)
       ids = Encoding.get_ids(encoding)
 
-      {:ok, seq_clean} = Tokenizer.decode(tokenizer, ids, skip_special_tokens: true)
-      {:ok, seq_special} = Tokenizer.decode(tokenizer, ids)
+      {:ok, seq_clean} = Tokenizer.decode(tokenizer, ids)
+      {:ok, seq_special} = Tokenizer.decode(tokenizer, ids, skip_special_tokens: false)
 
       refute seq_special == seq
       assert seq_clean == seq
