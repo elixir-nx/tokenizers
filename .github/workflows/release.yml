@@ -34,21 +34,11 @@ jobs:
               nif: "2.16",
               use-cross: true,
             }
-          - {
-              target: aarch64-unknown-linux-gnu,
-              os: ubuntu-20.04,
-              nif: "2.16",
-              use-cross: true,
-            }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16", use-cross: true }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16" }
-          - {
-              target: x86_64-unknown-linux-musl,
-              os: ubuntu-20.04,
-              nif: "2.16",
-              use-cross: true,
-            }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.16", use-cross: true }
           - { target: x86_64-pc-windows-gnu, os: windows-2019, nif: "2.16" }
           - { target: x86_64-pc-windows-msvc, os: windows-2019, nif: "2.16" }
           # NIF version 2.15
@@ -58,21 +48,11 @@ jobs:
               nif: "2.15",
               use-cross: true,
             }
-          - {
-              target: aarch64-unknown-linux-gnu,
-              os: ubuntu-20.04,
-              nif: "2.15",
-              use-cross: true,
-            }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15", use-cross: true }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15" }
-          - {
-              target: x86_64-unknown-linux-musl,
-              os: ubuntu-20.04,
-              nif: "2.15",
-              use-cross: true,
-            }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.15", use-cross: true }
           - { target: x86_64-pc-windows-gnu, os: windows-2019, nif: "2.15" }
           - { target: x86_64-pc-windows-msvc, os: windows-2019, nif: "2.15" }
           # # NIF version 2.14
@@ -82,21 +62,11 @@ jobs:
               nif: "2.14",
               use-cross: true,
             }
-          - {
-              target: aarch64-unknown-linux-gnu,
-              os: ubuntu-20.04,
-              nif: "2.14",
-              use-cross: true,
-            }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14", use-cross: true }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14" }
-          - {
-              target: x86_64-unknown-linux-musl,
-              os: ubuntu-20.04,
-              nif: "2.14",
-              use-cross: true,
-            }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.14", use-cross: true }
           - { target: x86_64-pc-windows-gnu, os: windows-2019, nif: "2.14" }
           - { target: x86_64-pc-windows-msvc, os: windows-2019, nif: "2.14" }
 
@@ -110,15 +80,17 @@ jobs:
         shell: bash
         run: |
           case ${{ matrix.job.target }} in
-            arm-unknown-linux-*) sudo apt-get -y update ; sudo apt-get -y install gcc-arm-linux-gnueabihf ;;
-            aarch64-unknown-linux-gnu) sudo apt-get -y update ; sudo apt-get -y install gcc-aarch64-linux-gnu ;;
+            arm-unknown-linux-*) sudo apt-get -y update ; sudo apt-get -y install gcc-arm-linux-gnueabihf libssl-dev;;
+            aarch64-unknown-linux-gnu) sudo apt-get -y update ; sudo apt-get -y install gcc-aarch64-linux-gnu libssl-dev;;
           esac
+
       - name: Extract crate information
         shell: bash
         run: |
           echo "PROJECT_NAME=$(sed -n 's/^name = "\(.*\)"/\1/p' Cargo.toml | head -n1)" >> $GITHUB_ENV
           # Get the project version from mix.exs
           echo "PROJECT_VERSION=$(sed -n 's/^  @version "\(.*\)"/\1/p' ../../mix.exs | head -n1)" >> $GITHUB_ENV
+
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -137,6 +109,7 @@ jobs:
           cargo -V
           rustc -V
           rustc --print=cfg
+
       - name: Download cross from GitHub releases
         uses: giantswarm/install-binary-action@v1.0.0
         if: ${{ matrix.job.use-cross }}
@@ -155,6 +128,7 @@ jobs:
           else
             cargo build --release --target=${{ matrix.job.target }}
           fi
+
       - name: Rename lib to the final name
         id: rename
         shell: bash
@@ -163,6 +137,7 @@ jobs:
           case ${{ matrix.job.target }} in
             *-pc-windows-*) LIB_PREFIX="" ;;
           esac;
+
           # Figure out suffix of lib
           # See: https://doc.rust-lang.org/reference/linkage.html
           LIB_SUFFIX=".so"
@@ -170,14 +145,18 @@ jobs:
             *-apple-darwin) LIB_SUFFIX=".dylib" ;;
             *-pc-windows-*) LIB_SUFFIX=".dll" ;;
           esac;
+
           CICD_INTERMEDIATES_DIR=$(mktemp -d) 
+
           # Setup paths
           LIB_DIR="${CICD_INTERMEDIATES_DIR}/released-lib"
           mkdir -p "${LIB_DIR}"
           LIB_NAME="${LIB_PREFIX}${{ env.PROJECT_NAME }}${LIB_SUFFIX}"
           LIB_PATH="${LIB_DIR}/${LIB_NAME}"
+
           # Copy the release build lib to the result location
           cp "target/${{ matrix.job.target }}/release/${LIB_NAME}" "${LIB_DIR}"
+
           # Final paths
           # In the end we use ".so" for MacOS in the final build
           # See: https://www.erlang.org/doc/man/erlang.html#load_nif-2
@@ -185,15 +164,21 @@ jobs:
           case ${{ matrix.job.target }} in
             *-apple-darwin) LIB_FINAL_SUFFIX=".so" ;;
           esac;
+
           LIB_FINAL_NAME="${LIB_PREFIX}${PROJECT_NAME}-v${PROJECT_VERSION}-nif-${RUSTLER_NIF_VERSION}-${{ matrix.job.target }}${LIB_FINAL_SUFFIX}"
+
           # Copy lib to final name on this directory
           cp "${LIB_PATH}" "${LIB_FINAL_NAME}"
+
           tar -cvzf "${LIB_FINAL_NAME}.tar.gz" "${LIB_FINAL_NAME}"
+
           # Passes the path relative to the root of the project.
           LIB_FINAL_PATH="${NIF_DIRECTORY}/${LIB_FINAL_NAME}.tar.gz"
+
           # Let subsequent steps know where to find the lib
           echo ::set-output name=LIB_FINAL_PATH::${LIB_FINAL_PATH}
           echo ::set-output name=LIB_FINAL_NAME::${LIB_FINAL_NAME}.tar.gz
+
       - name: "Artifact upload"
         uses: actions/upload-artifact@v2
         with:
