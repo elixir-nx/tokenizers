@@ -11,9 +11,8 @@ Mix.install(
   [
     {:kino, "~> 0.5.2"},
     {:scidata, "~> 0.1.5"},
-    {:rustler, "~> 0.25"},
-    {:tokenizers, path: "./"},
-    {:nx, "~> 0.2"}
+    {:tokenizers, "~> 0.1.0"},
+    {:nx, "~> 0.3"}
   ],
   force: true
 )
