@@ -29,7 +29,7 @@ defmodule Tokenizers.MixProject do
     [
       {:ex_doc, "~> 0.28", only: :docs, runtime: false},
       {:rustler, ">= 0.0.0", optional: true},
-      {:rustler_precompiled, "~> 0.3"}
+      {:rustler_precompiled, "~> 0.5"}
     ]
   end
 
