@@ -20,11 +20,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            native/ex_tokenizers/target/
+            priv/native/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
       - uses: actions-rs/toolchain@v1
         with:
             profile: minimal
             toolchain: stable
-            components: rustfmt
+            components: rustfmt, clippy
             override: true
       - name: run rustfmt
         uses: actions-rs/cargo@v1
