@@ -80,4 +80,23 @@ defmodule Tokenizers.TokenizerTest do
       assert decoded == text
     end
   end
+
+  describe "encode metadata" do
+    test "can return special tokens mask", %{tokenizer: tokenizer} do
+      text = ["This is a test", "And so is this"]
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      special_tokens_mask = Enum.map(encodings, &Encoding.get_special_tokens_mask/1)
+      assert [[1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 1]] == special_tokens_mask
+    end
+
+    test "can return offsets", %{tokenizer: tokenizer} do
+      text = ["This is a test", "And so is this"]
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      offsets = Enum.map(encodings, &Encoding.get_offsets/1)
+      assert [
+        [{0, 0}, {0, 4}, {5, 7}, {8, 9}, {10, 14}, {0, 0}],
+        [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
+      ] == offsets
+    end
+  end
 end
