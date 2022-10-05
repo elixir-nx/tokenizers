@@ -21,7 +21,7 @@ pub enum ExTokenizersError {
     Unknown(#[from] anyhow::Error),
 }
 
-impl<'a> Encoder for ExTokenizersError {
+impl Encoder for ExTokenizersError {
     fn encode<'b>(&self, env: Env<'b>) -> Term<'b> {
         format!("{:?}", self).encode(env)
     }
