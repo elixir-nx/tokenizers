@@ -36,6 +36,18 @@ defmodule Tokenizers.Encoding do
   def get_type_ids(encoding), do: encoding |> Native.get_type_ids() |> Shared.unwrap()
 
   @doc """
+  Get special tokens mask from an encoding.
+  """
+  @spec get_special_tokens_mask(Encoding.t()) :: [integer()]
+  def get_special_tokens_mask(encoding), do: encoding |> Native.get_special_tokens_mask() |> Shared.unwrap()
+
+  @doc """
+  Get offsets from an encoding.
+  """
+  @spec get_offsets(Encoding.t()) :: [{integer(), integer()}]
+  def get_offsets(encoding), do: encoding |> Native.get_offsets() |> Shared.unwrap()
+
+  @doc """
   Truncate the encoding to the given length.
 
   ## Options

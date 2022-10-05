@@ -46,6 +46,16 @@ pub fn get_type_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokeni
 }
 
 #[rustler::nif]
+pub fn get_special_tokens_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
+    Ok(encoding.resource.0.get_special_tokens_mask().to_vec())
+}
+
+#[rustler::nif]
+pub fn get_offsets(encoding: ExTokenizersEncoding) -> Result<Vec<(usize, usize)>, ExTokenizersError> {
+    Ok(encoding.resource.0.get_offsets().to_vec())
+}
+
+#[rustler::nif]
 pub fn n_tokens(encoding: ExTokenizersEncoding) -> Result<usize, ExTokenizersError> {
     Ok(encoding.resource.0.len())
 }

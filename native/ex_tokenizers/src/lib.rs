@@ -29,6 +29,8 @@ rustler::init!(
         get_attention_mask,
         get_type_ids,
         get_ids,
+        get_special_tokens_mask,
+        get_offsets,
         get_model,
         get_model_details,
         get_tokens,
