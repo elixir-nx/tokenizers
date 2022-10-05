@@ -93,10 +93,11 @@ defmodule Tokenizers.TokenizerTest do
       text = ["This is a test", "And so is this"]
       {:ok, encodings} = Tokenizer.encode(tokenizer, text)
       offsets = Enum.map(encodings, &Encoding.get_offsets/1)
+
       assert [
-        [{0, 0}, {0, 4}, {5, 7}, {8, 9}, {10, 14}, {0, 0}],
-        [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
-      ] == offsets
+               [{0, 0}, {0, 4}, {5, 7}, {8, 9}, {10, 14}, {0, 0}],
+               [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
+             ] == offsets
     end
   end
 end
