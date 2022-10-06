@@ -20,6 +20,8 @@ defmodule Tokenizers.Native do
   def get_type_ids(_encoding), do: err()
   def get_ids(_encoding), do: err()
   def get_tokens(_encoding), do: err()
+  def get_special_tokens_mask(_encoding), do: err()
+  def get_offsets(_encoding), do: err()
   def get_vocab(_tokenizer, _with_added_tokens), do: err()
   def get_vocab_size(_tokenizer, _with_added_tokens), do: err()
   def id_to_token(_tokenizer, _id), do: err()
