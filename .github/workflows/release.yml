@@ -109,7 +109,7 @@ jobs:
         with:
           binary: "cross"
           version: "v0.2.4"
-          download_url: "https://github.com/cross-rs/cross/releases/download/${version}/cross-${version}-x86_64-unknown-linux-gnu.tar.gz"
+          download_url: "https://github.com/cross-rs/cross/releases/download/${version}/cross-x86_64-unknown-linux-gnu.tar.gz"
           tarball_binary_path: "${binary}"
           smoke_test: "${binary} --version"
 
