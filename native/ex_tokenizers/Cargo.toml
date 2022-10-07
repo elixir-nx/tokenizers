@@ -14,3 +14,7 @@ anyhow = "1"
 rustler = "0.25.0"
 thiserror = "1"
 tokenizers = "0.11.3"
+openssl = { version = "0.10", optional = true }
+
+[features]
+static_openssl = ["openssl/vendored"]

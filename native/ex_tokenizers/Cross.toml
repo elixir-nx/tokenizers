@@ -1,0 +1,11 @@
+[build.env]
+passthrough = [
+  "RUSTLER_NIF_VERSION"
+]
+
+# We need to install some dependencies for specific targets.
+[target.arm-unknown-linux-gnueabihf]
+pre-build = "./scripts/install-cross-deps"
+
+[target.aarch64-unknown-linux-gnu]
+pre-build = "./scripts/install-cross-deps"

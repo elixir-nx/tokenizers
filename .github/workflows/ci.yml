@@ -9,6 +9,7 @@ env:
   ELIXIR_VERSION: 1.13
   OTP_VERSION: 24.2
   MIX_ENV: test
+  TOKENIZERS_BUILD: "true"
 
 jobs:
   test:
