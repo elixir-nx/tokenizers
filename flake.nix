@@ -25,7 +25,7 @@
               cc
               clang
               clippy
-              elixir
+              elixir_1_14
               erlang
               gdb
               gcc
@@ -38,16 +38,16 @@
               darwin.apple_sdk.frameworks.Carbon
               darwin.apple_sdk.frameworks.AppKit
             ];
-          shellHook = ''
-            mkdir -p .nix-mix
-            mkdir -p .nix-hex
-            export MIX_HOME=$PWD/.nix-mix
-            export HEX_HOME=$PWD/.nix-hex
-            export PATH=$MIX_HOME/bin:$PATH
-            export PATH=$HEX_HOME/bin:$PATH
-            export PATH=$MIX_HOME/escripts:$PATH
-            export ERL_AFLAGS="-kernel shell_history enabled"
-          '';
-        };
-      });
+            shellHook = ''
+              mkdir -p .nix-mix
+              mkdir -p .nix-hex
+              export MIX_HOME=$PWD/.nix-mix
+              export HEX_HOME=$PWD/.nix-hex
+              export PATH=$MIX_HOME/bin:$PATH
+              export PATH=$HEX_HOME/bin:$PATH
+              export PATH=$MIX_HOME/escripts:$PATH
+              export ERL_AFLAGS="-kernel shell_history enabled"
+            '';
+          };
+        });
 }
