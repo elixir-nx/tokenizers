@@ -15,7 +15,7 @@ is a bit more involved than it would be otherwise.
 3. This will kick off the "Build precompiled NIFs" GitHub Action. Wait for this to complete. It
    usually takes around 40-60 minutes.
 4. While the NIFs are compiling, ensure you have the latest version of `main` and don't have any
-   intermediate builds by running `rm -rf native/explorer/target`.
-5. Once the NIFs are built, use `mix rustler_precompiled.download Explorer.PolarsBackend.Native --all --print` to download generate the checksum file.
+   intermediate builds by running `rm -rf native/ex_tokenizers/target`.
+5. Once the NIFs are built, use `mix rustler_precompiled.download Tokenizers.Native --all --print` to download generate the checksum file.
 6. Run `mix hex.publish`.
 7. Bump the version in the `mix.exs` and add the `-dev` flag to it.
