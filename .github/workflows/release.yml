@@ -36,7 +36,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16", use-cross: true }
-          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.16", use-cross: true, features: "static_openssl", rust_flags: "-C target-feature=-crt-static" }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.16", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16" }
@@ -52,7 +52,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15", use-cross: true }
-          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.15", use-cross: true, features: "static_openssl", rust_flags: "-C target-feature=-crt-static" }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.15", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15" }
@@ -68,7 +68,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14", use-cross: true }
-          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.14", use-cross: true, features: "static_openssl", rust_flags: "-C target-feature=-crt-static" }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.14", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14" }
@@ -122,7 +122,7 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.job.use-cross }}" == "true" ]; then
-            RUSTFLAGS=${{ matrix.job.rust_flags }} cross build --release --target=${{ matrix.job.target }} --features=${{ matrix.job.features }}
+            cross build --release --target=${{ matrix.job.target }} --features=${{ matrix.job.features }}
           else
             cargo build --release --target=${{ matrix.job.target }} --features=${{ matrix.job.features }}
           fi
