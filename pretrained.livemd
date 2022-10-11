@@ -11,9 +11,8 @@ Mix.install(
   [
     {:kino, "~> 0.5.2"},
     {:scidata, "~> 0.1.5"},
-    {:rustler, "~> 0.25"},
-    {:tokenizers, path: "./"},
-    {:nx, "~> 0.2"}
+    {:tokenizers, "~> 0.1.0"},
+    {:nx, "~> 0.3"}
   ],
   force: true
 )
@@ -123,7 +122,7 @@ Tokenizer.decode(tokenizer, list_of_ids)
 
 Typically the reason we're tokenizing text is to use it as an input in a machine learning model. For that, we'll need tensors.
 
-In order to get a tensor, we need sequences that are all of the same length. We'll get some data from `Scidata` and use `Tokenizers.pad/3` and `Tokenizers.truncate/3` to yield a tensor.
+In order to get a tensor, we need sequences that are all of the same length. We'll get some data from `Scidata` and use `Tokenizers.Encoding.pad/3` and `Tokenizers.Encoding.truncate/3` to yield a tensor.
 
 ```elixir
 %{review: reviews} = Scidata.YelpPolarityReviews.download_test()
