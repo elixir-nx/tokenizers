@@ -14,3 +14,8 @@ rustflags = [
 rustflags = [
   "-C", "target-feature=-crt-static"
 ]
+
+[target.aarch64-unknown-linux-musl]
+rustflags = [
+  "-C", "target-feature=-crt-static"
+]

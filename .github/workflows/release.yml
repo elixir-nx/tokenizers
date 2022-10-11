@@ -36,6 +36,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16", use-cross: true }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.16", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.16" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.16" }
@@ -51,6 +52,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15", use-cross: true }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.15", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.15" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.15" }
@@ -66,6 +68,7 @@ jobs:
               features: "static_openssl",
             }
           - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14", use-cross: true }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, nif: "2.14", use-cross: true, features: "static_openssl" }
           - { target: aarch64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-apple-darwin, os: macos-11, nif: "2.14" }
           - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04, nif: "2.14" }
