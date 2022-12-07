@@ -17,7 +17,7 @@ Then you can add `Tokenizers` as dependency in your `mix.exs`.
 ```elixir
 def deps do
   [
-    {:tokenizers, "~> 0.1.0"},
+    {:tokenizers, "~> 0.2.0"},
   ]
 end
 ```
@@ -26,7 +26,7 @@ If you are using Livebook or IEx, you can instead run:
 
 ```elixir
 Mix.install([
-  {:tokenizers, "~> 0.1.0"},
+  {:tokenizers, "~> 0.2.0"},
 ])
 ```
 
