@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.28.0">
     <meta name="project" content="Tokenizers v0.1.2-dev">
 
-    <title>Tokenizers.Model — Tokenizers v0.1.2-dev</title>
+    <title>Tokenizers.HTTPClient — Tokenizers v0.1.2-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
     <script src="dist/sidebar_items-a549e0dd25.js"></script>
@@ -87,19 +87,20 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.2-dev/lib/tokenizers/model.ex#L1" title="View Source" class="view-source" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.2-dev/lib/tokenizers/http_client.ex#L1" title="View Source" class="view-source" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
-  <span translate="no">Tokenizers.Model</span> 
+  <span translate="no">Tokenizers.HTTPClient</span> 
   <small class="app-vsn" translate="no">(Tokenizers v0.1.2-dev)</small>
 
 </h1>
 
 
   <section id="moduledoc">
-<p>The struct and associated functions for the tokenizer model.</p>
+<p>A simple implementation of an HTTP client.</p><p>This is using the built-in <code class="inline">:httpc</code> module, configured to use SSL.
+The <a href="#request/1"><code class="inline">request/1</code></a> function is similar to <code class="inline">Req.request/1</code>.</p>
   </section>
 
 
@@ -112,21 +113,6 @@ Tokenizers
       Summary
     </h1>
 
-  <div class="summary-types summary">
-    <h2>
-      <a href="#types">Types</a>
-    </h2>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#t:t/0" translate="no">t()</a>
-
-        </div>
-
-      </div>
-
-  </div>
-
   <div class="summary-functions summary">
     <h2>
       <a href="#functions">Functions</a>
@@ -134,11 +120,11 @@ Tokenizers
 
       <div class="summary-row">
         <div class="summary-signature">
-          <a href="#get_model_details/1" translate="no">get_model_details(model)</a>
+          <a href="#request/1" translate="no">request(opts)</a>
 
         </div>
 
-          <div class="summary-synopsis"><p>Retrieves information about the model.</p></div>
+          <div class="summary-synopsis"><p>Make an HTTP(s) requests.</p></div>
 
       </div>
 
@@ -146,48 +132,6 @@ Tokenizers
 
   </section>
 
-
-  <section id="types" class="details-list">
-    <h1 class="section-heading">
-      <a class="hover-link" href="#types">
-        <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
-Types
-    </h1>
-    <div class="types-list">
-<section class="detail" id="t:t/0">
-
-  <div class="detail-header">
-    <a href="#t:t/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">t()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.2-dev/lib/tokenizers/model.ex#L6" class="view-source" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <h2>Specs</h2>
-      <div class="specs">
-
-          <pre translate="no">t() :: %Tokenizers.Model{reference: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>(), resource: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
-
-      </div>
-
-
-  </section>
-</section>
-
-    </div>
-  </section>
 
   <section id="functions" class="details-list">
     <h1 class="section-heading">
@@ -198,16 +142,16 @@ Types
 Functions
     </h1>
     <div class="functions-list">
-<section class="detail" id="get_model_details/1">
+<section class="detail" id="request/1">
 
   <div class="detail-header">
-    <a href="#get_model_details/1" class="detail-link" title="Link to this function">
+    <a href="#request/1" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">get_model_details(model)</h1>
+    <h1 class="signature" translate="no">request(opts)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.2-dev/lib/tokenizers/model.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.1.2-dev/lib/tokenizers/http_client.ex#L25" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -217,14 +161,11 @@ Functions
 
   <section class="docstring">
 
-      <h2>Specs</h2>
-      <div class="specs">
-
-          <pre translate="no">get_model_details(model :: <a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
-
-      </div>
-
-<p>Retrieves information about the model.</p><p>Infomration retrieved differs per model but all include <code class="inline">model_type</code>.</p>
+<p>Make an HTTP(s) requests.</p><h2 id="request/1-options" class="section-heading">
+  <a href="#request/1-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i></a>
+  Options
+</h2>
+<ul><li><p><code class="inline">:method</code> - An HTTP method. By default it uses the <code class="inline">:get</code> method.</p></li><li><p><code class="inline">:base_url</code> - The base URL to make requests. By default is &quot;<a href="https://huggingface.io%22.">https://huggingface.io&quot;.</a> </p></li><li><p><code class="inline">:url</code> - A path to a resource. By default is &quot;&quot;.</p></li><li><p><code class="inline">:headers</code> - A list of tuples representing HTTP headers. By default it's empty.</p></li></ul>
   </section>
 </section>
 
@@ -240,7 +181,7 @@ Functions
               <a href="https://hex.pm/packages/tokenizers/0.1.2-dev" class="line footer-hex-package">Package</a>
               <a href="https://preview.hex.pm/preview/tokenizers/0.1.2-dev" class="line">Preview</a>
 
-                <a href="https://preview.hex.pm/preview/tokenizers/0.1.2-dev/show/lib/tokenizers/model.ex">(current file)</a>
+                <a href="https://preview.hex.pm/preview/tokenizers/0.1.2-dev/show/lib/tokenizers/http_client.ex">(current file)</a>
 
             </span>
 

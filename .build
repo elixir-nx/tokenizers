@@ -1,6 +1,7 @@
 /home/runner/work/tokenizers/tokenizers/doc/pretrained.livemd
 404.html
 Tokenizers.Encoding.html
+Tokenizers.HTTPClient.html
 Tokenizers.Model.html
 Tokenizers.Native.html
 Tokenizers.Tokenizer.html
@@ -13,8 +14,8 @@ dist/html/fonts/remixicon.svg
 dist/html/fonts/remixicon.ttf
 dist/html/fonts/remixicon.woff
 dist/html/fonts/remixicon.woff2
-dist/search_items-152b742c0f.js
-dist/sidebar_items-9118ff7fc2.js
+dist/search_items-eee7d6af73.js
+dist/sidebar_items-a549e0dd25.js
 index.html
 license.html
 pretrained.html
