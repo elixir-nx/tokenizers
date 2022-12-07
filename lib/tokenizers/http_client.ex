@@ -11,7 +11,6 @@ defmodule Tokenizers.HTTPClient do
   @doc """
   Make an HTTP(s) requests.
 
-
   ## Options
 
     * `:method` - An HTTP method. By default it uses the `:get` method.
@@ -21,6 +20,7 @@ defmodule Tokenizers.HTTPClient do
     * `:url` - A path to a resource. By default is "".
 
     * `:headers` - A list of tuples representing HTTP headers. By default it's empty.
+
   """
   def request(opts) when is_list(opts) do
     opts = Keyword.validate!(opts, base_url: @base_url, headers: [], method: :get, url: "")
