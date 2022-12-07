@@ -31,12 +31,6 @@ impl ExTokenizersTokenizer {
 }
 
 #[rustler::nif(schedule = "DirtyIo")]
-pub fn from_pretrained(identifier: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
-    let tokenizer = Tokenizer::from_pretrained(identifier, None)?;
-    Ok(ExTokenizersTokenizer::new(tokenizer))
-}
-
-#[rustler::nif(schedule = "DirtyIo")]
 pub fn from_file(path: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
     let tokenizer = Tokenizer::from_file(path)?;
     Ok(ExTokenizersTokenizer::new(tokenizer))

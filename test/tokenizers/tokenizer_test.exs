@@ -1,5 +1,5 @@
 defmodule Tokenizers.TokenizerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Tokenizers.Tokenizer
 
   alias Tokenizers.Encoding
@@ -22,6 +22,62 @@ defmodule Tokenizers.TokenizerTest do
       {:ok, path} = Tokenizer.save(tokenizer, config.tmp_dir <> "test.json")
       {:ok, tokenizer} = Tokenizer.from_file(path)
       assert Tokenizer.get_vocab_size(tokenizer) == 28996
+    end
+  end
+
+  describe "from_pretrained/2" do
+    defmodule SuccessHTTPClient do
+      def request(opts) do
+        send(self(), {:request, opts})
+
+        {:ok,
+         %{
+           body: File.read!("test/fixtures/bert-base-cased.json"),
+           headers: [],
+           status: opts[:test_status]
+         }}
+      end
+    end
+
+    defmodule ErrorHTTPClient do
+      def request(opts) do
+        send(self(), {:request, opts})
+        {:error, "internal error"}
+      end
+    end
+
+    test "load from pretrained successfully" do
+      {:ok, tokenizer} =
+        Tokenizer.from_pretrained("bert-base-cased",
+          http_client: {SuccessHTTPClient, [test_status: 200, headers: [{"test-header", "42"}]]}
+        )
+
+      assert Tokenizer.get_vocab_size(tokenizer) == 28996
+
+      assert_received {:request, opts}
+
+      assert opts[:method] == :get
+      assert opts[:base_url] == "https://huggingface.co"
+      assert opts[:url] == "/bert-base-cased/resolve/main/tokenizer.json"
+
+      assert [{"test-header", "42"}, {"user-agent", "tokenizers-elixir/" <> _app_version}] =
+               opts[:headers]
+    end
+
+    test "returns error when status is not found" do
+      assert {:error, :not_found} =
+               Tokenizer.from_pretrained("bert-base-cased",
+                 http_client: {SuccessHTTPClient, [test_status: 404]}
+               )
+    end
+
+    test "returns error when request is not successful" do
+      assert {:error, error} =
+               Tokenizer.from_pretrained("bert-base-cased",
+                 http_client: {ErrorHTTPClient, []}
+               )
+
+      assert error == "internal error"
     end
   end
 

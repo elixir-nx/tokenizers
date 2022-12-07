@@ -30,9 +30,68 @@ defmodule Tokenizers.Tokenizer do
 
   @doc """
   Instantiate a new tokenizer from an existing file on the Hugging Face Hub.
+
+  This is going to download a tokenizer file, save to a file and load that file.
+
+  ## Options
+
+    * `:http_client` - A tuple with a module and options. This module should implement
+      the `request/1` function, accepting a keyword list with the options for a request.
+      This is inspired by `Req.request/1`: https://hexdocs.pm/req/Req.html#request/1
+
+      The default HTTP client config is: `{Tokenizers.HTTPClient, []}`.
+      Since it's inspired by `Req`, it's possible to use that client without any adjustments.
+
+      When making request, the options `:url` and `:method` are going to be overriden.
+      `:headers` contains the "user-agent" set by default.
+
+    * `:revision` - The revision name that should be used for fetching the tokenizers
+      from Hugging Face.
+
   """
-  @spec from_pretrained(String.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
-  def from_pretrained(identifier), do: Native.from_pretrained(identifier)
+  @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
+  def from_pretrained(identifier, opts \\ []) do
+    opts = Keyword.validate!(opts, revision: "main", http_client: {Tokenizers.HTTPClient, []})
+
+    {http_client, http_opts} = opts[:http_client]
+
+    {:ok, app_version} = :application.get_key(:tokenizers, :vsn)
+    app_version = List.to_string(app_version)
+
+    headers = [{"user-agent", "tokenizers-elixir/#{app_version}"}]
+    url = "/#{identifier}/resolve/#{opts[:revision]}/tokenizer.json"
+
+    http_opts =
+      http_opts
+      |> Keyword.put_new(:base_url, "https://huggingface.co")
+      |> Keyword.put(:url, url)
+      |> Keyword.put(:method, :get)
+      |> Keyword.update(:headers, headers, fn existing -> existing ++ headers end)
+
+    case http_client.request(http_opts) do
+      {:ok, response} ->
+        case response.status do
+          status when status in 200..299 ->
+            cache_dir = :filename.basedir(:user_cache, "tokenizers_elixir")
+            :ok = File.mkdir_p(cache_dir)
+            file_path = Path.join(cache_dir, "#{identifier}.json")
+
+            :ok = File.write(file_path, response.body)
+
+            from_file(file_path)
+
+          404 ->
+            {:error, :not_found}
+
+          other ->
+            {:error,
+             "download of pretrained file failed with status #{other}. Response: #{inspect(response.body)}"}
+        end
+
+      {:error, _} = error ->
+        error
+    end
+  end
 
   @doc """
   Instantiate a new tokenizer from the file at the given path.

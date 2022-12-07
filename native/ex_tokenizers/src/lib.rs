@@ -25,7 +25,6 @@ rustler::init!(
         encode,
         encode_batch,
         from_file,
-        from_pretrained,
         get_attention_mask,
         get_type_ids,
         get_ids,
