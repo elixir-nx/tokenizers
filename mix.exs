@@ -2,7 +2,7 @@ defmodule Tokenizers.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/elixir-nx/tokenizers"
-  @version "0.1.2"
+  @version "0.1.2-dev"
 
   def project do
     [
@@ -22,11 +22,14 @@ defmodule Tokenizers.MixProject do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [
+      extra_applications: [:logger, :inets, :public_key]
+    ]
   end
 
   defp deps do
     [
+      {:castore, "~> 0.1"},
       {:ex_doc, "~> 0.28", only: :docs, runtime: false},
       {:rustler, ">= 0.0.0", optional: true},
       {:rustler_precompiled, "~> 0.5"}
