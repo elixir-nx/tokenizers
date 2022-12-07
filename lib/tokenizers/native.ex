@@ -16,7 +16,6 @@ defmodule Tokenizers.Native do
   def encode(_tokenizer, _input, _add_special_tokens), do: err()
   def encode_batch(_tokenizer, _input, _add_special_tokens), do: err()
   def from_file(_path), do: err()
-  def from_pretrained(_identifier), do: err()
   def get_attention_mask(_encoding), do: err()
   def get_type_ids(_encoding), do: err()
   def get_ids(_encoding), do: err()
