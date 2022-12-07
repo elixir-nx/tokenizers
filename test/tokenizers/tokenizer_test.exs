@@ -30,10 +30,19 @@ defmodule Tokenizers.TokenizerTest do
       def request(opts) do
         send(self(), {:request, opts})
 
+        body =
+          case opts[:method] do
+            :get ->
+              File.read!("test/fixtures/bert-base-cased.json")
+
+            :head ->
+              ""
+          end
+
         {:ok,
          %{
-           body: File.read!("test/fixtures/bert-base-cased.json"),
-           headers: [],
+           body: body,
+           headers: [{"etag", "test-etag"}],
            status: opts[:test_status]
          }}
       end
@@ -46,9 +55,12 @@ defmodule Tokenizers.TokenizerTest do
       end
     end
 
-    test "load from pretrained successfully" do
+    @tag :tmp_dir
+    test "load from pretrained successfully", %{tmp_dir: tmp_dir} do
       {:ok, tokenizer} =
         Tokenizer.from_pretrained("bert-base-cased",
+          use_cache: false,
+          cache_dir: tmp_dir,
           http_client: {SuccessHTTPClient, [test_status: 200, headers: [{"test-header", "42"}]]}
         )
 
@@ -62,18 +74,36 @@ defmodule Tokenizers.TokenizerTest do
 
       assert [{"test-header", "42"}, {"user-agent", "tokenizers-elixir/" <> _app_version}] =
                opts[:headers]
+
+      {:ok, tokenizer} =
+        Tokenizer.from_pretrained("bert-base-cased",
+          use_cache: true,
+          cache_dir: tmp_dir,
+          http_client: {SuccessHTTPClient, [test_status: 200]}
+        )
+
+      assert Tokenizer.get_vocab_size(tokenizer) == 28996
+
+      assert_received {:request, opts}
+      assert opts[:method] == :head
     end
 
-    test "returns error when status is not found" do
+    @tag :tmp_dir
+    test "returns error when status is not found", %{tmp_dir: tmp_dir} do
       assert {:error, :not_found} =
                Tokenizer.from_pretrained("bert-base-cased",
+                 use_cache: false,
+                 cache_dir: tmp_dir,
                  http_client: {SuccessHTTPClient, [test_status: 404]}
                )
     end
 
-    test "returns error when request is not successful" do
+    @tag :tmp_dir
+    test "returns error when request is not successful", %{tmp_dir: tmp_dir} do
       assert {:error, error} =
                Tokenizer.from_pretrained("bert-base-cased",
+                 use_cache: false,
+                 cache_dir: tmp_dir,
                  http_client: {ErrorHTTPClient, []}
                )
 

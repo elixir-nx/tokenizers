@@ -31,7 +31,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Instantiate a new tokenizer from an existing file on the Hugging Face Hub.
 
-  This is going to download a tokenizer file, save to a file and load that file.
+  This is going to download a tokenizer file, save it to disk and load that file.
 
   ## Options
 
@@ -48,10 +48,23 @@ defmodule Tokenizers.Tokenizer do
     * `:revision` - The revision name that should be used for fetching the tokenizers
       from Hugging Face.
 
+    * `:use_cache` - Tells if it should read from cache when the file already exists.
+      Defaults to `true`.
+
+    * `:cache_dir` - The directory where cache is saved. Files are written to cache
+      even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
+      a cache dir based in the "tokenizers_elixir" application name.
+
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
-    opts = Keyword.validate!(opts, revision: "main", http_client: {Tokenizers.HTTPClient, []})
+    opts =
+      Keyword.validate!(opts,
+        revision: "main",
+        use_cache: true,
+        cache_dir: :filename.basedir(:user_cache, "tokenizers_elixir"),
+        http_client: {Tokenizers.HTTPClient, []}
+      )
 
     {http_client, http_opts} = opts[:http_client]
 
@@ -68,17 +81,53 @@ defmodule Tokenizers.Tokenizer do
       |> Keyword.put(:method, :get)
       |> Keyword.update(:headers, headers, fn existing -> existing ++ headers end)
 
+    cache_dir = opts[:cache_dir]
+
+    file_path_fun = fn etag ->
+      Path.join(cache_dir, entry_filename(url, etag))
+    end
+
+    if opts[:use_cache] do
+      with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
+        etag = fetch_etag(response.headers)
+        file_path = file_path_fun.(etag)
+
+        if File.exists?(file_path) do
+          from_file(file_path)
+        else
+          with {:ok, response} <- request(http_client, http_opts) do
+            File.mkdir_p!(cache_dir)
+            File.write!(file_path, response.body)
+
+            from_file(file_path)
+          end
+        end
+      end
+    else
+      with {:ok, response} <- request(http_client, http_opts) do
+        etag = fetch_etag(response.headers)
+        file_path = file_path_fun.(etag)
+
+        File.mkdir_p!(cache_dir)
+        File.write!(file_path, response.body)
+
+        from_file(file_path)
+      end
+    end
+  end
+
+  defp fetch_etag(headers) do
+    {_, etag} = List.keyfind!(headers, "etag", 0)
+
+    etag
+  end
+
+  defp request(http_client, http_opts) do
     case http_client.request(http_opts) do
       {:ok, response} ->
         case response.status do
           status when status in 200..299 ->
-            cache_dir = :filename.basedir(:user_cache, "tokenizers_elixir")
-            :ok = File.mkdir_p(cache_dir)
-            file_path = Path.join(cache_dir, "#{identifier}.json")
-
-            :ok = File.write(file_path, response.body)
-
-            from_file(file_path)
+            {:ok, response}
 
           404 ->
             {:error, :not_found}
@@ -91,6 +140,18 @@ defmodule Tokenizers.Tokenizer do
       {:error, _} = error ->
         error
     end
+  end
+
+  defp entry_filename(url, etag) do
+    encode_url(url) <> "." <> encode_etag(etag)
+  end
+
+  defp encode_url(url) do
+    url |> :erlang.md5() |> Base.encode32(case: :lower, padding: false)
+  end
+
+  defp encode_etag(etag) do
+    Base.encode32(etag, case: :lower, padding: false)
   end
 
   @doc """

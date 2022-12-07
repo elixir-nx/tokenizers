@@ -62,13 +62,19 @@ defmodule Tokenizers.HTTPClient do
 
     case :httpc.request(opts[:method], {url, headers}, http_options, options) do
       {:ok, {{_, status, _}, headers, body}} ->
-        {:ok, %{status: status, headers: headers, body: body}}
+        {:ok, %{status: status, headers: normalize_headers(headers), body: body}}
 
       {:ok, {status, body}} ->
         {:ok, %{status: status, body: body, headers: []}}
 
       {:error, reason} ->
         {:error, "could not make request #{url}: #{inspect(reason)}"}
+    end
+  end
+
+  defp normalize_headers(headers) do
+    for {key, value} <- headers do
+      {List.to_string(key), List.to_string(value)}
     end
   end
 end
