@@ -49,6 +49,7 @@ defmodule Tokenizers.TokenizerTest do
     test "load from pretrained successfully" do
       {:ok, tokenizer} =
         Tokenizer.from_pretrained("bert-base-cased",
+          use_cache: false,
           http_client: {SuccessHTTPClient, [test_status: 200, headers: [{"test-header", "42"}]]}
         )
 
@@ -62,11 +63,22 @@ defmodule Tokenizers.TokenizerTest do
 
       assert [{"test-header", "42"}, {"user-agent", "tokenizers-elixir/" <> _app_version}] =
                opts[:headers]
+
+      {:ok, tokenizer} =
+        Tokenizer.from_pretrained("bert-base-cased",
+          use_cache: true,
+          http_client: {SuccessHTTPClient, [test_status: 200]}
+        )
+
+      assert Tokenizer.get_vocab_size(tokenizer) == 28996
+
+      refute_received {:request, _opts}
     end
 
     test "returns error when status is not found" do
       assert {:error, :not_found} =
                Tokenizer.from_pretrained("bert-base-cased",
+                 use_cache: false,
                  http_client: {SuccessHTTPClient, [test_status: 404]}
                )
     end
@@ -74,6 +86,7 @@ defmodule Tokenizers.TokenizerTest do
     test "returns error when request is not successful" do
       assert {:error, error} =
                Tokenizer.from_pretrained("bert-base-cased",
+                 use_cache: false,
                  http_client: {ErrorHTTPClient, []}
                )
 

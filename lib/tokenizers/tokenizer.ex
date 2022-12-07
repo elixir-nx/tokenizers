@@ -48,10 +48,18 @@ defmodule Tokenizers.Tokenizer do
     * `:revision` - The revision name that should be used for fetching the tokenizers
       from Hugging Face.
 
+    * `:use_cache` - Tells if it should read from cache when the file already exists.
+      Defaults to `true`.
+
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
-    opts = Keyword.validate!(opts, revision: "main", http_client: {Tokenizers.HTTPClient, []})
+    opts =
+      Keyword.validate!(opts,
+        revision: "main",
+        use_cache: true,
+        http_client: {Tokenizers.HTTPClient, []}
+      )
 
     {http_client, http_opts} = opts[:http_client]
 
@@ -68,28 +76,32 @@ defmodule Tokenizers.Tokenizer do
       |> Keyword.put(:method, :get)
       |> Keyword.update(:headers, headers, fn existing -> existing ++ headers end)
 
-    case http_client.request(http_opts) do
-      {:ok, response} ->
-        case response.status do
-          status when status in 200..299 ->
-            cache_dir = :filename.basedir(:user_cache, "tokenizers_elixir")
-            :ok = File.mkdir_p(cache_dir)
-            file_path = Path.join(cache_dir, "#{identifier}.json")
+    cache_dir = :filename.basedir(:user_cache, "tokenizers_elixir")
+    file_path = Path.join(cache_dir, "#{identifier}-#{opts[:revision]}.json")
 
-            :ok = File.write(file_path, response.body)
+    if opts[:use_cache] && File.exists?(file_path) do
+      from_file(file_path)
+    else
+      case http_client.request(http_opts) do
+        {:ok, response} ->
+          case response.status do
+            status when status in 200..299 ->
+              :ok = File.mkdir_p(cache_dir)
+              :ok = File.write(file_path, response.body)
 
-            from_file(file_path)
+              from_file(file_path)
 
-          404 ->
-            {:error, :not_found}
+            404 ->
+              {:error, :not_found}
 
-          other ->
-            {:error,
-             "download of pretrained file failed with status #{other}. Response: #{inspect(response.body)}"}
-        end
+            other ->
+              {:error,
+               "download of pretrained file failed with status #{other}. Response: #{inspect(response.body)}"}
+          end
 
-      {:error, _} = error ->
-        error
+        {:error, _} = error ->
+          error
+      end
     end
   end
 
