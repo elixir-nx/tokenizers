@@ -84,19 +84,20 @@ defmodule Tokenizers.Tokenizer do
     cache_dir = opts[:cache_dir]
 
     file_path_fun = fn etag ->
-      Path.join(cache_dir, "#{identifier}-#{opts[:revision]}-#{etag}.json")
+      Path.join(cache_dir, entry_filename(url, etag))
     end
 
     if opts[:use_cache] do
       with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
-        file_path = file_path_fun.(fetch_etag(response.headers))
+        etag = fetch_etag(response.headers)
+        file_path = file_path_fun.(etag)
 
         if File.exists?(file_path) do
           from_file(file_path)
         else
           with {:ok, response} <- request(http_client, http_opts) do
-            :ok = File.mkdir_p(cache_dir)
-            :ok = File.write(file_path, response.body)
+            File.mkdir_p!(cache_dir)
+            File.write!(file_path, response.body)
 
             from_file(file_path)
           end
@@ -104,10 +105,11 @@ defmodule Tokenizers.Tokenizer do
       end
     else
       with {:ok, response} <- request(http_client, http_opts) do
-        file_path = file_path_fun.(fetch_etag(response.headers))
+        etag = fetch_etag(response.headers)
+        file_path = file_path_fun.(etag)
 
-        :ok = File.mkdir_p(cache_dir)
-        :ok = File.write(file_path, response.body)
+        File.mkdir_p!(cache_dir)
+        File.write!(file_path, response.body)
 
         from_file(file_path)
       end
@@ -117,7 +119,7 @@ defmodule Tokenizers.Tokenizer do
   defp fetch_etag(headers) do
     {_, etag} = List.keyfind!(headers, "etag", 0)
 
-    String.replace(etag, "\"", "")
+    etag
   end
 
   defp request(http_client, http_opts) do
@@ -138,6 +140,18 @@ defmodule Tokenizers.Tokenizer do
       {:error, _} = error ->
         error
     end
+  end
+
+  defp entry_filename(url, etag) do
+    encode_url(url) <> "." <> encode_etag(etag)
+  end
+
+  defp encode_url(url) do
+    url |> :erlang.md5() |> Base.encode32(case: :lower, padding: false)
+  end
+
+  defp encode_etag(etag) do
+    Base.encode32(etag, case: :lower, padding: false)
   end
 
   @doc """
