@@ -31,7 +31,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Instantiate a new tokenizer from an existing file on the Hugging Face Hub.
 
-  This is going to download a tokenizer file, save to a file and load that file.
+  This is going to download a tokenizer file, save it to disk and load that file.
 
   ## Options
 
@@ -51,6 +51,10 @@ defmodule Tokenizers.Tokenizer do
     * `:use_cache` - Tells if it should read from cache when the file already exists.
       Defaults to `true`.
 
+    * `:cache_dir` - The directory where cache is saved. Files are written to cache
+      even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
+      a cache dir based in the "tokenizers_elixir" application name.
+
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
@@ -58,6 +62,7 @@ defmodule Tokenizers.Tokenizer do
       Keyword.validate!(opts,
         revision: "main",
         use_cache: true,
+        cache_dir: :filename.basedir(:user_cache, "tokenizers_elixir"),
         http_client: {Tokenizers.HTTPClient, []}
       )
 
@@ -76,32 +81,62 @@ defmodule Tokenizers.Tokenizer do
       |> Keyword.put(:method, :get)
       |> Keyword.update(:headers, headers, fn existing -> existing ++ headers end)
 
-    cache_dir = :filename.basedir(:user_cache, "tokenizers_elixir")
-    file_path = Path.join(cache_dir, "#{identifier}-#{opts[:revision]}.json")
+    cache_dir = opts[:cache_dir]
 
-    if opts[:use_cache] && File.exists?(file_path) do
-      from_file(file_path)
-    else
-      case http_client.request(http_opts) do
-        {:ok, response} ->
-          case response.status do
-            status when status in 200..299 ->
-              :ok = File.mkdir_p(cache_dir)
-              :ok = File.write(file_path, response.body)
+    file_path_fun = fn etag ->
+      Path.join(cache_dir, "#{identifier}-#{opts[:revision]}-#{etag}.json")
+    end
 
-              from_file(file_path)
+    if opts[:use_cache] do
+      with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
+        file_path = file_path_fun.(fetch_etag(response.headers))
 
-            404 ->
-              {:error, :not_found}
+        if File.exists?(file_path) do
+          from_file(file_path)
+        else
+          with {:ok, response} <- request(http_client, http_opts) do
+            :ok = File.mkdir_p(cache_dir)
+            :ok = File.write(file_path, response.body)
 
-            other ->
-              {:error,
-               "download of pretrained file failed with status #{other}. Response: #{inspect(response.body)}"}
+            from_file(file_path)
           end
-
-        {:error, _} = error ->
-          error
+        end
       end
+    else
+      with {:ok, response} <- request(http_client, http_opts) do
+        file_path = file_path_fun.(fetch_etag(response.headers))
+
+        :ok = File.mkdir_p(cache_dir)
+        :ok = File.write(file_path, response.body)
+
+        from_file(file_path)
+      end
+    end
+  end
+
+  defp fetch_etag(headers) do
+    {_, etag} = List.keyfind!(headers, "etag", 0)
+
+    String.replace(etag, "\"", "")
+  end
+
+  defp request(http_client, http_opts) do
+    case http_client.request(http_opts) do
+      {:ok, response} ->
+        case response.status do
+          status when status in 200..299 ->
+            {:ok, response}
+
+          404 ->
+            {:error, :not_found}
+
+          other ->
+            {:error,
+             "download of pretrained file failed with status #{other}. Response: #{inspect(response.body)}"}
+        end
+
+      {:error, _} = error ->
+        error
     end
   end
 
