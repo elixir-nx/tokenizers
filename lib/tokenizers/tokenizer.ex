@@ -42,7 +42,7 @@ defmodule Tokenizers.Tokenizer do
       The default HTTP client config is: `{Tokenizers.HTTPClient, []}`.
       Since it's inspired by `Req`, it's possible to use that client without any adjustments.
 
-      When making request, the options `:url` and `:method` are going to be overriden.
+      When making request, the options `:url` and `:method` are going to be overridden.
       `:headers` contains the "user-agent" set by default.
 
     * `:revision` - The revision name that should be used for fetching the tokenizers
