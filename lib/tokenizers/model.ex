@@ -12,7 +12,7 @@ defmodule Tokenizers.Model do
   @doc """
   Retrieves information about the model.
 
-  Infomration retrieved differs per model but all include `model_type`.
+  Information retrieved differs per model but all include `model_type`.
   """
   @spec get_model_details(model :: __MODULE__.t()) :: map()
   def get_model_details(model), do: model |> Native.get_model_details() |> Shared.unwrap()
