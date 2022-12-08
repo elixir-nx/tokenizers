@@ -465,7 +465,7 @@ Functions
 the <code class="inline">request/1</code> function, accepting a keyword list with the options for a request.
 This is inspired by <code class="inline">Req.request/1</code>: <a href="https://hexdocs.pm/req/Req.html#request/1">https://hexdocs.pm/req/Req.html#request/1</a></p><p>The default HTTP client config is: <code class="inline">{Tokenizers.HTTPClient, []}</code>.
 Since it's inspired by <code class="inline">Req</code>, it's possible to use that client without any adjustments.
-When making request, the options <code class="inline">:url</code> and <code class="inline">:method</code> are going to be overriden.
+When making request, the options <code class="inline">:url</code> and <code class="inline">:method</code> are going to be overridden.
 <code class="inline">:headers</code> contains the &quot;user-agent&quot; set by default.</p></li><li><p><code class="inline">:revision</code> - The revision name that should be used for fetching the tokenizers
 from Hugging Face.</p></li><li><p><code class="inline">:use_cache</code> - Tells if it should read from cache when the file already exists.
 Defaults to <code class="inline">true</code>.</p></li><li><p><code class="inline">:cache_dir</code> - The directory where cache is saved. Files are written to cache
