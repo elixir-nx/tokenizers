@@ -44,6 +44,8 @@ defmodule Tokenizers.Encoding do
 
   @doc """
   Get offsets from an encoding.
+
+  The offsets are expressed in terms of UTF-8 bytes.
   """
   @spec get_offsets(Encoding.t()) :: [{integer(), integer()}]
   def get_offsets(encoding), do: encoding |> Native.get_offsets() |> Shared.unwrap()
