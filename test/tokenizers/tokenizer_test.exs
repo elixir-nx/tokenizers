@@ -185,5 +185,22 @@ defmodule Tokenizers.TokenizerTest do
                [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
              ] == offsets
     end
+
+    test "can add special tokens", %{tokenizer: tokenizer} do
+      text = ["This <|test|>is a test<|also|>", "<|test|>And so<|also|> is this<|test|>"]
+      special_tokens = ["<|test|>", "<|also|>"]
+      total_added = Tokenizer.add_special_tokens(tokenizer, special_tokens)
+      assert total_added == 2
+      new_added = Tokenizer.add_special_tokens(tokenizer, special_tokens)
+      assert new_added == 0
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+
+      {:ok, decodings} =
+        Tokenizer.decode(tokenizer, Enum.map(encodings, &Encoding.get_ids/1),
+          skip_special_tokens: true
+        )
+
+      assert ["This is a test", "And so is this"] == decodings
+    end
   end
 end

@@ -1,5 +1,6 @@
 use rustler::{Encoder, Env, Term};
 use std::io;
+use std::sync::PoisonError;
 use thiserror::Error;
 
 rustler::atoms! {
@@ -15,6 +16,8 @@ pub enum ExTokenizersError {
     Io(#[from] io::Error),
     #[error("Internal Error: {0}")]
     Internal(String),
+    #[error("Mutex poison Error: {0}")]
+    Poison(String),
     #[error("Other error: {0}")]
     Other(String),
     #[error(transparent)]
@@ -24,5 +27,11 @@ pub enum ExTokenizersError {
 impl Encoder for ExTokenizersError {
     fn encode<'b>(&self, env: Env<'b>) -> Term<'b> {
         format!("{:?}", self).encode(env)
+    }
+}
+
+impl<T> From<PoisonError<T>> for ExTokenizersError {
+    fn from(err: PoisonError<T>) -> Self {
+        Self::Poison(err.to_string())
     }
 }

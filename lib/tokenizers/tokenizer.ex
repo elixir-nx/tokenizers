@@ -243,6 +243,13 @@ defmodule Tokenizers.Tokenizer do
   """
   @spec get_model(Tokenizer.t()) :: Model.t()
   def get_model(tokenizer), do: tokenizer |> Native.get_model() |> Shared.unwrap()
+
+  @doc """
+  Add a list of special tokens to the tokenizer.
+  """
+  @spec add_special_tokens(Tokenizer.t(), [binary()]) :: non_neg_integer()
+  def add_special_tokens(tokenizer, tokens),
+    do: tokenizer |> Native.add_special_tokens(tokens) |> Shared.unwrap()
 end
 
 defimpl Inspect, for: Tokenizers.Tokenizer do

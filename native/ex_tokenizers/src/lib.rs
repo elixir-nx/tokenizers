@@ -20,6 +20,7 @@ fn on_load(env: Env, _info: Term) -> bool {
 rustler::init!(
     "Elixir.Tokenizers.Native",
     [
+        add_special_tokens,
         decode,
         decode_batch,
         encode,
