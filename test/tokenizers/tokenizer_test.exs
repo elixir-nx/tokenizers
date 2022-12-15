@@ -28,14 +28,24 @@ defmodule Tokenizers.TokenizerTest do
   describe "modify tokenizer" do
     test "can add special tokens" do
       special_tokens = ["<|test|>"]
-      {:ok, tokenizer} = Tokenizer.from_file("test/fixtures/bert-base-cased.json", special_tokens)
+
+      {:ok, tokenizer} =
+        Tokenizer.from_file("test/fixtures/bert-base-cased.json",
+          additional_special_tokens: special_tokens
+        )
+
       assert Tokenizer.get_vocab_size(tokenizer) == 28997
     end
 
     test "can decode special tokens" do
       text = ["This <|test|>is a test<|also|>", "<|test|>And so<|also|> is this<|test|>"]
       special_tokens = ["<|test|>", "<|also|>"]
-      {:ok, tokenizer} = Tokenizer.from_file("test/fixtures/bert-base-cased.json", special_tokens)
+
+      {:ok, tokenizer} =
+        Tokenizer.from_file("test/fixtures/bert-base-cased.json",
+          additional_special_tokens: special_tokens
+        )
+
       {:ok, encodings} = Tokenizer.encode(tokenizer, text)
 
       {:ok, decodings} =

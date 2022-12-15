@@ -90,19 +90,26 @@ defmodule Tokenizers.Tokenizer do
       Path.join(cache_dir, entry_filename(url, etag))
     end
 
+    tokenizer_opts =
+      opts
+      |> Keyword.split([:additional_special_tokens])
+      |> case do
+        {tokenizer_opts, _} -> tokenizer_opts
+      end
+
     if opts[:use_cache] do
       with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
         etag = fetch_etag(response.headers)
         file_path = file_path_fun.(etag)
 
         if File.exists?(file_path) do
-          from_file(file_path, opts[:additional_special_tokens])
+          from_file(file_path, tokenizer_opts)
         else
           with {:ok, response} <- request(http_client, http_opts) do
             File.mkdir_p!(cache_dir)
             File.write!(file_path, response.body)
 
-            from_file(file_path, opts[:additional_special_tokens])
+            from_file(file_path, tokenizer_opts)
           end
         end
       end
@@ -114,7 +121,7 @@ defmodule Tokenizers.Tokenizer do
         File.mkdir_p!(cache_dir)
         File.write!(file_path, response.body)
 
-        from_file(file_path, opts[:additional_special_tokens])
+        from_file(file_path, tokenizer_opts)
       end
     end
   end
@@ -159,9 +166,17 @@ defmodule Tokenizers.Tokenizer do
 
   @doc """
   Instantiate a new tokenizer from the file at the given path.
+
+  ## Options
+
+    * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
+      Defaults to `[]`.
   """
-  @spec from_file(String.t(), List.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
-  def from_file(path, additional_special_tokens \\ []), do: Native.from_file(path, additional_special_tokens)
+  @spec from_file(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
+  def from_file(path, opts \\ []) do
+    opts = Keyword.validate!(opts, additional_special_tokens: [])
+    Native.from_file(path, opts[:additional_special_tokens])
+  end
 
   @doc """
   Save the tokenizer to the provided path.
