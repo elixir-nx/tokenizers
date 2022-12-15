@@ -37,9 +37,9 @@ pub fn from_file(
     additional_special_tokens: Vec<String>,
 ) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
     let mut tokenizer = Tokenizer::from_file(path)?;
-    additional_special_tokens.iter().fold(0, |acc, token| {
-        tokenizer.add_special_tokens(&[AddedToken::from(token, true)]) + acc
-    });
+    for token in additional_special_tokens {
+        tokenizer.add_special_tokens(&[AddedToken::from(token, true)]);
+    }
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 
