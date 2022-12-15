@@ -31,25 +31,15 @@ impl ExTokenizersTokenizer {
     }
 }
 
-// We need to map over this Vec since Tokenizers expects
-// an array of Tokens and we don't know the full length at compile time
-fn add_special_token(
-    tokenizer: &mut Tokenizer,
-    token: &String,
-    acc: usize,
-) -> Result<usize, ExTokenizersError> {
-    Ok(tokenizer.add_special_tokens(&[AddedToken::from(token, true)]) + acc)
-}
-
 #[rustler::nif(schedule = "DirtyIo")]
 pub fn from_file(
     path: &str,
     additional_special_tokens: Vec<String>,
 ) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
     let mut tokenizer = Tokenizer::from_file(path)?;
-    additional_special_tokens
-        .iter()
-        .try_fold(0, |acc, s| add_special_token(&mut tokenizer, s, acc))?;
+    additional_special_tokens.iter().fold(0, |acc, token| {
+        tokenizer.add_special_tokens(&[AddedToken::from(token, true)]) + acc
+    });
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 
