@@ -90,12 +90,7 @@ defmodule Tokenizers.Tokenizer do
       Path.join(cache_dir, entry_filename(url, etag))
     end
 
-    tokenizer_opts =
-      opts
-      |> Keyword.split([:additional_special_tokens])
-      |> case do
-        {tokenizer_opts, _} -> tokenizer_opts
-      end
+    tokenizer_opts = Keyword.take(opts, [:additional_special_tokens])
 
     if opts[:use_cache] do
       with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
