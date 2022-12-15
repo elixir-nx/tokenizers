@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use rustler::Term;
 
+use tokenizers::tokenizer::AddedToken;
 use tokenizers::{EncodeInput, Tokenizer};
 
 use crate::encoding::ExTokenizersEncoding;
@@ -31,8 +32,14 @@ impl ExTokenizersTokenizer {
 }
 
 #[rustler::nif(schedule = "DirtyIo")]
-pub fn from_file(path: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
-    let tokenizer = Tokenizer::from_file(path)?;
+pub fn from_file(
+    path: &str,
+    additional_special_tokens: Vec<String>,
+) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
+    let mut tokenizer = Tokenizer::from_file(path)?;
+    for token in additional_special_tokens {
+        tokenizer.add_special_tokens(&[AddedToken::from(token, true)]);
+    }
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 

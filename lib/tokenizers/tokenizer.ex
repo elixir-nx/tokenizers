@@ -55,6 +55,8 @@ defmodule Tokenizers.Tokenizer do
       even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
       a cache dir based in the "tokenizers_elixir" application name.
 
+    * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
+      Defaults to `[]`.
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
@@ -63,7 +65,8 @@ defmodule Tokenizers.Tokenizer do
         revision: "main",
         use_cache: true,
         cache_dir: :filename.basedir(:user_cache, "tokenizers_elixir"),
-        http_client: {Tokenizers.HTTPClient, []}
+        http_client: {Tokenizers.HTTPClient, []},
+        additional_special_tokens: []
       )
 
     {http_client, http_opts} = opts[:http_client]
@@ -87,19 +90,21 @@ defmodule Tokenizers.Tokenizer do
       Path.join(cache_dir, entry_filename(url, etag))
     end
 
+    tokenizer_opts = Keyword.take(opts, [:additional_special_tokens])
+
     if opts[:use_cache] do
       with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
         etag = fetch_etag(response.headers)
         file_path = file_path_fun.(etag)
 
         if File.exists?(file_path) do
-          from_file(file_path)
+          from_file(file_path, tokenizer_opts)
         else
           with {:ok, response} <- request(http_client, http_opts) do
             File.mkdir_p!(cache_dir)
             File.write!(file_path, response.body)
 
-            from_file(file_path)
+            from_file(file_path, tokenizer_opts)
           end
         end
       end
@@ -111,7 +116,7 @@ defmodule Tokenizers.Tokenizer do
         File.mkdir_p!(cache_dir)
         File.write!(file_path, response.body)
 
-        from_file(file_path)
+        from_file(file_path, tokenizer_opts)
       end
     end
   end
@@ -156,9 +161,17 @@ defmodule Tokenizers.Tokenizer do
 
   @doc """
   Instantiate a new tokenizer from the file at the given path.
+
+  ## Options
+
+    * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
+      Defaults to `[]`.
   """
-  @spec from_file(String.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
-  def from_file(path), do: Native.from_file(path)
+  @spec from_file(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
+  def from_file(path, opts \\ []) do
+    opts = Keyword.validate!(opts, additional_special_tokens: [])
+    Native.from_file(path, opts[:additional_special_tokens])
+  end
 
   @doc """
   Save the tokenizer to the provided path.
