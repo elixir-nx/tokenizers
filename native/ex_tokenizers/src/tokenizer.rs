@@ -32,7 +32,7 @@ impl ExTokenizersTokenizer {
 }
 
 // We need to map over this Vec since Tokenizers expects
-// an array of Tokens and we don't know the full length at runtime
+// an array of Tokens and we don't know the full length at compile time
 fn add_special_token(
     tokenizer: &mut Tokenizer,
     token: &String,
@@ -57,10 +57,10 @@ pub fn from_file(
 pub fn encode(
     tokenizer: ExTokenizersTokenizer,
     input: Term,
-    add_special_tokens_opt: bool,
+    add_special_tokens: bool,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
     let input = term_to_encode_input(&input)?;
-    let encoding = tokenizer.resource.0.encode(input, add_special_tokens_opt)?;
+    let encoding = tokenizer.resource.0.encode(input, add_special_tokens)?;
     Ok(ExTokenizersEncoding::new(encoding))
 }
 
@@ -68,7 +68,7 @@ pub fn encode(
 pub fn encode_batch(
     tokenizer: ExTokenizersTokenizer,
     inputs: Vec<Term>,
-    add_special_tokens_opt: bool,
+    add_special_tokens: bool,
 ) -> Result<Vec<ExTokenizersEncoding>, ExTokenizersError> {
     let inputs = inputs
         .iter()
@@ -77,7 +77,7 @@ pub fn encode_batch(
     let encodings = tokenizer
         .resource
         .0
-        .encode_batch(inputs, add_special_tokens_opt)?;
+        .encode_batch(inputs, add_special_tokens)?;
     let ex_encodings = encodings
         .iter()
         .map(|x| ExTokenizersEncoding::new(x.to_owned()))
