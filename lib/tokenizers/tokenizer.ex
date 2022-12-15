@@ -55,6 +55,8 @@ defmodule Tokenizers.Tokenizer do
       even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
       a cache dir based in the "tokenizers_elixir" application name.
 
+    * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
+      Defaults to `[]`.
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
@@ -63,7 +65,8 @@ defmodule Tokenizers.Tokenizer do
         revision: "main",
         use_cache: true,
         cache_dir: :filename.basedir(:user_cache, "tokenizers_elixir"),
-        http_client: {Tokenizers.HTTPClient, []}
+        http_client: {Tokenizers.HTTPClient, []},
+        additional_special_tokens: []
       )
 
     {http_client, http_opts} = opts[:http_client]
@@ -93,13 +96,13 @@ defmodule Tokenizers.Tokenizer do
         file_path = file_path_fun.(etag)
 
         if File.exists?(file_path) do
-          from_file(file_path)
+          from_file(file_path, opts[:additional_special_tokens])
         else
           with {:ok, response} <- request(http_client, http_opts) do
             File.mkdir_p!(cache_dir)
             File.write!(file_path, response.body)
 
-            from_file(file_path)
+            from_file(file_path, opts[:additional_special_tokens])
           end
         end
       end
@@ -111,7 +114,7 @@ defmodule Tokenizers.Tokenizer do
         File.mkdir_p!(cache_dir)
         File.write!(file_path, response.body)
 
-        from_file(file_path)
+        from_file(file_path, opts[:additional_special_tokens])
       end
     end
   end
@@ -157,8 +160,8 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Instantiate a new tokenizer from the file at the given path.
   """
-  @spec from_file(String.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
-  def from_file(path), do: Native.from_file(path)
+  @spec from_file(String.t(), List.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
+  def from_file(path, additional_special_tokens \\ []), do: Native.from_file(path, additional_special_tokens)
 
   @doc """
   Save the tokenizer to the provided path.
@@ -243,13 +246,6 @@ defmodule Tokenizers.Tokenizer do
   """
   @spec get_model(Tokenizer.t()) :: Model.t()
   def get_model(tokenizer), do: tokenizer |> Native.get_model() |> Shared.unwrap()
-
-  @doc """
-  Add a list of special tokens to the tokenizer.
-  """
-  @spec add_special_tokens(Tokenizer.t(), [binary()]) :: non_neg_integer()
-  def add_special_tokens(tokenizer, tokens),
-    do: tokenizer |> Native.add_special_tokens(tokens) |> Shared.unwrap()
 end
 
 defimpl Inspect, for: Tokenizers.Tokenizer do

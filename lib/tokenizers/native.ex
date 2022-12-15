@@ -11,12 +11,11 @@ defmodule Tokenizers.Native do
     force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"],
     targets: RustlerPrecompiled.Config.default_targets() ++ ["aarch64-unknown-linux-musl"]
 
-  def add_special_tokens(_tokenizer, _tokens), do: err()
   def decode(_tokenizer, _ids, _skip_special_tokens), do: err()
   def decode_batch(_tokenizer, _ids, _skip_special_tokens), do: err()
   def encode(_tokenizer, _input, _add_special_tokens), do: err()
   def encode_batch(_tokenizer, _input, _add_special_tokens), do: err()
-  def from_file(_path), do: err()
+  def from_file(_path, _additional_special_tokens), do: err()
   def get_attention_mask(_encoding), do: err()
   def get_type_ids(_encoding), do: err()
   def get_ids(_encoding), do: err()

@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::sync::Mutex;
 
 use rustler::Term;
 
@@ -10,7 +9,7 @@ use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
 use crate::model::ExTokenizersModel;
 
-pub struct ExTokenizersTokenizerRef(pub Mutex<Tokenizer>);
+pub struct ExTokenizersTokenizerRef(pub Tokenizer);
 
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Tokenizer"]
@@ -20,7 +19,7 @@ pub struct ExTokenizersTokenizer {
 
 impl ExTokenizersTokenizerRef {
     pub fn new(data: Tokenizer) -> Self {
-        Self(Mutex::new(data))
+        Self(data)
     }
 }
 
@@ -32,9 +31,25 @@ impl ExTokenizersTokenizer {
     }
 }
 
+// We need to map over this Vec since Tokenizers expects
+// an array of Tokens and we don't know the full length at runtime
+fn add_special_token(
+    tokenizer: &mut Tokenizer,
+    token: &String,
+    acc: usize,
+) -> Result<usize, ExTokenizersError> {
+    Ok(tokenizer.add_special_tokens(&[AddedToken::from(token, true)]) + acc)
+}
+
 #[rustler::nif(schedule = "DirtyIo")]
-pub fn from_file(path: &str) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
-    let tokenizer = Tokenizer::from_file(path)?;
+pub fn from_file(
+    path: &str,
+    additional_special_tokens: Vec<String>,
+) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
+    let mut tokenizer = Tokenizer::from_file(path)?;
+    additional_special_tokens
+        .iter()
+        .try_fold(0, |acc, s| add_special_token(&mut tokenizer, s, acc))?;
     Ok(ExTokenizersTokenizer::new(tokenizer))
 }
 
@@ -45,11 +60,7 @@ pub fn encode(
     add_special_tokens_opt: bool,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
     let input = term_to_encode_input(&input)?;
-    let encoding = tokenizer
-        .resource
-        .0
-        .lock()?
-        .encode(input, add_special_tokens_opt)?;
+    let encoding = tokenizer.resource.0.encode(input, add_special_tokens_opt)?;
     Ok(ExTokenizersEncoding::new(encoding))
 }
 
@@ -66,7 +77,6 @@ pub fn encode_batch(
     let encodings = tokenizer
         .resource
         .0
-        .lock()?
         .encode_batch(inputs, add_special_tokens_opt)?;
     let ex_encodings = encodings
         .iter()
@@ -93,11 +103,7 @@ pub fn decode(
     ids: Vec<u32>,
     skip_special_tokens: bool,
 ) -> Result<String, ExTokenizersError> {
-    Ok(tokenizer
-        .resource
-        .0
-        .lock()?
-        .decode(ids, skip_special_tokens)?)
+    Ok(tokenizer.resource.0.decode(ids, skip_special_tokens)?)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -109,7 +115,6 @@ pub fn decode_batch(
     Ok(tokenizer
         .resource
         .0
-        .lock()?
         .decode_batch(sentences, skip_special_tokens)?)
 }
 
@@ -118,7 +123,7 @@ pub fn token_to_id(
     tokenizer: ExTokenizersTokenizer,
     token: &str,
 ) -> Result<Option<u32>, ExTokenizersError> {
-    Ok(tokenizer.resource.0.lock()?.token_to_id(token))
+    Ok(tokenizer.resource.0.token_to_id(token))
 }
 
 #[rustler::nif]
@@ -126,7 +131,7 @@ pub fn id_to_token(
     tokenizer: ExTokenizersTokenizer,
     id: u32,
 ) -> Result<Option<String>, ExTokenizersError> {
-    Ok(tokenizer.resource.0.lock()?.id_to_token(id))
+    Ok(tokenizer.resource.0.id_to_token(id))
 }
 
 #[rustler::nif]
@@ -134,7 +139,7 @@ pub fn get_vocab(
     tokenizer: ExTokenizersTokenizer,
     with_added_tokens: bool,
 ) -> Result<HashMap<String, u32>, ExTokenizersError> {
-    Ok(tokenizer.resource.0.lock()?.get_vocab(with_added_tokens))
+    Ok(tokenizer.resource.0.get_vocab(with_added_tokens))
 }
 
 #[rustler::nif]
@@ -142,32 +147,7 @@ pub fn get_vocab_size(
     tokenizer: ExTokenizersTokenizer,
     with_added_tokens: bool,
 ) -> Result<usize, ExTokenizersError> {
-    Ok(tokenizer
-        .resource
-        .0
-        .lock()?
-        .get_vocab_size(with_added_tokens))
-}
-
-// We need to map over this Vec since Tokenizers expects
-// an array of Tokens and we don't know the full length at runtime
-fn add_special_token(
-    tokenizer: &ExTokenizersTokenizer,
-    token: &String,
-    acc: usize) -> Result<usize, ExTokenizersError> {
-    Ok(tokenizer
-        .resource
-        .0
-        .lock()?
-        .add_special_tokens(&[AddedToken::from(token, true)]) + acc)
-}
-
-#[rustler::nif(schedule = "DirtyCpu")]
-pub fn add_special_tokens(
-    tokenizer: ExTokenizersTokenizer,
-    tokens: Vec<String>,
-) -> Result<usize, ExTokenizersError> {
-    tokens.iter().try_fold(0, |acc, s| add_special_token(&tokenizer, s, acc))
+    Ok(tokenizer.resource.0.get_vocab_size(with_added_tokens))
 }
 
 #[rustler::nif]
@@ -176,12 +156,12 @@ pub fn save(
     path: &str,
     pretty: bool,
 ) -> Result<(), ExTokenizersError> {
-    Ok(tokenizer.resource.0.lock()?.save(path, pretty)?)
+    Ok(tokenizer.resource.0.save(path, pretty)?)
 }
 
 #[rustler::nif]
 pub fn get_model(tokenizer: ExTokenizersTokenizer) -> Result<ExTokenizersModel, ExTokenizersError> {
     Ok(ExTokenizersModel::new(
-        tokenizer.resource.0.lock()?.get_model().clone(),
+        tokenizer.resource.0.get_model().clone(),
     ))
 }

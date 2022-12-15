@@ -25,6 +25,28 @@ defmodule Tokenizers.TokenizerTest do
     end
   end
 
+  describe "modify tokenizer" do
+    test "can add special tokens" do
+      special_tokens = ["<|test|>"]
+      {:ok, tokenizer} = Tokenizer.from_file("test/fixtures/bert-base-cased.json", special_tokens)
+      assert Tokenizer.get_vocab_size(tokenizer) == 28997
+    end
+
+    test "can decode special tokens" do
+      text = ["This <|test|>is a test<|also|>", "<|test|>And so<|also|> is this<|test|>"]
+      special_tokens = ["<|test|>", "<|also|>"]
+      {:ok, tokenizer} = Tokenizer.from_file("test/fixtures/bert-base-cased.json", special_tokens)
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+
+      {:ok, decodings} =
+        Tokenizer.decode(tokenizer, Enum.map(encodings, &Encoding.get_ids/1),
+          skip_special_tokens: true
+        )
+
+      assert ["This is a test", "And so is this"] == decodings
+    end
+  end
+
   describe "from_pretrained/2" do
     defmodule SuccessHTTPClient do
       def request(opts) do
@@ -184,23 +206,6 @@ defmodule Tokenizers.TokenizerTest do
                [{0, 0}, {0, 4}, {5, 7}, {8, 9}, {10, 14}, {0, 0}],
                [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
              ] == offsets
-    end
-
-    test "can add special tokens", %{tokenizer: tokenizer} do
-      text = ["This <|test|>is a test<|also|>", "<|test|>And so<|also|> is this<|test|>"]
-      special_tokens = ["<|test|>", "<|also|>"]
-      total_added = Tokenizer.add_special_tokens(tokenizer, special_tokens)
-      assert total_added == 2
-      new_added = Tokenizer.add_special_tokens(tokenizer, special_tokens)
-      assert new_added == 0
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
-
-      {:ok, decodings} =
-        Tokenizer.decode(tokenizer, Enum.map(encodings, &Encoding.get_ids/1),
-          skip_special_tokens: true
-        )
-
-      assert ["This is a test", "And so is this"] == decodings
     end
   end
 end
