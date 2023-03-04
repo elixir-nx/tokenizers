@@ -2,7 +2,7 @@ defmodule Tokenizers.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/elixir-nx/tokenizers"
-  @version "0.3.0-dev"
+  @version "0.3.0"
 
   def project do
     [
@@ -32,7 +32,7 @@ defmodule Tokenizers.MixProject do
       {:castore, "~> 0.1 or ~> 1.0"},
       {:ex_doc, "~> 0.28", only: :docs, runtime: false},
       {:rustler, ">= 0.0.0", optional: true},
-      {:rustler_precompiled, "~> 0.5"}
+      {:rustler_precompiled, "~> 0.6"}
     ]
   end
 
