@@ -4,38 +4,45 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.28.0">
-    <meta name="project" content="Tokenizers v0.3.1">
+    <meta name="generator" content="ExDoc v0.29.4">
+    <meta name="project" content="Tokenizers v0.4.0-dev">
 
-    <title>Tokenizers.Native — Tokenizers v0.3.1</title>
-    <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
+    <title>Tokenizers.Native — Tokenizers v0.4.0-dev</title>
+    <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
 
-    <script src="dist/sidebar_items-e50fed36d6.js"></script>
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
+    <script src="dist/sidebar_items-8DBC5AE6.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/app-80aa23c1d96b6dc3c064.js"></script>
+    <script async src="dist/html-JDI3AVDD.js"></script>
 
 
   </head>
-  <body data-type="modules">
+  <body data-type="modules" class="page-module">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
 
 <section class="sidebar">
-  <button class="sidebar-button sidebar-toggle">
-    <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
-  </button>
-
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
       <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
@@ -44,7 +51,8 @@
       <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
-      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     </label>
   </form>
 
@@ -59,9 +67,9 @@
       <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
 Tokenizers
       </a>
-      <strong class="sidebar-projectVersion" translate="no">
-        v0.3.1
-      </strong>
+      <div class="sidebar-projectVersion" translate="no">
+        v0.4.0-dev
+      </div>
     </div>
     <ul class="sidebar-listNav">
       <li><a id="extras-list-link" href="#full-list">Pages</a></li>
@@ -73,27 +81,28 @@ Tokenizers
   </div>
 
   <div class="gradient"></div>
-  <ul id="full-list" class="sidebar-fullList"></ul>
+  <ul id="full-list"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
 <h1>
-<button class="settings display-settings">
+<button class="icon-action display-settings">
   <i class="ri-settings-3-line"></i>
   <span class="sr-only">Settings</span>
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L1" title="View Source" class="view-source" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
   <span translate="no">Tokenizers.Native</span> 
-  <small class="app-vsn" translate="no">(Tokenizers v0.3.1)</small>
+  <small class="app-vsn" translate="no">(Tokenizers v0.4.0-dev)</small>
 
 </h1>
 
@@ -107,213 +116,212 @@ Tokenizers
       </a>
       Summary
     </h1>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
 
-  <div class="summary-functions summary">
-    <h2>
-      <a href="#functions">Functions</a>
-    </h2>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#decode/3" translate="no">decode(tokenizer, ids, skip_special_tokens)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#decode/3" translate="no">decode(tokenizer, ids, skip_special_tokens)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#decode_batch/3" translate="no">decode_batch(tokenizer, ids, skip_special_tokens)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#encode/3" translate="no">encode(tokenizer, input, add_special_tokens)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#decode_batch/3" translate="no">decode_batch(tokenizer, ids, skip_special_tokens)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#encode_batch/3" translate="no">encode_batch(tokenizer, input, add_special_tokens)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#from_file/2" translate="no">from_file(path, additional_special_tokens)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#encode/3" translate="no">encode(tokenizer, input, add_special_tokens)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_attention_mask/1" translate="no">get_attention_mask(encoding)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_ids/1" translate="no">get_ids(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#encode_batch/3" translate="no">encode_batch(tokenizer, input, add_special_tokens)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_model/1" translate="no">get_model(tokenizer)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_model_details/1" translate="no">get_model_details(model)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#from_file/2" translate="no">from_file(path, additional_special_tokens)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_offsets/1" translate="no">get_offsets(encoding)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_special_tokens_mask/1" translate="no">get_special_tokens_mask(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_attention_mask/1" translate="no">get_attention_mask(encoding)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_tokens/1" translate="no">get_tokens(encoding)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_type_ids/1" translate="no">get_type_ids(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_ids/1" translate="no">get_ids(encoding)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_u32_attention_mask/1" translate="no">get_u32_attention_mask(encoding)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_u32_ids/1" translate="no">get_u32_ids(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_model/1" translate="no">get_model(tokenizer)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_u32_special_tokens_mask/1" translate="no">get_u32_special_tokens_mask(encoding)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_u32_type_ids/1" translate="no">get_u32_type_ids(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_model_details/1" translate="no">get_model_details(model)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_vocab/2" translate="no">get_vocab(tokenizer, with_added_tokens)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#get_vocab_size/2" translate="no">get_vocab_size(tokenizer, with_added_tokens)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_offsets/1" translate="no">get_offsets(encoding)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#id_to_token/2" translate="no">id_to_token(tokenizer, id)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#n_tokens/1" translate="no">n_tokens(encoding)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_special_tokens_mask/1" translate="no">get_special_tokens_mask(encoding)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#pad/6" translate="no">pad(encoding, target_length, pad_id, pad_type_id, pad_token, direction)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#save/3" translate="no">save(tokenizer, path, pretty)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_tokens/1" translate="no">get_tokens(encoding)</a>
 
       </div>
 
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#token_to_id/2" translate="no">token_to_id(tokenizer, token)</a>
+    </div>
 
-        </div>
-
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-signature">
-          <a href="#truncate/4" translate="no">truncate(encoding, max_len, stride, direction)</a>
-
-        </div>
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_type_ids/1" translate="no">get_type_ids(encoding)</a>
 
       </div>
 
-  </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_u32_attention_mask/1" translate="no">get_u32_attention_mask(encoding)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_u32_ids/1" translate="no">get_u32_ids(encoding)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_u32_special_tokens_mask/1" translate="no">get_u32_special_tokens_mask(encoding)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_u32_type_ids/1" translate="no">get_u32_type_ids(encoding)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_vocab/2" translate="no">get_vocab(tokenizer, with_added_tokens)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_vocab_size/2" translate="no">get_vocab_size(tokenizer, with_added_tokens)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#id_to_token/2" translate="no">id_to_token(tokenizer, id)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#n_tokens/1" translate="no">n_tokens(encoding)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pad/6" translate="no">pad(encoding, target_length, pad_id, pad_type_id, pad_token, direction)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#save/3" translate="no">save(tokenizer, path, pretty)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#token_to_id/2" translate="no">token_to_id(tokenizer, token)</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/4" translate="no">truncate(encoding, max_len, stride, direction)</a>
+
+      </div>
+
+    </div>
+
+</div>
 
   </section>
 
@@ -336,7 +344,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">decode(tokenizer, ids, skip_special_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L13" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L13" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -358,7 +366,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">decode_batch(tokenizer, ids, skip_special_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L14" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L14" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -380,7 +388,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">encode(tokenizer, input, add_special_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L15" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L15" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -402,7 +410,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">encode_batch(tokenizer, input, add_special_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L16" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L16" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -424,7 +432,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">from_file(path, additional_special_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L17" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L17" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -446,7 +454,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L18" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -468,7 +476,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L22" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L22" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -490,7 +498,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_model(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L35" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -512,7 +520,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_model_details(model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L36" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -534,7 +542,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_offsets(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L27" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L27" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -556,7 +564,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_special_tokens_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L25" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L25" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -578,7 +586,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L24" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L24" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -600,7 +608,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_type_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L20" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L20" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -622,7 +630,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L19" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L19" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -644,7 +652,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L23" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L23" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -666,7 +674,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_special_tokens_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L26" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L26" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -688,7 +696,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_type_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L21" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L21" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -710,7 +718,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_vocab(tokenizer, with_added_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L28" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L28" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -732,7 +740,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_vocab_size(tokenizer, with_added_tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L29" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L29" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -754,7 +762,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">id_to_token(tokenizer, id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L30" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L30" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -776,7 +784,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">n_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L37" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L37" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -798,7 +806,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">pad(encoding, target_length, pad_id, pad_type_id, pad_token, direction)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L34" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L34" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -820,7 +828,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">save(tokenizer, path, pretty)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L31" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L31" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -842,7 +850,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">token_to_id(tokenizer, token)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L32" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -864,7 +872,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">truncate(encoding, max_len, stride, direction)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.1/lib/tokenizers/native.ex#L33" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/native.ex#L33" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -882,27 +890,35 @@ Functions
   </section>
 
       <footer class="footer">
-
-          <p>
-            On Hex.pm:
+        <p>
 
             <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.3.1" class="line footer-hex-package">Package</a>
-              <a href="https://preview.hex.pm/preview/tokenizers/0.3.1" class="line">Preview</a>
+              <a href="https://hex.pm/packages/tokenizers/0.4.0-dev" class="footer-hex-package">Hex Package</a>
 
-                <a href="https://preview.hex.pm/preview/tokenizers/0.3.1/show/lib/tokenizers/native.ex">(current file)</a>
+              <a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev">Hex Preview</a>
+
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev/show/lib/tokenizers/native.ex">current file</a>)
 
             </span>
 
-            <button class="line footer-button display-quick-switch">
-              Search
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+              Search HexDocs
             </button>
-          </p>
 
-        <p>
+              <a href="Tokenizers.epub" title="ePub version">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
           Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.28.0) for the
-          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>
