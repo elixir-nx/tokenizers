@@ -196,15 +196,43 @@ defmodule Tokenizers.TokenizerTest do
       ids = Enum.map(encodings, &Encoding.get_ids/1)
       {:ok, decoded} = Tokenizer.decode(tokenizer, ids)
       assert decoded == text
+
+      assert Enum.map(ids, &list_to_u32/1) == Enum.map(encodings, &Encoding.get_u32_ids/1)
     end
   end
 
   describe "encode metadata" do
+    test "can return attention mask", %{tokenizer: tokenizer} do
+      text = ["Hello world", "Yes sir hello indeed"]
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+
+      attention_mask = Enum.map(encodings, &Encoding.get_attention_mask/1)
+      assert [[1, 1, 1, 1], [1, 1, 1, 1, 1, 1]] == attention_mask
+
+      assert Enum.map(attention_mask, &list_to_u32/1) ==
+               Enum.map(encodings, &Encoding.get_u32_attention_mask/1)
+    end
+
+    test "can return type ids", %{tokenizer: tokenizer} do
+      text = [{"Hello", "world"}, {"Yes sir", "hello indeed"}]
+      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+
+      type_ids = Enum.map(encodings, &Encoding.get_type_ids/1)
+      assert [[0, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1, 1]] == type_ids
+
+      assert Enum.map(type_ids, &list_to_u32/1) ==
+               Enum.map(encodings, &Encoding.get_u32_type_ids/1)
+    end
+
     test "can return special tokens mask", %{tokenizer: tokenizer} do
       text = ["This is a test", "And so is this"]
       {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+
       special_tokens_mask = Enum.map(encodings, &Encoding.get_special_tokens_mask/1)
       assert [[1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 1]] == special_tokens_mask
+
+      assert Enum.map(special_tokens_mask, &list_to_u32/1) ==
+               Enum.map(encodings, &Encoding.get_u32_special_tokens_mask/1)
     end
 
     test "can return offsets", %{tokenizer: tokenizer} do
@@ -217,5 +245,9 @@ defmodule Tokenizers.TokenizerTest do
                [{0, 0}, {0, 3}, {4, 6}, {7, 9}, {10, 14}, {0, 0}]
              ] == offsets
     end
+  end
+
+  defp list_to_u32(list) do
+    for x <- list, into: <<>>, do: <<x::native-unsigned-32>>
   end
 end

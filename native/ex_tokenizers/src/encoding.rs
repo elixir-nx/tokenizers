@@ -1,4 +1,6 @@
 use crate::error::ExTokenizersError;
+use rustler::resource::ResourceArc;
+use rustler::{Binary, Env};
 use tokenizers::utils::padding::PaddingDirection;
 use tokenizers::utils::truncation::TruncationDirection;
 use tokenizers::Encoding;
@@ -8,7 +10,7 @@ pub struct ExTokenizersEncodingRef(pub Encoding);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Encoding"]
 pub struct ExTokenizersEncoding {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersEncodingRef>,
+    pub resource: ResourceArc<ExTokenizersEncodingRef>,
 }
 
 impl ExTokenizersEncodingRef {
@@ -20,7 +22,7 @@ impl ExTokenizersEncodingRef {
 impl ExTokenizersEncoding {
     pub fn new(data: Encoding) -> Self {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersEncodingRef::new(data)),
+            resource: ResourceArc::new(ExTokenizersEncodingRef::new(data)),
         }
     }
 }
@@ -36,8 +38,28 @@ pub fn get_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersE
 }
 
 #[rustler::nif]
+pub fn get_u32_ids<'a>(
+    env: Env<'a>,
+    encoding: ExTokenizersEncoding,
+) -> Result<Binary<'a>, ExTokenizersError> {
+    Ok(encoding
+        .resource
+        .make_binary(env, |r| slice_u32_to_u8(r.0.get_ids())))
+}
+
+#[rustler::nif]
 pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersError> {
     Ok(encoding.resource.0.get_attention_mask().to_vec())
+}
+
+#[rustler::nif]
+pub fn get_u32_attention_mask<'a>(
+    env: Env<'a>,
+    encoding: ExTokenizersEncoding,
+) -> Result<Binary<'a>, ExTokenizersError> {
+    Ok(encoding
+        .resource
+        .make_binary(env, |r| slice_u32_to_u8(r.0.get_attention_mask())))
 }
 
 #[rustler::nif]
@@ -46,10 +68,30 @@ pub fn get_type_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokeni
 }
 
 #[rustler::nif]
+pub fn get_u32_type_ids<'a>(
+    env: Env<'a>,
+    encoding: ExTokenizersEncoding,
+) -> Result<Binary<'a>, ExTokenizersError> {
+    Ok(encoding
+        .resource
+        .make_binary(env, |r| slice_u32_to_u8(r.0.get_type_ids())))
+}
+
+#[rustler::nif]
 pub fn get_special_tokens_mask(
     encoding: ExTokenizersEncoding,
 ) -> Result<Vec<u32>, ExTokenizersError> {
     Ok(encoding.resource.0.get_special_tokens_mask().to_vec())
+}
+
+#[rustler::nif]
+pub fn get_u32_special_tokens_mask<'a>(
+    env: Env<'a>,
+    encoding: ExTokenizersEncoding,
+) -> Result<Binary<'a>, ExTokenizersError> {
+    Ok(encoding
+        .resource
+        .make_binary(env, |r| slice_u32_to_u8(r.0.get_special_tokens_mask())))
 }
 
 #[rustler::nif]
@@ -98,4 +140,8 @@ pub fn pad(
     let mut new_encoding = encoding.resource.0.clone();
     new_encoding.pad(target_length, pad_id, pad_type_id, pad_token, direction);
     Ok(ExTokenizersEncoding::new(new_encoding))
+}
+
+fn slice_u32_to_u8<'a>(slice: &[u32]) -> &[u8] {
+    unsafe { std::slice::from_raw_parts(slice.as_ptr() as *const u8, slice.len() * 4) }
 }
