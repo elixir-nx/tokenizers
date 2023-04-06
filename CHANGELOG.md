@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.1] - 2023-04-06
+
+### Added
+
+- Add binary variants for accessing encoding data. This way we can convert encoding
+  data to tensors without additional allocations. The following functions were added:
+
+  - `get_u32_ids/1`
+  - `get_u32_attention_mask/1`
+  - `get_u32_type_ids/1`
+  - `get_u32_special_tokens_mask/1`
+
 ## [v0.3.0] - 2023-03-04
 
 ### Added
@@ -42,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First release.
 
-[Unreleased]: https://github.com/elixir-nx/tokenizers/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/elixir-nx/tokenizers/compare/v0.3.1...HEAD
+[v0.3.1]: https://github.com/elixir-nx/tokenizers/compare/v0.3.0...v0.3.1
 [v0.3.0]: https://github.com/elixir-nx/tokenizers/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/elixir-nx/tokenizers/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/elixir-nx/tokenizers/releases/tag/v0.1.0
