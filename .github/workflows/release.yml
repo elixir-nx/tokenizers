@@ -49,7 +49,7 @@ jobs:
 
       - name: Build the project
         id: build-crate
-        uses: philss/rustler-precompiled-action@v1.0.0
+        uses: philss/rustler-precompiled-action@v1.0.1
         with:
           nif-version: ${{ matrix.nif }}
           project-dir: "native/ex_tokenizers"
