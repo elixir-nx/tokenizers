@@ -18,8 +18,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
         with:
           path: |
             deps
@@ -27,7 +28,8 @@ jobs:
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-
-      - uses: actions/cache@v2
+
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.cargo/bin/
@@ -36,10 +38,10 @@ jobs:
             ~/.cargo/git/db/
             native/ex_tokenizers/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - uses: actions-rs/toolchain@v1
-        with:
-            toolchain: stable
-            override: true
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "${{ env.OTP_VERSION }}"

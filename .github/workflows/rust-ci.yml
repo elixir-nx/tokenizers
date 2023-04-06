@@ -19,7 +19,8 @@ jobs:
           - native/ex_tokenizers/Cargo.toml
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - uses: actions/cache@v3
         with:
           path: |
@@ -32,19 +33,14 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
-      - uses: actions-rs/toolchain@v1
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
         with:
-            profile: minimal
-            toolchain: stable
-            components: rustfmt, clippy
-            override: true
+          components: rustfmt, clippy
+
       - name: run rustfmt
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --manifest-path=${{ matrix.manifest }} --all -- --check
+        run: cargo fmt --manifest-path=${{ matrix.manifest }} --all -- --check
+
       - name: run clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --manifest-path=${{ matrix.manifest }} -- -Dwarnings
+        run: cargo clippy --manifest-path=${{ matrix.manifest }} -- -Dwarnings 
