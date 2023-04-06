@@ -23,6 +23,6 @@ pub enum ExTokenizersError {
 
 impl Encoder for ExTokenizersError {
     fn encode<'b>(&self, env: Env<'b>) -> Term<'b> {
-        format!("{:?}", self).encode(env)
+        format!("{self:?}").encode(env)
     }
 }

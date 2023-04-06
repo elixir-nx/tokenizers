@@ -24,10 +24,23 @@ defmodule Tokenizers.Encoding do
   def get_ids(encoding), do: encoding |> Native.get_ids() |> Shared.unwrap()
 
   @doc """
+  Same as `get_ids/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_ids(Encoding.t()) :: binary()
+  def get_u32_ids(encoding), do: encoding |> Native.get_u32_ids() |> Shared.unwrap()
+
+  @doc """
   Get the attention mask from an encoding.
   """
   @spec get_attention_mask(Encoding.t()) :: [integer()]
   def get_attention_mask(encoding), do: encoding |> Native.get_attention_mask() |> Shared.unwrap()
+
+  @doc """
+  Same as `get_attention_mask/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_attention_mask(Encoding.t()) :: binary()
+  def get_u32_attention_mask(encoding),
+    do: encoding |> Native.get_u32_attention_mask() |> Shared.unwrap()
 
   @doc """
   Get token type ids from an encoding.
@@ -36,11 +49,25 @@ defmodule Tokenizers.Encoding do
   def get_type_ids(encoding), do: encoding |> Native.get_type_ids() |> Shared.unwrap()
 
   @doc """
+  Same as `get_type_ids/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_type_ids(Encoding.t()) :: binary()
+  def get_u32_type_ids(encoding),
+    do: encoding |> Native.get_u32_type_ids() |> Shared.unwrap()
+
+  @doc """
   Get special tokens mask from an encoding.
   """
   @spec get_special_tokens_mask(Encoding.t()) :: [integer()]
   def get_special_tokens_mask(encoding),
     do: encoding |> Native.get_special_tokens_mask() |> Shared.unwrap()
+
+  @doc """
+  Same as `get_special_tokens_mask/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_special_tokens_mask(Encoding.t()) :: binary()
+  def get_u32_special_tokens_mask(encoding),
+    do: encoding |> Native.get_u32_special_tokens_mask() |> Shared.unwrap()
 
   @doc """
   Get offsets from an encoding.
