@@ -38,10 +38,7 @@ pub fn get_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokenizersE
 }
 
 #[rustler::nif]
-pub fn get_u32_ids<'a>(
-    env: Env<'a>,
-    encoding: ExTokenizersEncoding,
-) -> Result<Binary<'a>, ExTokenizersError> {
+pub fn get_u32_ids(env: Env, encoding: ExTokenizersEncoding) -> Result<Binary, ExTokenizersError> {
     Ok(encoding
         .resource
         .make_binary(env, |r| slice_u32_to_u8(r.0.get_ids())))
@@ -53,10 +50,10 @@ pub fn get_attention_mask(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, Ex
 }
 
 #[rustler::nif]
-pub fn get_u32_attention_mask<'a>(
-    env: Env<'a>,
+pub fn get_u32_attention_mask(
+    env: Env,
     encoding: ExTokenizersEncoding,
-) -> Result<Binary<'a>, ExTokenizersError> {
+) -> Result<Binary, ExTokenizersError> {
     Ok(encoding
         .resource
         .make_binary(env, |r| slice_u32_to_u8(r.0.get_attention_mask())))
@@ -68,10 +65,10 @@ pub fn get_type_ids(encoding: ExTokenizersEncoding) -> Result<Vec<u32>, ExTokeni
 }
 
 #[rustler::nif]
-pub fn get_u32_type_ids<'a>(
-    env: Env<'a>,
+pub fn get_u32_type_ids(
+    env: Env,
     encoding: ExTokenizersEncoding,
-) -> Result<Binary<'a>, ExTokenizersError> {
+) -> Result<Binary, ExTokenizersError> {
     Ok(encoding
         .resource
         .make_binary(env, |r| slice_u32_to_u8(r.0.get_type_ids())))
@@ -85,10 +82,10 @@ pub fn get_special_tokens_mask(
 }
 
 #[rustler::nif]
-pub fn get_u32_special_tokens_mask<'a>(
-    env: Env<'a>,
+pub fn get_u32_special_tokens_mask(
+    env: Env,
     encoding: ExTokenizersEncoding,
-) -> Result<Binary<'a>, ExTokenizersError> {
+) -> Result<Binary, ExTokenizersError> {
     Ok(encoding
         .resource
         .make_binary(env, |r| slice_u32_to_u8(r.0.get_special_tokens_mask())))
@@ -142,6 +139,6 @@ pub fn pad(
     Ok(ExTokenizersEncoding::new(new_encoding))
 }
 
-fn slice_u32_to_u8<'a>(slice: &[u32]) -> &[u8] {
+fn slice_u32_to_u8(slice: &[u32]) -> &[u8] {
     unsafe { std::slice::from_raw_parts(slice.as_ptr() as *const u8, slice.len() * 4) }
 }
