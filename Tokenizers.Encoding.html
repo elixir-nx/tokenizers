@@ -10,7 +10,7 @@
     <title>Tokenizers.Encoding — Tokenizers v0.4.0-dev</title>
     <link rel="stylesheet" href="dist/elixir-a816d167216329cc463d.css" />
 
-    <script src="dist/sidebar_items-6cb352b1f4.js"></script>
+    <script src="dist/sidebar_items-e50fed36d6.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -194,6 +194,46 @@ Tokenizers
 
       <div class="summary-row">
         <div class="summary-signature">
+          <a href="#get_u32_attention_mask/1" translate="no">get_u32_attention_mask(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Same as <a href="#get_attention_mask/1"><code class="inline">get_attention_mask/1</code></a>, but returns binary with u32 values.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_u32_ids/1" translate="no">get_u32_ids(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Same as <a href="#get_ids/1"><code class="inline">get_ids/1</code></a>, but returns binary with u32 values.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_u32_special_tokens_mask/1" translate="no">get_u32_special_tokens_mask(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Same as <a href="#get_special_tokens_mask/1"><code class="inline">get_special_tokens_mask/1</code></a>, but returns binary with u32 values.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
+          <a href="#get_u32_type_ids/1" translate="no">get_u32_type_ids(encoding)</a>
+
+        </div>
+
+          <div class="summary-synopsis"><p>Same as <a href="#get_type_ids/1"><code class="inline">get_type_ids/1</code></a>, but returns binary with u32 values.</p></div>
+
+      </div>
+
+      <div class="summary-row">
+        <div class="summary-signature">
           <a href="#n_tokens/1" translate="no">n_tokens(encoding)</a>
 
         </div>
@@ -287,7 +327,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L30" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L36" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -345,7 +385,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_offsets(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L51" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L78" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -374,7 +414,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_special_tokens_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L62" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -432,7 +472,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_type_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L36" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L49" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -452,6 +492,122 @@ Functions
 <p>Get token type ids from an encoding.</p>
   </section>
 </section>
+<section class="detail" id="get_u32_attention_mask/1">
+
+  <div class="detail-header">
+    <a href="#get_u32_attention_mask/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_u32_attention_mask(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L42" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_u32_attention_mask(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
+
+      </div>
+
+<p>Same as <a href="#get_attention_mask/1"><code class="inline">get_attention_mask/1</code></a>, but returns binary with u32 values.</p>
+  </section>
+</section>
+<section class="detail" id="get_u32_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_u32_ids/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_u32_ids(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L30" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_u32_ids(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
+
+      </div>
+
+<p>Same as <a href="#get_ids/1"><code class="inline">get_ids/1</code></a>, but returns binary with u32 values.</p>
+  </section>
+</section>
+<section class="detail" id="get_u32_special_tokens_mask/1">
+
+  <div class="detail-header">
+    <a href="#get_u32_special_tokens_mask/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_u32_special_tokens_mask(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L69" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_u32_special_tokens_mask(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
+
+      </div>
+
+<p>Same as <a href="#get_special_tokens_mask/1"><code class="inline">get_special_tokens_mask/1</code></a>, but returns binary with u32 values.</p>
+  </section>
+</section>
+<section class="detail" id="get_u32_type_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_u32_type_ids/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_u32_type_ids(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L55" class="view-source" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre translate="no">get_u32_type_ids(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()</pre>
+
+      </div>
+
+<p>Same as <a href="#get_type_ids/1"><code class="inline">get_type_ids/1</code></a>, but returns binary with u32 values.</p>
+  </section>
+</section>
 <section class="detail" id="n_tokens/1">
 
   <div class="detail-header">
@@ -461,7 +617,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">n_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L97" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L124" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -492,7 +648,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">pad(encoding, length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L78" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L105" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -528,7 +684,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">truncate(encoding, max_len, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L62" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L89" class="view-source" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
