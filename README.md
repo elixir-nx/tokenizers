@@ -37,9 +37,9 @@ Mix.install([
 {:ok, tokenizer} = Tokenizers.Tokenizer.from_pretrained("bert-base-cased")
 {:ok, encoding} = Tokenizers.Tokenizer.encode(tokenizer, "Hello there!")
 Tokenizers.Encoding.get_tokens(encoding)
-# {:ok, ["Hello", "there", "!"]}
+# ["Hello", "there", "!"]
 Tokenizers.Encoding.get_ids(encoding)
-# {:ok, [8667, 1175, 106]}
+# [8667, 1175, 106]
 ```
 
 The [notebooks](./notebooks) directory has [an introductory Livebook](./notebooks/pretrained.livemd) to give you a feel for the API.
