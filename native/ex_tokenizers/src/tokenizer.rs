@@ -7,7 +7,7 @@ use tokenizers::{EncodeInput, Tokenizer};
 
 use crate::encoding::ExTokenizersEncoding;
 use crate::error::ExTokenizersError;
-use crate::model::ExTokenizersModel;
+use crate::models::ExTokenizersModel;
 
 pub struct ExTokenizersTokenizerRef(pub Tokenizer);
 

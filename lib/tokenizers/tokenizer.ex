@@ -268,7 +268,7 @@ defimpl Inspect, for: Tokenizers.Tokenizer do
     model_details =
       tokenizer
       |> Tokenizer.get_model()
-      |> Model.get_model_details()
+      |> Model.info()
       |> Keyword.new(fn {k, v} -> {String.to_atom(k), v} end)
 
     attrs =

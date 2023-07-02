@@ -10,6 +10,46 @@ defmodule Tokenizers.Native do
     base_url: "#{github_url}/releases/download/v#{version}",
     force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"]
 
+  # Added tokens
+  def added_token_new(_token, _special), do: err()
+  #
+  def added_token_info(_added_token), do: err()
+  #
+  def added_token_single_word(_added_token, _single_word), do: err()
+  def added_token_lstrip(_added_token, _lstrip), do: err()
+  def added_token_rstrip(_added_token, _rstrip), do: err()
+  def added_token_normalized(_added_token, _normalized), do: err()
+
+  # Models
+  def models_save(_model, _folder, _prefix), do: err()
+  #
+  def models_info(_model), do: err()
+  #
+  def models_bpe_init(_vocab, _merges, _options), do: err()
+  def models_bpe_empty(), do: err()
+  def models_bpe_from_file(_vocab, _merges, _options), do: err()
+  #
+  def models_wordpiece_init(_vocab, _options), do: err()
+  def models_wordpiece_empty(), do: err()
+  def models_wordpiece_from_file(_vocab, _options), do: err()
+  #
+  def models_wordlevel_init(_vocab, _options), do: err()
+  def models_wordlevel_empty(), do: err()
+  def models_wordlevel_from_file(_vocab, _options), do: err()
+  #
+  def models_unigram_init(_vocab, _options), do: err()
+  def models_unigram_empty(), do: err()
+
+  # Trainers
+  def trainers_info(_trainer), do: err()
+  #
+  def trainers_train(_trainer, _model), do: err()
+  #
+  def trainers_bpe_trainer(_options), do: err()
+  def trainers_wordpiece_trainer(_options), do: err()
+  def trainers_wordlevel_trainer(_options), do: err()
+  def trainers_unigram_trainer(_options), do: err()
+
   def decode(_tokenizer, _ids, _skip_special_tokens), do: err()
   def decode_batch(_tokenizer, _ids, _skip_special_tokens), do: err()
   def encode(_tokenizer, _input, _add_special_tokens), do: err()
