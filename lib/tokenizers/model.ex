@@ -17,13 +17,20 @@ defmodule Tokenizers.Model do
   @spec info(model :: __MODULE__.t()) :: map()
   defdelegate info(model), to: Tokenizers.Native, as: :models_info
 
+  @typedoc """
+  Options to save the model. All options can be ommited.
+
+  * `:prefix` (default `""`) - The prefix to use for all the files that will get created.
+  """
+  @type save_opts() :: [prefix: String.t()]
+
   @doc """
   Save the current model in the given folder, using the given name for the various files that will get created.
   Any file with the same name that already exist in this folder will be overwritten.
   """
-  @spec save(model :: t(), folder :: String.t(), prefix :: String.t()) ::
-          {:ok, file_pathes :: [String.t()]} | {:error, any()}
-  defdelegate save(model, folder, prefix \\ ""), to: Tokenizers.Native, as: :models_save
+  @spec save(model :: t(), folder :: String.t(), opts :: save_opts()) ::
+          {:ok, file_paths :: [String.t()]} | {:error, any()}
+  defdelegate save(model, folder, opts \\ []), to: Tokenizers.Native, as: :models_save
 end
 
 defimpl Inspect, for: Tokenizers.Model do

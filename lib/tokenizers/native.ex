@@ -21,7 +21,7 @@ defmodule Tokenizers.Native do
   def added_token_normalized(_added_token, _normalized), do: err()
 
   # Models
-  def models_save(_model, _folder, _prefix), do: err()
+  def models_save(_model, _folder, _opts), do: err()
   #
   def models_info(_model), do: err()
   #

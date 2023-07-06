@@ -102,18 +102,34 @@ impl ExTokenizersModel {
     }
 }
 
+#[derive(NifTaggedEnum)]
+pub enum ModelSaveOptions {
+    Prefix(String),
+}
+
 #[rustler::nif(schedule = "DirtyIo")]
 pub fn models_save(
     model: ExTokenizersModel,
     folder: String,
-    prefix: String,
+    options: Vec<ModelSaveOptions>,
 ) -> Result<Vec<String>, ExTokenizersError> {
+    struct Opts {
+        prefix: Option<String>,
+    }
+
+    // Default values
+    let mut opts = Opts { prefix: None };
+
+    options.into_iter().for_each(|option| match option {
+        ModelSaveOptions::Prefix(prefix) => opts.prefix = Some(prefix),
+    });
+
     Ok(model
         .resource
         .0
         .read()
         .unwrap()
-        .save(Path::new(&folder), Some(&prefix))?
+        .save(Path::new(&folder), opts.prefix.as_deref())?
         .iter()
         .map(|path| {
             path.to_str()

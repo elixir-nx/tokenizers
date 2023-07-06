@@ -37,7 +37,7 @@ defmodule Tokenizers.Trainer do
   Creates a new BPE Trainer.
   """
   @spec bpe(bpe_options()) :: {:ok, t()} | {:error, any()}
-  defdelegate bpe(options), to: Tokenizers.Native, as: :trainers_bpe_trainer
+  defdelegate bpe(options \\ []), to: Tokenizers.Native, as: :trainers_bpe_trainer
 
   @typedoc """
   Options for WordPiece trainer initialisation. All options can be ommited.
@@ -57,7 +57,7 @@ defmodule Tokenizers.Trainer do
   Creates a new WordPiece Trainer.
   """
   @spec wordpiece(wordpiece_options()) :: {:ok, t()} | {:error, any()}
-  defdelegate wordpiece(options), to: Tokenizers.Native, as: :trainers_wordpiece_trainer
+  defdelegate wordpiece(options \\ []), to: Tokenizers.Native, as: :trainers_wordpiece_trainer
 
   @typedoc """
   Options for WordLevel trainer initialisation. All options can be ommited.
@@ -73,7 +73,7 @@ defmodule Tokenizers.Trainer do
   Creates a new WordLevel Trainer.
   """
   @spec wordlevel(wordlevel_options()) :: {:ok, t()} | {:error, any()}
-  defdelegate wordlevel(options), to: Tokenizers.Native, as: :trainers_wordlevel_trainer
+  defdelegate wordlevel(options \\ []), to: Tokenizers.Native, as: :trainers_wordlevel_trainer
 
   @typedoc """
   Options for Unigram trainer initialisation. All options can be ommited.
@@ -94,7 +94,7 @@ defmodule Tokenizers.Trainer do
   Creates a new Unigram Trainer.
   """
   @spec unigram(unigram_options()) :: {:ok, t()} | {:error, any()}
-  defdelegate unigram(options), to: Tokenizers.Native, as: :trainers_unigram_trainer
+  defdelegate unigram(options \\ []), to: Tokenizers.Native, as: :trainers_unigram_trainer
 end
 
 defimpl Inspect, for: Tokenizers.Trainer do
