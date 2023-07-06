@@ -31,11 +31,6 @@ rustler::init!(
         added_token_new,
         //
         added_token_info,
-        //
-        added_token_single_word,
-        added_token_lstrip,
-        added_token_rstrip,
-        added_token_normalized,
         // Models
         models_save,
         //

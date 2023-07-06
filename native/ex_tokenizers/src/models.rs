@@ -103,7 +103,7 @@ impl ExTokenizersModel {
 }
 
 #[derive(NifTaggedEnum)]
-pub enum ModelSaveOptions {
+pub enum ModelSaveOption {
     Prefix(String),
 }
 
@@ -111,7 +111,7 @@ pub enum ModelSaveOptions {
 pub fn models_save(
     model: ExTokenizersModel,
     folder: String,
-    options: Vec<ModelSaveOptions>,
+    options: Vec<ModelSaveOption>,
 ) -> Result<Vec<String>, ExTokenizersError> {
     struct Opts {
         prefix: Option<String>,
@@ -121,7 +121,7 @@ pub fn models_save(
     let mut opts = Opts { prefix: None };
 
     options.into_iter().for_each(|option| match option {
-        ModelSaveOptions::Prefix(prefix) => opts.prefix = Some(prefix),
+        ModelSaveOption::Prefix(prefix) => opts.prefix = Some(prefix),
     });
 
     Ok(model

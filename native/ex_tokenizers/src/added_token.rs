@@ -1,5 +1,5 @@
 use crate::{new_info, util::Info};
-use rustler::NifUntaggedEnum;
+use rustler::{NifTaggedEnum, NifUntaggedEnum};
 use serde::{Deserialize, Serialize};
 use tokenizers::AddedToken;
 
@@ -98,33 +98,49 @@ fn added_token_info(added_token: ExTokenizersAddedToken) -> Info {
     )
 }
 
-#[rustler::nif]
-fn added_token_new(token: String, special: bool) -> ExTokenizersAddedToken {
-    ExTokenizersAddedToken::new(AddedToken::from(token, special))
+#[derive(NifTaggedEnum)]
+pub enum AddedTokenOption {
+    Special(bool),
+    SingleWord(bool),
+    Lstrip(bool),
+    Rstrip(bool),
+    Normalized(bool),
 }
 
 #[rustler::nif]
-fn added_token_single_word(
-    added_token: ExTokenizersAddedToken,
-    single_word: bool,
-) -> ExTokenizersAddedToken {
-    ExTokenizersAddedToken::new(added_token.resource.0.clone().single_word(single_word))
-}
+fn added_token_new(token: String, options: Vec<AddedTokenOption>) -> ExTokenizersAddedToken {
+    struct Opts {
+        special: bool,
+        single_word: bool,
+        lstrip: bool,
+        rstrip: bool,
+        normalized: Option<bool>,
+    }
+    let mut opts = Opts {
+        special: false,
+        single_word: false,
+        lstrip: false,
+        rstrip: false,
+        normalized: None,
+    };
 
-#[rustler::nif]
-fn added_token_lstrip(added_token: ExTokenizersAddedToken, lstrip: bool) -> ExTokenizersAddedToken {
-    ExTokenizersAddedToken::new(added_token.resource.0.clone().lstrip(lstrip))
-}
+    for option in options {
+        match option {
+            AddedTokenOption::Special(value) => opts.special = value,
+            AddedTokenOption::SingleWord(value) => opts.single_word = value,
+            AddedTokenOption::Lstrip(value) => opts.lstrip = value,
+            AddedTokenOption::Rstrip(value) => opts.rstrip = value,
+            AddedTokenOption::Normalized(value) => opts.normalized = Some(value),
+        }
+    }
 
-#[rustler::nif]
-fn added_token_rstrip(added_token: ExTokenizersAddedToken, rstrip: bool) -> ExTokenizersAddedToken {
-    ExTokenizersAddedToken::new(added_token.resource.0.clone().rstrip(rstrip))
-}
+    let mut token = AddedToken::from(token, opts.special);
+    token = token.single_word(opts.single_word);
+    token = token.lstrip(opts.lstrip);
+    token = token.rstrip(opts.rstrip);
+    if let Some(normalized) = opts.normalized {
+        token = token.normalized(normalized);
+    }
 
-#[rustler::nif]
-fn added_token_normalized(
-    added_token: ExTokenizersAddedToken,
-    normalized: bool,
-) -> ExTokenizersAddedToken {
-    ExTokenizersAddedToken::new(added_token.resource.0.clone().normalized(normalized))
+    ExTokenizersAddedToken::new(token)
 }

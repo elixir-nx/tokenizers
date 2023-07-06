@@ -11,14 +11,9 @@ defmodule Tokenizers.Native do
     force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"]
 
   # Added tokens
-  def added_token_new(_token, _special), do: err()
+  def added_token_new(_token, _opts), do: err()
   #
   def added_token_info(_added_token), do: err()
-  #
-  def added_token_single_word(_added_token, _single_word), do: err()
-  def added_token_lstrip(_added_token, _lstrip), do: err()
-  def added_token_rstrip(_added_token, _rstrip), do: err()
-  def added_token_normalized(_added_token, _normalized), do: err()
 
   # Models
   def models_save(_model, _folder, _opts), do: err()

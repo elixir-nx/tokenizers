@@ -3,11 +3,11 @@ defmodule Tokenizers.TrainerTest do
   doctest Tokenizers.Trainer
 
   describe "BPE trainer" do
-    test "it successfully initializes with empty params" do
+    test "successfully initializes with empty params" do
       assert {:ok, %Tokenizers.Trainer{}} = Tokenizers.Trainer.bpe()
     end
 
-    test "it successfully initializes with params" do
+    test "successfully initializes with params" do
       assert {:ok, %Tokenizers.Trainer{} = trainer} =
                Tokenizers.Trainer.bpe(
                  vocab_size: 1000,
@@ -33,7 +33,7 @@ defmodule Tokenizers.TrainerTest do
              } == Tokenizers.Trainer.info(trainer)
     end
 
-    test "it fails to initialize with invalid params" do
+    test "fails to initialize with invalid params" do
       assert {:error, _} =
                Tokenizers.Trainer.bpe(
                  vocab_size: 1000,
@@ -47,26 +47,26 @@ defmodule Tokenizers.TrainerTest do
                )
     end
 
-    test "it accepts added tokens as special tokens" do
+    test "accepts added tokens as special tokens" do
       assert {:ok, %Tokenizers.Trainer{}} =
                Tokenizers.Trainer.bpe(
                  special_tokens: [
-                   Tokenizers.AddedToken.new("[UNK]", true),
-                   Tokenizers.AddedToken.new("[CLS]", true),
-                   Tokenizers.AddedToken.new("[SEP]", true),
-                   Tokenizers.AddedToken.new("[PAD]", true),
-                   Tokenizers.AddedToken.new("[MASK]", true)
+                   Tokenizers.AddedToken.new("[UNK]", special: true),
+                   Tokenizers.AddedToken.new("[CLS]", special: true),
+                   Tokenizers.AddedToken.new("[SEP]", special: true),
+                   Tokenizers.AddedToken.new("[PAD]", special: true),
+                   Tokenizers.AddedToken.new("[MASK]", special: true)
                  ]
                )
     end
   end
 
   describe "WordPiece trainer" do
-    test "it successfully initializes with empty params" do
+    test "successfully initializes with empty params" do
       assert {:ok, %Tokenizers.Trainer{}} = Tokenizers.Trainer.wordpiece()
     end
 
-    test "it successfully initializes with params" do
+    test "successfully initializes with params" do
       assert {:ok, %Tokenizers.Trainer{}} =
                Tokenizers.Trainer.wordpiece(
                  vocab_size: 1000,
@@ -82,11 +82,11 @@ defmodule Tokenizers.TrainerTest do
   end
 
   describe "WordLevel trainer" do
-    test "it successfully initializes with empty params" do
+    test "successfully initializes with empty params" do
       assert {:ok, %Tokenizers.Trainer{}} = Tokenizers.Trainer.wordlevel()
     end
 
-    test "it successfully initializes with params" do
+    test "successfully initializes with params" do
       assert {:ok, %Tokenizers.Trainer{}} =
                Tokenizers.Trainer.wordlevel(
                  vocab_size: 1000,
@@ -98,11 +98,11 @@ defmodule Tokenizers.TrainerTest do
   end
 
   describe "Unigram trainer" do
-    test "it successfully initializes with empty params" do
+    test "successfully initializes with empty params" do
       assert {:ok, %Tokenizers.Trainer{}} = Tokenizers.Trainer.unigram()
     end
 
-    test "it successfully initializes with params" do
+    test "successfully initializes with params" do
       assert {:ok, %Tokenizers.Trainer{}} =
                Tokenizers.Trainer.unigram(
                  vocab_size: 1000,
