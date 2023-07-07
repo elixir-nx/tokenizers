@@ -9,6 +9,8 @@ rustler::atoms! {
 
 #[derive(Error, Debug)]
 pub enum ExTokenizersError {
+    #[error("Invalid Char")]
+    InvalidChar,
     #[error("Tokenizer Error")]
     Tokenizer(#[from] Box<dyn std::error::Error + Send + Sync>),
     #[error("IO Error")]
