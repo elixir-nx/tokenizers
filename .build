@@ -1,10 +1,16 @@
 /home/runner/work/tokenizers/tokenizers/doc/pretrained.livemd
 404.html
+Tokenizers.AddedToken.html
 Tokenizers.Encoding.html
 Tokenizers.HTTPClient.html
+Tokenizers.Model.BPE.html
+Tokenizers.Model.Unigram.html
+Tokenizers.Model.WordLevel.html
+Tokenizers.Model.WordPiece.html
 Tokenizers.Model.html
 Tokenizers.Native.html
 Tokenizers.Tokenizer.html
+Tokenizers.Trainer.html
 Tokenizers.html
 api-reference.html
 dist/handlebars.runtime-NWIB6V2M.js
@@ -34,8 +40,8 @@ dist/merriweather-latin-ext-300-normal-K6L27CZ5.woff2
 dist/merriweather-vietnamese-300-italic-EHHNZPUO.woff2
 dist/merriweather-vietnamese-300-normal-U376L4Z4.woff2
 dist/remixicon-NKANDIL5.woff2
-dist/search_items-E3C3D879.js
-dist/sidebar_items-8DBC5AE6.js
+dist/search_items-172BFDEB.js
+dist/sidebar_items-1351FDD6.js
 index.html
 license.html
 pretrained.html

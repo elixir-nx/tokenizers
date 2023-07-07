@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.29.4">
     <meta name="project" content="Tokenizers v0.3.2">
 
-    <title>Tokenizers.HTTPClient — Tokenizers v0.3.2</title>
+    <title>Tokenizers.Model.Unigram — Tokenizers v0.3.2</title>
     <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
 
 
@@ -96,21 +96,16 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/http_client.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/unigram.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
-  <span translate="no">Tokenizers.HTTPClient</span> 
+  <span translate="no">Tokenizers.Model.Unigram</span> 
   <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
 
 </h1>
 
-
-  <section id="moduledoc">
-<p>A simple implementation of an HTTP client.</p><p>This is using the built-in <code class="inline">:httpc</code> module, configured to use SSL.
-The <a href="#request/1"><code class="inline">request/1</code></a> function is similar to <code class="inline">Req.request/1</code>.</p>
-  </section>
 
 
   <section id="summary" class="details-list">
@@ -121,6 +116,22 @@ The <a href="#request/1"><code class="inline">request/1</code></a> function is s
       </a>
       Summary
     </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:options/0" translate="no">options()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for model initialisation. All options can be ommited.</p></div>
+
+    </div>
+
+</div>
 <div class="summary-functions summary">
   <h2>
     <a href="#functions">Functions</a>
@@ -128,11 +139,21 @@ The <a href="#request/1"><code class="inline">request/1</code></a> function is s
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#request/1" translate="no">request(opts)</a>
+        <a href="#empty/0" translate="no">empty()</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Make an HTTP(s) requests.</p></div>
+        <div class="summary-synopsis"><p>Instantiate an empty Unigram model</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#init/2" translate="no">init(vocab, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Instantiate a Unigram model from the given vocab</p></div>
 
     </div>
 
@@ -140,6 +161,47 @@ The <a href="#request/1"><code class="inline">request/1</code></a> function is s
 
   </section>
 
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:options/0">
+
+  <div class="detail-header">
+    <a href="#t:options/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">options()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/unigram.ex#L7" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> options() :: [{:unk_id, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>()}]</pre>
+
+      </div>
+
+<p>Options for model initialisation. All options can be ommited.</p><ul><li><code class="inline">:unk_id</code>- The unknown token id to be used by the model.</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
 
   <section id="functions" class="details-list">
     <h1 class="section-heading">
@@ -150,16 +212,16 @@ The <a href="#request/1"><code class="inline">request/1</code></a> function is s
 Functions
     </h1>
     <div class="functions-list">
-<section class="detail" id="request/1">
+<section class="detail" id="empty/0">
 
   <div class="detail-header">
-    <a href="#request/1" class="detail-link" title="Link to this function">
+    <a href="#empty/0" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">request(opts)</h1>
+    <h1 class="signature" translate="no">empty()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/http_client.ex#L25" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/unigram.ex#L26" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -169,13 +231,46 @@ Functions
 
   <section class="docstring">
 
-<p>Make an HTTP(s) requests.</p><h2 id="request/1-options" class="section-heading">
-  <a href="#request/1-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">options</p>
-  </a>
-  Options
-</h2>
-<ul><li><p><code class="inline">:method</code> - An HTTP method. By default it uses the <code class="inline">:get</code> method.</p></li><li><p><code class="inline">:base_url</code> - The base URL to make requests. By default is &quot;<a href="https://huggingface.io%22">https://huggingface.io&quot;</a>. </p></li><li><p><code class="inline">:url</code> - A path to a resource. By default is &quot;&quot;.</p></li><li><p><code class="inline">:headers</code> - A list of tuples representing HTTP headers. By default it's empty.</p></li></ul>
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> empty() :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
+
+      </div>
+
+<p>Instantiate an empty Unigram model</p>
+  </section>
+</section>
+<section class="detail" id="init/2">
+
+    <span id="init/1"></span>
+
+  <div class="detail-header">
+    <a href="#init/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">init(vocab, options \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/unigram.ex#L18" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> init(
+  vocab :: [{<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()}],
+  options :: <a href="#t:options/0">options</a>()
+) :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
+
+      </div>
+
+<p>Instantiate a Unigram model from the given vocab</p>
   </section>
 </section>
 
@@ -190,7 +285,7 @@ Functions
 
               <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/http_client.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/model/unigram.ex">current file</a>)
 
             </span>
 

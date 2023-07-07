@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.29.4">
     <meta name="project" content="Tokenizers v0.3.2">
 
-    <title>Tokenizers.Model — Tokenizers v0.3.2</title>
+    <title>Tokenizers.Model.WordLevel — Tokenizers v0.3.2</title>
     <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
 
 
@@ -96,20 +96,16 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/wordlevel.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
-  <span translate="no">Tokenizers.Model</span> 
+  <span translate="no">Tokenizers.Model.WordLevel</span> 
   <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
 
 </h1>
 
-
-  <section id="moduledoc">
-<p>The struct and associated functions for the tokenizer model.</p>
-  </section>
 
 
   <section id="summary" class="details-list">
@@ -127,21 +123,11 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:save_opts/0" translate="no">save_opts()</a>
+        <a href="#t:options/0" translate="no">options()</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Options to save the model. All options can be ommited.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:t/0" translate="no">t()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Represents different kind of models that can be used across the library.</p></div>
+        <div class="summary-synopsis"><p>Options for model initialisation. All options can be ommited.</p></div>
 
     </div>
 
@@ -153,22 +139,31 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#info/1" translate="no">info(model)</a>
+        <a href="#empty/0" translate="no">empty()</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Retrieves information about the model.</p></div>
+        <div class="summary-synopsis"><p>Instantiate an empty WordLevel model</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#save/3" translate="no">save(model, folder, opts \\ [])</a>
+        <a href="#from_file/2" translate="no">from_file(vocab, options \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p></div>
+        <div class="summary-synopsis"><p>Instantiate a WordLevel model from the given vocab file</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#init/2" translate="no">init(vocab, options \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Instantiate a WordLevel model from the given vocab</p></div>
 
     </div>
 
@@ -186,16 +181,16 @@ Any file with the same name that already exist in this folder will be overwritte
 Types
     </h1>
     <div class="types-list">
-<section class="detail" id="t:save_opts/0">
+<section class="detail" id="t:options/0">
 
   <div class="detail-header">
-    <a href="#t:save_opts/0" class="detail-link" title="Link to this type">
+    <a href="#t:options/0" class="detail-link" title="Link to this type">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this type</span>
     </a>
-    <h1 class="signature" translate="no">save_opts()</h1>
+    <h1 class="signature" translate="no">options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L25" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/wordlevel.ex#L7" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -207,39 +202,11 @@ Types
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> save_opts() :: [{:prefix, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
+          <pre translate="no"><span class="attribute">@type</span> options() :: [{:unk_token, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
 
       </div>
 
-<p>Options to save the model. All options can be ommited.</p><ul><li><code class="inline">:prefix</code> (default <code class="inline">&quot;&quot;</code>) - The prefix to use for all the files that will get created.</li></ul>
-  </section>
-</section>
-<section class="detail" id="t:t/0">
-
-  <div class="detail-header">
-    <a href="#t:t/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">t()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L9" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.Model{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
-
-      </div>
-
-<p>Represents different kind of models that can be used across the library.</p>
+<p>Options for model initialisation. All options can be ommited.</p><ul><li><code class="inline">:unk_token</code> (default <code class="inline">&quot;[UNK]&quot;</code>) - The unknown token to be used by the model.</li></ul>
   </section>
 </section>
 
@@ -255,16 +222,16 @@ Types
 Functions
     </h1>
     <div class="functions-list">
-<section class="detail" id="info/1">
+<section class="detail" id="empty/0">
 
   <div class="detail-header">
-    <a href="#info/1" class="detail-link" title="Link to this function">
+    <a href="#empty/0" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">info(model)</h1>
+    <h1 class="signature" translate="no">empty()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L18" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/wordlevel.ex#L26" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -276,25 +243,25 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> info(model :: <a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> empty() :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
 
       </div>
 
-<p>Retrieves information about the model.</p><p>Information retrieved differs per model but all include <code class="inline">model_type</code>.</p>
+<p>Instantiate an empty WordLevel model</p>
   </section>
 </section>
-<section class="detail" id="save/3">
+<section class="detail" id="from_file/2">
 
-    <span id="save/2"></span>
+    <span id="from_file/1"></span>
 
   <div class="detail-header">
-    <a href="#save/3" class="detail-link" title="Link to this function">
+    <a href="#from_file/2" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">save(model, folder, opts \\ [])</h1>
+    <h1 class="signature" translate="no">from_file(vocab, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/wordlevel.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -306,13 +273,47 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> save(model :: <a href="#t:t/0">t</a>(), folder :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), opts :: <a href="#t:save_opts/0">save_opts</a>()) ::
-  {:ok, file_paths :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> from_file(
+  vocab :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  options :: <a href="#t:options/0">options</a>()
+) :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
 
       </div>
 
-<p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p>
+<p>Instantiate a WordLevel model from the given vocab file</p>
+  </section>
+</section>
+<section class="detail" id="init/2">
+
+    <span id="init/1"></span>
+
+  <div class="detail-header">
+    <a href="#init/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">init(vocab, options \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model/wordlevel.ex#L18" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> init(
+  vocab :: %{required(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()},
+  options :: <a href="#t:options/0">options</a>()
+) :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
+
+      </div>
+
+<p>Instantiate a WordLevel model from the given vocab</p>
   </section>
 </section>
 
@@ -327,7 +328,7 @@ Any file with the same name that already exist in this folder will be overwritte
 
               <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/model.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/model/wordlevel.ex">current file</a>)
 
             </span>
 

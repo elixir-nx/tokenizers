@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.29.4">
     <meta name="project" content="Tokenizers v0.3.2">
 
-    <title>Tokenizers.Model — Tokenizers v0.3.2</title>
+    <title>Tokenizers.AddedToken — Tokenizers v0.3.2</title>
     <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
 
 
@@ -96,19 +96,19 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/added_token.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
-  <span translate="no">Tokenizers.Model</span> 
+  <span translate="no">Tokenizers.AddedToken</span> 
   <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
 
 </h1>
 
 
   <section id="moduledoc">
-<p>The struct and associated functions for the tokenizer model.</p>
+<p>This struct represents AddedTokens</p>
   </section>
 
 
@@ -127,11 +127,11 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:save_opts/0" translate="no">save_opts()</a>
+        <a href="#t:opts/0" translate="no">opts()</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Options to save the model. All options can be ommited.</p></div>
+        <div class="summary-synopsis"><p>Options for added token initialisation. All options can be ommited.</p></div>
 
     </div>
 
@@ -140,8 +140,6 @@ Tokenizers
         <a href="#t:t/0" translate="no">t()</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Represents different kind of models that can be used across the library.</p></div>
 
     </div>
 
@@ -157,18 +155,17 @@ Tokenizers
 
       </div>
 
-        <div class="summary-synopsis"><p>Retrieves information about the model.</p></div>
+        <div class="summary-synopsis"><p>Retrieves information about added token.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#save/3" translate="no">save(model, folder, opts \\ [])</a>
+        <a href="#new/2" translate="no">new(token, opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p></div>
+        <div class="summary-synopsis"><p>Create a new AddedToken.</p></div>
 
     </div>
 
@@ -186,16 +183,16 @@ Any file with the same name that already exist in this folder will be overwritte
 Types
     </h1>
     <div class="types-list">
-<section class="detail" id="t:save_opts/0">
+<section class="detail" id="t:opts/0">
 
   <div class="detail-header">
-    <a href="#t:save_opts/0" class="detail-link" title="Link to this type">
+    <a href="#t:opts/0" class="detail-link" title="Link to this type">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this type</span>
     </a>
-    <h1 class="signature" translate="no">save_opts()</h1>
+    <h1 class="signature" translate="no">opts()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L25" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/added_token.ex#L12" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -207,11 +204,17 @@ Types
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> save_opts() :: [{:prefix, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
+          <pre translate="no"><span class="attribute">@type</span> opts() :: [
+  special: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+  single_word: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+  lstrip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+  rstrip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+  normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+]</pre>
 
       </div>
 
-<p>Options to save the model. All options can be ommited.</p><ul><li><code class="inline">:prefix</code> (default <code class="inline">&quot;&quot;</code>) - The prefix to use for all the files that will get created.</li></ul>
+<p>Options for added token initialisation. All options can be ommited.</p>
   </section>
 </section>
 <section class="detail" id="t:t/0">
@@ -223,7 +226,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L9" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/added_token.ex#L6" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -235,11 +238,11 @@ Types
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.Model{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.AddedToken{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
 
       </div>
 
-<p>Represents different kind of models that can be used across the library.</p>
+
   </section>
 </section>
 
@@ -264,7 +267,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">info(model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L18" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/added_token.ex#L57" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -276,25 +279,25 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> info(model :: <a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> info(added_token :: <a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
 
       </div>
 
-<p>Retrieves information about the model.</p><p>Information retrieved differs per model but all include <code class="inline">model_type</code>.</p>
+<p>Retrieves information about added token.</p>
   </section>
 </section>
-<section class="detail" id="save/3">
+<section class="detail" id="new/2">
 
-    <span id="save/2"></span>
+    <span id="new/1"></span>
 
   <div class="detail-header">
-    <a href="#save/3" class="detail-link" title="Link to this function">
+    <a href="#new/2" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">save(model, folder, opts \\ [])</h1>
+    <h1 class="signature" translate="no">new(token, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/model.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/added_token.ex#L51" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -306,13 +309,28 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> save(model :: <a href="#t:t/0">t</a>(), folder :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), opts :: <a href="#t:save_opts/0">save_opts</a>()) ::
-  {:ok, file_paths :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> new(token :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), opts :: <a href="#t:opts/0">opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p>
+<p>Create a new AddedToken.</p><ul><li><p><code class="inline">:special</code> (default <code class="inline">false</code>) - defines whether this token is a special token.</p></li><li><p><code class="inline">:single_word</code> (default <code class="inline">false</code>) - defines whether this token should only match single words.
+If <code class="inline">true</code>, this token will never match inside of a word. For example the token <code class="inline">ing</code> would
+match on <code class="inline">tokenizing</code> if this option is <code class="inline">false</code>, but not if it is <code class="inline">true</code>.
+The notion of ”inside of a word” is defined by the word boundaries pattern
+in regular expressions (i.e. the token should start and end with word boundaries).</p></li><li><p><code class="inline">:lstrip</code> (default <code class="inline">false</code>) - defines whether this token should strip all potential 
+whitespaces on its left side.
+If <code class="inline">true</code>, this token will greedily match any whitespace on its left.
+For example if we try to match the token <code class="inline">[MASK]</code> with <code class="inline">lstrip=true</code>,
+in the text <code class="inline">&quot;I saw a [MASK]&quot;</code>, we would match on <code class="inline">&quot; [MASK]&quot;</code>. (Note the space on the left).</p></li><li><p><code class="inline">:rstrip</code> (default <code class="inline">false</code>) - defines whether this token should strip all potential
+whitespaces on its right side.
+If <code class="inline">true</code>, this token will greedily match any whitespace on its right.
+It works just like <code class="inline">lstrip</code> but on the right.</p></li><li><p><code class="inline">:normalized</code> (default <code class="inline">true</code> for not special tokens, <code class="inline">false</code> for special tokens) -
+defines whether this token should match against the normalized version of the input text.
+For example, with the added token <code class="inline">&quot;yesterday&quot;</code>,
+and a normalizer in charge of lowercasing the text,
+the token could be extract from the input <code class="inline">&quot;I saw a lion Yesterday&quot;</code>.
+If <code class="inline">true</code>, the token will be extracted from the normalized input <code class="inline">&quot;i saw a lion yesterday&quot;</code>.
+If <code class="inline">false</code>, the token will be extracted from the original input <code class="inline">&quot;I saw a lion Yesterday&quot;</code>.</p></li></ul>
   </section>
 </section>
 
@@ -327,7 +345,7 @@ Any file with the same name that already exist in this folder will be overwritte
 
               <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/model.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/added_token.ex">current file</a>)
 
             </span>
 
