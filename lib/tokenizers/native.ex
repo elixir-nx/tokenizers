@@ -15,6 +15,22 @@ defmodule Tokenizers.Native do
   #
   def added_token_info(_added_token), do: err()
 
+  # Decoders
+  def decoders_decode(_decoder, _tokens), do: err()
+  #
+  def decoders_info(_decoder), do: err()
+  #
+  def decoders_byte_level(), do: err()
+  def decoders_replace(_pattern, _content), do: err()
+  def decoders_wordpiece(_prefix, _cleanup), do: err()
+  def decoders_byte_fallback(), do: err()
+  def decoders_fuse(), do: err()
+  def decoders_strip(_content, _left, _right), do: err()
+  def decoders_metaspace(_replacement, _add_prefix_space), do: err()
+  def decoders_bpe(_suffix), do: err()
+  def decoders_ctc(_pad_token, _word_delimiter_token, _cleanup), do: err()
+  def decoders_sequence(_decoders), do: err()
+
   # Models
   def models_save(_model, _folder, _opts), do: err()
   #
@@ -34,6 +50,51 @@ defmodule Tokenizers.Native do
   #
   def models_unigram_init(_vocab, _options), do: err()
   def models_unigram_empty(), do: err()
+
+  # Normalizers
+  def normalizers_normalize(_normalizer, _input), do: err()
+  #
+  def normalizers_info(_normalizer), do: err()
+  #
+  def normalizers_bert_normalizer(_opts), do: err()
+  def normalizers_nfd(), do: err()
+  def normalizers_nfkd(), do: err()
+  def normalizers_nfc(), do: err()
+  def normalizers_nfkc(), do: err()
+  def normalizers_strip(_opts), do: err()
+  def normalizers_prepend(_prepend), do: err()
+  def normalizers_strip_accents(), do: err()
+  def normalizers_sequence(_normalizers), do: err()
+  def normalizers_lowercase(), do: err()
+  def normalizers_replace(_pattern, _content), do: err()
+  def normalizers_nmt(), do: err()
+  def normalizers_precompiled(_data), do: err()
+
+  # PreTokenizers
+  def pre_tokenizers_pre_tokenize(_pre_tokenizer, _input), do: err()
+  #
+  def pre_tokenizers_info(_pre_tokenizer), do: err()
+  #
+  def pre_tokenizers_byte_level(_opts), do: err()
+  def pre_tokenizers_byte_level_alphabet(), do: err()
+  def pre_tokenizers_whitespace(), do: err()
+  def pre_tokenizers_whitespace_split(), do: err()
+  def pre_tokenizers_bert(), do: err()
+  def pre_tokenizers_metaspace(_opts), do: err()
+  def pre_tokenizers_char_delimiter_split(_delimiter), do: err()
+  def pre_tokenizers_split(_pattern, _behavior, _invert), do: err()
+  def pre_tokenizers_punctuation(_behavior), do: err()
+  def pre_tokenizers_sequence(_pre_tokenizers), do: err()
+  def pre_tokenizers_digits(_individual_digits), do: err()
+
+  # PostProcessors
+  def post_processors_info(_post_processor), do: err()
+  #
+  def post_processors_bert(_sep, _cls), do: err()
+  def post_processors_roberta(_sep, _cls, _opts), do: err()
+  def post_processors_byte_level(_opts), do: err()
+  def post_processors_template(_opts), do: err()
+  def post_processors_sequence(_post_processors), do: err()
 
   # Trainers
   def trainers_info(_trainer), do: err()
