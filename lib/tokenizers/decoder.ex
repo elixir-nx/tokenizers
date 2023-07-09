@@ -96,7 +96,10 @@ defmodule Tokenizers.Decoder do
   defdelegate sequence(decoders), to: Tokenizers.Native, as: :decoders_sequence
 
   @doc """
-  Creates new Strip decoder
+  Creates new Strip decoder.
+  
+  It expects a character and the number of times to strip the
+  character on `left` and `right` sides.
   """
   @spec strip(content :: char(), left :: non_neg_integer(), right :: non_neg_integer()) :: t()
   defdelegate strip(content, left, right), to: Tokenizers.Native, as: :decoders_strip
