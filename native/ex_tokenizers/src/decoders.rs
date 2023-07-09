@@ -1,3 +1,4 @@
+use rustler::NifTaggedEnum;
 use serde::{Deserialize, Serialize};
 use tokenizers::{Decoder, DecoderWrapper};
 
@@ -150,10 +151,31 @@ fn decoders_replace(
     ))
 }
 
+#[derive(NifTaggedEnum)]
+pub enum WordpieceOption {
+    Prefix(String),
+    Cleanup(bool),
+}
+
 #[rustler::nif]
-fn decoders_wordpiece(prefix: String, cleanup: bool) -> ExTokenizersDecoder {
+fn decoders_wordpiece(options: Vec<WordpieceOption>) -> ExTokenizersDecoder {
+    struct Opts {
+        prefix: String,
+        cleanup: bool,
+    }
+    let mut opts = Opts {
+        prefix: "##".into(),
+        cleanup: true,
+    };
+    for opt in options {
+        match opt {
+            WordpieceOption::Prefix(prefix) => opts.prefix = prefix,
+            WordpieceOption::Cleanup(cleanup) => opts.cleanup = cleanup,
+        }
+    }
     ExTokenizersDecoder::new(tokenizers::decoders::wordpiece::WordPiece::new(
-        prefix, cleanup,
+        opts.prefix,
+        opts.cleanup,
     ))
 }
 
@@ -179,32 +201,95 @@ fn decoders_strip(
     ))
 }
 
+#[derive(NifTaggedEnum)]
+pub enum MetaspaceOption {
+    Replacement(u32),
+    AddPrefixSpace(bool),
+}
+
 #[rustler::nif]
 fn decoders_metaspace(
-    replacement: u32,
-    add_prefix_space: bool,
+    options: Vec<MetaspaceOption>,
 ) -> Result<ExTokenizersDecoder, rustler::Error> {
-    let replacement = std::char::from_u32(replacement).ok_or(rustler::Error::BadArg)?;
+    struct Opts {
+        replacement: char,
+        add_prefix_space: bool,
+    }
+    let mut opts = Opts {
+        replacement: '▁',
+        add_prefix_space: true,
+    };
+    for opt in options {
+        match opt {
+            MetaspaceOption::Replacement(replacement) => {
+                opts.replacement = std::char::from_u32(replacement).ok_or(rustler::Error::BadArg)?
+            }
+            MetaspaceOption::AddPrefixSpace(add_prefix_space) => {
+                opts.add_prefix_space = add_prefix_space
+            }
+        }
+    }
     Ok(ExTokenizersDecoder::new(
-        tokenizers::decoders::metaspace::Metaspace::new(replacement, add_prefix_space),
+        tokenizers::decoders::metaspace::Metaspace::new(opts.replacement, opts.add_prefix_space),
     ))
 }
 
-#[rustler::nif]
-fn decoders_bpe(suffix: String) -> ExTokenizersDecoder {
-    ExTokenizersDecoder::new(tokenizers::decoders::bpe::BPEDecoder::new(suffix))
+#[derive(NifTaggedEnum)]
+pub enum BpeOption {
+    Suffix(String),
 }
 
 #[rustler::nif]
-fn decoders_ctc(
-    pad_token: String,
-    word_delimiter_token: String,
-    cleanup: bool,
-) -> ExTokenizersDecoder {
+fn decoders_bpe(options: Vec<BpeOption>) -> ExTokenizersDecoder {
+    struct Opts {
+        suffix: String,
+    }
+    let mut opts = Opts {
+        suffix: "</w>".into(),
+    };
+    for opt in options {
+        match opt {
+            BpeOption::Suffix(suffix) => opts.suffix = suffix,
+        }
+    }
+
+    ExTokenizersDecoder::new(tokenizers::decoders::bpe::BPEDecoder::new(opts.suffix))
+}
+
+#[derive(NifTaggedEnum)]
+pub enum CTCOption {
+    PadToken(String),
+    WordDelimiterToken(String),
+    Cleanup(bool),
+}
+
+#[rustler::nif]
+fn decoders_ctc(options: Vec<CTCOption>) -> ExTokenizersDecoder {
+    struct Opts {
+        pad_token: String,
+        word_delimiter_token: String,
+        cleanup: bool,
+    }
+    let mut opts = Opts {
+        pad_token: "<pad>".into(),
+        word_delimiter_token: "|".into(),
+        cleanup: true,
+    };
+
+    for opt in options {
+        match opt {
+            CTCOption::PadToken(pad_token) => opts.pad_token = pad_token,
+            CTCOption::WordDelimiterToken(word_delimiter_token) => {
+                opts.word_delimiter_token = word_delimiter_token
+            }
+            CTCOption::Cleanup(cleanup) => opts.cleanup = cleanup,
+        }
+    }
+
     ExTokenizersDecoder::new(tokenizers::decoders::ctc::CTC::new(
-        pad_token,
-        word_delimiter_token,
-        cleanup,
+        opts.pad_token,
+        opts.word_delimiter_token,
+        opts.cleanup,
     ))
 }
 

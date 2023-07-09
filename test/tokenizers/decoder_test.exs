@@ -7,8 +7,8 @@ defmodule Tokenizers.DecoderTest do
       assert %Tokenizers.Decoder{} = Tokenizers.Decoder.word_piece()
     end
 
-    test "accepts only first parameter" do
-      assert %Tokenizers.Decoder{} = Tokenizers.Decoder.word_piece("test")
+    test "accepts all params" do
+      assert %Tokenizers.Decoder{} = Tokenizers.Decoder.word_piece(prefix: "test", cleanup: false)
     end
 
     test "can decode array of strings" do
@@ -85,8 +85,9 @@ defmodule Tokenizers.DecoderTest do
       assert %Tokenizers.Decoder{} = Tokenizers.Decoder.metaspace()
     end
 
-    test "accepts only first parameter" do
-      assert %Tokenizers.Decoder{} = Tokenizers.Decoder.metaspace(?t)
+    test "accepts all params" do
+      assert %Tokenizers.Decoder{} =
+               Tokenizers.Decoder.metaspace(replacement: ?t, add_prefix_space: true)
     end
   end
 
@@ -99,6 +100,15 @@ defmodule Tokenizers.DecoderTest do
   describe "CTC Decoder" do
     test "accepts no parameters" do
       assert %Tokenizers.Decoder{} = Tokenizers.Decoder.ctc()
+    end
+
+    test "accepts all parameters" do
+      assert %Tokenizers.Decoder{} =
+               Tokenizers.Decoder.ctc(
+                 pad_token: "<pad>",
+                 word_delimiter_token: "!!",
+                 cleanup: false
+               )
     end
 
     test "can decode array of strings" do
