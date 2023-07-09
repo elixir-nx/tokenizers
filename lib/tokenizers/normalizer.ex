@@ -2,6 +2,7 @@ defmodule Tokenizers.Normalizer do
   @moduledoc """
   A Normalizer is in charge of pre-processing the input string
   in order to normalize it as relevant for a given use case.
+
   Some common examples of normalization are the Unicode normalization algorithms
   (NFD, NFKD, NFC & NFKC), lowercasing etc...
   The specificity of tokenizers is that we keep track of the alignment while normalizing.

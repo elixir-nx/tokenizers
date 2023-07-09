@@ -1,93 +1,65 @@
 defmodule Tokenizers.PreTokenizerTest do
   use ExUnit.Case, async: true
-  doctest Tokenizers
+  doctest Tokenizers.PreTokenizer
 
-  describe "Bert" do
+  describe "Byte Level pretokenizer" do
     test "accepts no parameters" do
-      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.bert_normalizer()
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.byte_level()
     end
 
     test "accepts options" do
-      assert %Tokenizers.Normalizer{} =
-               Tokenizers.Normalizer.bert_normalizer(
-                 clean_text: true,
-                 handle_chinese_chars: true,
-                 strip_accents: true,
-                 lowercase: true
-               )
-    end
-
-    test "works well with strip accents" do
-      assert Tokenizers.Normalizer.bert_normalizer(strip_accents: true, lowercase: false)
-             |> Tokenizers.Normalizer.normalize("Héllò") ==
-               {:ok, "Hello"}
-    end
-
-    test "handles chinese chars well" do
-      assert Tokenizers.Normalizer.bert_normalizer(handle_chinese_chars: true)
-             |> Tokenizers.Normalizer.normalize("你好") ==
-               {:ok, " 你  好 "}
-    end
-
-    test "handles clean text well" do
-      assert Tokenizers.Normalizer.bert_normalizer(clean_text: true, lowercase: false)
-             |> Tokenizers.Normalizer.normalize("\ufeffHello") ==
-               {:ok, "Hello"}
-    end
-
-    test "handle lowercase well" do
-      assert Tokenizers.Normalizer.bert_normalizer(lowercase: true)
-             |> Tokenizers.Normalizer.normalize("Hello") ==
-               {:ok, "hello"}
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.byte_level(add_prefix_space: false)
     end
   end
 
-  describe "Sequence" do
-    test "can be instantiated" do
-      assert Tokenizers.Normalizer.sequence([
-               Tokenizers.Normalizer.lowercase(),
-               Tokenizers.Normalizer.strip()
-             ])
-             |> Tokenizers.Normalizer.normalize("HELLO    ") == {:ok, "hello"}
-    end
-  end
-
-  describe "Lowercase" do
+  describe "Split pretokenizer" do
     test "accepts no parameters" do
-      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.lowercase()
-    end
-
-    test "can normalize strings" do
-      assert Tokenizers.Normalizer.lowercase()
-             |> Tokenizers.Normalizer.normalize("HELLO") == {:ok, "hello"}
-    end
-  end
-
-  describe "Strip" do
-    test "accepts no parameters" do
-      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.strip()
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.split(" ", :removed)
     end
 
     test "accepts options" do
-      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.strip(left: true, right: true)
-    end
-
-    test "can normalizer strings" do
-      assert Tokenizers.Normalizer.strip()
-             |> Tokenizers.Normalizer.normalize("     Hello there   ") ==
-               {:ok, "Hello there"}
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.split(" ", :removed, invert: true)
     end
   end
 
-  describe "Prepend" do
-    test "can be initialized" do
-      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.prepend("▁")
+  describe "WhitespaceSplit pretokenizer" do
+    test "accepts no parameters" do
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.whitespace_split()
+    end
+  end
+
+  describe "BertPreTokenizer pretokenizer" do
+    test "accepts no parameters" do
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.bert_pre_tokenizer()
+    end
+  end
+
+  describe "Metaspace pretokenizer" do
+    test "accepts no parameters" do
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.metaspace()
     end
 
-    test "can normalize strings" do
-      assert Tokenizers.Normalizer.prepend("▁")
-             |> Tokenizers.Normalizer.normalize("Hello") ==
-               {:ok, "▁Hello"}
+    test "accepts options" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.metaspace(replacement: ?_, add_prefix_space: false)
+    end
+  end
+
+  describe "CharDelimiterSplit pretokenizer" do
+    test "accepts no parameters" do
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.char_delimiter_split(?_)
+    end
+  end
+
+  describe "Sequence pretokenizer" do
+    test "accepts no parameters but chain of tokenizers" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.sequence([
+                 Tokenizers.PreTokenizer.whitespace_split(),
+                 Tokenizers.PreTokenizer.bert_pre_tokenizer()
+               ])
     end
   end
 end

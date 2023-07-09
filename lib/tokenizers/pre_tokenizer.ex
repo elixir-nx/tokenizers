@@ -50,7 +50,7 @@ defmodule Tokenizers.PreTokenizer do
   * For non ascii characters, it gets completely unreadable, but it works nonetheless!
   """
   @spec byte_level(opts :: byte_level_opts()) :: t()
-  defdelegate byte_level(opts), to: Tokenizers.Native, as: :pre_tokenizers_byte_level
+  defdelegate byte_level(opts \\ []), to: Tokenizers.Native, as: :pre_tokenizers_byte_level
 
   @doc """
   Gets ByteLevel pre-tokenizer's alphabet.
@@ -101,7 +101,7 @@ defmodule Tokenizers.PreTokenizer do
   Splits on whitespaces and replaces them with a special char “▁” (U+2581)
   """
   @spec metaspace(opts :: metaspace_opts()) :: t()
-  defdelegate metaspace(opts), to: Tokenizers.Native, as: :pre_tokenizers_metaspace
+  defdelegate metaspace(opts \\ []), to: Tokenizers.Native, as: :pre_tokenizers_metaspace
 
   @doc """
   Creates CharDelimiterSplit pre-tokenizer.
@@ -114,6 +114,13 @@ defmodule Tokenizers.PreTokenizer do
   defdelegate char_delimiter_split(delimiter),
     to: Tokenizers.Native,
     as: :pre_tokenizers_char_delimiter_split
+
+  @typedoc """
+  Options for Split pre-tokenizer. All values are optional.
+
+  * `:invert` (default `false`) - Whether to invert the split or not.
+  """
+  @type spit_opts() :: [invert: boolean()]
 
   @typedoc """
   Specifies how delimiter should behave for several pretokenizers.
@@ -134,18 +141,18 @@ defmodule Tokenizers.PreTokenizer do
   * pattern should be either a custom string or regexp.
   * behavior should be one of:
 
-    * removed
-    * isolated
-    * merged_with_previous
-    * merged_with_next
-    * contiguous
+    * `:removed`
+    * `:isolated`
+    * `:merged_with_previous`
+    * `:merged_with_next`
+    * `:contiguous`
   """
   @spec split(
           pattern :: String.t(),
           behavior :: split_delimiter_behaviour(),
-          invert :: boolean()
+          opts :: spit_opts()
         ) :: t()
-  defdelegate split(pattern, behavior, invert \\ false),
+  defdelegate split(pattern, behavior, opts \\ []),
     to: Tokenizers.Native,
     as: :pre_tokenizers_split
 
@@ -165,13 +172,20 @@ defmodule Tokenizers.PreTokenizer do
   @spec sequence(pre_tokenizers :: [t()]) :: t()
   defdelegate sequence(pre_tokenizers), to: Tokenizers.Native, as: :pre_tokenizers_sequence
 
+  @typedoc """
+  Options for Digits pre-tokenizer. All values are optional.
+
+  * `:individual_digits` (default `false`) - Whether to split individual digits or not.
+  """
+  @type digits_opts() :: [individual_digits: boolean()]
+
   @doc """
   Creates Digits pre-tokenizer.
 
   Splits the numbers from any other characters.
   """
-  @spec digits(individual_digits :: boolean()) :: t()
-  defdelegate digits(individual_digits \\ false),
+  @spec digits(opts :: digits_opts()) :: t()
+  defdelegate digits(opts \\ []),
     to: Tokenizers.Native,
     as: :pre_tokenizers_digits
 end

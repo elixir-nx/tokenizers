@@ -236,14 +236,29 @@ impl From<SplitDelimiterBehavior> for tokenizers::SplitDelimiterBehavior {
     }
 }
 
+#[derive(NifTaggedEnum)]
+pub enum SplitOption {
+    Invert(bool),
+}
+
 #[rustler::nif]
 pub fn pre_tokenizers_split(
     pattern: String,
     behavior: SplitDelimiterBehavior,
-    invert: bool, // default should be false
+    options: Vec<SplitOption>,
 ) -> Result<ExTokenizersPreTokenizer, rustler::Error> {
+    struct Opts {
+        invert: bool,
+    }
+    let mut opts = Opts { invert: false };
+    for option in options {
+        match option {
+            SplitOption::Invert(invert) => opts.invert = invert,
+        }
+    }
+
     Ok(ExTokenizersPreTokenizer::new(
-        tokenizers::pre_tokenizers::split::Split::new(pattern, behavior.into(), invert)
+        tokenizers::pre_tokenizers::split::Split::new(pattern, behavior.into(), opts.invert)
             .map_err(|_| rustler::Error::BadArg)?,
     ))
 }
@@ -267,9 +282,29 @@ pub fn pre_tokenizers_sequence(
     ))
 }
 
+#[derive(NifTaggedEnum)]
+pub enum DigitsOption {
+    IndividualDigits(bool),
+}
+
 #[rustler::nif]
-pub fn pre_tokenizers_digits(individual_digits: bool) -> ExTokenizersPreTokenizer {
+pub fn pre_tokenizers_digits(options: Vec<DigitsOption>) -> ExTokenizersPreTokenizer {
+    struct Opts {
+        individual_digits: bool,
+    }
+    let mut opts = Opts {
+        individual_digits: false,
+    };
+
+    for option in options {
+        match option {
+            DigitsOption::IndividualDigits(individual_digits) => {
+                opts.individual_digits = individual_digits
+            }
+        };
+    }
+
     ExTokenizersPreTokenizer::new(tokenizers::pre_tokenizers::digits::Digits::new(
-        individual_digits, //default should be false
+        opts.individual_digits,
     ))
 }

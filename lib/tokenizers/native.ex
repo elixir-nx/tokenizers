@@ -22,13 +22,13 @@ defmodule Tokenizers.Native do
   #
   def decoders_byte_level(), do: err()
   def decoders_replace(_pattern, _content), do: err()
-  def decoders_wordpiece(_prefix, _cleanup), do: err()
+  def decoders_wordpiece(_options), do: err()
   def decoders_byte_fallback(), do: err()
   def decoders_fuse(), do: err()
   def decoders_strip(_content, _left, _right), do: err()
-  def decoders_metaspace(_replacement, _add_prefix_space), do: err()
-  def decoders_bpe(_suffix), do: err()
-  def decoders_ctc(_pad_token, _word_delimiter_token, _cleanup), do: err()
+  def decoders_metaspace(_options), do: err()
+  def decoders_bpe(_options), do: err()
+  def decoders_ctc(_options), do: err()
   def decoders_sequence(_decoders), do: err()
 
   # Models
@@ -82,10 +82,10 @@ defmodule Tokenizers.Native do
   def pre_tokenizers_bert(), do: err()
   def pre_tokenizers_metaspace(_opts), do: err()
   def pre_tokenizers_char_delimiter_split(_delimiter), do: err()
-  def pre_tokenizers_split(_pattern, _behavior, _invert), do: err()
+  def pre_tokenizers_split(_pattern, _behavior, _options), do: err()
   def pre_tokenizers_punctuation(_behavior), do: err()
   def pre_tokenizers_sequence(_pre_tokenizers), do: err()
-  def pre_tokenizers_digits(_individual_digits), do: err()
+  def pre_tokenizers_digits(_options), do: err()
 
   # PostProcessors
   def post_processors_info(_post_processor), do: err()
