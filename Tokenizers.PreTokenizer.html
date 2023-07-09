@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.29.4">
+    <meta name="project" content="Tokenizers v0.3.2">
+
+    <title>Tokenizers.PreTokenizer — Tokenizers v0.3.2</title>
+    <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
+    <script src="dist/sidebar_items-A14BB8FA.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/html-JDI3AVDD.js"></script>
+
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
+Tokenizers
+      </a>
+      <div class="sidebar-projectVersion" translate="no">
+        v0.3.2
+      </div>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list"></ul>
+</section>
+
+<section class="content">
+  <output role="status" id="toast"></output>
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="icon-action display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L1" title="View Source" class="icon-action" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">Tokenizers.PreTokenizer</span> 
+  <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p>The <code class="inline">PreTokenizer</code> takes care of splitting the input according to a set of rules.
+This pre-processing lets you ensure that the underlying <code class="inline">Model</code>
+does not build tokens across multiple “splits”.
+For example if you don’t want to have whitespaces inside a token,
+then you can have a <code class="inline">PreTokenizer</code> that splits on these whitespaces.</p><p>You can easily combine multiple <code class="inline">PreTokenizer</code> together using a <code class="inline">Sequence</code> (see below).
+The <code class="inline">PreTokenizer</code> is also allowed to modify the string, just like a <code class="inline">Normalizer</code> does.
+This is necessary to allow some complicated algorithms
+that require to split before normalizing (e.g. the ByteLevel)</p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:byte_level_opts/0" translate="no">byte_level_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for ByteLevel pre-tokenizer. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:digits_opts/0" translate="no">digits_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for Digits pre-tokenizer. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:metaspace_opts/0" translate="no">metaspace_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for Metaspace pre-tokenizer. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:spit_opts/0" translate="no">spit_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for Split pre-tokenizer. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:split_delimiter_behaviour/0" translate="no">split_delimiter_behaviour()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Specifies how delimiter should behave for several pretokenizers.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:t/0" translate="no">t()</a>
+
+      </div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bert_pre_tokenizer/0" translate="no">bert_pre_tokenizer()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates BertPreTokenizer pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#byte_level/1" translate="no">byte_level(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates ByteLevel PreTokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#byte_level_alphabet/0" translate="no">byte_level_alphabet()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Gets ByteLevel pre-tokenizer's alphabet.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#char_delimiter_split/1" translate="no">char_delimiter_split(delimiter)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates CharDelimiterSplit pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#digits/1" translate="no">digits(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Digits pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#metaspace/1" translate="no">metaspace(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Metaspace pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#pre_tokenize/2" translate="no">pre_tokenize(normalizer, input)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Converts a string into a sequence of pre-tokens.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#punctuation/1" translate="no">punctuation(behavor)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Punctuation pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sequence/1" translate="no">sequence(pre_tokenizers)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Sequence pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#split/3" translate="no">split(pattern, behavior, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Split pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#whitespace/0" translate="no">whitespace()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Whitespace pre-tokenizer.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#whitespace_split/0" translate="no">whitespace_split()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates WhitespaceSplit pre-tokenizer.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:byte_level_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:byte_level_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">byte_level_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L33" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> byte_level_opts() :: [add_prefix_space: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), use_regex: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
+
+      </div>
+
+<p>Options for ByteLevel pre-tokenizer. All values are optional.</p><ul><li><code class="inline">:add_prefix_space</code> (default <code class="inline">true</code>) - Whether to add a space to the first word if there isn’t already one. This lets us treat hello exactly like say hello.</li><li><code class="inline">:use_regex</code> (default <code class="inline">true</code>) - Set this to False to prevent this pre_tokenizer from using the GPT2 specific regexp for spliting on whitespace.</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:digits_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:digits_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">digits_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L180" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> digits_opts() :: [{:individual_digits, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]</pre>
+
+      </div>
+
+<p>Options for Digits pre-tokenizer. All values are optional.</p><ul><li><code class="inline">:individual_digits</code> (default <code class="inline">false</code>) - Whether to split individual digits or not.</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:metaspace_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:metaspace_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">metaspace_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L93" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> metaspace_opts() :: [replacement: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">char</a>(), add_prefix_space: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
+
+      </div>
+
+<p>Options for Metaspace pre-tokenizer. All values are optional.</p><ul><li><code class="inline">:replacement</code> (default <code class="inline">&quot;▁&quot;</code>) - The replacement character to use.</li><li><code class="inline">:add_prefix_space</code> (default <code class="inline">true</code>) - Whether to add a space to the first word if there isn’t already one. This lets us treat hello exactly like say hello.</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:spit_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:spit_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">spit_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L123" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> spit_opts() :: [{:invert, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]</pre>
+
+      </div>
+
+<p>Options for Split pre-tokenizer. All values are optional.</p><ul><li><code class="inline">:invert</code> (default <code class="inline">false</code>) - Whether to invert the split or not.</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:split_delimiter_behaviour/0">
+
+  <div class="detail-header">
+    <a href="#t:split_delimiter_behaviour/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">split_delimiter_behaviour()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L128" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> split_delimiter_behaviour() ::
+  :removed | :isolated | :merged_with_previous | :merged_with_next | :contiguous</pre>
+
+      </div>
+
+<p>Specifies how delimiter should behave for several pretokenizers.</p>
+  </section>
+</section>
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">t()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L15" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.PreTokenizer{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="bert_pre_tokenizer/0">
+
+  <div class="detail-header">
+    <a href="#bert_pre_tokenizer/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bert_pre_tokenizer()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L85" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> bert_pre_tokenizer() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates BertPreTokenizer pre-tokenizer.</p><p>Splits for use in Bert models.</p>
+  </section>
+</section>
+<section class="detail" id="byte_level/1">
+
+    <span id="byte_level/0"></span>
+
+  <div class="detail-header">
+    <a href="#byte_level/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">byte_level(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L53" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> byte_level(opts :: <a href="#t:byte_level_opts/0">byte_level_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates ByteLevel PreTokenizer.</p><p>Splits on whitespaces while remapping all the bytes to a set of visible characters.
+This technique as been introduced by OpenAI with GPT-2 and has some more or less nice properties:</p><ul><li>Since it maps on bytes, a tokenizer using this only requires 256 characters
+as initial alphabet (the number of values a byte can have),
+as opposed to the 130,000+ Unicode characters.</li><li>A consequence of the previous point is that it is absolutely unnecessary
+to have an unknown token using this since we can represent anything
+with 256 tokens (Youhou!! 🎉🎉)</li><li>For non ascii characters, it gets completely unreadable, but it works nonetheless!</li></ul>
+  </section>
+</section>
+<section class="detail" id="byte_level_alphabet/0">
+
+  <div class="detail-header">
+    <a href="#byte_level_alphabet/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">byte_level_alphabet()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L59" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> byte_level_alphabet() :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">charlist</a>()</pre>
+
+      </div>
+
+<p>Gets ByteLevel pre-tokenizer's alphabet.</p>
+  </section>
+</section>
+<section class="detail" id="char_delimiter_split/1">
+
+  <div class="detail-header">
+    <a href="#char_delimiter_split/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">char_delimiter_split(delimiter)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L114" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> char_delimiter_split(delimiter :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">char</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates CharDelimiterSplit pre-tokenizer.</p><p>This pre-tokenizer simply splits on the provided delimiter. Works almost like the <code class="inline">.split(delimiter)</code>
+function, except that it accounts for multiple consecutive spaces</p>
+  </section>
+</section>
+<section class="detail" id="digits/1">
+
+    <span id="digits/0"></span>
+
+  <div class="detail-header">
+    <a href="#digits/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">digits(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L188" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> digits(opts :: <a href="#t:digits_opts/0">digits_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Digits pre-tokenizer.</p><p>Splits the numbers from any other characters.</p>
+  </section>
+</section>
+<section class="detail" id="metaspace/1">
+
+    <span id="metaspace/0"></span>
+
+  <div class="detail-header">
+    <a href="#metaspace/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">metaspace(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L104" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> metaspace(opts :: <a href="#t:metaspace_opts/0">metaspace_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Metaspace pre-tokenizer.</p><p>Splits on whitespaces and replaces them with a special char “▁” (U+2581)</p>
+  </section>
+</section>
+<section class="detail" id="pre_tokenize/2">
+
+  <div class="detail-header">
+    <a href="#pre_tokenize/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">pre_tokenize(normalizer, input)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L23" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> pre_tokenize(pre_tokenizer :: <a href="#t:t/0">t</a>(), sequence :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) ::
+  {:ok, [{<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}}]}</pre>
+
+      </div>
+
+<p>Converts a string into a sequence of pre-tokens.</p>
+  </section>
+</section>
+<section class="detail" id="punctuation/1">
+
+  <div class="detail-header">
+    <a href="#punctuation/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">punctuation(behavor)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L165" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> punctuation(behavor :: <a href="#t:split_delimiter_behaviour/0">split_delimiter_behaviour</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Punctuation pre-tokenizer.</p><p>Will isolate all punctuation characters.</p>
+  </section>
+</section>
+<section class="detail" id="sequence/1">
+
+  <div class="detail-header">
+    <a href="#sequence/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sequence(pre_tokenizers)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L173" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> sequence(pre_tokenizers :: [<a href="#t:t/0">t</a>()]) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Sequence pre-tokenizer.</p><p>Lets you compose multiple <code class="inline">PreTokenizer</code> that will be run in the given order</p>
+  </section>
+</section>
+<section class="detail" id="split/3">
+
+    <span id="split/2"></span>
+
+  <div class="detail-header">
+    <a href="#split/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">split(pattern, behavior, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L155" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> split(
+  pattern :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  behavior :: <a href="#t:split_delimiter_behaviour/0">split_delimiter_behaviour</a>(),
+  opts :: <a href="#t:spit_opts/0">spit_opts</a>()
+) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Split pre-tokenizer.</p><p>Versatile pre-tokenizer that splits on provided pattern and according to provided behavior.
+The pattern can be inverted if necessary.</p><ul><li>pattern should be either a custom string or regexp.</li><li>behavior should be one of:<ul><li><code class="inline">:removed</code></li><li><code class="inline">:isolated</code></li><li><code class="inline">:merged_with_previous</code></li><li><code class="inline">:merged_with_next</code></li><li><code class="inline">:contiguous</code></li></ul></li></ul>
+  </section>
+</section>
+<section class="detail" id="whitespace/0">
+
+  <div class="detail-header">
+    <a href="#whitespace/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">whitespace()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L69" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> whitespace() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Whitespace pre-tokenizer.</p><p>Splits on word boundaries (using the following regular expression: <code class="inline">w+|[^w ]+</code></p>
+  </section>
+</section>
+<section class="detail" id="whitespace_split/0">
+
+  <div class="detail-header">
+    <a href="#whitespace_split/0" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">whitespace_split()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/pre_tokenizer.ex#L77" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> whitespace_split() :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates WhitespaceSplit pre-tokenizer.</p><p>Splits on any whitespace character</p>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+        <p>
+
+            <span class="line">
+              <a href="https://hex.pm/packages/tokenizers/0.3.2" class="footer-hex-package">Hex Package</a>
+
+              <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
+
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/pre_tokenizer.ex">current file</a>)
+
+            </span>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+              Search HexDocs
+            </button>
+
+              <a href="Tokenizers.epub" title="ePub version">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

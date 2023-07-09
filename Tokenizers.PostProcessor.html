@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.29.4">
+    <meta name="project" content="Tokenizers v0.3.2">
+
+    <title>Tokenizers.PostProcessor — Tokenizers v0.3.2</title>
+    <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
+
+
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
+    <script src="dist/sidebar_items-A14BB8FA.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/html-JDI3AVDD.js"></script>
+
+
+  </head>
+  <body data-type="modules" class="page-module">
+    <script>
+
+      try {
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
+    </button>
+    <label class="search-label">
+      <p class="sr-only">Search</p>
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-projectDetails">
+      <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
+Tokenizers
+      </a>
+      <div class="sidebar-projectVersion" translate="no">
+        v0.3.2
+      </div>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+    </ul>
+  </div>
+
+  <div class="gradient"></div>
+  <ul id="full-list"></ul>
+</section>
+
+<section class="content">
+  <output role="status" id="toast"></output>
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+<h1>
+<button class="icon-action display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L1" title="View Source" class="icon-action" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span translate="no">Tokenizers.PostProcessor</span> 
+  <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
+
+</h1>
+
+
+  <section id="moduledoc">
+<p>After the whole pipeline, we sometimes want to insert some special tokens
+before feed a tokenized string into a model like ”[CLS] My horse is amazing [SEP]”.
+The PostProcessor is the component doing just that.</p>
+  </section>
+
+
+  <section id="summary" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#summary">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+      Summary
+    </h1>
+<div class="summary-types summary">
+  <h2>
+    <a href="#types">Types</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:byte_level_opts/0" translate="no">byte_level_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for ByteLevel post-processor. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:roberta_opts/0" translate="no">roberta_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for Roberta post-processor. All values are optional.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:t/0" translate="no">t()</a>
+
+      </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:template_opts/0" translate="no">template_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for Template post-processor.</p></div>
+
+    </div>
+
+</div>
+<div class="summary-functions summary">
+  <h2>
+    <a href="#functions">Functions</a>
+  </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#bert/2" translate="no">bert(sep, cls)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Instantiate a new BertProcessing with the given tokens</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#byte_level/1" translate="no">byte_level(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates ByteLevel post-processor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#roberta/3" translate="no">roberta(sep, cls, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Roberta post-processor.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#sequence/1" translate="no">sequence(post_processors)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Instantiate a new Sequence post-processor</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#template/1" translate="no">template(opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates Template post-processor.</p></div>
+
+    </div>
+
+</div>
+
+  </section>
+
+
+  <section id="types" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#types">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Types
+    </h1>
+    <div class="types-list">
+<section class="detail" id="t:byte_level_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:byte_level_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">byte_level_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L48" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> byte_level_opts() :: [{:trim_offsets, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]</pre>
+
+      </div>
+
+<p>Options for ByteLevel post-processor. All values are optional.</p><ul><li><code class="inline">:trim_offsets</code> (default <code class="inline">true</code>) - Whether to trim the whitespaces in the produced offsets</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:roberta_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:roberta_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">roberta_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L28" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> roberta_opts() :: [trim_offsets: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), add_prefix_space: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
+
+      </div>
+
+<p>Options for Roberta post-processor. All values are optional.</p><ul><li><code class="inline">:trim_offest</code> (default <code class="inline">true</code>) - Whether to trim the whitespaces in the produced offsets</li><li><code class="inline">:add_prefix_space</code> (default <code class="inline">true</code>) - Whether add_prefix_space was ON during the pre-tokenization.</li></ul>
+  </section>
+</section>
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">t()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L8" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.PostProcessor{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+<section class="detail" id="t:template_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:template_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">template_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L65" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> template_opts() :: [
+  single: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  pair: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  special_tokens: [{<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}]
+]</pre>
+
+      </div>
+
+<p>Options for Template post-processor.</p><ul><li><code class="inline">:single</code> - A string describing the template for a single sequence.</li><li><code class="inline">:pair</code> - A string describing the template for a pair of sequences.</li><li><code class="inline">:special_tokens</code> - A list of special tokens to use in the template.</li></ul>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+  <section id="functions" class="details-list">
+    <h1 class="section-heading">
+      <a class="hover-link" href="#functions">
+        <i class="ri-link-m" aria-hidden="true"></i>
+        <span class="sr-only">Link to this section</span>
+      </a>
+Functions
+    </h1>
+    <div class="functions-list">
+<section class="detail" id="bert/2">
+
+  <div class="detail-header">
+    <a href="#bert/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">bert(sep, cls)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L20" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> bert(
+  sep :: {<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()},
+  cls :: {<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Instantiate a new BertProcessing with the given tokens</p><p>Params are tuple with the string representation of the token, and its id</p>
+  </section>
+</section>
+<section class="detail" id="byte_level/1">
+
+    <span id="byte_level/0"></span>
+
+  <div class="detail-header">
+    <a href="#byte_level/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">byte_level(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L56" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> byte_level(opts :: <a href="#t:byte_level_opts/0">byte_level_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates ByteLevel post-processor.</p>
+  </section>
+</section>
+<section class="detail" id="roberta/3">
+
+    <span id="roberta/2"></span>
+
+  <div class="detail-header">
+    <a href="#roberta/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">roberta(sep, cls, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L41" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> roberta(
+  sep :: {<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()},
+  cls :: {<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()},
+  opts :: <a href="#t:roberta_opts/0">roberta_opts</a>()
+) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Roberta post-processor.</p>
+  </section>
+</section>
+<section class="detail" id="sequence/1">
+
+  <div class="detail-header">
+    <a href="#sequence/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">sequence(post_processors)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L97" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> sequence(post_processors :: [<a href="#t:t/0">t</a>()]) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Instantiate a new Sequence post-processor</p>
+  </section>
+</section>
+<section class="detail" id="template/1">
+
+    <span id="template/0"></span>
+
+  <div class="detail-header">
+    <a href="#template/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">template(opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/post_processor.ex#L91" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> template(opts :: <a href="#t:template_opts/0">template_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates Template post-processor.</p><p>Let’s you easily template the post processing, adding special tokens,
+and specifying the type_id for each sequence/special token.
+The template is given two strings representing the single sequence and the pair of sequences,
+as well as a set of special tokens to use.</p><p>Example, when specifying a template with these values:</p><ul><li>single: <code class="inline">&quot;[CLS] $A [SEP]&quot;</code></li><li>pair: <code class="inline">&quot;[CLS] $A [SEP] $B [SEP]&quot;</code></li><li>special tokens:<ul><li><code class="inline">&quot;[CLS]&quot;</code></li><li><code class="inline">&quot;[SEP]&quot;</code></li></ul></li></ul><blockquote><p>Input: <code class="inline">(&quot;I like this&quot;, &quot;but not this&quot;)</code>
+Output: <code class="inline">&quot;[CLS] I like this [SEP] but not this [SEP]&quot;</code></p></blockquote>
+  </section>
+</section>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+        <p>
+
+            <span class="line">
+              <a href="https://hex.pm/packages/tokenizers/0.3.2" class="footer-hex-package">Hex Package</a>
+
+              <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
+
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/post_processor.ex">current file</a>)
+
+            </span>
+
+          <span class="line">
+            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+              Search HexDocs
+            </button>
+
+              <a href="Tokenizers.epub" title="ePub version">
+                Download ePub version
+              </a>
+
+          </span>
+        </p>
+
+        <p class="built-using">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.4) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
-    <script src="dist/sidebar_items-1351FDD6.js"></script>
+    <script src="dist/sidebar_items-A14BB8FA.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -130,6 +130,16 @@ Tokenizers
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="Tokenizers.Decoder.html" translate="no">Tokenizers.Decoder</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>The Decoder knows how to go from the IDs used by the Tokenizer, back to a readable piece of text.
+Some Normalizer and PreTokenizer use special characters or identifiers that need to be reverted.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="Tokenizers.Encoding.html" translate="no">Tokenizers.Encoding</a>
 
   </div>
@@ -188,6 +198,40 @@ Tokenizers
     <a href="Tokenizers.Native.html" translate="no">Tokenizers.Native</a>
 
   </div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Tokenizers.Normalizer.html" translate="no">Tokenizers.Normalizer</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>A Normalizer is in charge of pre-processing the input string
+in order to normalize it as relevant for a given use case.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Tokenizers.PostProcessor.html" translate="no">Tokenizers.PostProcessor</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>After the whole pipeline, we sometimes want to insert some special tokens
+before feed a tokenized string into a model like ”[CLS] My horse is amazing [SEP]”.
+The PostProcessor is the component doing just that.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Tokenizers.PreTokenizer.html" translate="no">Tokenizers.PreTokenizer</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>The <code class="inline">PreTokenizer</code> takes care of splitting the input according to a set of rules.
+This pre-processing lets you ensure that the underlying <code class="inline">Model</code>
+does not build tokens across multiple “splits”.
+For example if you don’t want to have whitespaces inside a token,
+then you can have a <code class="inline">PreTokenizer</code> that splits on these whitespaces.</p></div>
 
 </div>
 <div class="summary-row">
