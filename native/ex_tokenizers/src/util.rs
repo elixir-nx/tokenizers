@@ -1,4 +1,5 @@
 use rustler::Encoder;
+use tokenizers::{PaddingDirection, TruncationDirection};
 
 #[macro_export]
 macro_rules! new_info {
@@ -10,7 +11,7 @@ macro_rules! new_info {
 
 pub struct Info(pub Vec<(Box<dyn Encoder>, Box<dyn Encoder>)>);
 
-impl Encoder for Info {
+impl rustler::Encoder for Info {
     fn encode<'a>(&self, env: rustler::Env<'a>) -> rustler::Term<'a> {
         rustler::Term::map_from_pairs(
             env,
@@ -21,5 +22,47 @@ impl Encoder for Info {
                 .collect::<Vec<_>>(),
         )
         .unwrap()
+    }
+}
+
+#[derive(rustler::NifUnitEnum)]
+pub enum Direction {
+    Left,
+    Right,
+}
+
+impl From<Direction> for PaddingDirection {
+    fn from(val: Direction) -> Self {
+        match val {
+            Direction::Left => PaddingDirection::Left,
+            Direction::Right => PaddingDirection::Right,
+        }
+    }
+}
+
+impl From<&Direction> for PaddingDirection {
+    fn from(val: &Direction) -> Self {
+        match val {
+            Direction::Left => PaddingDirection::Left,
+            Direction::Right => PaddingDirection::Right,
+        }
+    }
+}
+
+impl From<Direction> for TruncationDirection {
+    fn from(val: Direction) -> Self {
+        match val {
+            Direction::Left => TruncationDirection::Left,
+            Direction::Right => TruncationDirection::Right,
+        }
+    }
+}
+
+impl From<&Direction> for TruncationDirection {
+    fn from(val: &Direction) -> Self {
+        match val {
+            Direction::Left => TruncationDirection::Left,
+            Direction::Right => TruncationDirection::Right,
+        }
     }
 }
