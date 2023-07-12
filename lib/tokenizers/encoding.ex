@@ -21,7 +21,7 @@ defmodule Tokenizers.Encoding do
   defdelegate get_n_sequences(encoding), to: Tokenizers.Native, as: :encoding_get_n_sequences
 
   @doc """
-  Set the given sequence id for the whole range of tokens contained in this Encoding
+  Set the given sequence id for the whole range of tokens contained in this Encoding.
   """
   @spec set_sequence_id(Encoding.t(), non_neg_integer()) :: Encoding.t()
   defdelegate set_sequence_id(encoding, id), to: Tokenizers.Native, as: :encoding_set_sequence_id
@@ -33,10 +33,22 @@ defmodule Tokenizers.Encoding do
   defdelegate get_ids(encoding), to: Tokenizers.Native, as: :encoding_get_ids
 
   @doc """
+  Same as `get_ids/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_ids(Encoding.t()) :: binary()
+  defdelegate get_u32_ids(encoding), to: Tokenizers.Native, as: :encoding_get_u32_ids
+
+  @doc """
   Get token type ids from an encoding.
   """
   @spec get_type_ids(Encoding.t()) :: [integer()]
   defdelegate get_type_ids(encoding), to: Tokenizers.Native, as: :encoding_get_type_ids
+
+  @doc """
+  Same as `get_type_ids/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_type_ids(Encoding.t()) :: binary()
+  defdelegate get_u32_type_ids(encoding), to: Tokenizers.Native, as: :encoding_get_u32_type_ids
 
   @doc """
   Get the attention mask from an encoding.
@@ -47,12 +59,28 @@ defmodule Tokenizers.Encoding do
     as: :encoding_get_attention_mask
 
   @doc """
+  Same as `get_attention_mask/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_attention_mask(Encoding.t()) :: binary()
+  defdelegate get_u32_attention_mask(encoding),
+    to: Tokenizers.Native,
+    as: :encoding_get_u32_attention_mask
+
+  @doc """
   Get the special tokens mask from an encoding.
   """
   @spec get_special_tokens_mask(Encoding.t()) :: [integer()]
   defdelegate get_special_tokens_mask(encoding),
     to: Tokenizers.Native,
     as: :encoding_get_special_tokens_mask
+
+  @doc """
+  Same as `get_special_tokens_mask/1`, but returns binary with u32 values.
+  """
+  @spec get_u32_special_tokens_mask(Encoding.t()) :: binary()
+  defdelegate get_u32_special_tokens_mask(encoding),
+    to: Tokenizers.Native,
+    as: :encoding_get_u32_special_tokens_mask
 
   @doc """
   Get the tokens from an encoding.
@@ -184,6 +212,12 @@ defmodule Tokenizers.Encoding do
   defdelegate truncate(encoding, max_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_truncate
+
+  @doc """
+  Returns the number of tokens in an `Encoding.t()`.
+  """
+  @spec n_tokens(encoding :: Encoding.t()) :: non_neg_integer()
+  defdelegate n_tokens(encoding), to: Tokenizers.Native, as: :encoding_get_length
 end
 
 defimpl Inspect, for: Tokenizers.Encoding do

@@ -609,8 +609,8 @@ pub fn tokenizer_post_processing(
     add_special_tokens: bool,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
     let result: tokenizers::Encoding = tokenizer.resource.0.read().unwrap().post_process(
-        enc.resource.0.read().unwrap().clone(),
-        pair.map(|enc| enc.resource.0.read().unwrap().clone()),
+        enc.resource.0.clone(),
+        pair.map(|enc| enc.resource.0.clone()),
         add_special_tokens,
     )?;
     Ok(result.into())
