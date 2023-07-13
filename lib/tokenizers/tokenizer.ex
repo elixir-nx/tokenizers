@@ -19,6 +19,12 @@ defmodule Tokenizers.Tokenizer do
   defstruct [:resource]
 
   alias Tokenizers.Model
+  alias Tokenizers.Tokenizer
+  alias Tokenizers.Encoding
+  alias Tokenizers.PostProcessor
+  alias Tokenizers.PreTokenizer
+  alias Tokenizers.Normalizer
+  alias Tokenizers.Decoder
 
   @typedoc """
   An input being a subject to tokenization.
