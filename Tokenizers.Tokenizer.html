@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.29.4">
-    <meta name="project" content="Tokenizers v0.3.2">
+    <meta name="generator" content="ExDoc v0.30.2">
+    <meta name="project" content="Tokenizers v0.4.0-dev">
 
-    <title>Tokenizers.Tokenizer — Tokenizers v0.3.2</title>
-    <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
+    <title>Tokenizers.Tokenizer — Tokenizers v0.4.0-dev</title>
+    <link rel="stylesheet" href="dist/html-elixir-JUCHUGAD.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
-    <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
-    <script src="dist/sidebar_items-9B67C23F.js"></script>
+    <script src="dist/handlebars.templates-NBND3S2D.js"></script>
+    <script src="dist/sidebar_items-1493F6F6.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/html-JDI3AVDD.js"></script>
+    <script async src="dist/html-WC6MMJK3.js"></script>
 
 
   </head>
@@ -68,7 +68,7 @@
 Tokenizers
       </a>
       <div class="sidebar-projectVersion" translate="no">
-        v0.3.2
+        v0.4.0-dev
       </div>
     </div>
     <ul class="sidebar-listNav">
@@ -96,19 +96,19 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
   <span translate="no">Tokenizers.Tokenizer</span> 
-  <small class="app-vsn" translate="no">(Tokenizers v0.3.2)</small>
+  <small class="app-vsn" translate="no">(Tokenizers v0.4.0-dev)</small>
 
 </h1>
 
 
   <section id="moduledoc">
-<p>The struct and associated functions for a tokenizer.</p><p>A <code class="inline">Tokenizers.Tokenizer.t()</code> is a container that holds the constituent parts of the tokenization pipeline.</p><p>When you call <a href="#encode/3"><code class="inline">Tokenizers.Tokenizer.encode/3</code></a>, the input text goes through the following pipeline:</p><ul><li>normalization</li><li>pre-tokenization</li><li>model</li><li>post-processing</li></ul><p>This returns a <code class="inline">Tokenizers.Encoding.t()</code>, which can then give you the token ids for each token in the input text.
+<p>The struct and associated functions for a tokenizer.</p><p>A <code class="inline">Tokenizers.t()</code> is a container that holds the constituent parts of the tokenization pipeline.</p><p>When you call <a href="#encode/3"><code class="inline">Tokenizers.Tokenizer.encode/3</code></a>, the input text goes through the following pipeline:</p><ul><li>normalization</li><li>pre-tokenization</li><li>model</li><li>post-processing</li></ul><p>This returns a <code class="inline">Tokenizers.Encoding.t()</code>, which can then give you the token ids for each token in the input text.
 These token ids are usually used as the input for natural language processing machine learning models.</p>
   </section>
 
@@ -117,9 +117,8 @@ These token ids are usually used as the input for natural language processing ma
     <h1 class="section-heading">
       <a class="hover-link" href="#summary">
         <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
+        Summary
       </a>
-      Summary
     </h1>
 <div class="summary-types summary">
   <h2>
@@ -483,9 +482,8 @@ You can specify a list of special tokens to append to the tokenizer.</p></div>
     <h1 class="section-heading">
       <a class="hover-link" href="#types">
         <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
 Types
+      </a>
     </h1>
     <div class="types-list">
 <section class="detail" id="t:encode_input/0">
@@ -497,7 +495,7 @@ Types
     </a>
     <h1 class="signature" translate="no">encode_input()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L28" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L33" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -525,7 +523,7 @@ Types
     </a>
     <h1 class="signature" translate="no">padding_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L372" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L360" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -560,7 +558,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L18" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L18" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -588,7 +586,7 @@ Types
     </a>
     <h1 class="signature" translate="no">truncation_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L334" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L324" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -620,9 +618,8 @@ Types
     <h1 class="section-heading">
       <a class="hover-link" href="#functions">
         <i class="ri-link-m" aria-hidden="true"></i>
-        <span class="sr-only">Link to this section</span>
-      </a>
 Functions
+      </a>
     </h1>
     <div class="functions-list">
 <section class="detail" id="add_special_tokens/2">
@@ -634,7 +631,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">add_special_tokens(tokenizer, tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L322" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L312" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -664,7 +661,7 @@ These tokens <strong>are special</strong>. To add regular tokens - use <a href="
     </a>
     <h1 class="signature" translate="no">add_tokens(tokenizer, tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L312" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L303" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -695,7 +692,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">decode(tokenizer, ids, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L450" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L433" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -708,7 +705,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> decode(
-  tokenizer :: Tokenizer.t(),
+  tokenizer :: <a href="#t:t/0">t</a>(),
   ids :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()],
   options :: [{:skip_special_tokens, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]
 ) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
@@ -729,7 +726,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">decode_batch(tokenizer, sentences, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L464" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L446" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -742,7 +739,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> decode_batch(
-  tokenizer :: Tokenizer.t(),
+  tokenizer :: <a href="#t:t/0">t</a>(),
   sentences :: [[<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()]],
   options :: [{:skip_special_tokens, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]
 ) :: {:ok, [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
@@ -761,7 +758,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">disable_padding(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L395" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L381" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -789,7 +786,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">disable_truncation(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L358" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L346" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -819,7 +816,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">encode(tokenizer, input, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L416" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L401" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -832,10 +829,10 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> encode(
-  tokenizer :: Tokenizer.t(),
+  tokenizer :: <a href="#t:t/0">t</a>(),
   input :: <a href="#t:encode_input/0">encode_input</a>(),
   options :: [{:add_special_tokens, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]
-) :: {:ok, Encoding.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+) :: {:ok, <a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -853,7 +850,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">encode_batch(tokenizer, input, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L432" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L416" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -866,10 +863,10 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> encode_batch(
-  tokenizer :: Tokenizer.t(),
+  tokenizer :: <a href="#t:t/0">t</a>(),
   input :: [<a href="#t:encode_input/0">encode_input</a>()],
   options :: [{:add_special_tokens, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}]
-) :: {:ok, [Encoding.t()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+) :: {:ok, [<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -887,7 +884,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
     </a>
     <h1 class="signature" translate="no">from_buffer(data, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L191" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L192" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -904,7 +901,7 @@ These tokens <strong>are not special</strong>. To add special tokens - use <a hr
   options :: [
     additional_special_tokens :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | <a href="Tokenizers.AddedToken.html#t:t/0">Tokenizers.AddedToken.t</a>()]
   ]
-) :: {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -923,7 +920,7 @@ You can specify a list of special tokens to append to the tokenizer.</p>
     </a>
     <h1 class="signature" translate="no">from_file(path, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L177" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L179" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -940,7 +937,7 @@ You can specify a list of special tokens to append to the tokenizer.</p>
   options :: [
     additional_special_tokens :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | <a href="Tokenizers.AddedToken.html#t:t/0">Tokenizers.AddedToken.t</a>()]
   ]
-) :: {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -959,7 +956,7 @@ You can specify a list of special tokens to append to the tokenizer.</p>
     </a>
     <h1 class="signature" translate="no">from_pretrained(identifier, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L69" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L72" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -971,16 +968,15 @@ You can specify a list of special tokens to append to the tokenizer.</p>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> from_pretrained(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
-  {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> from_pretrained(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
 <p>Instantiate a new tokenizer from an existing file on the Hugging Face Hub.</p><p>This is going to download a tokenizer file, save it to disk and load that file.</p><h2 id="from_pretrained/2-options" class="section-heading">
-  <a href="#from_pretrained/2-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">options</p>
+  <a href="#from_pretrained/2-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
   </a>
-  Options
 </h2>
 <ul><li><p><code class="inline">:http_client</code> - A tuple with a module and options. This module should implement
 the <code class="inline">request/1</code> function, accepting a keyword list with the options for a request.
@@ -1003,7 +999,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_decoder(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L277" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L271" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1015,7 +1011,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_decoder(Tokenizer.t()) :: Decoder.t() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> get_decoder(<a href="#t:t/0">t</a>()) :: <a href="Tokenizers.Decoder.html#t:t/0">Tokenizers.Decoder.t</a>() | nil</pre>
 
       </div>
 
@@ -1031,7 +1027,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_model(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L213" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L212" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1043,7 +1039,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_model(Tokenizer.t()) :: <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> get_model(<a href="#t:t/0">t</a>()) :: <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()</pre>
 
       </div>
 
@@ -1059,7 +1055,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_normalizer(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L227" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L224" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1071,7 +1067,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_normalizer(Tokenizer.t()) :: Normalizer.t() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> get_normalizer(<a href="#t:t/0">t</a>()) :: <a href="Tokenizers.Normalizer.html#t:t/0">Tokenizers.Normalizer.t</a>() | nil</pre>
 
       </div>
 
@@ -1087,7 +1083,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_post_processor(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L260" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L255" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1099,7 +1095,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_post_processor(Tokenizer.t()) :: PostProcessor.t() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> get_post_processor(<a href="#t:t/0">t</a>()) :: <a href="Tokenizers.PostProcessor.html#t:t/0">Tokenizers.PostProcessor.t</a>() | nil</pre>
 
       </div>
 
@@ -1115,7 +1111,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_pre_tokenizer(tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L243" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L239" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1127,7 +1123,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_pre_tokenizer(Tokenizer.t()) :: PreTokenizer.t() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> get_pre_tokenizer(<a href="#t:t/0">t</a>()) :: <a href="Tokenizers.PreTokenizer.html#t:t/0">Tokenizers.PreTokenizer.t</a>() | nil</pre>
 
       </div>
 
@@ -1145,7 +1141,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_vocab(tokenizer, with_additional_tokens \\ true)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L292" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L285" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1157,7 +1153,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_vocab(tokenizer :: Tokenizer.t(), with_additional_tokens :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()) :: %{
+          <pre translate="no"><span class="attribute">@spec</span> get_vocab(tokenizer :: <a href="#t:t/0">t</a>(), with_additional_tokens :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()) :: %{
   required(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) =&gt; <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()
 }</pre>
 
@@ -1177,7 +1173,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">get_vocab_size(tokenizer, with_additional_tokens \\ true)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L302" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L294" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1189,7 +1185,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> get_vocab_size(tokenizer :: Tokenizer.t(), with_additional_tokens :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()) ::
+          <pre translate="no"><span class="attribute">@spec</span> get_vocab_size(tokenizer :: <a href="#t:t/0">t</a>(), with_additional_tokens :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()) ::
   <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
 
       </div>
@@ -1206,7 +1202,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">id_to_token(tokenizer, id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L473" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L454" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1218,7 +1214,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> id_to_token(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> id_to_token(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>() | nil</pre>
 
       </div>
 
@@ -1234,7 +1230,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">init(model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L35" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L39" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1264,7 +1260,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">save(tokenizer, path, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L202" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L202" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1286,7 +1282,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_decoder(tokenizer, decoder)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L283" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L277" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1298,7 +1294,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_decoder(Tokenizer.t(), Decoder.t()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_decoder(<a href="#t:t/0">t</a>(), <a href="Tokenizers.Decoder.html#t:t/0">Tokenizers.Decoder.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -1314,7 +1310,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_model(tokenizer, model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L220" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L218" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1326,7 +1322,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_model(Tokenizer.t(), <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_model(<a href="#t:t/0">t</a>(), <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -1342,7 +1338,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_normalizer(tokenizer, normalizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L234" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L230" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1354,7 +1350,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_normalizer(Tokenizer.t(), Normalizer.t()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_normalizer(<a href="#t:t/0">t</a>(), <a href="Tokenizers.Normalizer.html#t:t/0">Tokenizers.Normalizer.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -1370,7 +1366,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_padding(tokenizer, opts)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L386" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L373" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1398,7 +1394,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_post_processor(tokenizer, post_processor)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L269" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L263" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1410,7 +1406,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_post_processor(Tokenizer.t(), PostProcessor.t()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_post_processor(<a href="#t:t/0">t</a>(), <a href="Tokenizers.PostProcessor.html#t:t/0">Tokenizers.PostProcessor.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -1426,7 +1422,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_pre_tokenizer(tokenizer, pre_tokenizer)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L252" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L247" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1438,7 +1434,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_pre_tokenizer(Tokenizer.t(), PreTokenizer.t()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_pre_tokenizer(<a href="#t:t/0">t</a>(), <a href="Tokenizers.PreTokenizer.html#t:t/0">Tokenizers.PreTokenizer.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -1456,7 +1452,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">set_truncation(tokenizer, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L349" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L338" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1487,7 +1483,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">token_to_id(tokenizer, token)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L482" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L462" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1499,7 +1495,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> token_to_id(Tokenizer.t(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil</pre>
+          <pre translate="no"><span class="attribute">@spec</span> token_to_id(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil</pre>
 
       </div>
 
@@ -1517,7 +1513,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
     </a>
     <h1 class="signature" translate="no">train_from_files(tokenizer, files, trainer \\ nil)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/tokenizer.ex#L500" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/tokenizer.ex#L479" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1530,10 +1526,10 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
       <div class="specs">
 
           <pre translate="no"><span class="attribute">@spec</span> train_from_files(
-  tokenizer :: Tokenizer.t(),
+  tokenizer :: <a href="#t:t/0">t</a>(),
   files :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()],
   trainer :: <a href="Tokenizers.Trainer.html#t:t/0">Tokenizers.Trainer.t</a>() | nil
-) :: {:ok, Tokenizer.t()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -1548,11 +1544,11 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
         <p>
 
             <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.3.2" class="footer-hex-package">Hex Package</a>
+              <a href="https://hex.pm/packages/tokenizers/0.4.0-dev" class="footer-hex-package">Hex Package</a>
 
-              <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
+              <a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/lib/tokenizers/tokenizer.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev/show/lib/tokenizers/tokenizer.ex">current file</a>)
 
             </span>
 
@@ -1570,7 +1566,7 @@ Defaults to <code class="inline">[]</code>.</p></li></ul>
 
         <p class="built-using">
           Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.4) for the
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.30.2) for the
 
             <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 

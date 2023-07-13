@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.29.4">
-    <meta name="project" content="Tokenizers v0.3.2">
+    <meta name="generator" content="ExDoc v0.30.2">
+    <meta name="project" content="Tokenizers v0.4.0-dev">
 
-    <title>Pretrained Tokenizers — Tokenizers v0.3.2</title>
-    <link rel="stylesheet" href="dist/html-elixir-HHVY3JYD.css" />
+    <title>Pretrained Tokenizers — Tokenizers v0.4.0-dev</title>
+    <link rel="stylesheet" href="dist/html-elixir-JUCHUGAD.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
-    <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
-    <script src="dist/sidebar_items-9B67C23F.js"></script>
+    <script src="dist/handlebars.templates-NBND3S2D.js"></script>
+    <script src="dist/sidebar_items-1493F6F6.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/html-JDI3AVDD.js"></script>
+    <script async src="dist/html-WC6MMJK3.js"></script>
 
 
   </head>
@@ -68,7 +68,7 @@
 Tokenizers
       </a>
       <div class="sidebar-projectVersion" translate="no">
-        v0.3.2
+        v0.4.0-dev
       </div>
     </div>
     <ul class="sidebar-listNav">
@@ -96,7 +96,7 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/notebooks/pretrained.livemd#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/notebooks/pretrained.livemd#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
@@ -111,80 +111,78 @@ Tokenizers
     </a>
   </div>
 
-<h2 id="setup" class="section-heading">
-  <a href="#setup" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">setup</p>
-  </a>
-  Setup
-</h2>
-<p>This Livebook will demonstrate how to use <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> with pretrained tokenizers available on the <a href="https://huggingface.co/models">Hugging Face Hub</a>.</p><p>We'll install <code class="inline">Kino</code> for user input and <code class="inline">SciData</code> for real data to tokenize.</p><pre><code class="makeup elixir" translate="no"><span class="nc">Mix</span><span class="o">.</span><span class="n">install</span><span class="p" data-group-id="3211641377-1">(</span><span class="w">
-  </span><span class="p" data-group-id="3211641377-2">[</span><span class="w">
-    </span><span class="p" data-group-id="3211641377-3">{</span><span class="ss">:kino</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.5.2&quot;</span><span class="p" data-group-id="3211641377-3">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="3211641377-4">{</span><span class="ss">:scidata</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.5&quot;</span><span class="p" data-group-id="3211641377-4">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="3211641377-5">{</span><span class="ss">:tokenizers</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.2.0&quot;</span><span class="p" data-group-id="3211641377-5">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="3211641377-6">{</span><span class="ss">:nx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.3&quot;</span><span class="p" data-group-id="3211641377-6">}</span><span class="w">
-  </span><span class="p" data-group-id="3211641377-2">]</span><span class="p">,</span><span class="w">
+<pre><code class="makeup elixir" translate="no"><span class="nc">Mix</span><span class="o">.</span><span class="n">install</span><span class="p" data-group-id="1430936030-1">(</span><span class="w">
+  </span><span class="p" data-group-id="1430936030-2">[</span><span class="w">
+    </span><span class="p" data-group-id="1430936030-3">{</span><span class="ss">:kino</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.5.2&quot;</span><span class="p" data-group-id="1430936030-3">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="1430936030-4">{</span><span class="ss">:scidata</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.1.5&quot;</span><span class="p" data-group-id="1430936030-4">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="1430936030-5">{</span><span class="ss">:tokenizers</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.13&quot;</span><span class="p" data-group-id="1430936030-5">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="1430936030-6">{</span><span class="ss">:nx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.3&quot;</span><span class="p" data-group-id="1430936030-6">}</span><span class="w">
+  </span><span class="p" data-group-id="1430936030-2">]</span><span class="p">,</span><span class="w">
   </span><span class="ss">force</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
-</span><span class="p" data-group-id="3211641377-1">)</span></code></pre><p>We'll alias modules in <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> for readability. For now, the two main entry points into <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> are the <code class="inline">Tokenizer</code> and <code class="inline">Encoding</code> modules.</p><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">Tokenizers.Tokenizer</span><span class="w">
+</span><span class="p" data-group-id="1430936030-1">)</span></code></pre><h2 id="setup" class="section-heading">
+  <a href="#setup">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Setup
+  </a>
+</h2>
+<p>This Livebook will demonstrate how to use <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> with pretrained tokenizers available on the <a href="https://huggingface.co/models">Hugging Face Hub</a>.</p><p>We'll install <code class="inline">Kino</code> for user input and <code class="inline">SciData</code> for real data to tokenize.</p><p>Check <strong><em>Notebook dependencies and setup</em></strong> section at the beginning of this notebook</p><!-- livebook:{"break_markdown":true} --><p>We'll alias modules in <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> for readability. For now, the two main entry points into <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> are the <code class="inline">Tokenizer</code> and <code class="inline">Encoding</code> modules.</p><pre><code class="makeup elixir" translate="no"><span class="kn">alias</span><span class="w"> </span><span class="nc">Tokenizers.Tokenizer</span><span class="w">
 </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Tokenizers.Encoding</span></code></pre><h2 id="get-a-tokenizer" class="section-heading">
-  <a href="#get-a-tokenizer" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">get-a-tokenizer</p>
+  <a href="#get-a-tokenizer">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Get a tokenizer
   </a>
-  Get a tokenizer
 </h2>
-<p>The first thing to do is get a tokenizer from the hub. I've chosen <code class="inline">bert-base-cased</code> here as it's commonly used in Hugging Face examples. This call will download the tokenizer from the hub and load it into memory.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="6839225545-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">tokenizer</span><span class="p" data-group-id="6839225545-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p" data-group-id="6839225545-2">(</span><span class="s">&quot;bert-base-cased&quot;</span><span class="p" data-group-id="6839225545-2">)</span></code></pre><h2 id="save-and-load" class="section-heading">
-  <a href="#save-and-load" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">save-and-load</p>
+<p>The first thing to do is get a tokenizer from the hub. I've chosen <code class="inline">bert-base-cased</code> here as it's commonly used in Hugging Face examples. This call will download the tokenizer from the hub and load it into memory.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="1528561790-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">tokenizer</span><span class="p" data-group-id="1528561790-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p" data-group-id="1528561790-2">(</span><span class="s">&quot;bert-base-cased&quot;</span><span class="p" data-group-id="1528561790-2">)</span></code></pre><!-- livebook:{"branch_parent_index":1} --><h2 id="save-and-load" class="section-heading">
+  <a href="#save-and-load">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Save and load
   </a>
-  Save and load
 </h2>
-<p>You can save and load models. That means you can load in tokenizers you may have trained locally!</p><p>You can choose the path with the Kino input below.</p><pre><code class="makeup elixir" translate="no"><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Kino.Input</span><span class="o">.</span><span class="n">text</span><span class="p" data-group-id="3128944427-1">(</span><span class="s">&quot;Path&quot;</span><span class="p" data-group-id="3128944427-1">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Kino.Input</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="1413175476-1">(</span><span class="n">input</span><span class="p" data-group-id="1413175476-1">)</span><span class="w">
-</span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">save</span><span class="p" data-group-id="1413175476-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p" data-group-id="1413175476-2">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="2122885223-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">tokenizer</span><span class="p" data-group-id="2122885223-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">from_file</span><span class="p" data-group-id="2122885223-2">(</span><span class="n">path</span><span class="p" data-group-id="2122885223-2">)</span></code></pre><h2 id="check-the-tokenizer" class="section-heading">
-  <a href="#check-the-tokenizer" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">check-the-tokenizer</p>
+<p>You can save and load models. That means you can load in tokenizers you may have trained locally!</p><p>You can choose the path with the Kino input below.</p><pre><code class="makeup elixir" translate="no"><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Kino.Input</span><span class="o">.</span><span class="n">text</span><span class="p" data-group-id="2478511517-1">(</span><span class="s">&quot;Path&quot;</span><span class="p" data-group-id="2478511517-1">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Kino.Input</span><span class="o">.</span><span class="n">read</span><span class="p" data-group-id="6400724616-1">(</span><span class="n">input</span><span class="p" data-group-id="6400724616-1">)</span><span class="w">
+</span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">save</span><span class="p" data-group-id="6400724616-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p" data-group-id="6400724616-2">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="1724843485-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">tokenizer</span><span class="p" data-group-id="1724843485-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">from_file</span><span class="p" data-group-id="1724843485-2">(</span><span class="n">path</span><span class="p" data-group-id="1724843485-2">)</span></code></pre><h2 id="check-the-tokenizer" class="section-heading">
+  <a href="#check-the-tokenizer">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Check the tokenizer
   </a>
-  Check the tokenizer
 </h2>
-<p>Let's see what we can do with the tokenizer. First, let's have a look at the vocab. It's represented as a map of tokens to ids.</p><pre><code class="makeup elixir" translate="no"><span class="n">vocab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">get_vocab</span><span class="p" data-group-id="4760561461-1">(</span><span class="n">tokenizer</span><span class="p" data-group-id="4760561461-1">)</span></code></pre><p>We can access an id using the vocab, but we don't need to extract the vocab. <code class="inline">Tokenizer.token_to_id/2</code> does the job for us.</p><pre><code class="makeup elixir" translate="no"><span class="n">vocab</span><span class="p" data-group-id="8850380092-1">[</span><span class="s">&quot;Jaguar&quot;</span><span class="p" data-group-id="8850380092-1">]</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">token_to_id</span><span class="p" data-group-id="1619715940-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jaguar&quot;</span><span class="p" data-group-id="1619715940-1">)</span></code></pre><p>And if we want to go back the other way...</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">id_to_token</span><span class="p" data-group-id="5256419013-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="mi">21694</span><span class="p" data-group-id="5256419013-1">)</span></code></pre><p>We can also see the vocab size.</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">get_vocab_size</span><span class="p" data-group-id="6662940160-1">(</span><span class="n">tokenizer</span><span class="p" data-group-id="6662940160-1">)</span></code></pre><h2 id="encode-and-decode" class="section-heading">
-  <a href="#encode-and-decode" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">encode-and-decode</p>
+<p>Let's see what we can do with the tokenizer. First, let's have a look at the vocab. It's represented as a map of tokens to ids.</p><pre><code class="makeup elixir" translate="no"><span class="n">vocab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">get_vocab</span><span class="p" data-group-id="8483168586-1">(</span><span class="n">tokenizer</span><span class="p" data-group-id="8483168586-1">)</span></code></pre><p>We can access an id using the vocab, but we don't need to extract the vocab. <code class="inline">Tokenizer.token_to_id/2</code> does the job for us.</p><pre><code class="makeup elixir" translate="no"><span class="n">vocab</span><span class="p" data-group-id="2802481611-1">[</span><span class="s">&quot;Jaguar&quot;</span><span class="p" data-group-id="2802481611-1">]</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">token_to_id</span><span class="p" data-group-id="8077117070-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jaguar&quot;</span><span class="p" data-group-id="8077117070-1">)</span></code></pre><p>And if we want to go back the other way...</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">id_to_token</span><span class="p" data-group-id="2623152586-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="mi">21694</span><span class="p" data-group-id="2623152586-1">)</span></code></pre><p>We can also see the vocab size.</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">get_vocab_size</span><span class="p" data-group-id="1881566256-1">(</span><span class="n">tokenizer</span><span class="p" data-group-id="1881566256-1">)</span></code></pre><h2 id="encode-and-decode" class="section-heading">
+  <a href="#encode-and-decode">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Encode and decode
   </a>
-  Encode and decode
 </h2>
-<p>When you tokenize some text you get an encoding. This is represented as <code class="inline">Tokenizers.Encoding.t()</code>. Because <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> relies on Rust bindings, the encoding itself appears opaque.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="1499571919-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="p" data-group-id="1499571919-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p" data-group-id="1499571919-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello there!&quot;</span><span class="p" data-group-id="1499571919-2">)</span></code></pre><p>However, we can get the ids for the encoding as an Elixir list.</p><pre><code class="makeup elixir" translate="no"><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="p" data-group-id="9843404404-1">(</span><span class="n">encoding</span><span class="p" data-group-id="9843404404-1">)</span></code></pre><p>And we can decode those back into tokens.</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p" data-group-id="5853825422-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">ids</span><span class="p" data-group-id="5853825422-1">)</span></code></pre><p>Passing a batch of text as a list of strings returns a batch of encodings.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="1370444947-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">encodings</span><span class="p" data-group-id="1370444947-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p" data-group-id="1370444947-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1370444947-3">[</span><span class="s">&quot;Hello there!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This is a test.&quot;</span><span class="p" data-group-id="1370444947-3">]</span><span class="p" data-group-id="1370444947-2">)</span></code></pre><p>And we can see the list of ids and decode them again.</p><pre><code class="makeup elixir" translate="no"><span class="n">list_of_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="6640765065-1">(</span><span class="n">encodings</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="o">/</span><span class="mi">1</span><span class="p" data-group-id="6640765065-1">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p" data-group-id="3785777846-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">list_of_ids</span><span class="p" data-group-id="3785777846-1">)</span></code></pre><h2 id="get-a-tensor" class="section-heading">
-  <a href="#get-a-tensor" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">get-a-tensor</p>
+<p>When you tokenize some text you get an encoding. This is represented as <code class="inline">Tokenizers.Encoding.t()</code>. Because <a href="Tokenizers.html"><code class="inline">Tokenizers</code></a> relies on Rust bindings, the encoding itself appears opaque.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="2392129009-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="p" data-group-id="2392129009-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p" data-group-id="2392129009-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello there!&quot;</span><span class="p" data-group-id="2392129009-2">)</span></code></pre><p>However, we can get the ids for the encoding as an Elixir list.</p><pre><code class="makeup elixir" translate="no"><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="p" data-group-id="1242303675-1">(</span><span class="n">encoding</span><span class="p" data-group-id="1242303675-1">)</span></code></pre><p>And we can decode those back into tokens.</p><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p" data-group-id="2811375479-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">ids</span><span class="p" data-group-id="2811375479-1">)</span></code></pre><p>Passing a batch of text as a list of strings returns a batch of encodings.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="5495828578-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">encodings</span><span class="p" data-group-id="5495828578-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode_batch</span><span class="p" data-group-id="5495828578-2">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5495828578-3">[</span><span class="s">&quot;Hello there!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This is a test.&quot;</span><span class="p" data-group-id="5495828578-3">]</span><span class="p" data-group-id="5495828578-2">)</span></code></pre><p>And we can see the list of ids and decode them again.</p><pre><code class="makeup elixir" translate="no"><span class="n">list_of_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="6778185035-1">(</span><span class="n">encodings</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="o">/</span><span class="mi">1</span><span class="p" data-group-id="6778185035-1">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode_batch</span><span class="p" data-group-id="6988732878-1">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">list_of_ids</span><span class="p" data-group-id="6988732878-1">)</span></code></pre><h2 id="get-a-tensor" class="section-heading">
+  <a href="#get-a-tensor">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Get a tensor
   </a>
-  Get a tensor
 </h2>
-<p>Typically the reason we're tokenizing text is to use it as an input in a machine learning model. For that, we'll need tensors.</p><p>In order to get a tensor, we need sequences that are all of the same length. We'll get some data from <code class="inline">Scidata</code> and use <a href="Tokenizers.Encoding.html#pad/3"><code class="inline">Tokenizers.Encoding.pad/3</code></a> and <a href="Tokenizers.Encoding.html#truncate/3"><code class="inline">Tokenizers.Encoding.truncate/3</code></a> to yield a tensor.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="5590330537-1">%{</span><span class="ss">review</span><span class="p">:</span><span class="w"> </span><span class="n">reviews</span><span class="p" data-group-id="5590330537-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Scidata.YelpPolarityReviews</span><span class="o">.</span><span class="n">download_test</span><span class="p" data-group-id="5590330537-2">(</span><span class="p" data-group-id="5590330537-2">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="n">tensor</span><span class="w"> </span><span class="o">=</span><span class="w">
+<p>Typically the reason we're tokenizing text is to use it as an input in a machine learning model. For that, we'll need tensors.</p><p>In order to get a tensor, we need sequences that are all of the same length. We'll get some data from <code class="inline">Scidata</code> and use <a href="Tokenizers.Encoding.html#pad/3"><code class="inline">Tokenizers.Encoding.pad/3</code></a> and <a href="Tokenizers.Encoding.html#truncate/3"><code class="inline">Tokenizers.Encoding.truncate/3</code></a> to yield a tensor.</p><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="4083490868-1">%{</span><span class="ss">review</span><span class="p">:</span><span class="w"> </span><span class="n">reviews</span><span class="p" data-group-id="4083490868-1">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Scidata.YelpPolarityReviews</span><span class="o">.</span><span class="n">download_test</span><span class="p" data-group-id="4083490868-2">(</span><span class="p" data-group-id="4083490868-2">)</span></code></pre><pre><code class="makeup elixir" translate="no"><span class="p" data-group-id="7084787857-1">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">encoding_batch</span><span class="p" data-group-id="7084787857-1">}</span><span class="w"> </span><span class="o">=</span><span class="w">
   </span><span class="n">reviews</span><span class="w">
-  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">take</span><span class="p" data-group-id="5076661499-1">(</span><span class="mi">10</span><span class="p" data-group-id="5076661499-1">)</span><span class="w">
-  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="5076661499-2">(</span><span class="k" data-group-id="5076661499-3">fn</span><span class="w"> </span><span class="n">review</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-    </span><span class="p" data-group-id="5076661499-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">tokenized</span><span class="p" data-group-id="5076661499-4">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p" data-group-id="5076661499-5">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="n">review</span><span class="p" data-group-id="5076661499-5">)</span><span class="w">
-    </span><span class="n">padded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">pad</span><span class="p" data-group-id="5076661499-6">(</span><span class="n">tokenized</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p" data-group-id="5076661499-6">)</span><span class="w">
-    </span><span class="n">truncated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">truncate</span><span class="p" data-group-id="5076661499-7">(</span><span class="n">padded</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p" data-group-id="5076661499-7">)</span><span class="w">
-    </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="p" data-group-id="5076661499-8">(</span><span class="n">truncated</span><span class="p" data-group-id="5076661499-8">)</span><span class="w">
-  </span><span class="k" data-group-id="5076661499-3">end</span><span class="p" data-group-id="5076661499-2">)</span><span class="w">
-  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Nx</span><span class="o">.</span><span class="n">tensor</span><span class="p" data-group-id="5076661499-9">(</span><span class="p" data-group-id="5076661499-9">)</span></code></pre><p>And we can reverse the operation to see our data. Note the <code class="inline">[PAD]</code> tokens.</p><pre><code class="makeup elixir" translate="no"><span class="n">tensor</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Nx</span><span class="o">.</span><span class="n">to_batched_list</span><span class="p" data-group-id="0886916045-1">(</span><span class="mi">1</span><span class="p" data-group-id="0886916045-1">)</span><span class="w">
-</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="0886916045-2">(</span><span class="k" data-group-id="0886916045-3">fn</span><span class="w"> </span><span class="n">tensor_review</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
-  </span><span class="p" data-group-id="0886916045-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">decoded</span><span class="p" data-group-id="0886916045-4">}</span><span class="w"> </span><span class="o">=</span><span class="w">
-    </span><span class="n">tensor_review</span><span class="w">
-    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Nx</span><span class="o">.</span><span class="n">to_flat_list</span><span class="p" data-group-id="0886916045-5">(</span><span class="p" data-group-id="0886916045-5">)</span><span class="w">
-    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">then</span><span class="p" data-group-id="0886916045-6">(</span><span class="o">&amp;</span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p" data-group-id="0886916045-7">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="ni">&amp;1</span><span class="p" data-group-id="0886916045-7">)</span><span class="p" data-group-id="0886916045-6">)</span><span class="w">
+  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">take</span><span class="p" data-group-id="7084787857-2">(</span><span class="mi">10</span><span class="p" data-group-id="7084787857-2">)</span><span class="w">
+  </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">then</span><span class="p" data-group-id="7084787857-3">(</span><span class="o">&amp;</span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">encode_batch</span><span class="p" data-group-id="7084787857-4">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="ni">&amp;1</span><span class="p" data-group-id="7084787857-4">)</span><span class="p" data-group-id="7084787857-3">)</span><span class="w">
 
-  </span><span class="n">decoded</span><span class="w">
-</span><span class="k" data-group-id="0886916045-3">end</span><span class="p" data-group-id="0886916045-2">)</span></code></pre>
+</span><span class="n">tensor</span><span class="w"> </span><span class="o">=</span><span class="w">
+  </span><span class="n">encoding_batch</span><span class="w">
+  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="7084787857-5">(</span><span class="k" data-group-id="7084787857-6">fn</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+    </span><span class="n">encoding</span><span class="w">
+    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">pad</span><span class="p" data-group-id="7084787857-7">(</span><span class="mi">200</span><span class="p" data-group-id="7084787857-7">)</span><span class="w">
+    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">truncate</span><span class="p" data-group-id="7084787857-8">(</span><span class="mi">200</span><span class="p" data-group-id="7084787857-8">)</span><span class="w">
+    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Encoding</span><span class="o">.</span><span class="n">get_ids</span><span class="p" data-group-id="7084787857-9">(</span><span class="p" data-group-id="7084787857-9">)</span><span class="w">
+  </span><span class="k" data-group-id="7084787857-6">end</span><span class="p" data-group-id="7084787857-5">)</span><span class="w">
+  </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Nx</span><span class="o">.</span><span class="n">tensor</span><span class="p" data-group-id="7084787857-10">(</span><span class="p" data-group-id="7084787857-10">)</span></code></pre><p>And we can reverse the operation to see our data. Note the <code class="inline">[PAD]</code> tokens.</p><pre><code class="makeup elixir" translate="no"><span class="n">tensor</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Nx</span><span class="o">.</span><span class="n">to_batched</span><span class="p" data-group-id="9144320618-1">(</span><span class="mi">1</span><span class="p" data-group-id="9144320618-1">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p" data-group-id="9144320618-2">(</span><span class="o">&amp;</span><span class="nc">Nx</span><span class="o">.</span><span class="n">to_flat_list</span><span class="o">/</span><span class="mi">1</span><span class="p" data-group-id="9144320618-2">)</span><span class="w">
+</span><span class="o">|&gt;</span><span class="w"> </span><span class="n">then</span><span class="p" data-group-id="9144320618-3">(</span><span class="o">&amp;</span><span class="nc">Tokenizer</span><span class="o">.</span><span class="n">decode_batch</span><span class="p" data-group-id="9144320618-4">(</span><span class="n">tokenizer</span><span class="p">,</span><span class="w"> </span><span class="ni">&amp;1</span><span class="p" data-group-id="9144320618-4">)</span><span class="p" data-group-id="9144320618-3">)</span></code></pre>
 <div class="bottom-actions">
   <div class="bottom-actions-item">
 
-      <a href="license.html" class="bottom-actions-button" rel="prev">
+      <a href="quicktour.html" class="bottom-actions-button" rel="prev">
         <span class="subheader">
           ← Previous Page
         </span>
         <span class="title">
-LICENSE
+Quicktour
         </span>
       </a>
 
@@ -197,11 +195,11 @@ LICENSE
         <p>
 
             <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.3.2" class="footer-hex-package">Hex Package</a>
+              <a href="https://hex.pm/packages/tokenizers/0.4.0-dev" class="footer-hex-package">Hex Package</a>
 
-              <a href="https://preview.hex.pm/preview/tokenizers/0.3.2">Hex Preview</a>
+              <a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.3.2/show/notebooks/pretrained.livemd">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev/show/notebooks/pretrained.livemd">current file</a>)
 
             </span>
 
@@ -219,7 +217,7 @@ LICENSE
 
         <p class="built-using">
           Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.4) for the
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.30.2) for the
 
             <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
 
