@@ -92,7 +92,7 @@ defmodule Tokenizers.Decoder do
   @doc """
   Creates new Sequence decoder
   """
-  @spec sequence(decoders :: [Tokenizers.Decoder.t()]) :: t()
+  @spec sequence(decoders :: [t()]) :: t()
   defdelegate sequence(decoders), to: Tokenizers.Native, as: :decoders_sequence
 
   @doc """

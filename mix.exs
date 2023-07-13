@@ -2,7 +2,7 @@ defmodule Tokenizers.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/elixir-nx/tokenizers"
-  @version "0.3.2"
+  @version "0.4.0-dev"
 
   def project do
     [
@@ -41,7 +41,7 @@ defmodule Tokenizers.MixProject do
       main: "Tokenizers",
       source_ref: "v#{@version}",
       source_url: @source_url,
-      extras: ["LICENSE", "notebooks/pretrained.livemd"]
+      extras: ["LICENSE", "notebooks/quicktour.livemd", "notebooks/pretrained.livemd"]
     ]
   end
 

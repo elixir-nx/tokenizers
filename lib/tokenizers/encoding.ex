@@ -11,49 +11,49 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the number of tokens in an encoding.
   """
-  @spec get_length(Encoding.t()) :: non_neg_integer()
+  @spec get_length(t()) :: non_neg_integer()
   defdelegate get_length(encoding), to: Tokenizers.Native, as: :encoding_get_length
 
   @doc """
   Return the number of sequences combined in this Encoding
   """
-  @spec get_n_sequences(Encoding.t()) :: non_neg_integer()
+  @spec get_n_sequences(t()) :: non_neg_integer()
   defdelegate get_n_sequences(encoding), to: Tokenizers.Native, as: :encoding_get_n_sequences
 
   @doc """
   Set the given sequence id for the whole range of tokens contained in this Encoding.
   """
-  @spec set_sequence_id(Encoding.t(), non_neg_integer()) :: Encoding.t()
+  @spec set_sequence_id(t(), non_neg_integer()) :: t()
   defdelegate set_sequence_id(encoding, id), to: Tokenizers.Native, as: :encoding_set_sequence_id
 
   @doc """
   Get the ids from an encoding.
   """
-  @spec get_ids(Encoding.t()) :: [integer()]
+  @spec get_ids(t()) :: [integer()]
   defdelegate get_ids(encoding), to: Tokenizers.Native, as: :encoding_get_ids
 
   @doc """
   Same as `get_ids/1`, but returns binary with u32 values.
   """
-  @spec get_u32_ids(Encoding.t()) :: binary()
+  @spec get_u32_ids(t()) :: binary()
   defdelegate get_u32_ids(encoding), to: Tokenizers.Native, as: :encoding_get_u32_ids
 
   @doc """
   Get token type ids from an encoding.
   """
-  @spec get_type_ids(Encoding.t()) :: [integer()]
+  @spec get_type_ids(t()) :: [integer()]
   defdelegate get_type_ids(encoding), to: Tokenizers.Native, as: :encoding_get_type_ids
 
   @doc """
   Same as `get_type_ids/1`, but returns binary with u32 values.
   """
-  @spec get_u32_type_ids(Encoding.t()) :: binary()
+  @spec get_u32_type_ids(t()) :: binary()
   defdelegate get_u32_type_ids(encoding), to: Tokenizers.Native, as: :encoding_get_u32_type_ids
 
   @doc """
   Get the attention mask from an encoding.
   """
-  @spec get_attention_mask(Encoding.t()) :: [integer()]
+  @spec get_attention_mask(t()) :: [integer()]
   defdelegate get_attention_mask(encoding),
     to: Tokenizers.Native,
     as: :encoding_get_attention_mask
@@ -61,7 +61,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Same as `get_attention_mask/1`, but returns binary with u32 values.
   """
-  @spec get_u32_attention_mask(Encoding.t()) :: binary()
+  @spec get_u32_attention_mask(t()) :: binary()
   defdelegate get_u32_attention_mask(encoding),
     to: Tokenizers.Native,
     as: :encoding_get_u32_attention_mask
@@ -69,7 +69,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the special tokens mask from an encoding.
   """
-  @spec get_special_tokens_mask(Encoding.t()) :: [integer()]
+  @spec get_special_tokens_mask(t()) :: [integer()]
   defdelegate get_special_tokens_mask(encoding),
     to: Tokenizers.Native,
     as: :encoding_get_special_tokens_mask
@@ -77,7 +77,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Same as `get_special_tokens_mask/1`, but returns binary with u32 values.
   """
-  @spec get_u32_special_tokens_mask(Encoding.t()) :: binary()
+  @spec get_u32_special_tokens_mask(t()) :: binary()
   defdelegate get_u32_special_tokens_mask(encoding),
     to: Tokenizers.Native,
     as: :encoding_get_u32_special_tokens_mask
@@ -85,19 +85,19 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the tokens from an encoding.
   """
-  @spec get_tokens(Encoding.t()) :: [binary()]
+  @spec get_tokens(t()) :: [binary()]
   defdelegate get_tokens(encoding), to: Tokenizers.Native, as: :encoding_get_tokens
 
   @doc """
   Get word ids from an encoding.
   """
-  @spec get_word_ids(Encoding.t()) :: [non_neg_integer() | nil]
+  @spec get_word_ids(t()) :: [non_neg_integer() | nil]
   defdelegate get_word_ids(encoding), to: Tokenizers.Native, as: :encoding_get_word_ids
 
   @doc """
   Get sequence ids from an encoding.
   """
-  @spec get_sequence_ids(Encoding.t()) :: [non_neg_integer() | nil]
+  @spec get_sequence_ids(t()) :: [non_neg_integer() | nil]
   defdelegate get_sequence_ids(encoding), to: Tokenizers.Native, as: :encoding_get_sequence_ids
 
   @doc """
@@ -105,20 +105,20 @@ defmodule Tokenizers.Encoding do
 
   The offsets are expressed in terms of UTF-8 bytes.
   """
-  @spec get_offsets(Encoding.t()) :: [{integer(), integer()}]
+  @spec get_offsets(t()) :: [{integer(), integer()}]
   defdelegate get_offsets(encoding), to: Tokenizers.Native, as: :encoding_get_offsets
 
   @doc """
   Get the overflow from an encoding.
   """
-  @spec get_overflowing(Encoding.t()) :: [Encoding.t()]
+  @spec get_overflowing(t()) :: [t()]
   defdelegate get_overflowing(encoding), to: Tokenizers.Native, as: :encoding_get_overflowing
 
   @doc """
   Get the encoded tokens corresponding to the word at the given index in the input sequence,
   with the form (start_token, end_token + 1)
   """
-  @spec word_to_tokens(Encoding.t(), non_neg_integer(), non_neg_integer()) ::
+  @spec word_to_tokens(t(), non_neg_integer(), non_neg_integer()) ::
           {non_neg_integer(), non_neg_integer()} | nil
   defdelegate word_to_tokens(encoding, word, seq_id),
     to: Tokenizers.Native,
@@ -127,7 +127,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the offsets of the word at the given index in the input sequence.
   """
-  @spec word_to_chars(Encoding.t(), non_neg_integer(), non_neg_integer()) ::
+  @spec word_to_chars(t(), non_neg_integer(), non_neg_integer()) ::
           {non_neg_integer(), non_neg_integer()} | nil
   defdelegate word_to_chars(encoding, word, seq_id),
     to: Tokenizers.Native,
@@ -136,7 +136,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Returns the index of the sequence containing the given token
   """
-  @spec token_to_sequence(Encoding.t(), non_neg_integer()) :: non_neg_integer() | nil
+  @spec token_to_sequence(t(), non_neg_integer()) :: non_neg_integer() | nil
   defdelegate token_to_sequence(encoding, token),
     to: Tokenizers.Native,
     as: :encoding_token_to_sequence
@@ -144,21 +144,21 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the offsets of the token at the given index.
   """
-  @spec token_to_chars(Encoding.t(), non_neg_integer()) ::
+  @spec token_to_chars(t(), non_neg_integer()) ::
           {non_neg_integer(), {non_neg_integer(), non_neg_integer()}} | nil
   defdelegate token_to_chars(encoding, token), to: Tokenizers.Native, as: :encoding_token_to_chars
 
   @doc """
   Get the word that contains the token at the given index.
   """
-  @spec token_to_word(Encoding.t(), non_neg_integer()) ::
+  @spec token_to_word(t(), non_neg_integer()) ::
           {non_neg_integer(), non_neg_integer()} | nil
   defdelegate token_to_word(encoding, token), to: Tokenizers.Native, as: :encoding_token_to_word
 
   @doc """
   Get the token that contains the given char.
   """
-  @spec char_to_token(Encoding.t(), non_neg_integer(), non_neg_integer()) ::
+  @spec char_to_token(t(), non_neg_integer(), non_neg_integer()) ::
           non_neg_integer() | nil
   defdelegate char_to_token(encoding, position, seq_id),
     to: Tokenizers.Native,
@@ -167,7 +167,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Get the word that contains the given char.
   """
-  @spec char_to_word(Encoding.t(), non_neg_integer(), non_neg_integer()) ::
+  @spec char_to_word(t(), non_neg_integer(), non_neg_integer()) ::
           non_neg_integer() | nil
   defdelegate char_to_word(encoding, position, seq_id),
     to: Tokenizers.Native,
@@ -192,7 +192,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Pad the encoding to the given length.
   """
-  @spec pad(Encoding.t(), non_neg_integer(), padding_opts()) :: Encoding.t()
+  @spec pad(t(), non_neg_integer(), padding_opts()) :: t()
   defdelegate pad(encoding, target_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_pad
@@ -208,15 +208,15 @@ defmodule Tokenizers.Encoding do
   @doc """
   Truncate the encoding to the given length.
   """
-  @spec truncate(Encoding.t(), non_neg_integer(), truncation_opts()) :: Encoding.t()
+  @spec truncate(t(), non_neg_integer(), truncation_opts()) :: t()
   defdelegate truncate(encoding, max_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_truncate
 
   @doc """
-  Returns the number of tokens in an `Encoding.t()`.
+  Returns the number of tokens in an `t()`.
   """
-  @spec n_tokens(encoding :: Encoding.t()) :: non_neg_integer()
+  @spec n_tokens(encoding :: t()) :: non_neg_integer()
   defdelegate n_tokens(encoding), to: Tokenizers.Native, as: :encoding_get_length
 end
 

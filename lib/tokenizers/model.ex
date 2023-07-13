@@ -14,7 +14,7 @@ defmodule Tokenizers.Model do
 
   Information retrieved differs per model but all include `model_type`.
   """
-  @spec info(model :: __MODULE__.t()) :: map()
+  @spec info(model :: t()) :: map()
   defdelegate info(model), to: Tokenizers.Native, as: :models_info
 
   @typedoc """

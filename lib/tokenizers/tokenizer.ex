@@ -2,7 +2,7 @@ defmodule Tokenizers.Tokenizer do
   @moduledoc """
   The struct and associated functions for a tokenizer.
 
-  A `Tokenizers.Tokenizer.t()` is a container that holds the constituent parts of the tokenization pipeline.
+  A `Tokenizers.t()` is a container that holds the constituent parts of the tokenization pipeline.
 
   When you call `Tokenizers.Tokenizer.encode/3`, the input text goes through the following pipeline:
 
@@ -19,6 +19,11 @@ defmodule Tokenizers.Tokenizer do
   defstruct [:resource]
 
   alias Tokenizers.Model
+  alias Tokenizers.Encoding
+  alias Tokenizers.PostProcessor
+  alias Tokenizers.PreTokenizer
+  alias Tokenizers.Normalizer
+  alias Tokenizers.Decoder
 
   @typedoc """
   An input being a subject to tokenization.
@@ -30,7 +35,6 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Instantiate a new tokenizer from an existing models.
   """
-  @doc section: :creators
   @spec init(model :: Model.t()) :: {:ok, t()} | {:error, any()}
   defdelegate init(model), to: Tokenizers.Native, as: :tokenizer_init
 
@@ -64,8 +68,7 @@ defmodule Tokenizers.Tokenizer do
     * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
       Defaults to `[]`.
   """
-  @doc section: :creators
-  @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, Tokenizer.t()} | {:error, term()}
+  @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
     opts =
       Keyword.validate!(opts,
@@ -168,12 +171,11 @@ defmodule Tokenizers.Tokenizer do
   Instantiate a new tokenizer from the file at the given path.
   You can specify a list of special tokens to append to the tokenizer.
   """
-  @doc section: :creators
   @spec from_file(
           path :: String.t(),
           options :: [additional_special_tokens :: [String.t() | Tokenizers.AddedToken.t()]]
         ) ::
-          {:ok, Tokenizer.t()} | {:error, term()}
+          {:ok, t()} | {:error, term()}
   defdelegate from_file(path, options \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_from_file
@@ -182,12 +184,11 @@ defmodule Tokenizers.Tokenizer do
   Instantiate a new tokenizer from the buffer.
   You can specify a list of special tokens to append to the tokenizer.
   """
-  @doc section: :creators
   @spec from_buffer(
           data :: String.t(),
           options :: [additional_special_tokens :: [String.t() | Tokenizers.AddedToken.t()]]
         ) ::
-          {:ok, Tokenizer.t()} | {:error, term()}
+          {:ok, t()} | {:error, term()}
   defdelegate from_buffer(data, options \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_from_buffer
@@ -197,8 +198,7 @@ defmodule Tokenizers.Tokenizer do
 
   * `:pretty` - Whether to pretty print the JSON file. Defaults to `true`.
   """
-  @doc section: :creators
-  @spec save(Tokenizer.t(), pretty: boolean()) :: {:ok, String.t()} | {:error, term()}
+  @spec save(t(), pretty: boolean()) :: {:ok, String.t()} | {:error, term()}
   defdelegate save(tokenizer, path, options \\ []), to: Tokenizers.Native, as: :tokenizer_save
 
   ##############################################################################
@@ -208,29 +208,25 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Get the `Tokenizer`'s `Model`.
   """
-  @doc section: :setup
-  @spec get_model(Tokenizer.t()) :: Model.t()
+  @spec get_model(t()) :: Model.t()
   defdelegate get_model(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_model
 
   @doc """
   Set the `Tokenizer`'s `Model`.
   """
-  @doc section: :setup
-  @spec set_model(Tokenizer.t(), Model.t()) :: t()
+  @spec set_model(t(), Model.t()) :: t()
   defdelegate set_model(tokenizer, model), to: Tokenizers.Native, as: :tokenizer_set_model
 
   @doc """
   Get the `Tokenizer`'s `Normalizer`.
   """
-  @doc section: :setup
-  @spec get_normalizer(Tokenizer.t()) :: Normalizer.t() | nil
+  @spec get_normalizer(t()) :: Normalizer.t() | nil
   defdelegate get_normalizer(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_normalizer
 
   @doc """
   Set the `Tokenizer`'s `Normalizer`.
   """
-  @doc section: :setup
-  @spec set_normalizer(Tokenizer.t(), Normalizer.t()) :: t()
+  @spec set_normalizer(t(), Normalizer.t()) :: t()
   defdelegate set_normalizer(tokenizer, normalizer),
     to: Tokenizers.Native,
     as: :tokenizer_set_normalizer
@@ -238,8 +234,8 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Get the `Tokenizer`'s `PreTokenizer`.
   """
-  @doc section: :setup
-  @spec get_pre_tokenizer(Tokenizer.t()) :: PreTokenizer.t() | nil
+  alias Tokenizers.PreTokenizer
+  @spec get_pre_tokenizer(t()) :: PreTokenizer.t() | nil
   defdelegate get_pre_tokenizer(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_get_pre_tokenizer
@@ -247,8 +243,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Set the `Tokenizer`'s `PreTokenizer`.
   """
-  @doc section: :setup
-  @spec set_pre_tokenizer(Tokenizer.t(), PreTokenizer.t()) :: t()
+  @spec set_pre_tokenizer(t(), PreTokenizer.t()) :: t()
   defdelegate set_pre_tokenizer(tokenizer, pre_tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_set_pre_tokenizer
@@ -256,7 +251,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Get the `Tokenizer`'s `PostProcessor`.
   """
-  @spec get_post_processor(Tokenizer.t()) :: PostProcessor.t() | nil
+  @spec get_post_processor(t()) :: PostProcessor.t() | nil
   defdelegate get_post_processor(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_get_post_processor
@@ -264,8 +259,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Set the `Tokenizer`'s `PostProcessor`.
   """
-  @doc section: :setup
-  @spec set_post_processor(Tokenizer.t(), PostProcessor.t()) :: t()
+  @spec set_post_processor(t(), PostProcessor.t()) :: t()
   defdelegate set_post_processor(tokenizer, post_processor),
     to: Tokenizers.Native,
     as: :tokenizer_set_post_processor
@@ -273,20 +267,19 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Get the `Tokenizer`'s `Decoder`.
   """
-  @spec get_decoder(Tokenizer.t()) :: Decoder.t() | nil
+  @spec get_decoder(t()) :: Decoder.t() | nil
   defdelegate get_decoder(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_decoder
 
   @doc """
   Set the `Tokenizer`'s `Decoder`.
   """
-  @spec set_decoder(Tokenizer.t(), Decoder.t()) :: t()
+  @spec set_decoder(t(), Decoder.t()) :: t()
   defdelegate set_decoder(tokenizer, decoder), to: Tokenizers.Native, as: :tokenizer_set_decoder
 
   @doc """
   Get the tokenizer's vocabulary as a map of token to id.
   """
-  @doc section: :setup
-  @spec get_vocab(tokenizer :: Tokenizer.t(), with_additional_tokens :: boolean()) :: %{
+  @spec get_vocab(tokenizer :: t(), with_additional_tokens :: boolean()) :: %{
           String.t() => integer()
         }
   defdelegate get_vocab(tokenizer, with_additional_tokens \\ true),
@@ -296,8 +289,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Get the number of tokens in the vocabulary.
   """
-  @doc section: :setup
-  @spec get_vocab_size(tokenizer :: Tokenizer.t(), with_additional_tokens :: boolean()) ::
+  @spec get_vocab_size(tokenizer :: t(), with_additional_tokens :: boolean()) ::
           non_neg_integer()
   defdelegate get_vocab_size(tokenizer, with_additional_tokens \\ true),
     to: Tokenizers.Native,
@@ -307,7 +299,6 @@ defmodule Tokenizers.Tokenizer do
   Adds tokens to the vocabulary.
   These tokens **are not special**. To add special tokens - use `add_special_tokens/2`.
   """
-  @doc section: :setup
   @spec add_tokens(tokenizer :: t(), tokens :: [String.t()]) :: non_neg_integer()
   defdelegate add_tokens(tokenizer, tokens),
     to: Tokenizers.Native,
@@ -317,7 +308,6 @@ defmodule Tokenizers.Tokenizer do
   Adds special tokens to the vocabulary.
   These tokens **are special**. To add regular tokens - use `add_tokens/2`.
   """
-  @doc section: :setup
   @spec add_special_tokens(tokenizer :: t(), tokens :: [String.t()]) :: non_neg_integer()
   defdelegate add_special_tokens(tokenizer, tokens),
     to: Tokenizers.Native,
@@ -341,7 +331,6 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Set truncation for the tokenizer.
   """
-  @doc section: :setup
   @spec set_truncation(
           tokenizer :: t(),
           opts :: truncation_options()
@@ -353,7 +342,6 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Disable truncation for the tokenizer.
   """
-  @doc section: :setup
   @spec disable_truncation(tokenizer :: t()) :: t()
   defdelegate disable_truncation(tokenizer),
     to: Tokenizers.Native,
@@ -381,7 +369,6 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Set padding for the tokenizer.
   """
-  @doc section: :setup
   @spec set_padding(tokenizer :: t(), opts :: padding_options()) :: t()
   defdelegate set_padding(tokenizer, opts),
     to: Tokenizers.Native,
@@ -390,7 +377,6 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Disable padding for the tokenizer.
   """
-  @doc section: :setup
   @spec disable_padding(tokenizer :: t()) :: t()
   defdelegate disable_padding(tokenizer),
     to: Tokenizers.Native,
@@ -406,9 +392,8 @@ defmodule Tokenizers.Tokenizer do
   Options:
   * `:add_special_tokens` (default: `true`) - whether to add special tokens to the sequence.
   """
-  @doc section: :infer
   @spec encode(
-          tokenizer :: Tokenizer.t(),
+          tokenizer :: t(),
           input :: encode_input(),
           options :: [add_special_tokens: boolean()]
         ) ::
@@ -422,9 +407,8 @@ defmodule Tokenizers.Tokenizer do
 
   For options check `encode/3`.
   """
-  @doc section: :infer
   @spec encode_batch(
-          tokenizer :: Tokenizer.t(),
+          tokenizer :: t(),
           input :: [encode_input()],
           options :: [add_special_tokens: boolean()]
         ) ::
@@ -440,9 +424,8 @@ defmodule Tokenizers.Tokenizer do
 
   * `:skip_special_tokens` (default: `true`) - whether to remove special tokens from the decoded string.
   """
-  @doc section: :infer
   @spec decode(
-          tokenizer :: Tokenizer.t(),
+          tokenizer :: t(),
           ids :: [non_neg_integer()],
           options :: [skip_special_tokens: boolean()]
         ) ::
@@ -454,9 +437,8 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Decode the given list of ids or list of lists of ids back to strings.
   """
-  @doc section: :infer
   @spec decode_batch(
-          tokenizer :: Tokenizer.t(),
+          tokenizer :: t(),
           sentences :: [[non_neg_integer()]],
           options :: [skip_special_tokens: boolean()]
         ) ::
@@ -468,8 +450,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Convert a given id to its token.
   """
-  @doc section: :infer
-  @spec id_to_token(Tokenizer.t(), integer()) :: String.t() | nil
+  @spec id_to_token(t(), integer()) :: String.t() | nil
   defdelegate id_to_token(tokenizer, id),
     to: Tokenizers.Native,
     as: :tokenizer_id_to_token
@@ -477,8 +458,7 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Convert a given token to its id.
   """
-  @doc section: :infer
-  @spec token_to_id(Tokenizer.t(), String.t()) :: non_neg_integer() | nil
+  @spec token_to_id(t(), String.t()) :: non_neg_integer() | nil
   defdelegate token_to_id(tokenizer, token),
     to: Tokenizers.Native,
     as: :tokenizer_token_to_id
@@ -490,13 +470,12 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Train the tokenizer on the given files.
   """
-  @doc section: :train
   @spec train_from_files(
-          tokenizer :: Tokenizer.t(),
+          tokenizer :: t(),
           files :: [String.t()],
           trainer :: Tokenizers.Trainer.t() | nil
         ) ::
-          {:ok, Tokenizer.t()} | {:error, term()}
+          {:ok, t()} | {:error, term()}
   defdelegate train_from_files(tokenizer, files, trainer \\ nil),
     to: Tokenizers.Native,
     as: :tokenizer_train_from_files

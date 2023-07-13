@@ -1,22 +1,26 @@
 # Pretrained Tokenizers
 
+```elixir
+Mix.install(
+  [
+    {:kino, "~> 0.5.2"},
+    {:scidata, "~> 0.1.5"},
+    {:tokenizers, "~> 0.13"},
+    {:nx, "~> 0.3"}
+  ],
+  force: true
+)
+```
+
 ## Setup
 
 This Livebook will demonstrate how to use `Tokenizers` with pretrained tokenizers available on the [Hugging Face Hub](https://huggingface.co/models).
 
 We'll install `Kino` for user input and `SciData` for real data to tokenize.
 
-```elixir
-Mix.install(
-  [
-    {:kino, "~> 0.5.2"},
-    {:scidata, "~> 0.1.5"},
-    {:tokenizers, "~> 0.2.0"},
-    {:nx, "~> 0.3"}
-  ],
-  force: true
-)
-```
+Check **_Notebook dependencies and setup_** section at the beginning of this notebook
+
+<!-- livebook:{"break_markdown":true} -->
 
 We'll alias modules in `Tokenizers` for readability. For now, the two main entry points into `Tokenizers` are the `Tokenizer` and `Encoding` modules.
 
@@ -32,6 +36,8 @@ The first thing to do is get a tokenizer from the hub. I've chosen `bert-base-ca
 ```elixir
 {:ok, tokenizer} = Tokenizer.from_pretrained("bert-base-cased")
 ```
+
+<!-- livebook:{"branch_parent_index":1} -->
 
 ## Save and load
 
@@ -105,7 +111,7 @@ Tokenizer.decode(tokenizer, ids)
 Passing a batch of text as a list of strings returns a batch of encodings.
 
 ```elixir
-{:ok, encodings} = Tokenizer.encode(tokenizer, ["Hello there!", "This is a test."])
+{:ok, encodings} = Tokenizer.encode_batch(tokenizer, ["Hello there!", "This is a test."])
 ```
 
 And we can see the list of ids and decode them again.
@@ -115,7 +121,7 @@ list_of_ids = Enum.map(encodings, &Encoding.get_ids/1)
 ```
 
 ```elixir
-Tokenizer.decode(tokenizer, list_of_ids)
+Tokenizer.decode_batch(tokenizer, list_of_ids)
 ```
 
 ## Get a tensor
@@ -129,14 +135,18 @@ In order to get a tensor, we need sequences that are all of the same length. We'
 ```
 
 ```elixir
-tensor =
+{:ok, encoding_batch} =
   reviews
   |> Enum.take(10)
-  |> Enum.map(fn review ->
-    {:ok, tokenized} = Tokenizer.encode(tokenizer, review)
-    padded = Encoding.pad(tokenized, 200)
-    truncated = Encoding.truncate(padded, 200)
-    Encoding.get_ids(truncated)
+  |> then(&Tokenizer.encode_batch(tokenizer, &1))
+
+tensor =
+  encoding_batch
+  |> Enum.map(fn encoding ->
+    encoding
+    |> Encoding.pad(200)
+    |> Encoding.truncate(200)
+    |> Encoding.get_ids()
   end)
   |> Nx.tensor()
 ```
@@ -145,13 +155,7 @@ And we can reverse the operation to see our data. Note the `[PAD]` tokens.
 
 ```elixir
 tensor
-|> Nx.to_batched_list(1)
-|> Enum.map(fn tensor_review ->
-  {:ok, decoded} =
-    tensor_review
-    |> Nx.to_flat_list()
-    |> then(&Tokenizer.decode(tokenizer, &1))
-
-  decoded
-end)
+|> Nx.to_batched(1)
+|> Enum.map(&Nx.to_flat_list/1)
+|> then(&Tokenizer.decode_batch(tokenizer, &1))
 ```

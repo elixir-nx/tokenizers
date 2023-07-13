@@ -28,7 +28,7 @@ defmodule Tokenizers.AddedToken do
     The notion of ”inside of a word” is defined by the word boundaries pattern
     in regular expressions (i.e. the token should start and end with word boundaries).
 
-  * `:lstrip` (default `false`) - defines whether this token should strip all potential 
+  * `:lstrip` (default `false`) - defines whether this token should strip all potential
     whitespaces on its left side.
     If `true`, this token will greedily match any whitespace on its left.
     For example if we try to match the token `[MASK]` with `lstrip=true`,
@@ -38,7 +38,7 @@ defmodule Tokenizers.AddedToken do
     whitespaces on its right side.
     If `true`, this token will greedily match any whitespace on its right.
     It works just like `lstrip` but on the right.
-    
+
   * `:normalized` (default `true` for not special tokens, `false` for special tokens) -
     defines whether this token should match against the normalized version of the input text.
     For example, with the added token `"yesterday"`,
@@ -53,7 +53,7 @@ defmodule Tokenizers.AddedToken do
   @doc """
   Retrieves information about added token.
   """
-  @spec info(added_token :: __MODULE__.t()) :: map()
+  @spec info(added_token :: t()) :: map()
   defdelegate info(model), to: Tokenizers.Native, as: :added_token_info
 end
 
