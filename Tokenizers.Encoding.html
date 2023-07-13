@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-XWGFFSCD.js"></script>
-    <script src="dist/sidebar_items-A14BB8FA.js"></script>
+    <script src="dist/sidebar_items-9B67C23F.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -127,9 +127,29 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#t:padding_opts/0" translate="no">padding_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for padding. All options can be ommited.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#t:t/0" translate="no">t()</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:truncation_opts/0" translate="no">truncation_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Options for truncation. All options can be ommited.</p></div>
 
     </div>
 
@@ -138,6 +158,26 @@ Tokenizers
   <h2>
     <a href="#functions">Functions</a>
   </h2>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#char_to_token/3" translate="no">char_to_token(encoding, position, seq_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the token that contains the given char.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#char_to_word/3" translate="no">char_to_word(encoding, position, seq_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the word that contains the given char.</p></div>
+
+    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -161,6 +201,26 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_length/1" translate="no">get_length(encoding)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the number of tokens in an encoding.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_n_sequences/1" translate="no">get_n_sequences(encoding)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Return the number of sequences combined in this Encoding</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#get_offsets/1" translate="no">get_offsets(encoding)</a>
 
       </div>
@@ -171,11 +231,31 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_overflowing/1" translate="no">get_overflowing(encoding)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the overflow from an encoding.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#get_sequence_ids/1" translate="no">get_sequence_ids(encoding)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get sequence ids from an encoding.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#get_special_tokens_mask/1" translate="no">get_special_tokens_mask(encoding)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Get special tokens mask from an encoding.</p></div>
+        <div class="summary-synopsis"><p>Get the special tokens mask from an encoding.</p></div>
 
     </div>
 
@@ -241,6 +321,16 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#get_word_ids/1" translate="no">get_word_ids(encoding)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get word ids from an encoding.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#n_tokens/1" translate="no">n_tokens(encoding)</a>
 
       </div>
@@ -251,7 +341,7 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#pad/3" translate="no">pad(encoding, length, opts \\ [])</a>
+        <a href="#pad/3" translate="no">pad(encoding, target_length, opts \\ [])</a>
 
       </div>
 
@@ -261,11 +351,72 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#truncate/3" translate="no">truncate(encoding, max_len, opts \\ [])</a>
+        <a href="#set_sequence_id/2" translate="no">set_sequence_id(encoding, id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Set the given sequence id for the whole range of tokens contained in this Encoding.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#token_to_chars/2" translate="no">token_to_chars(encoding, token)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the offsets of the token at the given index.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#token_to_sequence/2" translate="no">token_to_sequence(encoding, token)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Returns the index of the sequence containing the given token</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#token_to_word/2" translate="no">token_to_word(encoding, token)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the word that contains the token at the given index.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/3" translate="no">truncate(encoding, max_length, opts \\ [])</a>
 
       </div>
 
         <div class="summary-synopsis"><p>Truncate the encoding to the given length.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#word_to_chars/3" translate="no">word_to_chars(encoding, word, seq_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the offsets of the word at the given index in the input sequence.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#word_to_tokens/3" translate="no">word_to_tokens(encoding, word, seq_id)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Get the encoded tokens corresponding to the word at the given index in the input sequence,
+with the form (start_token, end_token + 1)</p></div>
 
     </div>
 
@@ -283,6 +434,39 @@ Tokenizers
 Types
     </h1>
     <div class="types-list">
+<section class="detail" id="t:padding_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:padding_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">padding_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L185" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> padding_opts() :: [
+  pad_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  pad_type_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  pad_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  direction: :left | :right
+]</pre>
+
+      </div>
+
+<p>Options for padding. All options can be ommited.</p><ul><li><code class="inline">direction</code> (default <code class="inline">:right</code>) - The padding direction.</li><li><code class="inline">pad_id</code> (default <code class="inline">0</code>) - The id corresponding to the padding token.</li><li><code class="inline">pad_type_id</code> (default <code class="inline">0</code>) - The type ID corresponding to the padding token.</li><li><code class="inline">pad_token</code> (default <code class="inline">[PDA]</code>) - The padding token to use.</li></ul>
+  </section>
+</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -304,11 +488,39 @@ Types
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.Encoding{reference: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>(), resource: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.Encoding{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
 
       </div>
 
 
+  </section>
+</section>
+<section class="detail" id="t:truncation_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:truncation_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">truncation_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L206" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> truncation_opts() :: [stride: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), direction: :left | :right]</pre>
+
+      </div>
+
+<p>Options for truncation. All options can be ommited.</p><ul><li><code class="inline">stride</code> (default <code class="inline">0</code>) - The length of previous content to be included in each overflowing piece.</li><li><code class="inline">direction</code> (default <code class="inline">:right</code>) - The truncation direction.</li></ul>
   </section>
 </section>
 
@@ -324,6 +536,64 @@ Types
 Functions
     </h1>
     <div class="functions-list">
+<section class="detail" id="char_to_token/3">
+
+  <div class="detail-header">
+    <a href="#char_to_token/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">char_to_token(encoding, position, seq_id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L163" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> char_to_token(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil</pre>
+
+      </div>
+
+<p>Get the token that contains the given char.</p>
+  </section>
+</section>
+<section class="detail" id="char_to_word/3">
+
+  <div class="detail-header">
+    <a href="#char_to_word/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">char_to_word(encoding, position, seq_id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L172" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> char_to_word(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil</pre>
+
+      </div>
+
+<p>Get the word that contains the given char.</p>
+  </section>
+</section>
 <section class="detail" id="get_attention_mask/1">
 
   <div class="detail-header">
@@ -333,7 +603,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L36" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L57" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -361,7 +631,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L24" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L33" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -380,6 +650,62 @@ Functions
 <p>Get the ids from an encoding.</p>
   </section>
 </section>
+<section class="detail" id="get_length/1">
+
+  <div class="detail-header">
+    <a href="#get_length/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_length(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L15" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_length(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
+
+      </div>
+
+<p>Get the number of tokens in an encoding.</p>
+  </section>
+</section>
+<section class="detail" id="get_n_sequences/1">
+
+  <div class="detail-header">
+    <a href="#get_n_sequences/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_n_sequences(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L21" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_n_sequences(Encoding.t()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()</pre>
+
+      </div>
+
+<p>Return the number of sequences combined in this Encoding</p>
+  </section>
+</section>
 <section class="detail" id="get_offsets/1">
 
   <div class="detail-header">
@@ -389,7 +715,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_offsets(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L78" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L109" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -408,6 +734,62 @@ Functions
 <p>Get offsets from an encoding.</p><p>The offsets are expressed in terms of UTF-8 bytes.</p>
   </section>
 </section>
+<section class="detail" id="get_overflowing/1">
+
+  <div class="detail-header">
+    <a href="#get_overflowing/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_overflowing(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L115" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_overflowing(Encoding.t()) :: [Encoding.t()]</pre>
+
+      </div>
+
+<p>Get the overflow from an encoding.</p>
+  </section>
+</section>
+<section class="detail" id="get_sequence_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_sequence_ids/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_sequence_ids(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L101" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_sequence_ids(Encoding.t()) :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil]</pre>
+
+      </div>
+
+<p>Get sequence ids from an encoding.</p>
+  </section>
+</section>
 <section class="detail" id="get_special_tokens_mask/1">
 
   <div class="detail-header">
@@ -417,7 +799,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_special_tokens_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L62" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L73" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -433,7 +815,7 @@ Functions
 
       </div>
 
-<p>Get special tokens mask from an encoding.</p>
+<p>Get the special tokens mask from an encoding.</p>
   </section>
 </section>
 <section class="detail" id="get_tokens/1">
@@ -445,7 +827,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L18" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L89" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -473,7 +855,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_type_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L49" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L45" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -501,7 +883,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_attention_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L42" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L65" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -529,7 +911,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L30" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L39" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -557,7 +939,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_special_tokens_mask(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L69" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L81" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -585,7 +967,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">get_u32_type_ids(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L55" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L51" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -604,6 +986,34 @@ Functions
 <p>Same as <a href="#get_type_ids/1"><code class="inline">get_type_ids/1</code></a>, but returns binary with u32 values.</p>
   </section>
 </section>
+<section class="detail" id="get_word_ids/1">
+
+  <div class="detail-header">
+    <a href="#get_word_ids/1" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">get_word_ids(encoding)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L95" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> get_word_ids(Encoding.t()) :: [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil]</pre>
+
+      </div>
+
+<p>Get word ids from an encoding.</p>
+  </section>
+</section>
 <section class="detail" id="n_tokens/1">
 
   <div class="detail-header">
@@ -613,7 +1023,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">n_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L124" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L220" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -641,9 +1051,9 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">pad(encoding, length, opts \\ [])</h1>
+    <h1 class="signature" translate="no">pad(encoding, target_length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L105" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L196" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -655,18 +1065,125 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> pad(encoding :: Encoding.t(), length :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">pos_integer</a>(), opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
-  Encoding.t()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> pad(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="#t:padding_opts/0">padding_opts</a>()) :: Encoding.t()</pre>
 
       </div>
 
-<p>Pad the encoding to the given length.</p><h2 id="pad/3-options" class="section-heading">
-  <a href="#pad/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">options</p>
-  </a>
-  Options
-</h2>
-<ul><li><code class="inline">direction</code> - The padding direction. Can be <code class="inline">:right</code> or <code class="inline">:left</code>. Default: <code class="inline">:right</code>.</li><li><code class="inline">pad_id</code> - The id corresponding to the padding token. Default: <code class="inline">0</code>.</li><li><code class="inline">pad_token</code> - The padding token to use. Default: <code class="inline">&quot;[PAD]&quot;</code>.</li><li><code class="inline">pad_type_id</code> - The type ID corresponding to the padding token. Default: <code class="inline">0</code>.</li></ul>
+<p>Pad the encoding to the given length.</p>
+  </section>
+</section>
+<section class="detail" id="set_sequence_id/2">
+
+  <div class="detail-header">
+    <a href="#set_sequence_id/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">set_sequence_id(encoding, id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L27" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> set_sequence_id(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: Encoding.t()</pre>
+
+      </div>
+
+<p>Set the given sequence id for the whole range of tokens contained in this Encoding.</p>
+  </section>
+</section>
+<section class="detail" id="token_to_chars/2">
+
+  <div class="detail-header">
+    <a href="#token_to_chars/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">token_to_chars(encoding, token)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L149" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> token_to_chars(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()}} | nil</pre>
+
+      </div>
+
+<p>Get the offsets of the token at the given index.</p>
+  </section>
+</section>
+<section class="detail" id="token_to_sequence/2">
+
+  <div class="detail-header">
+    <a href="#token_to_sequence/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">token_to_sequence(encoding, token)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L140" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> token_to_sequence(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>() | nil</pre>
+
+      </div>
+
+<p>Returns the index of the sequence containing the given token</p>
+  </section>
+</section>
+<section class="detail" id="token_to_word/2">
+
+  <div class="detail-header">
+    <a href="#token_to_word/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">token_to_word(encoding, token)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L156" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> token_to_word(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()} | nil</pre>
+
+      </div>
+
+<p>Get the word that contains the token at the given index.</p>
   </section>
 </section>
 <section class="detail" id="truncate/3">
@@ -678,9 +1195,9 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">truncate(encoding, max_len, opts \\ [])</h1>
+    <h1 class="signature" translate="no">truncate(encoding, max_length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L89" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L212" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -692,18 +1209,70 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> truncate(encoding :: Encoding.t(), length :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), opts :: <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>()) ::
-  Encoding.t()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> truncate(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="#t:truncation_opts/0">truncation_opts</a>()) :: Encoding.t()</pre>
 
       </div>
 
-<p>Truncate the encoding to the given length.</p><h2 id="truncate/3-options" class="section-heading">
-  <a href="#truncate/3-options" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
-  <p class="sr-only">options</p>
-  </a>
-  Options
-</h2>
-<ul><li><code class="inline">direction</code> - The truncation direction. Can be <code class="inline">:right</code> or <code class="inline">:left</code>. Default: <code class="inline">:right</code>.</li><li><code class="inline">stride</code> - The length of previous content to be included in each overflowing piece. Default: <code class="inline">0</code>.</li></ul>
+<p>Truncate the encoding to the given length.</p>
+  </section>
+</section>
+<section class="detail" id="word_to_chars/3">
+
+  <div class="detail-header">
+    <a href="#word_to_chars/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">word_to_chars(encoding, word, seq_id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L132" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> word_to_chars(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()} | nil</pre>
+
+      </div>
+
+<p>Get the offsets of the word at the given index in the input sequence.</p>
+  </section>
+</section>
+<section class="detail" id="word_to_tokens/3">
+
+  <div class="detail-header">
+    <a href="#word_to_tokens/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">word_to_tokens(encoding, word, seq_id)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.3.2/lib/tokenizers/encoding.ex#L123" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> word_to_tokens(Encoding.t(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
+  {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()} | nil</pre>
+
+      </div>
+
+<p>Get the encoded tokens corresponding to the word at the given index in the input sequence,
+with the form (start_token, end_token + 1)</p>
   </section>
 </section>
 
