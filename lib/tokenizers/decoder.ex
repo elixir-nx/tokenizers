@@ -97,7 +97,7 @@ defmodule Tokenizers.Decoder do
 
   @doc """
   Creates new Strip decoder.
-  
+
   It expects a character and the number of times to strip the
   character on `left` and `right` sides.
   """

@@ -46,10 +46,10 @@ defmodule Tokenizers.TokenizerTest do
           additional_special_tokens: special_tokens
         )
 
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
 
       {:ok, decodings} =
-        Tokenizer.decode(tokenizer, Enum.map(encodings, &Encoding.get_ids/1),
+        Tokenizer.decode_batch(tokenizer, Enum.map(encodings, &Encoding.get_ids/1),
           skip_special_tokens: true
         )
 
@@ -153,7 +153,7 @@ defmodule Tokenizers.TokenizerTest do
       {:ok, encoding_clean} = Tokenizer.encode(tokenizer, seq, add_special_tokens: false)
       {:ok, encoding_special} = Tokenizer.encode(tokenizer, seq)
 
-      refute Encoding.n_tokens(encoding_clean) == Encoding.n_tokens(encoding_special)
+      refute Encoding.get_length(encoding_clean) == Encoding.get_length(encoding_special)
     end
 
     test "can encode a pair of strings", %{tokenizer: tokenizer} do
@@ -162,12 +162,12 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can encode a batch of strings", %{tokenizer: tokenizer} do
       assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
-               Tokenizer.encode(tokenizer, ["This is a test", "And so is this"])
+               Tokenizer.encode_batch(tokenizer, ["This is a test", "And so is this"])
     end
 
     test "can encode a batch of strings and pairs", %{tokenizer: tokenizer} do
       assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
-               Tokenizer.encode(tokenizer, ["This is a test", {"Question?", "Answer"}])
+               Tokenizer.encode_batch(tokenizer, ["This is a test", {"Question?", "Answer"}])
     end
 
     test "can decode a single encoding", %{tokenizer: tokenizer} do
@@ -192,9 +192,9 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can decode a batch of encodings", %{tokenizer: tokenizer} do
       text = ["This is a test", "And so is this"]
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
       ids = Enum.map(encodings, &Encoding.get_ids/1)
-      {:ok, decoded} = Tokenizer.decode(tokenizer, ids)
+      {:ok, decoded} = Tokenizer.decode_batch(tokenizer, ids)
       assert decoded == text
 
       assert Enum.map(ids, &list_to_u32/1) == Enum.map(encodings, &Encoding.get_u32_ids/1)
@@ -204,7 +204,7 @@ defmodule Tokenizers.TokenizerTest do
   describe "encode metadata" do
     test "can return attention mask", %{tokenizer: tokenizer} do
       text = ["Hello world", "Yes sir hello indeed"]
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
 
       attention_mask = Enum.map(encodings, &Encoding.get_attention_mask/1)
       assert [[1, 1, 1, 1], [1, 1, 1, 1, 1, 1]] == attention_mask
@@ -215,7 +215,7 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can return type ids", %{tokenizer: tokenizer} do
       text = [{"Hello", "world"}, {"Yes sir", "hello indeed"}]
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
 
       type_ids = Enum.map(encodings, &Encoding.get_type_ids/1)
       assert [[0, 0, 0, 1, 1], [0, 0, 0, 0, 1, 1, 1]] == type_ids
@@ -226,7 +226,7 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can return special tokens mask", %{tokenizer: tokenizer} do
       text = ["This is a test", "And so is this"]
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
 
       special_tokens_mask = Enum.map(encodings, &Encoding.get_special_tokens_mask/1)
       assert [[1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 1]] == special_tokens_mask
@@ -237,7 +237,7 @@ defmodule Tokenizers.TokenizerTest do
 
     test "can return offsets", %{tokenizer: tokenizer} do
       text = ["This is a test", "And so is this"]
-      {:ok, encodings} = Tokenizer.encode(tokenizer, text)
+      {:ok, encodings} = Tokenizer.encode_batch(tokenizer, text)
       offsets = Enum.map(encodings, &Encoding.get_offsets/1)
 
       assert [
