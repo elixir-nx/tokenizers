@@ -179,7 +179,7 @@ defmodule Tokenizers.Encoding do
   * `direction` (default `:right`) - The padding direction.
   * `pad_id` (default `0`) - The id corresponding to the padding token.
   * `pad_type_id` (default `0`) - The type ID corresponding to the padding token.
-  * `pad_token` (default `[PDA]`) - The padding token to use.
+  * `pad_token` (default `[PAD]`) - The padding token to use.
 
   """
   @type padding_opts :: [
