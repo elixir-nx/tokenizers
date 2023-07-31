@@ -164,7 +164,7 @@ pub fn pre_tokenizers_byte_level_alphabet() -> Vec<u32> {
 
 #[rustler::nif]
 pub fn pre_tokenizers_whitespace() -> ExTokenizersPreTokenizer {
-    ExTokenizersPreTokenizer::new(tokenizers::pre_tokenizers::whitespace::Whitespace::default())
+    ExTokenizersPreTokenizer::new(tokenizers::pre_tokenizers::whitespace::Whitespace)
 }
 
 #[rustler::nif]

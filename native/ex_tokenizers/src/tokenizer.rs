@@ -60,6 +60,9 @@ pub fn tokenizer_init(
 #[derive(NifTaggedEnum)]
 pub enum LoadOption {
     AdditionalSpecialTokens(Vec<AddedSpecialTokenInput>),
+    // Currently only :none is supported
+    Padding(rustler::Atom),
+    Truncation(rustler::Atom),
 }
 
 #[rustler::nif(schedule = "DirtyIo")]
@@ -67,28 +70,8 @@ pub fn tokenizer_from_file(
     path: &str,
     options: Vec<LoadOption>,
 ) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
-    struct Opts {
-        additional_special_tokens: Vec<AddedSpecialTokenInput>,
-    }
-    let mut opts = Opts {
-        additional_special_tokens: vec![],
-    };
-    for opt in options {
-        match opt {
-            LoadOption::AdditionalSpecialTokens(tokens) => {
-                opts.additional_special_tokens = tokens;
-            }
-        }
-    }
-
     let mut tokenizer = TokenizerImpl::from_file(path)?;
-    tokenizer.add_special_tokens(
-        opts.additional_special_tokens
-            .iter()
-            .map(|t| t.into())
-            .collect::<Vec<_>>()
-            .as_ref(),
-    );
+    tokenizer = apply_load_options(tokenizer, options);
     Ok(tokenizer.into())
 }
 
@@ -97,20 +80,38 @@ pub fn tokenizer_from_buffer(
     data: String,
     options: Vec<LoadOption>,
 ) -> Result<ExTokenizersTokenizer, ExTokenizersError> {
+    let mut tokenizer: ExTokenizerImpl = data.parse()?;
+    tokenizer = apply_load_options(tokenizer, options);
+    Ok(tokenizer.into())
+}
+
+fn apply_load_options(mut tokenizer: ExTokenizerImpl, options: Vec<LoadOption>) -> ExTokenizerImpl {
     struct Opts {
         additional_special_tokens: Vec<AddedSpecialTokenInput>,
+        disable_padding: bool,
+        disable_truncation: bool,
     }
+
     let mut opts = Opts {
         additional_special_tokens: vec![],
+        disable_padding: false,
+        disable_truncation: false,
     };
+
     for opt in options {
         match opt {
             LoadOption::AdditionalSpecialTokens(tokens) => {
                 opts.additional_special_tokens = tokens;
             }
+            LoadOption::Padding(_) => {
+                opts.disable_padding = true;
+            }
+            LoadOption::Truncation(_) => {
+                opts.disable_truncation = true;
+            }
         }
     }
-    let mut tokenizer: ExTokenizerImpl = data.parse()?;
+
     tokenizer.add_special_tokens(
         opts.additional_special_tokens
             .iter()
@@ -118,7 +119,16 @@ pub fn tokenizer_from_buffer(
             .collect::<Vec<_>>()
             .as_ref(),
     );
-    Ok(tokenizer.into())
+
+    if opts.disable_padding {
+        tokenizer.with_padding(None);
+    }
+
+    if opts.disable_truncation {
+        tokenizer.with_padding(None);
+    }
+
+    tokenizer
 }
 
 #[derive(NifTaggedEnum)]
