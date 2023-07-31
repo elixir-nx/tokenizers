@@ -125,7 +125,7 @@ fn apply_load_options(mut tokenizer: ExTokenizerImpl, options: Vec<LoadOption>) 
     }
 
     if opts.disable_truncation {
-        tokenizer.with_padding(None);
+        tokenizer.with_truncation(None);
     }
 
     tokenizer
