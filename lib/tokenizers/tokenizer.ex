@@ -199,11 +199,11 @@ defmodule Tokenizers.Tokenizer do
 
   """
   @type load_options ::
-          list(
-            {:additional_special_tokens, [String.t() | Tokenizers.AddedToken.t()]}
-            | {:padding, :none}
-            | {:truncation, :none}
-          )
+          [
+            additional_special_tokens: [String.t() | Tokenizers.AddedToken.t()],
+            padding: :none,
+            truncation: :none
+          ]
 
   @doc """
   Instantiate a new tokenizer from the file at the given path.
