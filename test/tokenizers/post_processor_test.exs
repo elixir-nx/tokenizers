@@ -10,15 +10,17 @@ defmodule Tokenizers.PostProcessorTest do
 
     test "successfully processes data" do
       {:ok, tokenizer} = Tokenizers.Tokenizer.init(Tokenizers.Model.BPE.empty() |> elem(1))
-      Tokenizers.Tokenizer.add_special_tokens(tokenizer, ["[SEP]", "[CLS]"])
-      Tokenizers.Tokenizer.add_tokens(tokenizer, ["my", "name", "is", "john", "pair"])
 
-      {:ok, output} =
+      tokenizer =
         tokenizer
+        |> Tokenizers.Tokenizer.add_special_tokens(["[SEP]", "[CLS]"])
+        |> Tokenizers.Tokenizer.add_tokens(["my", "name", "is", "john", "pair"])
         |> Tokenizers.Tokenizer.set_post_processor(
           Tokenizers.PostProcessor.bert({"[SEP]", 0}, {"[CLS]", 1})
         )
-        |> Tokenizers.Tokenizer.encode({"my name", "pair"})
+
+      {:ok, output} =
+        Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
 
       assert Tokenizers.Encoding.get_tokens(output) == [
                "[CLS]",
@@ -41,15 +43,17 @@ defmodule Tokenizers.PostProcessorTest do
 
     test "successfully processes data" do
       {:ok, tokenizer} = Tokenizers.Tokenizer.init(Tokenizers.Model.BPE.empty() |> elem(1))
-      Tokenizers.Tokenizer.add_special_tokens(tokenizer, ["</s>", "<s>"])
-      Tokenizers.Tokenizer.add_tokens(tokenizer, ["my", "name", "is", "john", "pair"])
 
-      {:ok, output} =
+      tokenizer =
         tokenizer
+        |> Tokenizers.Tokenizer.add_special_tokens(["</s>", "<s>"])
+        |> Tokenizers.Tokenizer.add_tokens(["my", "name", "is", "john", "pair"])
         |> Tokenizers.Tokenizer.set_post_processor(
           Tokenizers.PostProcessor.roberta({"</s>", 1}, {"<s>", 0})
         )
-        |> Tokenizers.Tokenizer.encode({"my name", "pair"})
+
+      {:ok, output} =
+        Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
 
       assert Tokenizers.Encoding.get_tokens(output) == [
                "<s>",

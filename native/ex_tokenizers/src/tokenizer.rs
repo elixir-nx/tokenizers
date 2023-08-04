@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::panic;
-use std::sync::RwLock;
 
 use rustler::{NifTaggedEnum, Term};
 
@@ -27,7 +26,7 @@ type ExTokenizerImpl = TokenizerImpl<
     ExTokenizersDecoder,
 >;
 
-pub struct ExTokenizersTokenizerRef(pub RwLock<ExTokenizerImpl>);
+pub struct ExTokenizersTokenizerRef(ExTokenizerImpl);
 
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Tokenizer"]
@@ -38,9 +37,7 @@ pub struct ExTokenizersTokenizer {
 impl From<ExTokenizerImpl> for ExTokenizersTokenizer {
     fn from(data: ExTokenizerImpl) -> Self {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersTokenizerRef(RwLock::new(
-                data,
-            ))),
+            resource: rustler::resource::ResourceArc::new(ExTokenizersTokenizerRef(data)),
         }
     }
 }
@@ -153,12 +150,7 @@ pub fn tokenizer_save(
         }
     }
 
-    tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .save(path, opts.pretty)?;
+    tokenizer.resource.0.save(path, opts.pretty)?;
     Ok(path.to_string())
 }
 
@@ -170,7 +162,7 @@ pub fn tokenizer_save(
 // /////////////////////////////////////////////////////////////////////////////
 #[rustler::nif]
 pub fn tokenizer_get_model(tokenizer: ExTokenizersTokenizer) -> ExTokenizersModel {
-    let model = tokenizer.resource.0.read().unwrap().get_model().clone();
+    let model = tokenizer.resource.0.get_model().clone();
     model
 }
 
@@ -179,8 +171,9 @@ pub fn tokenizer_set_model(
     tokenizer: ExTokenizersTokenizer,
     model: ExTokenizersModel,
 ) -> ExTokenizersTokenizer {
-    tokenizer.resource.0.write().unwrap().with_model(model);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_model(model);
+    new_tokenizer.into()
 }
 
 // Generate all setters and getters for pre_tokenizer, normalizer and so on - not as a macro:
@@ -188,13 +181,7 @@ pub fn tokenizer_set_model(
 pub fn tokenizer_get_normalizer(
     tokenizer: ExTokenizersTokenizer,
 ) -> Option<ExTokenizersNormalizer> {
-    let normalizer: Option<ExTokenizersNormalizer> = tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .get_normalizer()
-        .cloned();
+    let normalizer: Option<ExTokenizersNormalizer> = tokenizer.resource.0.get_normalizer().cloned();
     normalizer
 }
 
@@ -203,26 +190,17 @@ pub fn tokenizer_set_normalizer(
     tokenizer: ExTokenizersTokenizer,
     normalizer: ExTokenizersNormalizer,
 ) -> ExTokenizersTokenizer {
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .with_normalizer(normalizer);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_normalizer(normalizer);
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_get_pre_tokenizer(
     tokenizer: ExTokenizersTokenizer,
 ) -> Option<ExTokenizersPreTokenizer> {
-    let pre_tokenizer: Option<ExTokenizersPreTokenizer> = tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .get_pre_tokenizer()
-        .cloned();
+    let pre_tokenizer: Option<ExTokenizersPreTokenizer> =
+        tokenizer.resource.0.get_pre_tokenizer().cloned();
     pre_tokenizer
 }
 
@@ -231,26 +209,17 @@ pub fn tokenizer_set_pre_tokenizer(
     tokenizer: ExTokenizersTokenizer,
     pre_tokenizer: ExTokenizersPreTokenizer,
 ) -> ExTokenizersTokenizer {
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .with_pre_tokenizer(pre_tokenizer);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_pre_tokenizer(pre_tokenizer);
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_get_post_processor(
     tokenizer: ExTokenizersTokenizer,
 ) -> Option<ExTokenizersPostProcessor> {
-    let post_processor: Option<ExTokenizersPostProcessor> = tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .get_post_processor()
-        .cloned();
+    let post_processor: Option<ExTokenizersPostProcessor> =
+        tokenizer.resource.0.get_post_processor().cloned();
     post_processor
 }
 
@@ -259,19 +228,14 @@ pub fn tokenizer_set_post_processor(
     tokenizer: ExTokenizersTokenizer,
     post_processor: ExTokenizersPostProcessor,
 ) -> ExTokenizersTokenizer {
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .with_post_processor(post_processor);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_post_processor(post_processor);
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_get_decoder(tokenizer: ExTokenizersTokenizer) -> Option<ExTokenizersDecoder> {
-    let decoder: Option<ExTokenizersDecoder> =
-        tokenizer.resource.0.read().unwrap().get_decoder().cloned();
+    let decoder: Option<ExTokenizersDecoder> = tokenizer.resource.0.get_decoder().cloned();
     decoder
 }
 
@@ -280,8 +244,9 @@ pub fn tokenizer_set_decoder(
     tokenizer: ExTokenizersTokenizer,
     decoder: ExTokenizersDecoder,
 ) -> ExTokenizersTokenizer {
-    tokenizer.resource.0.write().unwrap().with_decoder(decoder);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_decoder(decoder);
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
@@ -289,12 +254,7 @@ pub fn tokenizer_get_vocab(
     tokenizer: ExTokenizersTokenizer,
     with_added_tokens: bool,
 ) -> HashMap<String, u32> {
-    tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .get_vocab(with_added_tokens)
+    tokenizer.resource.0.get_vocab(with_added_tokens)
 }
 
 #[rustler::nif]
@@ -302,38 +262,27 @@ pub fn tokenizer_get_vocab_size(
     tokenizer: ExTokenizersTokenizer,
     with_added_tokens: bool,
 ) -> usize {
-    tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .get_vocab_size(with_added_tokens)
+    tokenizer.resource.0.get_vocab_size(with_added_tokens)
 }
 
 #[rustler::nif]
 pub fn tokenizer_add_tokens(
     tokenizer: ExTokenizersTokenizer,
     tokens: Vec<AddedTokenInput>,
-) -> usize {
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .add_tokens(&tokens.iter().map(|t| t.into()).collect::<Vec<AddedToken>>())
+) -> ExTokenizersTokenizer {
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.add_tokens(&tokens.iter().map(|t| t.into()).collect::<Vec<AddedToken>>());
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_add_special_tokens(
     tokenizer: ExTokenizersTokenizer,
     tokens: Vec<AddedSpecialTokenInput>,
-) -> usize {
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .add_special_tokens(&tokens.iter().map(|t| t.into()).collect::<Vec<AddedToken>>())
+) -> ExTokenizersTokenizer {
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.add_special_tokens(&tokens.iter().map(|t| t.into()).collect::<Vec<AddedToken>>());
+    new_tokenizer.into()
 }
 
 #[derive(NifTaggedEnum)]
@@ -382,19 +331,16 @@ pub fn tokenizer_set_truncation(
         TruncationOption::Strategy(strategy) => truncation.strategy = strategy.into(),
         TruncationOption::Direction(direction) => truncation.direction = direction.into(),
     });
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .with_truncation(Some(truncation));
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_truncation(Some(truncation));
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_disable_truncation(tokenizer: ExTokenizersTokenizer) -> ExTokenizersTokenizer {
-    tokenizer.resource.0.write().unwrap().with_truncation(None);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_truncation(None);
+    new_tokenizer.into()
 }
 
 #[derive(NifTaggedEnum)]
@@ -448,19 +394,16 @@ pub fn tokenizer_set_padding(
         PaddingOption::PadTypeId(pad_type_id) => padding.pad_type_id = *pad_type_id,
         PaddingOption::PadToken(pad_token) => padding.pad_token = pad_token.clone(),
     });
-    tokenizer
-        .resource
-        .0
-        .write()
-        .unwrap()
-        .with_padding(Some(padding));
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_padding(Some(padding));
+    new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_disable_padding(tokenizer: ExTokenizersTokenizer) -> ExTokenizersTokenizer {
-    tokenizer.resource.0.write().unwrap().with_padding(None);
-    tokenizer
+    let mut new_tokenizer = tokenizer.resource.0.clone();
+    new_tokenizer.with_padding(None);
+    new_tokenizer.into()
 }
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -506,8 +449,6 @@ pub fn tokenizer_encode(
     let encoding = tokenizer
         .resource
         .0
-        .read()
-        .unwrap()
         .encode(input, opts.add_special_tokens)?;
     Ok(encoding.into())
 }
@@ -537,8 +478,6 @@ pub fn tokenizer_encode_batch(
     let encodings = tokenizer
         .resource
         .0
-        .read()
-        .unwrap()
         .encode_batch(inputs, opts.add_special_tokens)?;
     let ex_encodings = encodings.into_iter().map(|x| x.into()).collect();
     Ok(ex_encodings)
@@ -567,12 +506,7 @@ pub fn tokenizer_decode(
         }
     });
 
-    Ok(tokenizer
-        .resource
-        .0
-        .read()
-        .unwrap()
-        .decode(ids, opts.skip_special_tokens)?)
+    Ok(tokenizer.resource.0.decode(ids, opts.skip_special_tokens)?)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -596,19 +530,17 @@ pub fn tokenizer_decode_batch(
     Ok(tokenizer
         .resource
         .0
-        .read()
-        .unwrap()
         .decode_batch(sentences, opts.skip_special_tokens)?)
 }
 
 #[rustler::nif]
 pub fn tokenizer_token_to_id(tokenizer: ExTokenizersTokenizer, token: &str) -> Option<u32> {
-    tokenizer.resource.0.read().unwrap().token_to_id(token)
+    tokenizer.resource.0.token_to_id(token)
 }
 
 #[rustler::nif]
 pub fn tokenizer_id_to_token(tokenizer: ExTokenizersTokenizer, id: u32) -> Option<String> {
-    tokenizer.resource.0.read().unwrap().id_to_token(id)
+    tokenizer.resource.0.id_to_token(id)
 }
 
 #[rustler::nif]
@@ -618,7 +550,7 @@ pub fn tokenizer_post_processing(
     pair: Option<ExTokenizersEncoding>,
     add_special_tokens: bool,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
-    let result: tokenizers::Encoding = tokenizer.resource.0.read().unwrap().post_process(
+    let result: tokenizers::Encoding = tokenizer.resource.0.post_process(
         enc.resource.0.clone(),
         pair.map(|enc| enc.resource.0.clone()),
         add_special_tokens,
@@ -639,26 +571,36 @@ pub fn tokenizer_train_from_files(
     // Current version of rust lib panics on retrainging with another trainer.
     // This leads to unpredicted nif behaviour.
     // Unwind can be removed after fixes https://github.com/huggingface/tokenizers/issues/525
+
     let result = panic::catch_unwind(|| {
-        let mut tokenizer: std::sync::RwLockWriteGuard<
-            '_,
-            tokenizers::TokenizerImpl<_, _, _, _, _>,
-        > = tokenizer.resource.0.write().unwrap();
+        let mut new_tokenizer = tokenizer.resource.0.clone();
+        let new_model = ExTokenizersModel::new(
+            tokenizer
+                .resource
+                .0
+                .get_model()
+                .resource
+                .0
+                .read()
+                .unwrap()
+                .clone(),
+        );
+        new_tokenizer.with_model(new_model);
         match trainer {
             Some(mut trainer) => {
                 // Trainer is defined, using it
                 // let mut trainer_resoruce = trainer.resource.0.write().unwrap();
-                tokenizer.train_from_files(&mut trainer, files)
+                new_tokenizer.train_from_files(&mut trainer, files)
             }
             None => {
                 // Trainer is not defined, using default
-                let mut default_trainer = tokenizer.get_model().get_trainer();
-                tokenizer.train_from_files(&mut default_trainer, files)
+                let mut default_trainer = new_tokenizer.get_model().get_trainer();
+                new_tokenizer.train_from_files(&mut default_trainer, files)
             }
         }?;
-        Ok(())
+        Ok(new_tokenizer)
     });
-    match result {
+    let new_tokenizer = match result {
         Ok(value) => value,
         Err(panic) => {
             let panic_message = match panic.downcast_ref::<String>() {
@@ -668,5 +610,6 @@ pub fn tokenizer_train_from_files(
             Err(ExTokenizersError::Internal(panic_message))
         }
     }?;
-    Ok(tokenizer)
+
+    Ok(new_tokenizer.into())
 }
