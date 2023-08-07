@@ -126,8 +126,6 @@ defmodule Tokenizers.Native do
   # Trainers
   def trainers_info(_trainer), do: err()
   #
-  def trainers_train(_trainer, _model), do: err()
-  #
   def trainers_bpe_trainer(_options), do: err()
   def trainers_wordpiece_trainer(_options), do: err()
   def trainers_wordlevel_trainer(_options), do: err()

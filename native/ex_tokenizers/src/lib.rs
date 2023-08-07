@@ -148,8 +148,6 @@ rustler::init!(
         // Trainers
         trainers_info,
         //
-        trainers_train,
-        //
         trainers_bpe_trainer,
         trainers_wordpiece_trainer,
         trainers_wordlevel_trainer,

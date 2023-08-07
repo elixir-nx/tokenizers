@@ -1,8 +1,11 @@
 use std::collections::HashMap;
+use std::ops::Deref;
 use std::panic;
 
 use rustler::{NifTaggedEnum, Term};
 
+use tokenizers::models::wordpiece::WordPieceTrainerBuilder;
+use tokenizers::models::TrainerWrapper;
 use tokenizers::tokenizer::AddedToken;
 use tokenizers::Model;
 use tokenizers::{EncodeInput, TokenizerImpl};
@@ -587,9 +590,48 @@ pub fn tokenizer_train_from_files(
         );
         new_tokenizer.with_model(new_model);
         match trainer {
-            Some(mut trainer) => {
-                // Trainer is defined, using it
-                // let mut trainer_resoruce = trainer.resource.0.write().unwrap();
+            Some(trainer) => {
+                // TODO: call clone on trainer wrapper once available,
+                // see https://github.com/huggingface/tokenizers/pull/1317
+                let trainer = match trainer.resource.0.read().unwrap().deref() {
+                    TrainerWrapper::BpeTrainer(trainer) => {
+                        TrainerWrapper::BpeTrainer(trainer.clone())
+                    }
+                    TrainerWrapper::WordPieceTrainer(trainer) => {
+                        // WordPieceTrainer does not derive clone so we re-build by hand
+                        let mut builder = WordPieceTrainerBuilder::default()
+                            .min_frequency(trainer.min_frequency())
+                            .vocab_size(trainer.vocab_size())
+                            .show_progress(trainer.show_progress())
+                            .special_tokens(trainer.special_tokens().to_vec())
+                            .initial_alphabet(trainer.initial_alphabet().clone());
+                        builder = match trainer.limit_alphabet() {
+                            Some(limit_alphabet) => builder.limit_alphabet(limit_alphabet),
+                            None => builder,
+                        };
+                        builder = match trainer.continuing_subword_prefix() {
+                            Some(continuing_subword_prefix) => builder
+                                .continuing_subword_prefix(continuing_subword_prefix.to_string()),
+                            None => builder,
+                        };
+                        builder = match trainer.end_of_word_suffix() {
+                            Some(end_of_word_suffix) => {
+                                builder.end_of_word_suffix(end_of_word_suffix.to_string())
+                            }
+                            None => builder,
+                        };
+                        TrainerWrapper::WordPieceTrainer(builder.build())
+                    }
+                    TrainerWrapper::WordLevelTrainer(trainer) => {
+                        TrainerWrapper::WordLevelTrainer(trainer.clone())
+                    }
+                    TrainerWrapper::UnigramTrainer(trainer) => {
+                        TrainerWrapper::UnigramTrainer(trainer.clone())
+                    }
+                };
+
+                let mut trainer = ExTokenizersTrainer::new(trainer);
+
                 new_tokenizer.train_from_files(&mut trainer, files)
             }
             None => {

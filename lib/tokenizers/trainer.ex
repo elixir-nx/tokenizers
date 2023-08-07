@@ -12,13 +12,6 @@ defmodule Tokenizers.Trainer do
   @spec info(t()) :: map()
   defdelegate info(trainer), to: Tokenizers.Native, as: :trainers_info
 
-  @doc """
-  The actual training method.
-  This will mutate a Model as well as return a list of special_tokens to be added directly to the tokenizer along with the model.
-  """
-  @spec train(t(), Tokenizers.Model.t()) :: {:ok, [String.t()]} | {:error, any()}
-  defdelegate train(trainer, model), to: Tokenizers.Native, as: :trainers_train
-
   @typedoc """
   Options for BPE trainer initialisation. All options can be ommited.
   """
