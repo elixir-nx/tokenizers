@@ -2,7 +2,7 @@
 
 ```elixir
 Mix.install([
-  {:tokenizers, "~> 0.13"},
+  {:tokenizers, "~> 0.4.0"},
   {:req, "~> 0.3.8"}
 ])
 ```
@@ -22,6 +22,10 @@ wget https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.
 unzip wikitext-103-raw-v1.zip
 ```
 
+<!-- livebook:{"break_markdown":true} -->
+
+Alternatively you can run this code:
+
 ```elixir
 Req.get!("https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip").body
 |> Enum.each(fn {filename, data} ->
@@ -34,11 +38,7 @@ Req.get!("https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-ra
 end)
 ```
 
-<!-- livebook:{"branch_parent_index":0} -->
-
-## Build a tokenizer from scratch
-
-### Training the tokenizer
+## Training the tokenizer from scratch
 
 ```elixir
 alias Tokenizers.Tokenizer
@@ -62,60 +62,58 @@ The main API of the library is the class Tokenizer, here is how we instantiate o
 {:ok, tokenizer} = Tokenizer.init(model)
 ```
 
-To train our tokenizer on the wikitext files, we will need to instantiate a **trainer**, in this case a `BpeTrainer`
+To train our tokenizer on the wikitext files, we will need to instantiate a **trainer**, in this case a BPE trainer:
 
 ```elixir
 {:ok, trainer} = Trainer.bpe(special_tokens: ["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
 ```
 
-We can set the training arguments like `vocab_size` or `min_frequency` (here left at their default values of `30,000` and `0`) but the most important part is to give the `special_tokens` we plan to use later on (they are not used at all during training) so that they get inserted in the vocabulary.
+We can set the training arguments like `vocab_size` or `min_frequency` (here left at their default values of `30,000` and `0`), but the most important part is to give the `special_tokens` we plan to use later on (they are not used at all during training) so that they get inserted in the vocabulary.
 
 > The order in which you write the special tokens list matters: here `"[UNK]"` will get the ID `0`, `"[CLS]"` will get the ID `1` and so forth.
 
 We could train our tokenizer right now, but it wouldn't be optimal. Without a pre-tokenizer that will split our inputs into words, we might get tokens that overlap several words: for instance we could get an "it is" token since those two words often appear next to each other. Using a pre-tokenizer will ensure no token is bigger than a word returned by the pre-tokenizer. Here we want to train a subword BPE tokenizer, and we will use the easiest pre-tokenizer possible by splitting on whitespace.
 
 ```elixir
-tokenizer
-|> Tokenizer.set_pre_tokenizer(PreTokenizer.whitespace())
+tokenizer = Tokenizer.set_pre_tokenizer(tokenizer, PreTokenizer.whitespace())
 ```
 
-Now, we can just call the `Tokenizer.train` method with any list of files we want to use:
+Now, we can just call the `Tokenizer.train_from_files/3` function with the list of files we want to train on:
 
 ```elixir
-[
-  "wikitext-103-raw/wiki.test.raw",
-  "wikitext-103-raw/wiki.train.raw",
-  "wikitext-103-raw/wiki.valid.raw"
-]
-|> Enum.map(&Path.join(__DIR__, &1))
-|> then(&Tokenizer.train_from_files(tokenizer, &1, trainer))
+{:ok, tokenizer} =
+  [
+    "wikitext-103-raw/wiki.test.raw",
+    "wikitext-103-raw/wiki.train.raw",
+    "wikitext-103-raw/wiki.valid.raw"
+  ]
+  |> Enum.map(&Path.join(__DIR__, &1))
+  |> then(&Tokenizer.train_from_files(tokenizer, &1, trainer))
 ```
 
-This should only take a few seconds to train our tokenizer on the full wikitext dataset! To save the tokenizer in one file that contains all its configuration and vocabulary, just use the Tokenizer.save method:
+This should only take a few seconds to train our tokenizer on the full wikitext dataset! To save the tokenizer in one file that contains all its configuration and vocabulary, just use the `Tokenizer.save/2` function:
 
 ```elixir
 Tokenizer.save(tokenizer, Path.join(__DIR__, "tokenizer-wiki.json"))
 ```
 
-and you can reload your tokenizer from that file with the `Tokenizer.from_file` classmethod:
+and you can reload your tokenizer from that file with the `Tokenizer.from_file/1` function:
 
 ```elixir
 {:ok, tokenizer} = Tokenizer.from_file(Path.join(__DIR__, "tokenizer-wiki.json"))
 ```
 
-### Using the tokenizer
+## Using the tokenizer
 
-<!-- livebook:{"break_markdown":true} -->
-
-Now that we have trained a tokenizer, we can use it on any text we want with the `Tokenizer.encode` method:
+Now that we have trained a tokenizer, we can use it on any text we want with the `Tokenizer.encode/1` function:
 
 ```elixir
 {:ok, encoding} = Tokenizer.encode(tokenizer, "Hello, y'all! How are you 😁 ?")
 ```
 
-This applied the full pipeline of the tokenizer on the text, returning an Encoding object. To learn more about this pipeline, and how to apply (or customize) parts of it, check out this page.
+This applied the full pipeline of the tokenizer on the text, returning an `encoding`. To learn more about this pipeline, and how to apply (or customize) parts of it, check out [this page](https://huggingface.co/docs/tokenizers/pipeline).
 
-This Encoding object then has all the attributes you need for your deep learning model (or other). The tokens attribute contains the segmentation of your text in tokens:
+This `encoding` then has all the attributes you need for your deep learning model (or other). The tokens attribute contains the segmentation of your text in tokens:
 
 ```elixir
 Encoding.get_tokens(encoding)
@@ -136,21 +134,19 @@ An important feature of the 🤗 Tokenizers library is that it comes with full a
 and those are the indices that correspond to the emoji in the original sentence:
 
 ```elixir
-"Hello, y'all! How are you 😁 ?"
-|> :binary.part(
+:binary.part(
+  "Hello, y'all! How are you 😁 ?",
   emoji_offset_start,
   # Length
   emoji_offset_end - emoji_offset_start
 )
 ```
 
-### Post-processing
+## Post-processing
 
-<!-- livebook:{"break_markdown":true} -->
+We might want our tokenizer to automatically add special tokens, like `[CLS]` or `[SEP]`. To do this, we use a post-processor. Template post-processing is the most commonly used, you just have to specify a template for the processing of single sentences and pairs of sentences, along with the special tokens and their IDs.
 
-We might want our tokenizer to automatically add special tokens, like `[CLS]` or `[SEP]`. To do this, we use a post-processor. TemplateProcessing is the most commonly used, you just have to specify a template for the processing of single sentences and pairs of sentences, along with the special tokens and their IDs.
-
-When we built our tokenizer, we set `[CLS]` and `[SEP]` in positions 1 and 2 of our list of special tokens, so this should be their IDs. To double-check, we can use the `Tokenizer.token_to_id` method:
+When we built our tokenizer, we set `[CLS]` and `[SEP]` in positions 1 and 2 of our list of special tokens, so this should be their IDs. To double-check, we can use the `Tokenizer.token_to_id/2` function:
 
 ```elixir
 Tokenizer.token_to_id(tokenizer, "[SEP]")
@@ -159,17 +155,18 @@ Tokenizer.token_to_id(tokenizer, "[SEP]")
 Here is how we can set the post-processing to give us the traditional BERT inputs:
 
 ```elixir
-tokenizer
-|> Tokenizer.set_post_processor(
-  PostProcessor.template(
-    single: "[CLS] $A [SEP]",
-    pair: "[CLS] $A [SEP] $B:1 [SEP]:1",
-    special_tokens: [
-      {"[CLS]", Tokenizer.token_to_id(tokenizer, "[CLS]")},
-      {"[SEP]", Tokenizer.token_to_id(tokenizer, "[SEP]")}
-    ]
+tokenizer =
+  Tokenizer.set_post_processor(
+    tokenizer,
+    PostProcessor.template(
+      single: "[CLS] $A [SEP]",
+      pair: "[CLS] $A [SEP] $B:1 [SEP]:1",
+      special_tokens: [
+        {"[CLS]", Tokenizer.token_to_id(tokenizer, "[CLS]")},
+        {"[SEP]", Tokenizer.token_to_id(tokenizer, "[SEP]")}
+      ]
+    )
   )
-)
 ```
 
 Let's go over this snippet of code in more details. First we specify the template for single sentences: those should have the form `"[CLS] $A [SEP]"` where `$A` represents our sentence.
@@ -185,7 +182,7 @@ To check out this worked properly, let's try to encode the same sentence as befo
 Encoding.get_tokens(encoding)
 ```
 
-To check the results on a pair of sentences, we just pass the two sentences to `Tokenizer.encode`:
+To check the results on a pair of sentences, we just pass the two sentences to `Tokenizer.encode/2`:
 
 ```elixir
 {:ok, encoding} = Tokenizer.encode(tokenizer, {"Hello, y'all!", "How are you 😁 ?"})
@@ -198,23 +195,19 @@ You can then check the type IDs attributed to each token is correct with
 Encoding.get_type_ids(encoding)
 ```
 
-If you save your tokenizer with Tokenizer.save, the post-processor will be saved along.
+If you save your tokenizer with `Tokenizer.save/2`, the post-processor will be saved along.
 
-<!-- livebook:{"break_markdown":true} -->
+## Encoding multiple sentences in a batch
 
-### Encoding multiple sentences in a batch
-
-<!-- livebook:{"break_markdown":true} -->
-
-To get the full speed of the 🤗 Tokenizers library, it's best to process your texts by batches by using the Tokenizer.encode_batch method:
+To get the full speed of the 🤗 Tokenizers library, it's best to process your texts by batches by using the `Tokenizer.encode_batch/2` function:
 
 ```elixir
 {:ok, encoding} = Tokenizer.encode_batch(tokenizer, ["Hello, y'all!", "How are you 😁 ?"])
 ```
 
-The output is then a list of Encoding objects like the ones we saw before. You can process together as many texts as you like, as long as it fits in memory.
+The output is then a list of `encoding`s like the ones we saw before. You can process together as many texts as you like, as long as it fits in memory.
 
-To process a batch of sentences pairs, pass two lists to the Tokenizer.encode_batch method: the list of sentences A and the list of sentences B:
+To process a batch of sentence pairs, pass a list of tuples to the `Tokenizer.encode_batch/2` function:
 
 ```elixir
 {:ok, encoding} =
@@ -227,10 +220,10 @@ To process a batch of sentences pairs, pass two lists to the Tokenizer.encode_ba
   ])
 ```
 
-When encoding multiple sentences, you can automatically pad the outputs to the longest sentence present by using `Tokenizer.enable_padding`, with the `pad_token` and its ID (which we can double-check the id for the padding token with `Tokenizer.token_to_id` like before):
+When encoding multiple sentences, you can automatically pad the outputs to the longest sentence present by using `Tokenizer.set_padding/2`, with the `pad_token` and its ID (which we can double-check the id for the padding token with `Tokenizer.token_to_id/2` like before):
 
 ```elixir
-Tokenizer.set_padding(tokenizer, pad_id: 3, pad_token: "[PAD]")
+tokenizer = Tokenizer.set_padding(tokenizer, pad_id: 3, pad_token: "[PAD]")
 ```
 
 We can set the direction of the padding (defaults to the right) or a given length if we want to pad every sample to that specific number (here we leave it unset to pad to the size of the longest text).
@@ -243,7 +236,7 @@ encoding
 |> Encoding.get_tokens()
 ```
 
-In this case, the `attention mask` generated by the tokenizer takes the padding into account:
+In this case, the attention mask generated by the tokenizer takes the padding into account:
 
 ```elixir
 encoding
