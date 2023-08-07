@@ -1,18 +1,17 @@
+name: CI
 on:
   push:
     branches:
       - main
   pull_request:
   workflow_dispatch:
-
 env:
   MIX_ENV: test
   TOKENIZERS_BUILD: "true"
-
 jobs:
   main:
     runs-on: ubuntu-latest
-    name: test
+    name: "Test (${{ matrix.elixir_version }}, ${{ matrix.otp_version }})"
     strategy:
       fail-fast: false
       matrix:
