@@ -1,6 +1,5 @@
 use std::collections::HashSet;
 use std::ops::Deref;
-use std::ops::DerefMut;
 use std::sync::RwLock;
 
 use rustler::resource::ResourceArc;
@@ -10,9 +9,9 @@ use tokenizers::models::unigram::UnigramTrainerBuilder;
 use tokenizers::models::wordlevel::WordLevelTrainerBuilder;
 use tokenizers::models::wordpiece::WordPieceTrainerBuilder;
 use tokenizers::models::TrainerWrapper;
-use tokenizers::{AddedToken, Trainer};
+use tokenizers::AddedToken;
 
-use crate::added_token::{AddedTokenInput, ExTokenizersAddedToken};
+use crate::added_token::AddedTokenInput;
 use crate::error::ExTokenizersError;
 use crate::models::ExTokenizersModel;
 use crate::new_info;
@@ -72,20 +71,6 @@ impl ExTokenizersTrainer {
             resource: ResourceArc::new(ExTokenizersTrainerRef::new(data)),
         }
     }
-}
-
-#[rustler::nif]
-fn trainers_train(
-    trainer: ExTokenizersTrainer,
-    model: ExTokenizersModel,
-) -> Result<Vec<ExTokenizersAddedToken>, ExTokenizersError> {
-    let mut model = model.resource.0.write().unwrap();
-    let trainer = trainer.resource.0.write().unwrap();
-    let result: Vec<AddedToken> = trainer.train(model.deref_mut())?;
-    Ok(result
-        .into_iter()
-        .map(ExTokenizersAddedToken::new)
-        .collect())
 }
 
 ///////////////////////////////////////////////////////////////////////////////

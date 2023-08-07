@@ -65,17 +65,6 @@ defmodule Tokenizers.Tokenizer do
       even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
       a cache dir based in the "tokenizers_elixir" application name.
 
-    * `:additional_special_tokens` - A list of special tokens to append to the tokenizer.
-      Defaults to `[]`.
-
-    * `:padding` - Override for padding configuration. Currently the only supported
-      value is `:none` to disable padding. By default the configuration is restored
-      from the file.
-
-    * `:truncation` - Override for truncation configuration. Currently the only supported
-      value is `:none` to disable truncation. By default the configuration is restored
-      from the file.
-
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, t()} | {:error, term()}
   def from_pretrained(identifier, opts \\ []) do
@@ -83,13 +72,11 @@ defmodule Tokenizers.Tokenizer do
       Keyword.validate!(
         opts,
         [
-          :padding,
-          :truncation,
+          :additional_special_tokens,
           revision: "main",
           use_cache: true,
           cache_dir: :filename.basedir(:user_cache, "tokenizers_elixir"),
-          http_client: {Tokenizers.HTTPClient, []},
-          additional_special_tokens: []
+          http_client: {Tokenizers.HTTPClient, []}
         ]
       )
 
@@ -114,7 +101,7 @@ defmodule Tokenizers.Tokenizer do
       Path.join(cache_dir, entry_filename(url, etag))
     end
 
-    load_opts = Keyword.take(opts, [:additional_special_tokens, :padding, :truncation])
+    load_opts = Keyword.take(opts, [:additional_special_tokens])
 
     if opts[:use_cache] do
       with {:ok, response} <- request(http_client, Keyword.put(http_opts, :method, :head)) do
@@ -183,43 +170,33 @@ defmodule Tokenizers.Tokenizer do
     Base.encode32(etag, case: :lower, padding: false)
   end
 
-  @typedoc """
-  Options to set on the loaded tokenizer.
-
-    * `:additional_special_tokens - a list of special tokens to append to the tokenizer.
-      Defaults to `[]`.
-
-    * `:padding` - Override for padding configuration. Currently the only supported
-      value is `:none` to disable padding. By default the configuration is restored
-      from the file.
-
-    * `:truncation` - Override for truncation configuration. Currently the only supported
-      value is `:none` to disable truncation. By default the configuration is restored
-      from the file.
-
-  """
-  @type load_options ::
-          [
-            additional_special_tokens: [String.t() | Tokenizers.AddedToken.t()],
-            padding: :none,
-            truncation: :none
-          ]
-
   @doc """
   Instantiate a new tokenizer from the file at the given path.
   """
-  @spec from_file(path :: String.t(), load_options()) :: {:ok, t()} | {:error, term()}
-  defdelegate from_file(path, options \\ []),
-    to: Tokenizers.Native,
-    as: :tokenizer_from_file
+  @spec from_file(path :: String.t(), keyword()) :: {:ok, t()} | {:error, term()}
+  def from_file(path, options \\ []) do
+    if Keyword.has_key?(options, :additional_special_tokens) do
+      IO.warn(
+        "passing :additional_special_tokens as an option is deprecated. Use add_special_tokens/2 instead"
+      )
+    end
+
+    Tokenizers.Native.tokenizer_from_file(path, options)
+  end
 
   @doc """
   Instantiate a new tokenizer from the buffer.
   """
-  @spec from_buffer(data :: String.t(), load_options()) :: {:ok, t()} | {:error, term()}
-  defdelegate from_buffer(data, options \\ []),
-    to: Tokenizers.Native,
-    as: :tokenizer_from_buffer
+  @spec from_buffer(data :: String.t(), keyword()) :: {:ok, t()} | {:error, term()}
+  def from_buffer(data, options \\ []) do
+    if Keyword.has_key?(options, :additional_special_tokens) do
+      IO.warn(
+        "passing :additional_special_tokens as an option is deprecated. Use add_special_tokens/2 instead"
+      )
+    end
+
+    Tokenizers.Native.tokenizer_from_buffer(data, options)
+  end
 
   @doc """
   Save the tokenizer to the provided path. Options:
