@@ -1,15 +1,12 @@
 # Pretrained Tokenizers
 
 ```elixir
-Mix.install(
-  [
-    {:kino, "~> 0.5.2"},
-    {:scidata, "~> 0.1.5"},
-    {:tokenizers, "~> 0.13"},
-    {:nx, "~> 0.3"}
-  ],
-  force: true
-)
+Mix.install([
+  {:kino, "~> 0.5.2"},
+  {:scidata, "~> 0.1.5"},
+  {:tokenizers, "~> 0.4.0"},
+  {:nx, "~> 0.3"}
+])
 ```
 
 ## Setup

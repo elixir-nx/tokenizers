@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-526CD802.js"></script>
+    <script src="dist/sidebar_items-226C60BF.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -201,17 +201,6 @@ We feed it with lines/sentences and then it can train the given Model.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#train/2" translate="no">train(trainer, model)</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>The actual training method.
-This will mutate a Model as well as return a list of special_tokens to be added directly to the tokenizer along with the model.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#unigram/1" translate="no">unigram(options \\ [])</a>
 
       </div>
@@ -262,7 +251,7 @@ Types
     </a>
     <h1 class="signature" translate="no">bpe_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L25" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L18" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -327,7 +316,7 @@ Types
     </a>
     <h1 class="signature" translate="no">unigram_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L81" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L74" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -365,7 +354,7 @@ Types
     </a>
     <h1 class="signature" translate="no">wordlevel_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L65" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L58" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -398,7 +387,7 @@ Types
     </a>
     <h1 class="signature" translate="no">wordpiece_options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L45" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L38" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -449,7 +438,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">bpe(options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L40" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L33" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -496,35 +485,6 @@ Functions
 <p>Get trainer info</p>
   </section>
 </section>
-<section class="detail" id="train/2">
-
-  <div class="detail-header">
-    <a href="#train/2" class="detail-link" title="Link to this function">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature" translate="no">train(trainer, model)</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L20" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> train(<a href="#t:t/0">t</a>(), <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()) :: {:ok, [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
-
-      </div>
-
-<p>The actual training method.
-This will mutate a Model as well as return a list of special_tokens to be added directly to the tokenizer along with the model.</p>
-  </section>
-</section>
 <section class="detail" id="unigram/1">
 
     <span id="unigram/0"></span>
@@ -536,7 +496,7 @@ This will mutate a Model as well as return a list of special_tokens to be added 
     </a>
     <h1 class="signature" translate="no">unigram(options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L97" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L90" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -566,7 +526,7 @@ This will mutate a Model as well as return a list of special_tokens to be added 
     </a>
     <h1 class="signature" translate="no">wordlevel(options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L76" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L69" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -596,7 +556,7 @@ This will mutate a Model as well as return a list of special_tokens to be added 
     </a>
     <h1 class="signature" translate="no">wordpiece(options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L60" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/trainer.ex#L53" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
