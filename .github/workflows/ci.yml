@@ -1,20 +1,26 @@
+name: CI
 on:
   push:
     branches:
       - main
   pull_request:
   workflow_dispatch:
-
 env:
-  ELIXIR_VERSION: 1.13
-  OTP_VERSION: 24.2
   MIX_ENV: test
   TOKENIZERS_BUILD: "true"
-
 jobs:
-  test:
+  main:
     runs-on: ubuntu-latest
-    name: test
+    name: "Test (${{ matrix.elixir_version }}, ${{ matrix.otp_version }})"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - elixir_version: 1.15.4
+            otp_version: 26.0.2
+            lint: true
+          - elixir_version: 1.13
+            otp_version: 24.2
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -22,9 +28,9 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ matrix.elixir_version }}-${{matrix.otp_version}}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-mix-${{ matrix.elixir_version }}-${{matrix.otp_version}}-
       - uses: actions/cache@v3
         with:
           path: |
@@ -40,18 +46,14 @@ jobs:
 
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: "${{ env.OTP_VERSION }}"
-          elixir-version: "${{ env.ELIXIR_VERSION }}"
+          otp-version: ${{matrix.otp_version}}
+          elixir-version: ${{matrix.elixir_version}}
       - run: mix deps.get
-      - run: mix compile --warnings-as-errors
-      - run: mix test --warnings-as-errors
-  format:
-    runs-on: ubuntu-latest
-    name: mix format
-    steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: "${{ env.OTP_VERSION }}"
-          elixir-version: "${{ env.ELIXIR_VERSION }}"
       - run: mix format --check-formatted
+        if: ${{ matrix.lint }}
+      - run: mix deps.unlock --check-unused
+        if: ${{ matrix.lint }}
+      - run: mix deps.compile
+      - run: mix compile --warnings-as-errors
+        if: ${{ matrix.lint }}
+      - run: mix test
