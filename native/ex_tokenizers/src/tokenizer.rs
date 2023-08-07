@@ -12,7 +12,7 @@ use tokenizers::{EncodeInput, TokenizerImpl};
 
 use crate::added_token::{AddedSpecialTokenInput, AddedTokenInput};
 use crate::decoders::ExTokenizersDecoder;
-use crate::encoding::ExTokenizersEncoding;
+use crate::encoding::{apply_transformations, ExTokenizersEncoding, TransformationElement};
 use crate::error::ExTokenizersError;
 use crate::models::ExTokenizersModel;
 use crate::normalizers::ExTokenizersNormalizer;
@@ -428,6 +428,7 @@ fn term_to_encode_input<'a>(term: &'a Term) -> Result<EncodeInput<'a>, ExTokeniz
 #[derive(NifTaggedEnum)]
 pub enum EncodeOption {
     AddSpecialTokens(bool),
+    EncodingTransformations(Vec<TransformationElement>),
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -438,21 +439,27 @@ pub fn tokenizer_encode(
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
     struct Opts {
         add_special_tokens: bool,
+        encoding_transformations: Vec<TransformationElement>,
     }
     let mut opts = Opts {
         add_special_tokens: true,
+        encoding_transformations: Vec::new(),
     };
-    options.iter().for_each(|option| match option {
+    options.into_iter().for_each(|option| match option {
         EncodeOption::AddSpecialTokens(add_special_tokens) => {
-            opts.add_special_tokens = *add_special_tokens
+            opts.add_special_tokens = add_special_tokens
+        }
+        EncodeOption::EncodingTransformations(encoding_transformations) => {
+            opts.encoding_transformations = encoding_transformations
         }
     });
 
     let input = term_to_encode_input(&input)?;
-    let encoding = tokenizer
+    let mut encoding = tokenizer
         .resource
         .0
         .encode(input, opts.add_special_tokens)?;
+    apply_transformations(&mut encoding, &opts.encoding_transformations);
     Ok(encoding.into())
 }
 
@@ -465,24 +472,38 @@ pub fn tokenizer_encode_batch(
 ) -> Result<Vec<ExTokenizersEncoding>, ExTokenizersError> {
     struct Opts {
         add_special_tokens: bool,
+        encoding_transformations: Vec<TransformationElement>,
     }
     let mut opts = Opts {
         add_special_tokens: true,
+        encoding_transformations: Vec::new(),
     };
-    options.iter().for_each(|option| match option {
+    options.into_iter().for_each(|option| match option {
         EncodeOption::AddSpecialTokens(add_special_tokens) => {
-            opts.add_special_tokens = *add_special_tokens
+            opts.add_special_tokens = add_special_tokens
+        }
+        EncodeOption::EncodingTransformations(encoding_transformations) => {
+            opts.encoding_transformations = encoding_transformations
         }
     });
     let inputs = inputs
         .iter()
         .map(term_to_encode_input)
         .collect::<Result<Vec<EncodeInput>, ExTokenizersError>>()?;
-    let encodings = tokenizer
+    let mut encodings = tokenizer
         .resource
         .0
         .encode_batch(inputs, opts.add_special_tokens)?;
-    let ex_encodings = encodings.into_iter().map(|x| x.into()).collect();
+
+    // Applying transformations (if any)
+    for encoding in encodings.iter_mut() {
+        apply_transformations(encoding, &opts.encoding_transformations);
+    }
+
+    let ex_encodings = encodings
+        .into_iter()
+        .map(|encoding| encoding.into())
+        .collect();
     Ok(ex_encodings)
 }
 

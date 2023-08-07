@@ -229,6 +229,20 @@ defmodule Tokenizers.Encoding do
   """
   @spec n_tokens(encoding :: t()) :: non_neg_integer()
   defdelegate n_tokens(encoding), to: Tokenizers.Native, as: :encoding_get_length
+
+  @doc """
+  Performs set of transformations to given encoding, creating a new one.
+  Transformations are applied in order they are given.
+
+  While all these transformations can be done one by one, this function
+  is more efficient as it avoids multiple allocations and Garbage Collection
+  for intermediate encodings.
+
+  Check the module `Tokenizers.Encoding.Transformation` for handy functions,
+  that can be used to build the transformations list.
+  Also, you can build this list manually, as long as it follows the format.
+  """
+  defdelegate transform(encoding, transformations), to: Tokenizers.Native, as: :encoding_transform
 end
 
 defimpl Inspect, for: Tokenizers.Encoding do

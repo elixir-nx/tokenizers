@@ -59,6 +59,8 @@ defmodule Tokenizers.Native do
   def encoding_char_to_word(_encoding, _position, _seq_id), do: err()
   def encoding_pad(_encoding, _target_length, _opts), do: err()
   def encoding_truncate(_encoding, _max_length, _opts), do: err()
+  #
+  def encoding_transform(_encoding, _transformers), do: err()
 
   # Models
   def models_save(_model, _folder, _opts), do: err()

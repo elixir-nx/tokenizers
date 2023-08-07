@@ -25,7 +25,7 @@ impl rustler::Encoder for Info {
     }
 }
 
-#[derive(rustler::NifUnitEnum)]
+#[derive(rustler::NifUnitEnum, Clone)]
 pub enum Direction {
     Left,
     Right,

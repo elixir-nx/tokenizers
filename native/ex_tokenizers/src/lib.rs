@@ -84,6 +84,8 @@ rustler::init!(
         encoding_char_to_word,
         encoding_pad,
         encoding_truncate,
+        //
+        encoding_transform,
         // Models
         models_save,
         //

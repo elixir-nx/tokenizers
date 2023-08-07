@@ -144,6 +144,17 @@ defmodule Tokenizers.TokenizerTest do
       assert {:ok, %Tokenizers.Encoding{}} = Tokenizer.encode(tokenizer, "This is a test")
     end
 
+    test "can apply transformations to encoding", %{tokenizer: tokenizer} do
+      assert {:ok, %Tokenizers.Encoding{}} =
+               Tokenizer.encode(tokenizer, "This is a test",
+                 encoding_transformations: [
+                   Encoding.Transformation.pad(2),
+                   Encoding.Transformation.truncate(4),
+                   Encoding.Transformation.set_sequence_id(1234)
+                 ]
+               )
+    end
+
     test "can encode a single string with special characters", %{tokenizer: tokenizer} do
       seq = "This is a test"
       {:ok, encoding_clean} = Tokenizer.encode(tokenizer, seq, add_special_tokens: false)
@@ -164,6 +175,17 @@ defmodule Tokenizers.TokenizerTest do
     test "can encode a batch of strings and pairs", %{tokenizer: tokenizer} do
       assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
                Tokenizer.encode_batch(tokenizer, ["This is a test", {"Question?", "Answer"}])
+    end
+
+    test "can apply transformations to batch of encodings", %{tokenizer: tokenizer} do
+      assert {:ok, [%Tokenizers.Encoding{}, %Tokenizers.Encoding{}]} =
+               Tokenizer.encode_batch(tokenizer, ["This is a test", "And so is this"],
+                 encoding_transformations: [
+                   Encoding.Transformation.pad(2),
+                   Encoding.Transformation.truncate(4),
+                   Encoding.Transformation.set_sequence_id(1234)
+                 ]
+               )
     end
 
     test "can decode a single encoding", %{tokenizer: tokenizer} do
