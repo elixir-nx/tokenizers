@@ -1,82 +1,58 @@
 defmodule Tokenizers.PostProcessor do
   @moduledoc """
-  After the whole pipeline, we sometimes want to insert some special tokens
-  before feed a tokenized string into a model like ”[CLS] My horse is amazing [SEP]”.
-  The PostProcessor is the component doing just that.
+  Post-processors.
+
+  After the whole pipeline, we sometimes want to insert some special
+  tokens before we feed the encoded text into a model like
+  ”[CLS] My horse is amazing [SEP]”, we can do that with a post-processor.
   """
 
-  @type t() :: %__MODULE__{resource: reference()}
   defstruct [:resource]
 
-  @doc """
-  Instantiate a new BertProcessing with the given tokens
+  @type t() :: %__MODULE__{resource: reference()}
 
-  Params are tuple with the string representation of the token, and its id
+  @doc """
+  Creates a Bert post-processor with the given tokens.
   """
-  @spec bert(
-          sep :: {String.t(), integer()},
-          cls :: {String.t(), integer()}
-        ) :: t()
+  @spec bert({String.t(), integer()}, {String.t(), integer()}) :: t()
   defdelegate bert(sep, cls), to: Tokenizers.Native, as: :post_processors_bert
 
-  @typedoc """
-  Options for Roberta post-processor. All values are optional.
-
-  * `:trim_offest` (default `true`) - Whether to trim the whitespaces in the produced offsets
-  * `:add_prefix_space` (default `true`) - Whether add_prefix_space was ON during the pre-tokenization.
-  """
-  @type roberta_opts() :: [
-          trim_offsets: boolean(),
-          add_prefix_space: boolean()
-        ]
-
   @doc """
-  Creates Roberta post-processor.
+  Creates a Roberta post-processor.
+
+  ## Options
+
+    * `:trim_offest` - whether to trim the whitespaces in the produced
+      offsets. Defaults to `true`
+
+    * `:add_prefix_space` - whether add_prefix_space was ON during the
+      pre-tokenization. Defaults to `true`
+
   """
-  @spec roberta(
-          sep :: {String.t(), integer()},
-          cls :: {String.t(), integer()},
-          opts :: roberta_opts()
-        ) :: t()
+  @spec roberta({String.t(), integer()}, {String.t(), integer()}, keyword()) :: t()
   defdelegate roberta(sep, cls, opts \\ []), to: Tokenizers.Native, as: :post_processors_roberta
 
-  @typedoc """
-  Options for ByteLevel post-processor. All values are optional.
-
-  * `:trim_offsets` (default `true`) - Whether to trim the whitespaces in the produced offsets
-  """
-  @type byte_level_opts() :: [
-          trim_offsets: boolean()
-        ]
-
   @doc """
-  Creates ByteLevel post-processor.
+  Creates a ByteLevel post-processor.
+
+  ## Options
+
+    * `:trim_offsets` - whether to trim the whitespaces in the produced
+      offsets. Defaults to `true`
+
   """
-  @spec byte_level(opts :: byte_level_opts()) :: t()
+  @spec byte_level(keyword()) :: t()
   defdelegate byte_level(opts \\ []), to: Tokenizers.Native, as: :post_processors_byte_level
 
-  @typedoc """
-  Options for Template post-processor.
-
-  * `:single` - A string describing the template for a single sequence.
-  * `:pair` - A string describing the template for a pair of sequences.
-  * `:special_tokens` - A list of special tokens to use in the template.
-  """
-  @type template_opts() :: [
-          single: String.t(),
-          pair: String.t(),
-          special_tokens: [{String.t(), integer()}]
-        ]
-
   @doc """
-  Creates Template post-processor.
+  Creates a Template post-processor.
 
-  Let’s you easily template the post processing, adding special tokens,
-  and specifying the type_id for each sequence/special token.
-  The template is given two strings representing the single sequence and the pair of sequences,
-  as well as a set of special tokens to use.
+  Let’s you easily template the post processing, adding special tokens
+  and specifying the type id for each sequence/special token. The
+  template is given two strings representing the single sequence and
+  the pair of sequences, as well as a set of special tokens to use.
 
-  Example, when specifying a template with these values:
+  For example, when specifying a template with these values:
 
   * single: `"[CLS] $A [SEP]"`
   * pair: `"[CLS] $A [SEP] $B [SEP]"`
@@ -86,8 +62,20 @@ defmodule Tokenizers.PostProcessor do
 
   > Input: `("I like this", "but not this")`
   > Output: `"[CLS] I like this [SEP] but not this [SEP]"`
+
+  ## Options
+
+    * `:single` - a string describing the template for a single
+      sequence
+
+    * `:pair` - a string describing the template for a pair of
+      sequences
+
+    * `:special_tokens` - a list of special tokens to use in the
+      template. Must be a list of `{token, token_id}` tuples
+
   """
-  @spec template(opts :: template_opts()) :: t()
+  @spec template(keyword()) :: t()
   defdelegate template(opts \\ []), to: Tokenizers.Native, as: :post_processors_template
 
   @doc """

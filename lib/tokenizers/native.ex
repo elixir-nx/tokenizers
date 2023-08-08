@@ -1,4 +1,6 @@
 defmodule Tokenizers.Native do
+  @moduledoc false
+
   mix_config = Mix.Project.config()
   version = mix_config[:version]
   github_url = mix_config[:package][:links]["GitHub"]

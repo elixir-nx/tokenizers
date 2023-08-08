@@ -1,4 +1,4 @@
-# Quicktour
+# Training custom tokenizer
 
 ```elixir
 Mix.install([
@@ -88,7 +88,7 @@ Now, we can just call the `Tokenizer.train_from_files/3` function with the list 
     "wikitext-103-raw/wiki.valid.raw"
   ]
   |> Enum.map(&Path.join(__DIR__, &1))
-  |> then(&Tokenizer.train_from_files(tokenizer, &1, trainer))
+  |> then(&Tokenizer.train_from_files(tokenizer, &1, trainer: trainer))
 ```
 
 This should only take a few seconds to train our tokenizer on the full wikitext dataset! To save the tokenizer in one file that contains all its configuration and vocabulary, just use the `Tokenizer.save/2` function:
