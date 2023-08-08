@@ -451,8 +451,10 @@ defmodule Tokenizers.Tokenizer do
 
     * `:add_special_tokens` - whether to add special tokens to the
       sequence. Defaults to `true`
-    * `:encoding_transformations` (default: `[]`) - a list of `Tokenizers.Encoding.Transformation.t()` to apply to the encoding.
-      Check `Tokenizers.Encoding.transform/2` for more information.
+    * `:encoding_transformations` - a list of `t:Tokenizers.Encoding.Transformation.t/0`
+      to apply to the encoding. Check `Tokenizers.Encoding.transform/2` for more
+      information. Defaults to `[]`
+
   """
   @doc type: :inference
   @spec encode(t(), encode_input(), keyword()) :: {:ok, Encoding.t()} | {:error, term()}
