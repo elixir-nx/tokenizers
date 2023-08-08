@@ -1,21 +1,22 @@
 defmodule Tokenizers.Tokenizer do
   @moduledoc """
-  The struct and associated functions for a tokenizer.
+  Functions to load, apply and train tokenizers.
 
-  A `Tokenizers.t()` is a container that holds the constituent parts of the tokenization pipeline.
+  The `t:Tokenizers.Tokenizer.t/0` struct represents the tokenization
+  pipeline. When you call `Tokenizers.Tokenizer.encode/3`, the input
+  text goes through the following steps:
 
-  When you call `Tokenizers.Tokenizer.encode/3`, the input text goes through the following pipeline:
+    * normalization
+    * pre-tokenization
+    * model
+    * post-processing
 
-  - normalization
-  - pre-tokenization
-  - model
-  - post-processing
-
-  This returns a `Tokenizers.Encoding.t()`, which can then give you the token ids for each token in the input text.
-  These token ids are usually used as the input for natural language processing machine learning models.
+  This pipeline returns a `t:Tokenizers.Encoding.t/0`, which can then
+  give you the token ids representing the input text. These token ids
+  are usually used as the input for natural language processing (NLP)
+  machine learning models.
   """
 
-  @type t :: %__MODULE__{resource: reference()}
   defstruct [:resource]
 
   alias Tokenizers.Model
@@ -25,6 +26,8 @@ defmodule Tokenizers.Tokenizer do
   alias Tokenizers.Normalizer
   alias Tokenizers.Decoder
 
+  @type t :: %__MODULE__{resource: reference()}
+
   @typedoc """
   An input being a subject to tokenization.
 
@@ -33,40 +36,40 @@ defmodule Tokenizers.Tokenizer do
   @type encode_input :: String.t() | {String.t(), String.t()}
 
   @doc """
-  Instantiate a new tokenizer from an existing models.
-  """
-  @spec init(model :: Model.t()) :: {:ok, t()} | {:error, any()}
-  defdelegate init(model), to: Tokenizers.Native, as: :tokenizer_init
+  Loads a new tokenizer from a repository on Hugging Face Hub.
 
-  @doc """
-  Instantiate a new tokenizer from an existing file on the Hugging Face Hub.
-
-  This is going to download a tokenizer file, save it to disk and load that file.
+  This is going to download a tokenizer file, save it to disk and load
+  that file.
 
   ## Options
 
-    * `:http_client` - A tuple with a module and options. This module should implement
-      the `request/1` function, accepting a keyword list with the options for a request.
-      This is inspired by `Req.request/1`: https://hexdocs.pm/req/Req.html#request/1
+    * `:http_client` - a tuple with a module and options. This module
+      should implement the `request/1` function, accepting a keyword
+      list with the options for a request. This is inspired by
+      `Req.request/1`: https://hexdocs.pm/req/Req.html#request/1
 
       The default HTTP client config is: `{Tokenizers.HTTPClient, []}`.
-      Since it's inspired by `Req`, it's possible to use that client without any adjustments.
+      Since it's inspired by `Req`, it's possible to use that client
+      without any adjustments.
 
-      When making request, the options `:url` and `:method` are going to be overridden.
-      `:headers` contains the "user-agent" set by default.
+      When making request, the options `:url` and `:method` are going
+      to be overridden. `:headers` contains the "user-agent" set by
+      default.
 
-    * `:revision` - The revision name that should be used for fetching the tokenizers
-      from Hugging Face.
+    * `:revision` - the revision name that should be used for fetching
+      the tokenizers from the Hugging Face repository
 
-    * `:use_cache` - Tells if it should read from cache when the file already exists.
-      Defaults to `true`.
+    * `:use_cache` - tells if it should read from cache when the file
+      already exists. Defaults to `true`
 
-    * `:cache_dir` - The directory where cache is saved. Files are written to cache
-      even if `:use_cache` is false. By default it uses `:filename.basedir/3` to get
-      a cache dir based in the "tokenizers_elixir" application name.
+    * `:cache_dir` - the directory where cache is saved. Files are
+      written to cache even if `:use_cache` is `false`. By default
+      it uses `:filename.basedir/3` to get a cache dir based in the
+      "tokenizers_elixir" application name
 
   """
   @spec from_pretrained(String.t(), Keyword.t()) :: {:ok, t()} | {:error, term()}
+  @doc type: :loading
   def from_pretrained(identifier, opts \\ []) do
     opts =
       Keyword.validate!(
@@ -173,288 +176,327 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Instantiate a new tokenizer from the file at the given path.
   """
+  @doc type: :loading
   @spec from_file(path :: String.t(), keyword()) :: {:ok, t()} | {:error, term()}
-  def from_file(path, options \\ []) do
-    if Keyword.has_key?(options, :additional_special_tokens) do
+  def from_file(path, opts \\ []) do
+    if Keyword.has_key?(opts, :additional_special_tokens) do
       IO.warn(
         "passing :additional_special_tokens as an option is deprecated. Use add_special_tokens/2 instead"
       )
     end
 
-    Tokenizers.Native.tokenizer_from_file(path, options)
+    Tokenizers.Native.tokenizer_from_file(path, opts)
   end
 
   @doc """
   Instantiate a new tokenizer from the buffer.
   """
+  @doc type: :loading
   @spec from_buffer(data :: String.t(), keyword()) :: {:ok, t()} | {:error, term()}
-  def from_buffer(data, options \\ []) do
-    if Keyword.has_key?(options, :additional_special_tokens) do
+  def from_buffer(data, opts \\ []) do
+    if Keyword.has_key?(opts, :additional_special_tokens) do
       IO.warn(
         "passing :additional_special_tokens as an option is deprecated. Use add_special_tokens/2 instead"
       )
     end
 
-    Tokenizers.Native.tokenizer_from_buffer(data, options)
+    Tokenizers.Native.tokenizer_from_buffer(data, opts)
   end
 
   @doc """
-  Save the tokenizer to the provided path. Options:
+  Save the tokenizer to the provided path.
 
-  * `:pretty` - Whether to pretty print the JSON file. Defaults to `true`.
+  ## Options
+
+    * `:pretty` - whether to pretty print the JSON file. Defaults to `true`
+
   """
-  @spec save(t(), pretty: boolean()) :: {:ok, String.t()} | {:error, term()}
-  defdelegate save(tokenizer, path, options \\ []), to: Tokenizers.Native, as: :tokenizer_save
-
-  ##############################################################################
-  # Setup
-  ##############################################################################
+  @doc type: :loading
+  @spec save(t(), keyword()) :: {:ok, String.t()} | {:error, term()}
+  defdelegate save(tokenizer, path, opts \\ []), to: Tokenizers.Native, as: :tokenizer_save
 
   @doc """
-  Get the `Tokenizer`'s `Model`.
+  Instantiate a new tokenizer from an existing model.
   """
+  @doc type: :configuration
+  @spec init(Model.t()) :: {:ok, t()} | {:error, any()}
+  defdelegate init(model), to: Tokenizers.Native, as: :tokenizer_init
+
+  @doc """
+  Returns the model currently used by `tokenizer`.
+  """
+  @doc type: :configuration
   @spec get_model(t()) :: Model.t()
   defdelegate get_model(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_model
 
   @doc """
-  Set the `Tokenizer`'s `Model`.
+  Sets `tokenizer`'s model.
   """
+  @doc type: :configuration
   @spec set_model(t(), Model.t()) :: t()
   defdelegate set_model(tokenizer, model), to: Tokenizers.Native, as: :tokenizer_set_model
 
   @doc """
-  Get the `Tokenizer`'s `Normalizer`.
+  Returns the normalizer currently used by `tokenizer`.
   """
+  @doc type: :configuration
   @spec get_normalizer(t()) :: Normalizer.t() | nil
   defdelegate get_normalizer(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_normalizer
 
   @doc """
-  Set the `Tokenizer`'s `Normalizer`.
+  Sets `tokenizer`'s normalizer.
   """
+  @doc type: :configuration
   @spec set_normalizer(t(), Normalizer.t()) :: t()
   defdelegate set_normalizer(tokenizer, normalizer),
     to: Tokenizers.Native,
     as: :tokenizer_set_normalizer
 
   @doc """
-  Get the `Tokenizer`'s `PreTokenizer`.
+  Returns the pre-tokenizer currently used by `tokenizer`.
   """
-  alias Tokenizers.PreTokenizer
+  @doc type: :configuration
   @spec get_pre_tokenizer(t()) :: PreTokenizer.t() | nil
   defdelegate get_pre_tokenizer(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_get_pre_tokenizer
 
   @doc """
-  Set the `Tokenizer`'s `PreTokenizer`.
+  Sets `tokenizer`'s pre-tokenizer.
   """
+  @doc type: :configuration
   @spec set_pre_tokenizer(t(), PreTokenizer.t()) :: t()
   defdelegate set_pre_tokenizer(tokenizer, pre_tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_set_pre_tokenizer
 
   @doc """
-  Get the `Tokenizer`'s `PostProcessor`.
+  Returns the post-processor currently used by `tokenizer`.
   """
+  @doc type: :configuration
   @spec get_post_processor(t()) :: PostProcessor.t() | nil
   defdelegate get_post_processor(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_get_post_processor
 
   @doc """
-  Set the `Tokenizer`'s `PostProcessor`.
+  Sets `tokenizer`'s post-processor.
   """
+  @doc type: :configuration
   @spec set_post_processor(t(), PostProcessor.t()) :: t()
   defdelegate set_post_processor(tokenizer, post_processor),
     to: Tokenizers.Native,
     as: :tokenizer_set_post_processor
 
   @doc """
-  Get the `Tokenizer`'s `Decoder`.
+  Returns the decoder currently used by `tokenizer`.
   """
+  @doc type: :configuration
   @spec get_decoder(t()) :: Decoder.t() | nil
   defdelegate get_decoder(tokenizer), to: Tokenizers.Native, as: :tokenizer_get_decoder
 
   @doc """
-  Set the `Tokenizer`'s `Decoder`.
+  Sets `tokenizer`'s decoder.
   """
+  @doc type: :configuration
   @spec set_decoder(t(), Decoder.t()) :: t()
   defdelegate set_decoder(tokenizer, decoder), to: Tokenizers.Native, as: :tokenizer_set_decoder
 
   @doc """
   Get the tokenizer's vocabulary as a map of token to id.
+
+  ## Options
+
+    * `:with_added_tokens` - whether to include the tokens explicitly
+      added to the tokenizer. Defaults to `true`
+
   """
-  @spec get_vocab(tokenizer :: t(), with_additional_tokens :: boolean()) :: %{
-          String.t() => integer()
-        }
-  defdelegate get_vocab(tokenizer, with_additional_tokens \\ true),
-    to: Tokenizers.Native,
-    as: :tokenizer_get_vocab
+  @spec get_vocab(t(), keyword()) :: %{String.t() => integer()}
+  @doc type: :configuration
+  def get_vocab(tokenizer, opts \\ []) do
+    opts = Keyword.validate!(opts, with_added_tokens: true)
+    Tokenizers.Native.tokenizer_get_vocab(tokenizer, opts[:with_added_tokens])
+  end
 
   @doc """
   Get the number of tokens in the vocabulary.
+
+  ## Options
+
+    * `:with_added_tokens` - whether to include the tokens explicitly
+      added to the tokenizer. Defaults to `true`
+
   """
-  @spec get_vocab_size(tokenizer :: t(), with_additional_tokens :: boolean()) ::
-          non_neg_integer()
-  defdelegate get_vocab_size(tokenizer, with_additional_tokens \\ true),
-    to: Tokenizers.Native,
-    as: :tokenizer_get_vocab_size
+  @spec get_vocab_size(t(), keyword()) :: non_neg_integer()
+  @doc type: :configuration
+  def get_vocab_size(tokenizer, opts \\ []) do
+    opts = Keyword.validate!(opts, with_added_tokens: true)
+    Tokenizers.Native.tokenizer_get_vocab_size(tokenizer, opts[:with_added_tokens])
+  end
 
   @doc """
-  Adds tokens to the vocabulary.
-  These tokens **are not special**. To add special tokens - use `add_special_tokens/2`.
+  Adds tokens to `tokenizer`'s vocabulary.
+
+  These tokens **are not special**. To add special tokens use
+  `add_special_tokens/2`.
   """
+  @doc type: :configuration
   @spec add_tokens(tokenizer :: t(), tokens :: [String.t()]) :: non_neg_integer()
   defdelegate add_tokens(tokenizer, tokens),
     to: Tokenizers.Native,
     as: :tokenizer_add_tokens
 
   @doc """
-  Adds special tokens to the vocabulary.
-  These tokens **are special**. To add regular tokens - use `add_tokens/2`.
+  Adds special tokens to `tokenizer`'s vocabulary.
+
+  These tokens **are special**. To add regular tokens use `add_tokens/2`.
   """
+  @doc type: :configuration
   @spec add_special_tokens(tokenizer :: t(), tokens :: [String.t()]) :: non_neg_integer()
   defdelegate add_special_tokens(tokenizer, tokens),
     to: Tokenizers.Native,
     as: :tokenizer_add_special_tokens
 
-  @typedoc """
-  Truncation options. All options can be ommited.
-
-  * `:max_length` (default: `512`) - the maximum length to truncate the model's input to.
-  * `:stride` (default: `0`) - the stride to use when overflowing the model's input.
-  * `:strategy` (default: `:longest_first) - the strategy to use when overflowing the model's input.
-  * `:direction` (default: `:right`) - the direction to use when overflowing the model's input.
-  """
-  @type truncation_options() :: [
-          max_length: non_neg_integer(),
-          stride: non_neg_integer(),
-          strategy: :longest_first | :only_first | :only_second,
-          direction: :left | :right
-        ]
-
   @doc """
-  Set truncation for the tokenizer.
+  Configures `tokenizer` with truncation.
+
+  To disable truncation use `disable_truncation/1`.
+
+  ## Options
+
+    * `:max_length` (default: `512`) - the maximum length to truncate
+      the model's input to
+
+    * `:stride` (default: `0`) - the stride to use when overflowing
+      the model's input
+
+    * `:strategy` (default: `:longest_first`) - the strategy to use
+      when overflowing the model's input
+
+    * `:direction` (default: `:right`) - the direction to use when
+      overflowing the model's input
+
   """
-  @spec set_truncation(
-          tokenizer :: t(),
-          opts :: truncation_options()
-        ) :: t()
+  @doc type: :configuration
+  @spec set_truncation(t(), opts) :: t()
+        when opts: [
+               max_length: non_neg_integer(),
+               stride: non_neg_integer(),
+               strategy: :longest_first | :only_first | :only_second,
+               direction: :left | :right
+             ]
   defdelegate set_truncation(tokenizer, opts \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_set_truncation
 
   @doc """
-  Disable truncation for the tokenizer.
+  Disable truncation on `tokenizer`.
   """
-  @spec disable_truncation(tokenizer :: t()) :: t()
+  @doc type: :configuration
+  @spec disable_truncation(t()) :: t()
   defdelegate disable_truncation(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_disable_truncation
 
-  @typedoc """
-  Padding options. All options can be ommited.
-
-  * `:strategy` (default: `:batch_longest`) - the strategy to use when padding.
-  * `:direction` (default: `:right`) - the direction to use when padding.
-  * `:pad_to_multiple_of` (default: `0`) - the multiple to pad to.
-  * `:pad_id` (default: `0`) - the id of the token to use for padding.
-  * `:pad_type_id` (default: `0`) - the id of the token type to use for padding.
-  * `:pad_token` (default: `"<pad>"`) - the token to use for padding.
-  """
-  @type padding_options() :: [
-          strategy: :batch_longest | {:fixed, non_neg_integer()},
-          direction: :left | :right,
-          pad_to_multiple_of: non_neg_integer(),
-          pad_id: non_neg_integer(),
-          pad_type_id: non_neg_integer(),
-          pad_token: String.t()
-        ]
-
   @doc """
-  Set padding for the tokenizer.
+  Configures `tokenizer` with padding.
+
+  To disable padding use `disable_padding/1`.
+
+  ## Options
+
+    * `:strategy` (default: `:batch_longest`) - the strategy to use
+      when padding
+
+    * `:direction` (default: `:right`) - the direction to use when
+      padding
+
+    * `:pad_to_multiple_of` (default: `0`) - the multiple to pad to
+
+    * `:pad_id` (default: `0`) - the id of the token to use for padding
+
+    * `:pad_type_id` (default: `0`) - the id of the token type to use
+      for padding
+
+    * `:pad_token` (default: `"[PAD]"`) - the token to use for padding
+
   """
-  @spec set_padding(tokenizer :: t(), opts :: padding_options()) :: t()
+  @doc type: :configuration
+  @spec set_padding(tokenizer :: t(), opts) :: t()
+        when opts: [
+               strategy: :batch_longest | {:fixed, non_neg_integer()},
+               direction: :left | :right,
+               pad_to_multiple_of: non_neg_integer(),
+               pad_id: non_neg_integer(),
+               pad_type_id: non_neg_integer(),
+               pad_token: String.t()
+             ]
   defdelegate set_padding(tokenizer, opts),
     to: Tokenizers.Native,
     as: :tokenizer_set_padding
 
   @doc """
-  Disable padding for the tokenizer.
+  Disable padding on `tokenizer`.
   """
+  @doc type: :configuration
   @spec disable_padding(tokenizer :: t()) :: t()
   defdelegate disable_padding(tokenizer),
     to: Tokenizers.Native,
     as: :tokenizer_disable_padding
 
-  ##############################################################################
-  # Infering
-  ##############################################################################
-
   @doc """
   Encode the given sequence to a `Tokenizers.Encoding.t()`.
 
-  Options:
-  * `:add_special_tokens` (default: `true`) - whether to add special tokens to the sequence.
+  ## Options
+
+    * `:add_special_tokens` - whether to add special tokens to the
+      sequence. Defaults to `true`
+
   """
-  @spec encode(
-          tokenizer :: t(),
-          input :: encode_input(),
-          options :: [add_special_tokens: boolean()]
-        ) ::
-          {:ok, Encoding.t()} | {:error, term()}
-  defdelegate encode(tokenizer, input, options \\ []),
+  @doc type: :inference
+  @spec encode(t(), encode_input(), keyword()) :: {:ok, Encoding.t()} | {:error, term()}
+  defdelegate encode(tokenizer, input, opts \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_encode
 
   @doc """
-  Encode the given batch of sequences to a `Tokenizers.Encoding.t()`.
-
-  For options check `encode/3`.
+  Batched version of `encode/3`.
   """
-  @spec encode_batch(
-          tokenizer :: t(),
-          input :: [encode_input()],
-          options :: [add_special_tokens: boolean()]
-        ) ::
-          {:ok, [Encoding.t()]} | {:error, term()}
-  defdelegate encode_batch(tokenizer, input, options \\ []),
+  @doc type: :inference
+  @spec encode_batch(t(), [encode_input()], keyword()) :: {:ok, [Encoding.t()]} | {:error, term()}
+  defdelegate encode_batch(tokenizer, input, opts \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_encode_batch
 
   @doc """
   Decodes the given list of ids back to a string.
 
-  Options:
+  ## Options
 
-  * `:skip_special_tokens` (default: `true`) - whether to remove special tokens from the decoded string.
+    * `:skip_special_tokens` - whether to exclude special tokens from
+      the decoded string. Defaults to `true`
+
   """
-  @spec decode(
-          tokenizer :: t(),
-          ids :: [non_neg_integer()],
-          options :: [skip_special_tokens: boolean()]
-        ) ::
-          {:ok, String.t()} | {:error, term()}
-  defdelegate decode(tokenizer, ids, options \\ []),
+  @doc type: :inference
+  @spec decode(t(), [non_neg_integer()], keyword()) :: {:ok, String.t()} | {:error, term()}
+  defdelegate decode(tokenizer, ids, opts \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_decode
 
   @doc """
-  Decode the given list of ids or list of lists of ids back to strings.
+  Batched version of `decode/3`.
   """
-  @spec decode_batch(
-          tokenizer :: t(),
-          sentences :: [[non_neg_integer()]],
-          options :: [skip_special_tokens: boolean()]
-        ) ::
+  @doc type: :inference
+  @spec decode_batch(t(), [[non_neg_integer()]], keyword()) ::
           {:ok, [String.t()]} | {:error, term()}
-  defdelegate decode_batch(tokenizer, sentences, options \\ []),
+  defdelegate decode_batch(tokenizer, sentences, opts \\ []),
     to: Tokenizers.Native,
     as: :tokenizer_decode_batch
 
   @doc """
   Convert a given id to its token.
   """
+  @doc type: :inference
   @spec id_to_token(t(), integer()) :: String.t() | nil
   defdelegate id_to_token(tokenizer, id),
     to: Tokenizers.Native,
@@ -463,27 +505,27 @@ defmodule Tokenizers.Tokenizer do
   @doc """
   Convert a given token to its id.
   """
+  @doc type: :inference
   @spec token_to_id(t(), String.t()) :: non_neg_integer() | nil
   defdelegate token_to_id(tokenizer, token),
     to: Tokenizers.Native,
     as: :tokenizer_token_to_id
 
-  ##############################################################################
-  # Training
-  ##############################################################################
-
   @doc """
   Train the tokenizer on the given files.
+
+  ## Options
+
+    * `:trainer` - the trainer to use. Defaults to the default trainer
+      corresponding to `tokenizers`'s model
+
   """
-  @spec train_from_files(
-          tokenizer :: t(),
-          files :: [String.t()],
-          trainer :: Tokenizers.Trainer.t() | nil
-        ) ::
-          {:ok, t()} | {:error, term()}
-  defdelegate train_from_files(tokenizer, files, trainer \\ nil),
-    to: Tokenizers.Native,
-    as: :tokenizer_train_from_files
+  @doc type: :training
+  @spec train_from_files(t(), [String.t()], keyword()) :: {:ok, t()} | {:error, term()}
+  def train_from_files(tokenizer, paths, opts \\ []) do
+    opts = Keyword.validate!(opts, trainer: nil)
+    Tokenizers.Native.tokenizer_train_from_files(tokenizer, paths, opts[:trainer])
+  end
 end
 
 defimpl Inspect, for: Tokenizers.Tokenizer do

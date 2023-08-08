@@ -591,7 +591,7 @@ pub fn tokenizer_train_from_files(
         new_tokenizer.with_model(new_model);
         match trainer {
             Some(trainer) => {
-                // TODO: call clone on trainer wrapper once available,
+                // TODO: call clone on trainer wrapper once available (tokenizers > 0.13.3)
                 // see https://github.com/huggingface/tokenizers/pull/1317
                 let trainer = match trainer.resource.0.read().unwrap().deref() {
                     TrainerWrapper::BpeTrainer(trainer) => {

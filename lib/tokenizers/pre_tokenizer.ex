@@ -1,55 +1,63 @@
 defmodule Tokenizers.PreTokenizer do
   @moduledoc """
-  The `PreTokenizer` takes care of splitting the input according to a set of rules.
-  This pre-processing lets you ensure that the underlying `Model`
-  does not build tokens across multiple “splits”.
-  For example if you don’t want to have whitespaces inside a token,
-  then you can have a `PreTokenizer` that splits on these whitespaces.
+  Pre-tokenizers.
 
-  You can easily combine multiple `PreTokenizer` together using a `Sequence` (see below).
-  The `PreTokenizer` is also allowed to modify the string, just like a `Normalizer` does.
-  This is necessary to allow some complicated algorithms
-  that require to split before normalizing (e.g. the ByteLevel)
+  A pre-tokenizer takes care of splitting the input according to a set
+  of rules. This pre-processing lets you ensure that the underlying
+  model does not build tokens across multiple “splits”. For example
+  if you don’t want to have whitespaces inside a token, then you can
+  have a pre-tokenizer that splits on these whitespaces.
+
+  You can easily combine multiple pre-tokenizers together using
+  `sequence/1`.
+
+  A pre-tokenizer is also allowed to modify the string, just like a
+  normalizer does. This is necessary to allow some complicated
+  algorithms that require to split before normalizing (e.g. ByteLevel).
   """
 
-  @type t() :: %__MODULE__{resource: reference()}
   defstruct [:resource]
+
+  @type t() :: %__MODULE__{resource: reference()}
 
   @doc """
   Converts a string into a sequence of pre-tokens.
   """
-  @spec pre_tokenize(pre_tokenizer :: t(), sequence :: String.t()) ::
-          {:ok, [{String.t(), {integer(), integer()}}]}
-  defdelegate pre_tokenize(normalizer, input),
+  @spec pre_tokenize(t(), String.t()) :: {:ok, [{String.t(), {integer(), integer()}}]}
+  defdelegate pre_tokenize(pre_tokenizer, input),
     to: Tokenizers.Native,
     as: :pre_tokenizers_pre_tokenize
 
-  @typedoc """
-  Options for ByteLevel pre-tokenizer. All values are optional.
-
-  * `:add_prefix_space` (default `true`) - Whether to add a space to the first word if there isn’t already one. This lets us treat hello exactly like say hello.
-  * `:use_regex` (default `true`) - Set this to False to prevent this pre_tokenizer from using the GPT2 specific regexp for spliting on whitespace.
-  """
-  @type byte_level_opts() :: [
-          add_prefix_space: boolean(),
-          use_regex: boolean()
-        ]
-
   @doc """
-  Creates ByteLevel PreTokenizer.
+  Creates a ByteLevel pre-tokenizer.
 
-  Splits on whitespaces while remapping all the bytes to a set of visible characters.
-  This technique as been introduced by OpenAI with GPT-2 and has some more or less nice properties:
+  Splits on whitespaces while remapping all the bytes to a set of
+  visible characters. This technique has been introduced by OpenAI
+  with GPT-2 and has some more or less nice properties:
 
-  * Since it maps on bytes, a tokenizer using this only requires 256 characters
-    as initial alphabet (the number of values a byte can have),
-    as opposed to the 130,000+ Unicode characters.
-  * A consequence of the previous point is that it is absolutely unnecessary
-    to have an unknown token using this since we can represent anything
-    with 256 tokens (Youhou!! 🎉🎉)
-  * For non ascii characters, it gets completely unreadable, but it works nonetheless!
+    * Since it maps on bytes, a tokenizer using this only requires
+      256 characters as initial alphabet (the number of values a byte
+      can have), as opposed to the 130,000+ Unicode characters.
+
+    * A consequence of the previous point is that it is absolutely
+      unnecessary to have an unknown token using this since we can
+      represent anything with 256 tokens (Youhou!! 🎉🎉)
+
+    * For non ascii characters, it gets completely unreadable, but it
+      works nonetheless!
+
+  ## Options
+
+    * `:add_prefix_space` - whether to add a space to the first word
+      if there isn’t already one. This lets us treat hello exactly
+      like say hello. Defaults to `true`
+
+    * `:use_regex` - set this to `false` to prevent this pre-tokenizer
+      from using the GPT2 specific regexp for splitting on whitespace.
+      Defaults to `true`
+
   """
-  @spec byte_level(opts :: byte_level_opts()) :: t()
+  @spec byte_level(keyword()) :: t()
   defdelegate byte_level(opts \\ []), to: Tokenizers.Native, as: :pre_tokenizers_byte_level
 
   @doc """
@@ -61,66 +69,59 @@ defmodule Tokenizers.PreTokenizer do
     as: :pre_tokenizers_byte_level_alphabet
 
   @doc """
-  Creates Whitespace pre-tokenizer.
+  Creates a Whitespace pre-tokenizer.
 
-  Splits on word boundaries (using the following regular expression: `\w+|[^\w\s]+`
+  Splits on word boundaries. Uses the following regular expression:
+  `\w+|[^\w\s]+`.
   """
   @spec whitespace() :: t()
   defdelegate whitespace(), to: Tokenizers.Native, as: :pre_tokenizers_whitespace
 
   @doc """
-  Creates WhitespaceSplit pre-tokenizer.
+  Creates a WhitespaceSplit pre-tokenizer.
 
-  Splits on any whitespace character
+  Splits on any whitespace character.
   """
   @spec whitespace_split() :: t()
   defdelegate whitespace_split(), to: Tokenizers.Native, as: :pre_tokenizers_whitespace_split
 
   @doc """
-  Creates BertPreTokenizer pre-tokenizer.
+  Creates a BertPreTokenizer pre-tokenizer.
 
   Splits for use in Bert models.
   """
   @spec bert_pre_tokenizer() :: t()
   defdelegate bert_pre_tokenizer(), to: Tokenizers.Native, as: :pre_tokenizers_bert
 
-  @typedoc """
-  Options for Metaspace pre-tokenizer. All values are optional.
-
-  * `:replacement` (default `"▁"`) - The replacement character to use.
-  * `:add_prefix_space` (default `true`) - Whether to add a space to the first word if there isn’t already one. This lets us treat hello exactly like say hello.
-  """
-  @type metaspace_opts() :: [
-          replacement: char(),
-          add_prefix_space: boolean()
-        ]
-
   @doc """
   Creates Metaspace pre-tokenizer.
 
-  Splits on whitespaces and replaces them with a special char “▁” (U+2581)
+  Splits on whitespaces and replaces them with a special char “▁”
+  (U+2581).
+
+  ## Options
+
+    * `:replacement` - the replacement character to use. Defaults to `"▁"`
+
+    * `:add_prefix_space` - whether to add a space to the first word
+      if there isn’t already one. This lets us treat hello exactly
+      like say hello. Defaults to `true`
+
   """
-  @spec metaspace(opts :: metaspace_opts()) :: t()
+  @spec metaspace(keyword()) :: t()
   defdelegate metaspace(opts \\ []), to: Tokenizers.Native, as: :pre_tokenizers_metaspace
 
   @doc """
-  Creates CharDelimiterSplit pre-tokenizer.
+  Creates a CharDelimiterSplit pre-tokenizer.
 
-  This pre-tokenizer simply splits on the provided delimiter. Works almost like the `.split(delimiter)`
-  function, except that it accounts for multiple consecutive spaces
+  This pre-tokenizer simply splits on the provided delimiter. Works
+  almost like simple split function, except that it accounts for
+  multiple consecutive spaces.
   """
-
-  @spec char_delimiter_split(delimiter :: char()) :: t()
+  @spec char_delimiter_split(char()) :: t()
   defdelegate char_delimiter_split(delimiter),
     to: Tokenizers.Native,
     as: :pre_tokenizers_char_delimiter_split
-
-  @typedoc """
-  Options for Split pre-tokenizer. All values are optional.
-
-  * `:invert` (default `false`) - Whether to invert the split or not.
-  """
-  @type spit_opts() :: [invert: boolean()]
 
   @typedoc """
   Specifies how delimiter should behave for several pretokenizers.
@@ -133,58 +134,50 @@ defmodule Tokenizers.PreTokenizer do
           | :contiguous
 
   @doc """
-  Creates Split pre-tokenizer.
+  Creates a Split pre-tokenizer.
 
-  Versatile pre-tokenizer that splits on provided pattern and according to provided behavior.
-  The pattern can be inverted if necessary.
+  Versatile pre-tokenizer that splits on provided pattern and according
+  to provided behavior. The pattern can be inverted if necessary.
 
-  * pattern should be either a custom string or regexp.
-  * behavior should be one of:
+  ## Options
 
-    * `:removed`
-    * `:isolated`
-    * `:merged_with_previous`
-    * `:merged_with_next`
-    * `:contiguous`
+    * `:invert` - whether to invert the split or not. Defaults to `false`
+
   """
-  @spec split(
-          pattern :: String.t(),
-          behavior :: split_delimiter_behaviour(),
-          opts :: spit_opts()
-        ) :: t()
+  @spec split(String.t(), split_delimiter_behaviour(), keyword()) :: t()
   defdelegate split(pattern, behavior, opts \\ []),
     to: Tokenizers.Native,
     as: :pre_tokenizers_split
 
   @doc """
-  Creates Punctuation pre-tokenizer.
+  Creates a Punctuation pre-tokenizer.
 
   Will isolate all punctuation characters.
   """
-  @spec punctuation(behavor :: split_delimiter_behaviour()) :: t()
-  defdelegate punctuation(behavor), to: Tokenizers.Native, as: :pre_tokenizers_punctuation
+  @spec punctuation(split_delimiter_behaviour()) :: t()
+  defdelegate punctuation(behaviour), to: Tokenizers.Native, as: :pre_tokenizers_punctuation
 
   @doc """
-  Creates Sequence pre-tokenizer.
+  Creates a Sequence pre-tokenizer.
 
-  Lets you compose multiple `PreTokenizer` that will be run in the given order
+  Lets you compose multiple pre-tokenizers that will be run in the
+  given order.
   """
-  @spec sequence(pre_tokenizers :: [t()]) :: t()
+  @spec sequence([t()]) :: t()
   defdelegate sequence(pre_tokenizers), to: Tokenizers.Native, as: :pre_tokenizers_sequence
 
-  @typedoc """
-  Options for Digits pre-tokenizer. All values are optional.
-
-  * `:individual_digits` (default `false`) - Whether to split individual digits or not.
-  """
-  @type digits_opts() :: [individual_digits: boolean()]
-
   @doc """
-  Creates Digits pre-tokenizer.
+  Creates a Digits pre-tokenizer.
 
   Splits the numbers from any other characters.
+
+  ## Options
+
+    * `:individual_digits` - whether to split individual digits or not.
+      Defaults to `false`
+
   """
-  @spec digits(opts :: digits_opts()) :: t()
+  @spec digits(keyword()) :: t()
   defdelegate digits(opts \\ []),
     to: Tokenizers.Native,
     as: :pre_tokenizers_digits

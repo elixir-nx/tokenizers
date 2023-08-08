@@ -41,7 +41,38 @@ defmodule Tokenizers.MixProject do
       main: "Tokenizers",
       source_ref: "v#{@version}",
       source_url: @source_url,
-      extras: ["LICENSE", "notebooks/quicktour.livemd", "notebooks/pretrained.livemd"]
+      extras: ["notebooks/pretrained.livemd", "notebooks/training.livemd", "LICENSE"],
+      groups_for_modules: [
+        Tokenization: [
+          Tokenizers.Tokenizer,
+          Tokenizers.Encoding,
+          Tokenizers.Decoder
+        ],
+        Pipeline: [
+          Tokenizers.Normalizer,
+          Tokenizers.PreTokenizer,
+          Tokenizers.PostProcessor
+        ],
+        Training: [
+          Tokenizers.Model,
+          Tokenizers.Model.BPE,
+          Tokenizers.Model.Unigram,
+          Tokenizers.Model.WordLevel,
+          Tokenizers.Model.WordPiece,
+          Tokenizers.Trainer,
+          Tokenizers.AddedToken
+        ],
+        Other: [
+          Tokenizers.HTTPClient
+        ]
+      ],
+      groups_for_functions: [
+        # Tokenizers.Tokenizer
+        Loading: &(&1[:type] == :loading),
+        Inference: &(&1[:type] == :inference),
+        Configuration: &(&1[:type] == :configuration),
+        Training: &(&1[:type] == :training)
+      ]
     ]
   end
 

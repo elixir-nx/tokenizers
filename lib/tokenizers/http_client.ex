@@ -15,7 +15,7 @@ defmodule Tokenizers.HTTPClient do
 
     * `:method` - An HTTP method. By default it uses the `:get` method.
 
-    * `:base_url` - The base URL to make requests. By default is #{inspect(@base_url)}. 
+    * `:base_url` - The base URL to make requests. By default is #{inspect(@base_url)}.
 
     * `:url` - A path to a resource. By default is "".
 
