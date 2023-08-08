@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -126,16 +126,6 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:save_opts/0" translate="no">save_opts()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options to save the model. All options can be ommited.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#t:t/0" translate="no">t()</a>
 
       </div>
@@ -162,12 +152,11 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#save/3" translate="no">save(model, folder, opts \\ [])</a>
+        <a href="#save/3" translate="no">save(model, directory, opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p></div>
+        <div class="summary-synopsis"><p>Saves the given model in the given directory.</p></div>
 
     </div>
 
@@ -184,34 +173,6 @@ Types
       </a>
     </h1>
     <div class="types-list">
-<section class="detail" id="t:save_opts/0">
-
-  <div class="detail-header">
-    <a href="#t:save_opts/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">save_opts()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L25" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> save_opts() :: [{:prefix, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
-
-      </div>
-
-<p>Options to save the model. All options can be ommited.</p><ul><li><code class="inline">:prefix</code> (default <code class="inline">&quot;&quot;</code>) - The prefix to use for all the files that will get created.</li></ul>
-  </section>
-</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -221,7 +182,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L9" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L11" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -261,7 +222,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">info(model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L18" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L19" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -273,7 +234,7 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> info(model :: <a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> info(<a href="#t:t/0">t</a>()) :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">map</a>()</pre>
 
       </div>
 
@@ -289,9 +250,9 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">save(model, folder, opts \\ [])</h1>
+    <h1 class="signature" translate="no">save(model, directory, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model.ex#L35" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -303,13 +264,21 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> save(model :: <a href="#t:t/0">t</a>(), folder :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), opts :: <a href="#t:save_opts/0">save_opts</a>()) ::
+          <pre translate="no"><span class="attribute">@spec</span> save(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
   {:ok, file_paths :: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Save the current model in the given folder, using the given name for the various files that will get created.
-Any file with the same name that already exist in this folder will be overwritten.</p>
+<p>Saves the given model in the given directory.</p><p>This function generates a couple files with predefined names, you
+can specify <code class="inline">:prefix</code> to scope them. Existing files with the same
+names in this directory will be overridden.</p><h2 id="save/3-options" class="section-heading">
+  <a href="#save/3-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><code class="inline">:prefix</code> - the prefix to use for all the files that will get
+created. Defaults to <code class="inline">&quot;&quot;</code></li></ul>
   </section>
 </section>
 

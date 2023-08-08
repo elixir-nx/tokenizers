@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -108,8 +108,9 @@ Tokenizers
 
 
   <section id="moduledoc">
-<p>The Decoder knows how to go from the IDs used by the Tokenizer, back to a readable piece of text.
-Some Normalizer and PreTokenizer use special characters or identifiers that need to be reverted.</p>
+<p>Decoders and decoding functions.</p><p>Decoder transforms a sequence of token ids back to a readable piece
+of text.</p><p>Some normalizers and pre-tokenizers use special characters or
+identifiers that need special logic to be reverted.</p>
   </section>
 
 
@@ -127,49 +128,9 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:bpe_options/0" translate="no">bpe_options()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for BPE decoder initialization. All options can be ommited.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:ctc_options/0" translate="no">ctc_options()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for CTC decoder initialization. All options can be ommited.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:metaspace_options/0" translate="no">metaspace_options()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for Metaspace decoder initialization. All options can be ommited.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
         <a href="#t:t/0" translate="no">t()</a>
 
       </div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:word_piece_options/0" translate="no">word_piece_options()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for WordPiece decoder initialization. All options can be ommited.</p></div>
 
     </div>
 
@@ -181,11 +142,11 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#bpe/1" translate="no">bpe(options \\ [])</a>
+        <a href="#bpe/1" translate="no">bpe(opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new BPE decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a BPE decoder.</p></div>
 
     </div>
 
@@ -195,7 +156,7 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new ByteFallback decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a ByteFallback decoder.</p></div>
 
     </div>
 
@@ -205,17 +166,17 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new ByteLevel decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a ByteLevel decoder.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#ctc/1" translate="no">ctc(options \\ [])</a>
+        <a href="#ctc/1" translate="no">ctc(opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new CTC decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a CTC decoder.</p></div>
 
     </div>
 
@@ -235,17 +196,17 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new Fuse decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a Fuse decoder.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#metaspace/1" translate="no">metaspace(options \\ [])</a>
+        <a href="#metaspace/1" translate="no">metaspace(opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new Metaspace decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a Metaspace decoder.</p></div>
 
     </div>
 
@@ -255,7 +216,7 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new Replace decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a Replace decoder.</p></div>
 
     </div>
 
@@ -265,7 +226,7 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new Sequence decoder</p></div>
+        <div class="summary-synopsis"><p>Combines a list of decoders into a single sequential decoder.</p></div>
 
     </div>
 
@@ -275,17 +236,17 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new Strip decoder.</p></div>
+        <div class="summary-synopsis"><p>Creates a Strip decoder.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#word_piece/1" translate="no">word_piece(options \\ [])</a>
+        <a href="#word_piece/1" translate="no">word_piece(opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates new WordPiece decoder</p></div>
+        <div class="summary-synopsis"><p>Creates a WordPiece decoder.</p></div>
 
     </div>
 
@@ -302,94 +263,6 @@ Types
       </a>
     </h1>
     <div class="types-list">
-<section class="detail" id="t:bpe_options/0">
-
-  <div class="detail-header">
-    <a href="#t:bpe_options/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">bpe_options()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L21" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> bpe_options() :: [{:suffix, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}]</pre>
-
-      </div>
-
-<p>Options for BPE decoder initialization. All options can be ommited.</p><ul><li><code class="inline">suffix</code> - The suffix to add to the end of each word, defaults to <code class="inline">&lt;/w&gt;</code></li></ul>
-  </section>
-</section>
-<section class="detail" id="t:ctc_options/0">
-
-  <div class="detail-header">
-    <a href="#t:ctc_options/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">ctc_options()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L48" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> ctc_options() :: [
-  pad_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
-  word_delimiter_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
-  cleanup: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
-]</pre>
-
-      </div>
-
-<p>Options for CTC decoder initialization. All options can be ommited.</p><ul><li><code class="inline">pad_token</code> - The token used for padding, defaults to <code class="inline">&lt;pad&gt;</code></li><li><code class="inline">word_delimiter_token</code> - The token used for word delimiter, defaults to <code class="inline">|</code></li><li><code class="inline">cleanup</code> - Whether to cleanup tokenization artifacts, defaults to <code class="inline">true</code></li></ul>
-  </section>
-</section>
-<section class="detail" id="t:metaspace_options/0">
-
-  <div class="detail-header">
-    <a href="#t:metaspace_options/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">metaspace_options()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L73" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> metaspace_options() :: [replacement: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">char</a>(), add_prefix_space: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
-
-      </div>
-
-<p>Options for Metaspace decoder initialization. All options can be ommited.</p><ul><li><code class="inline">replacement</code> - The replacement character, defaults to <code class="inline">▁</code> (as char)</li><li><code class="inline">add_prefix_space</code> - Whether to add a space to the first word, defaults to <code class="inline">true</code></li></ul>
-  </section>
-</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -399,7 +272,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L8" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L14" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -416,34 +289,6 @@ Types
       </div>
 
 
-  </section>
-</section>
-<section class="detail" id="t:word_piece_options/0">
-
-  <div class="detail-header">
-    <a href="#t:word_piece_options/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">word_piece_options()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L113" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> word_piece_options() :: [prefix: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), cleanup: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
-
-      </div>
-
-<p>Options for WordPiece decoder initialization. All options can be ommited.</p><ul><li><code class="inline">prefix</code> - The prefix to use for subwords, defaults to <code class="inline">##</code></li><li><code class="inline">cleanup</code> - Whether to cleanup tokenization artifacts, defaults to <code class="inline">true</code></li></ul>
   </section>
 </section>
 
@@ -467,9 +312,9 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">bpe(options \\ [])</h1>
+    <h1 class="signature" translate="no">bpe(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L27" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L32" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -481,11 +326,18 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> bpe(bpe_options :: <a href="#t:bpe_options/0">bpe_options</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> bpe(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new BPE decoder</p>
+<p>Creates a BPE decoder.</p><h2 id="bpe/1-options" class="section-heading">
+  <a href="#bpe/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><code class="inline">suffix</code> - the suffix to add to the end of each word. Defaults
+to <code class="inline">&lt;/w&gt;</code></li></ul>
   </section>
 </section>
 <section class="detail" id="byte_fallback/0">
@@ -497,7 +349,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">byte_fallback()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L33" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L38" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -513,7 +365,7 @@ Functions
 
       </div>
 
-<p>Creates new ByteFallback decoder</p>
+<p>Creates a ByteFallback decoder.</p>
   </section>
 </section>
 <section class="detail" id="byte_level/0">
@@ -525,7 +377,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">byte_level()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L39" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L44" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -541,7 +393,7 @@ Functions
 
       </div>
 
-<p>Creates new ByteLevel decoder</p>
+<p>Creates a ByteLevel decoder.</p>
   </section>
 </section>
 <section class="detail" id="ctc/1">
@@ -553,9 +405,9 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">ctc(options \\ [])</h1>
+    <h1 class="signature" translate="no">ctc(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L58" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L61" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -567,11 +419,19 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> ctc(ctc_options :: <a href="#t:ctc_options/0">ctc_options</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> ctc(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new CTC decoder</p>
+<p>Creates a CTC decoder.</p><h2 id="ctc/1-options" class="section-heading">
+  <a href="#ctc/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">pad_token</code> - the token used for padding. Defaults to <code class="inline">&lt;pad&gt;</code></p></li><li><p><code class="inline">word_delimiter_token</code> - the token used for word delimiter.
+Defaults to <code class="inline">|</code></p></li><li><p><code class="inline">cleanup</code> - whether to cleanup tokenization artifacts, defaults
+to <code class="inline">true</code></p></li></ul>
   </section>
 </section>
 <section class="detail" id="decode/2">
@@ -583,7 +443,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">decode(decoder, tokens)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L14" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L20" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -611,7 +471,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">fuse()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L64" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L67" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -627,7 +487,7 @@ Functions
 
       </div>
 
-<p>Creates new Fuse decoder</p>
+<p>Creates a Fuse decoder.</p>
   </section>
 </section>
 <section class="detail" id="metaspace/1">
@@ -639,7 +499,7 @@ Functions
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">metaspace(options \\ [])</h1>
+    <h1 class="signature" translate="no">metaspace(opts \\ [])</h1>
 
       <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L82" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -653,11 +513,19 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> metaspace(metaspace_options :: <a href="#t:metaspace_options/0">metaspace_options</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> metaspace(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new Metaspace decoder</p>
+<p>Creates a Metaspace decoder.</p><h2 id="metaspace/1-options" class="section-heading">
+  <a href="#metaspace/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">replacement</code> - the replacement character. Defaults to <code class="inline">▁</code>
+(as char)</p></li><li><p><code class="inline">add_prefix_space</code> - whether to add a space to the first word.
+Defaults to <code class="inline">true</code></p></li></ul>
   </section>
 </section>
 <section class="detail" id="replace/2">
@@ -681,11 +549,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> replace(pattern :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), content :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> replace(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new Replace decoder</p>
+<p>Creates a Replace decoder.</p>
   </section>
 </section>
 <section class="detail" id="sequence/1">
@@ -713,7 +581,7 @@ Functions
 
       </div>
 
-<p>Creates new Sequence decoder</p>
+<p>Combines a list of decoders into a single sequential decoder.</p>
   </section>
 </section>
 <section class="detail" id="strip/3">
@@ -737,12 +605,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> strip(content :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">char</a>(), left :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), right :: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) ::
-  <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> strip(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">char</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new Strip decoder.</p><p>It expects a character and the number of times to strip the
+<p>Creates a Strip decoder.</p><p>It expects a character and the number of times to strip the
 character on <code class="inline">left</code> and <code class="inline">right</code> sides.</p>
   </section>
 </section>
@@ -755,9 +622,9 @@ character on <code class="inline">left</code> and <code class="inline">right</co
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">word_piece(options \\ [])</h1>
+    <h1 class="signature" translate="no">word_piece(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L122" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/decoder.ex#L119" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -769,11 +636,18 @@ character on <code class="inline">left</code> and <code class="inline">right</co
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> word_piece(word_piece_options :: <a href="#t:word_piece_options/0">word_piece_options</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> word_piece(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Creates new WordPiece decoder</p>
+<p>Creates a WordPiece decoder.</p><h2 id="word_piece/1-options" class="section-heading">
+  <a href="#word_piece/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">prefix</code> - The prefix to use for subwords. Defaults to <code class="inline">##</code></p></li><li><p><code class="inline">cleanup</code> - Whether to cleanup tokenization artifacts. Defaults
+to <code class="inline">true</code></p></li></ul>
   </section>
 </section>
 

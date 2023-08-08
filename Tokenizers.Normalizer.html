@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -108,11 +108,12 @@ Tokenizers
 
 
   <section id="moduledoc">
-<p>A Normalizer is in charge of pre-processing the input string
-in order to normalize it as relevant for a given use case.</p><p>Some common examples of normalization are the Unicode normalization algorithms
-(NFD, NFKD, NFC &amp; NFKC), lowercasing etc...
-The specificity of tokenizers is that we keep track of the alignment while normalizing.
-This is essential to allow mapping from the generated tokens back to the input text.</p><p>The Normalizer is optional.</p>
+<p>Normalizers and normalization functions.</p><p>A normalizer is in charge of pre-processing the input string in
+order to normalize it as relevant for the given use case.</p><p>Some common examples of normalization are the Unicode normalization
+algorithms (NFD, NFKD, NFC &amp; NFKC) or lowercasing. The specificity
+of tokenizers is that we keep track of the alignment while
+normalizing. This is essential to allow mapping from the generated
+tokens back to the input text.</p>
   </section>
 
 
@@ -127,26 +128,6 @@ This is essential to allow mapping from the generated tokens back to the input t
   <h2>
     <a href="#types">Types</a>
   </h2>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:bert_opts/0" translate="no">bert_opts()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for BERT normalizer initialisation. All values are optional.</p></div>
-
-    </div>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:strip_opts/0" translate="no">strip_opts()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for Strip normalizer initialisation. All values are optional.</p></div>
-
-    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -168,7 +149,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Takes care of normalizing raw text before giving it to a Bert model. This includes cleaning the text, handling accents, chinese chars and lowercasing.</p></div>
+        <div class="summary-synopsis"><p>Takes care of normalizing raw text before giving it to a Bert model.</p></div>
 
     </div>
 
@@ -188,7 +169,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>NFC Unicode Normalizer</p></div>
+        <div class="summary-synopsis"><p>Creates a NFC Unicode normalizer.</p></div>
 
     </div>
 
@@ -198,7 +179,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>NFD Unicode Normalizer,</p></div>
+        <div class="summary-synopsis"><p>Creates a NFD Unicode normalizer.</p></div>
 
     </div>
 
@@ -208,7 +189,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>NFKC Unicode Normalizer</p></div>
+        <div class="summary-synopsis"><p>Creates a NFKC Unicode normalizer.</p></div>
 
     </div>
 
@@ -218,7 +199,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>NFKD Unicode Normalizer</p></div>
+        <div class="summary-synopsis"><p>Creates a NFKD Unicode normalizer.</p></div>
 
     </div>
 
@@ -228,7 +209,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Nmt normalizer</p></div>
+        <div class="summary-synopsis"><p>Creates a Nmt normalizer.</p></div>
 
     </div>
 
@@ -238,7 +219,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Normalizes the input presented as string into new string</p></div>
+        <div class="summary-synopsis"><p>Normalizes the given text input.</p></div>
 
     </div>
 
@@ -248,7 +229,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Precompiled normalizer. Don’t use manually it is used for compatiblity for SentencePiece.</p></div>
+        <div class="summary-synopsis"><p>Precompiled normalizer.</p></div>
 
     </div>
 
@@ -258,7 +239,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Prepend normalizer.</p></div>
+        <div class="summary-synopsis"><p>Creates a Prepend normalizer.</p></div>
 
     </div>
 
@@ -268,7 +249,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Replaces a custom string or regexp and changes it with given content</p></div>
+        <div class="summary-synopsis"><p>Replaces a custom string or regexp and changes it with given content.</p></div>
 
     </div>
 
@@ -288,7 +269,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Strip normalizer. Removes all whitespace characters on the specified sides (left, right or both) of the input</p></div>
+        <div class="summary-synopsis"><p>Creates a Strip normalizer.</p></div>
 
     </div>
 
@@ -298,7 +279,7 @@ This is essential to allow mapping from the generated tokens back to the input t
 
       </div>
 
-        <div class="summary-synopsis"><p>Strip Accent normalizer. Removes all accent symbols in unicode (to be used with NFD for consistency).</p></div>
+        <div class="summary-synopsis"><p>Creates a Strip Accent normalizer.</p></div>
 
     </div>
 
@@ -315,67 +296,6 @@ Types
       </a>
     </h1>
     <div class="types-list">
-<section class="detail" id="t:bert_opts/0">
-
-  <div class="detail-header">
-    <a href="#t:bert_opts/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">bert_opts()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L31" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> bert_opts() :: [
-  clean_text: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  handle_chinese_chars: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  strip_accents: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  lowercase: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
-]</pre>
-
-      </div>
-
-<p>Options for BERT normalizer initialisation. All values are optional.</p><ul><li><code class="inline">:clean_text</code> (default <code class="inline">true</code>) - Whether to clean the text, by removing any control characters and replacing all whitespaces by the classic one.</li><li><code class="inline">:handle_chinese_chars</code> (default <code class="inline">true</code>) - Whether to handle chinese chars by putting spaces around them.</li><li><code class="inline">:strip_accents</code> - Whether to strip all accents. If this option is not specified, then it will be determined by the value for lowercase (as in the original Bert).</li><li><code class="inline">:lowercase</code> (default <code class="inline">true</code>) - Whether to lowercase.</li></ul>
-  </section>
-</section>
-<section class="detail" id="t:strip_opts/0">
-
-  <div class="detail-header">
-    <a href="#t:strip_opts/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">strip_opts()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L75" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> strip_opts() :: [left: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), right: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()]</pre>
-
-      </div>
-
-<p>Options for Strip normalizer initialisation. All values are optional.</p><ul><li><code class="inline">:left</code> (default <code class="inline">true</code>) - Whether to strip left side.</li><li><code class="inline">:right</code> (default <code class="inline">true</code>) - Whether to strip right side.</li></ul>
-  </section>
-</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -385,7 +305,7 @@ Types
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L14" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L17" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -427,7 +347,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">bert_normalizer(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L41" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L48" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -439,11 +359,23 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> bert_normalizer(opts :: <a href="#t:bert_opts/0">bert_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> bert_normalizer(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Takes care of normalizing raw text before giving it to a Bert model. This includes cleaning the text, handling accents, chinese chars and lowercasing.</p>
+<p>Takes care of normalizing raw text before giving it to a Bert model.</p><p>This includes cleaning the text, handling accents, chinese chars and
+lowercasing.</p><h2 id="bert_normalizer/1-options" class="section-heading">
+  <a href="#bert_normalizer/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">:clean_text</code> - whether to clean the text, by removing any
+control characters and replacing all whitespaces by the classic
+one. Defaults to <code class="inline">true</code></p></li><li><p><code class="inline">:handle_chinese_chars</code> - whether to handle chinese chars by
+putting spaces around them. Default <code class="inline">true</code></p></li><li><p><code class="inline">:strip_accents</code> - whether to strip all accents. If this option
+is not specified, then it will be determined by the value for
+lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowercase</code> - whether to lowercase. Default <code class="inline">true</code></p></li></ul>
   </section>
 </section>
 <section class="detail" id="lowercase/0">
@@ -455,7 +387,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">lowercase()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L107" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L117" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -483,7 +415,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">nfc()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L61" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L68" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -499,7 +431,7 @@ Functions
 
       </div>
 
-<p>NFC Unicode Normalizer</p>
+<p>Creates a NFC Unicode normalizer.</p>
   </section>
 </section>
 <section class="detail" id="nfd/0">
@@ -511,7 +443,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">nfd()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L49" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L56" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -527,7 +459,7 @@ Functions
 
       </div>
 
-<p>NFD Unicode Normalizer,</p>
+<p>Creates a NFD Unicode normalizer.</p>
   </section>
 </section>
 <section class="detail" id="nfkc/0">
@@ -539,7 +471,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">nfkc()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L67" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L74" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -555,7 +487,7 @@ Functions
 
       </div>
 
-<p>NFKC Unicode Normalizer</p>
+<p>Creates a NFKC Unicode normalizer.</p>
   </section>
 </section>
 <section class="detail" id="nfkd/0">
@@ -567,7 +499,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">nfkd()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L55" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L62" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -583,7 +515,7 @@ Functions
 
       </div>
 
-<p>NFKD Unicode Normalizer</p>
+<p>Creates a NFKD Unicode normalizer.</p>
   </section>
 </section>
 <section class="detail" id="nmt/0">
@@ -595,7 +527,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">nmt()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L122" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L131" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -611,7 +543,7 @@ Functions
 
       </div>
 
-<p>Nmt normalizer</p>
+<p>Creates a Nmt normalizer.</p>
   </section>
 </section>
 <section class="detail" id="normalize/2">
@@ -623,7 +555,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">normalize(normalizer, input)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L21" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L23" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -635,11 +567,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> normalize(normalizer :: <a href="#t:t/0">t</a>(), input :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> normalize(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()}</pre>
 
       </div>
 
-<p>Normalizes the input presented as string into new string</p>
+<p>Normalizes the given text input.</p>
   </section>
 </section>
 <section class="detail" id="precompiled/1">
@@ -651,7 +583,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">precompiled(data)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L128" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L139" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -663,11 +595,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> precompiled(data :: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> precompiled(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Precompiled normalizer. Don’t use manually it is used for compatiblity for SentencePiece.</p>
+<p>Precompiled normalizer.</p><p>Don’t use manually it is used for compatibility with SentencePiece.</p>
   </section>
 </section>
 <section class="detail" id="prepend/1">
@@ -679,7 +611,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">prepend(prepend)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L89" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L96" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -695,7 +627,7 @@ Functions
 
       </div>
 
-<p>Prepend normalizer.</p>
+<p>Creates a Prepend normalizer.</p>
   </section>
 </section>
 <section class="detail" id="replace/2">
@@ -707,7 +639,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">replace(pattern, content)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L114" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L123" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -719,11 +651,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> replace(pattern :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), content :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> replace(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Replaces a custom string or regexp and changes it with given content</p>
+<p>Replaces a custom string or regexp and changes it with given content.</p>
   </section>
 </section>
 <section class="detail" id="sequence/1">
@@ -735,7 +667,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">sequence(normalizers)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L101" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L111" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -747,7 +679,7 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> sequence(normalizers :: [<a href="#t:t/0">t</a>()]) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> sequence([<a href="#t:t/0">t</a>()]) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
@@ -765,7 +697,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">strip(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L83" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L90" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -777,11 +709,18 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> strip(opts :: <a href="#t:strip_opts/0">strip_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> strip(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Strip normalizer. Removes all whitespace characters on the specified sides (left, right or both) of the input</p>
+<p>Creates a Strip normalizer.</p><p>Removes all whitespace characters on the specified sides (left,
+right or both) of the input</p><h2 id="strip/1-options" class="section-heading">
+  <a href="#strip/1-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">:left</code> - whether to strip left side. Defaults to <code class="inline">true</code></p></li><li><p><code class="inline">:right</code> - whether to strip right side. Defaults to `true</p></li></ul>
   </section>
 </section>
 <section class="detail" id="strip_accents/0">
@@ -793,7 +732,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">strip_accents()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L95" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/normalizer.ex#L105" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -809,7 +748,8 @@ Functions
 
       </div>
 
-<p>Strip Accent normalizer. Removes all accent symbols in unicode (to be used with NFD for consistency).</p>
+<p>Creates a Strip Accent normalizer.</p><p>Removes all accent symbols in unicode (to be used with NFD for
+consistency).</p>
   </section>
 </section>
 

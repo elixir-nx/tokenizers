@@ -1,4 +1,4 @@
-# Pretrained Tokenizers
+# Pretrained tokenizers
 
 ```elixir
 Mix.install([

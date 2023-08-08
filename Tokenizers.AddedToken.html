@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -108,7 +108,7 @@ Tokenizers
 
 
   <section id="moduledoc">
-<p>This struct represents AddedTokens</p>
+<p>This struct represents a token added to tokenizer vocabulary.</p>
   </section>
 
 
@@ -123,16 +123,6 @@ Tokenizers
   <h2>
     <a href="#types">Types</a>
   </h2>
-
-    <div class="summary-row">
-      <div class="summary-signature">
-        <a href="#t:opts/0" translate="no">opts()</a>
-
-      </div>
-
-        <div class="summary-synopsis"><p>Options for added token initialisation. All options can be ommited.</p></div>
-
-    </div>
 
     <div class="summary-row">
       <div class="summary-signature">
@@ -164,7 +154,7 @@ Tokenizers
 
       </div>
 
-        <div class="summary-synopsis"><p>Create a new AddedToken.</p></div>
+        <div class="summary-synopsis"><p>Builds a new added token.</p></div>
 
     </div>
 
@@ -181,40 +171,6 @@ Types
       </a>
     </h1>
     <div class="types-list">
-<section class="detail" id="t:opts/0">
-
-  <div class="detail-header">
-    <a href="#t:opts/0" class="detail-link" title="Link to this type">
-      <i class="ri-link-m" aria-hidden="true"></i>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <h1 class="signature" translate="no">opts()</h1>
-
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/added_token.ex#L12" class="icon-action" rel="help" title="View Source">
-       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-       <span class="sr-only">View Source</span>
-     </a>
-
-
-  </div>
-
-  <section class="docstring">
-
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@type</span> opts() :: [
-  special: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  single_word: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  lstrip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  rstrip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
-]</pre>
-
-      </div>
-
-<p>Options for added token initialisation. All options can be ommited.</p>
-  </section>
-</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -264,7 +220,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">info(model)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/added_token.ex#L57" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/added_token.ex#L55" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -294,7 +250,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">new(token, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/added_token.ex#L51" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/added_token.ex#L49" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -306,28 +262,43 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> new(token :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), opts :: <a href="#t:opts/0">opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
+          <pre translate="no"><span class="attribute">@spec</span> new(
+  token :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
+) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Create a new AddedToken.</p><ul><li><p><code class="inline">:special</code> (default <code class="inline">false</code>) - defines whether this token is a special token.</p></li><li><p><code class="inline">:single_word</code> (default <code class="inline">false</code>) - defines whether this token should only match single words.
-If <code class="inline">true</code>, this token will never match inside of a word. For example the token <code class="inline">ing</code> would
-match on <code class="inline">tokenizing</code> if this option is <code class="inline">false</code>, but not if it is <code class="inline">true</code>.
-The notion of ”inside of a word” is defined by the word boundaries pattern
-in regular expressions (i.e. the token should start and end with word boundaries).</p></li><li><p><code class="inline">:lstrip</code> (default <code class="inline">false</code>) - defines whether this token should strip all potential
-whitespaces on its left side.
-If <code class="inline">true</code>, this token will greedily match any whitespace on its left.
-For example if we try to match the token <code class="inline">[MASK]</code> with <code class="inline">lstrip=true</code>,
-in the text <code class="inline">&quot;I saw a [MASK]&quot;</code>, we would match on <code class="inline">&quot; [MASK]&quot;</code>. (Note the space on the left).</p></li><li><p><code class="inline">:rstrip</code> (default <code class="inline">false</code>) - defines whether this token should strip all potential
-whitespaces on its right side.
-If <code class="inline">true</code>, this token will greedily match any whitespace on its right.
-It works just like <code class="inline">lstrip</code> but on the right.</p></li><li><p><code class="inline">:normalized</code> (default <code class="inline">true</code> for not special tokens, <code class="inline">false</code> for special tokens) -
-defines whether this token should match against the normalized version of the input text.
-For example, with the added token <code class="inline">&quot;yesterday&quot;</code>,
-and a normalizer in charge of lowercasing the text,
-the token could be extract from the input <code class="inline">&quot;I saw a lion Yesterday&quot;</code>.
-If <code class="inline">true</code>, the token will be extracted from the normalized input <code class="inline">&quot;i saw a lion yesterday&quot;</code>.
-If <code class="inline">false</code>, the token will be extracted from the original input <code class="inline">&quot;I saw a lion Yesterday&quot;</code>.</p></li></ul>
+<p>Builds a new added token.</p><h2 id="new/2-options" class="section-heading">
+  <a href="#new/2-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><p><code class="inline">:special</code> - defines whether this token is a special token.
+Defaults to <code class="inline">false</code></p></li><li><p><code class="inline">:single_word</code> - defines whether this token should only match
+single words. If <code class="inline">true</code>, this token will never match inside of a
+word. For example the token <code class="inline">ing</code> would match on <code class="inline">tokenizing</code> if
+this option is <code class="inline">false</code>. The notion of ”inside of a word” is
+defined by the word boundaries pattern in regular expressions
+(i.e. the token should start and end with word boundaries).
+Defaults to <code class="inline">false</code></p></li><li><p><code class="inline">:lstrip</code> - defines whether this token should strip all potential
+whitespace on its left side. If <code class="inline">true</code>, this token will greedily
+match any whitespace on its left. For example if we try to match
+the token <code class="inline">[MASK]</code> with <code class="inline">lstrip=true</code>, in the text <code class="inline">&quot;I saw a [MASK]&quot;</code>,
+we would match on <code class="inline">&quot; [MASK]&quot;</code>. (Note the space on the left).
+Defaults to <code class="inline">false</code></p></li><li><p><code class="inline">:rstrip</code> - defines whether this token should strip all potential
+whitespaces on its right side. If <code class="inline">true</code>, this token will greedily
+match any whitespace on its right. It works just like <code class="inline">:lstrip</code>,
+but on the right. Defaults to <code class="inline">false</code></p></li><li><p><code class="inline">:normalized</code> - defines whether this token should match against
+the normalized version of the input text. For example, with the
+added token <code class="inline">&quot;yesterday&quot;</code>, and a normalizer in charge of
+lowercasing the text, the token could be extract from the input
+<code class="inline">&quot;I saw a lion Yesterday&quot;</code>. If <code class="inline">true</code>, the token will be extracted
+from the normalized input <code class="inline">&quot;i saw a lion yesterday&quot;</code>. If <code class="inline">false</code>,
+the token will be extracted from the original input
+<code class="inline">&quot;I saw a lion Yesterday&quot;</code>. Defaults to <code class="inline">false</code> for special tokens
+and <code class="inline">true</code> otherwise</p></li></ul>
   </section>
 </section>
 

@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -108,11 +108,14 @@ Tokenizers
 
 
   <section id="moduledoc">
-<p>Elixir bindings to <a href="https://github.com/huggingface/tokenizers">Hugging Face Tokenizers</a>.</p><p>Hugging Face describes the Tokenizers library as:</p><blockquote><p>Fast State-of-the-art tokenizers, optimized for both research and production</p><p>🤗 Tokenizers provides an implementation of today’s most used tokenizers, with a focus on performance and versatility. These tokenizers are also used in 🤗 Transformers.</p></blockquote><p>This library has bindings to use pretrained tokenizers. Support for building and training
-a tokenizer from scratch is forthcoming.</p><p>A tokenizer is effectively a pipeline of transforms to take some input text and return a
-<code class="inline">Tokenizers.Encoding.t()</code>. The main entrypoint to this library is the <a href="Tokenizers.Tokenizer.html"><code class="inline">Tokenizers.Tokenizer</code></a>
-module, which holds the <code class="inline">Tokenizers.Tokenizer.t()</code> struct, a container holding the constituent
-parts of the pipeline. Most functionality is there.</p>
+<p>Elixir bindings to <a href="https://github.com/huggingface/tokenizers">Hugging Face Tokenizers</a>.</p><p>Hugging Face describes the Tokenizers library as:</p><blockquote><p>Fast State-of-the-art tokenizers, optimized for both research and
+production</p><p>🤗 Tokenizers provides an implementation of today’s most used
+tokenizers, with a focus on performance and versatility. These
+tokenizers are also used in 🤗 Transformers.</p></blockquote><p>A tokenizer is effectively a pipeline of transformations that take
+a text input and return an encoded version of that text (<a href="Tokenizers.Encoding.html#t:t/0"><code class="inline">Tokenizers.Encoding.t/0</code></a>).</p><p>The main entrypoint to this library is the <a href="Tokenizers.Tokenizer.html"><code class="inline">Tokenizers.Tokenizer</code></a>
+module, which defines the <a href="Tokenizers.Tokenizer.html#t:t/0"><code class="inline">Tokenizers.Tokenizer.t/0</code></a> struct, a
+container holding the constituent parts of the pipeline. Most
+functionality is in that module.</p>
   </section>
 
 

@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-226C60BF.js"></script>
+    <script src="dist/sidebar_items-5F35660B.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -130,7 +130,7 @@ Tokenizers
 
   </div>
 
-    <div class="summary-synopsis"><p>This struct represents AddedTokens</p></div>
+    <div class="summary-synopsis"><p>This struct represents a token added to tokenizer vocabulary.</p></div>
 
 </div>
 <div class="summary-row">
@@ -139,8 +139,7 @@ Tokenizers
 
   </div>
 
-    <div class="summary-synopsis"><p>The Decoder knows how to go from the IDs used by the Tokenizer, back to a readable piece of text.
-Some Normalizer and PreTokenizer use special characters or identifiers that need to be reverted.</p></div>
+    <div class="summary-synopsis"><p>Decoders and decoding functions.</p></div>
 
 </div>
 <div class="summary-row">
@@ -149,7 +148,7 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 
   </div>
 
-    <div class="summary-synopsis"><p>The struct and associated functions for an encoding, the output of a tokenizer.</p></div>
+    <div class="summary-synopsis"><p>Encoding is the result of passing a text through tokenization pipeline.</p></div>
 
 </div>
 <div class="summary-row">
@@ -200,19 +199,11 @@ Some Normalizer and PreTokenizer use special characters or identifiers that need
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="Tokenizers.Native.html" translate="no">Tokenizers.Native</a>
-
-  </div>
-
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="Tokenizers.Normalizer.html" translate="no">Tokenizers.Normalizer</a>
 
   </div>
 
-    <div class="summary-synopsis"><p>A Normalizer is in charge of pre-processing the input string
-in order to normalize it as relevant for a given use case.</p></div>
+    <div class="summary-synopsis"><p>Normalizers and normalization functions.</p></div>
 
 </div>
 <div class="summary-row">
@@ -221,9 +212,7 @@ in order to normalize it as relevant for a given use case.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><p>After the whole pipeline, we sometimes want to insert some special tokens
-before feed a tokenized string into a model like ”[CLS] My horse is amazing [SEP]”.
-The PostProcessor is the component doing just that.</p></div>
+    <div class="summary-synopsis"><p>Post-processors.</p></div>
 
 </div>
 <div class="summary-row">
@@ -232,11 +221,7 @@ The PostProcessor is the component doing just that.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><p>The <code class="inline">PreTokenizer</code> takes care of splitting the input according to a set of rules.
-This pre-processing lets you ensure that the underlying <code class="inline">Model</code>
-does not build tokens across multiple “splits”.
-For example if you don’t want to have whitespaces inside a token,
-then you can have a <code class="inline">PreTokenizer</code> that splits on these whitespaces.</p></div>
+    <div class="summary-synopsis"><p>Pre-tokenizers.</p></div>
 
 </div>
 <div class="summary-row">
@@ -245,7 +230,7 @@ then you can have a <code class="inline">PreTokenizer</code> that splits on thes
 
   </div>
 
-    <div class="summary-synopsis"><p>The struct and associated functions for a tokenizer.</p></div>
+    <div class="summary-synopsis"><p>Functions to load, apply and train tokenizers.</p></div>
 
 </div>
 <div class="summary-row">
@@ -269,12 +254,12 @@ We feed it with lines/sentences and then it can train the given Model.</p></div>
   </div>
   <div class="bottom-actions-item">
 
-      <a href="license.html" class="bottom-actions-button" rel="next">
+      <a href="pretrained.html" class="bottom-actions-button" rel="next">
         <span class="subheader">
           Next Page →
         </span>
         <span class="title">
-LICENSE
+Pretrained tokenizers
         </span>
       </a>
 
