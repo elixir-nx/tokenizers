@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.30.4">
     <meta name="project" content="Tokenizers v0.4.0-dev">
 
-    <title>Tokenizers.Model.Unigram — Tokenizers v0.4.0-dev</title>
+    <title>Tokenizers.Encoding.Transformation — Tokenizers v0.4.0-dev</title>
     <link rel="stylesheet" href="dist/html-elixir-HFL3S4U6.css" />
 
 
@@ -96,16 +96,20 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model/unigram.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding/transformation.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
-  <span translate="no">Tokenizers.Model.Unigram</span> 
+  <span translate="no">Tokenizers.Encoding.Transformation</span> 
   <small class="app-vsn" translate="no">(Tokenizers v0.4.0-dev)</small>
 
 </h1>
 
+
+  <section id="moduledoc">
+<p>Module containing handy functions to build the transformations list.</p><p>This list is aplied to an encoding using <a href="Tokenizers.Encoding.html#transform/2"><code class="inline">Tokenizers.Encoding.transform/2</code></a>.</p>
+  </section>
 
 
   <section id="summary" class="details-list">
@@ -122,11 +126,9 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:options/0" translate="no">options()</a>
+        <a href="#t:t/0" translate="no">t()</a>
 
       </div>
-
-        <div class="summary-synopsis"><p>Options for model initialisation.</p></div>
 
     </div>
 
@@ -138,21 +140,31 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#empty/0" translate="no">empty()</a>
+        <a href="#pad/2" translate="no">pad(target_length, opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Instantiate an empty Unigram model</p></div>
+        <div class="summary-synopsis"><p>Generates the padding transformation.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#init/2" translate="no">init(vocab, options \\ [])</a>
+        <a href="#set_sequence_id/1" translate="no">set_sequence_id(id)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Instantiate a Unigram model from the given vocab.</p></div>
+        <div class="summary-synopsis"><p>Generates the set_sequence_id transformation.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#truncate/2" translate="no">truncate(max_length, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Generates the truncation transformation.</p></div>
 
     </div>
 
@@ -169,16 +181,16 @@ Types
       </a>
     </h1>
     <div class="types-list">
-<section class="detail" id="t:options/0">
+<section class="detail" id="t:t/0">
 
   <div class="detail-header">
-    <a href="#t:options/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this type</span>
     </a>
-    <h1 class="signature" translate="no">options()</h1>
+    <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model/unigram.ex#L8" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding/transformation.ex#L8" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -190,11 +202,15 @@ Types
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> options() :: [{:unk_id, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">float</a>()}]</pre>
+          <pre translate="no"><span class="attribute">@type</span> t() :: [
+  pad: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()},
+  truncate: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()},
+  set_sequence_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()
+]</pre>
 
       </div>
 
-<p>Options for model initialisation.</p><ul><li><code class="inline">:unk_id</code>- the unknown token id to be used by the model</li></ul>
+
   </section>
 </section>
 
@@ -209,16 +225,18 @@ Functions
       </a>
     </h1>
     <div class="functions-list">
-<section class="detail" id="empty/0">
+<section class="detail" id="pad/2">
+
+    <span id="pad/1"></span>
 
   <div class="detail-header">
-    <a href="#empty/0" class="detail-link" title="Link to this function">
+    <a href="#pad/2" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">empty()</h1>
+    <h1 class="signature" translate="no">pad(target_length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model/unigram.ex#L24" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding/transformation.ex#L21" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -230,25 +248,24 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> empty() :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> pad(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()) ::
+  {:pad, {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()}}</pre>
 
       </div>
 
-<p>Instantiate an empty Unigram model</p>
+<p>Generates the padding transformation.</p><p>Check <a href="Tokenizers.Encoding.html#pad/3"><code class="inline">Tokenizers.Encoding.pad/3</code></a> for more information.</p>
   </section>
 </section>
-<section class="detail" id="init/2">
-
-    <span id="init/1"></span>
+<section class="detail" id="set_sequence_id/1">
 
   <div class="detail-header">
-    <a href="#init/2" class="detail-link" title="Link to this function">
+    <a href="#set_sequence_id/1" class="detail-link" title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">init(vocab, options \\ [])</h1>
+    <h1 class="signature" translate="no">set_sequence_id(id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/model/unigram.ex#L16" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding/transformation.ex#L43" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -260,11 +277,42 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> init([{<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()}], <a href="#t:options/0">options</a>()) :: {:ok, <a href="Tokenizers.Model.html#t:t/0">Tokenizers.Model.t</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> set_sequence_id(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: {:set_sequence_id, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()}</pre>
 
       </div>
 
-<p>Instantiate a Unigram model from the given vocab.</p>
+<p>Generates the set_sequence_id transformation.</p><p>Check <a href="Tokenizers.Encoding.html#set_sequence_id/2"><code class="inline">Tokenizers.Encoding.set_sequence_id/2</code></a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="truncate/2">
+
+    <span id="truncate/1"></span>
+
+  <div class="detail-header">
+    <a href="#truncate/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">truncate(max_length, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding/transformation.ex#L32" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> truncate(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()) ::
+  {:truncate, {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()}}</pre>
+
+      </div>
+
+<p>Generates the truncation transformation.</p><p>Check <a href="Tokenizers.Encoding.html#truncate/3"><code class="inline">Tokenizers.Encoding.truncate/3</code></a> for more information.</p>
   </section>
 </section>
 
@@ -279,7 +327,7 @@ Functions
 
               <a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev/show/lib/tokenizers/model/unigram.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0-dev/show/lib/tokenizers/encoding/transformation.ex">current file</a>)
 
             </span>
 

@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-5F35660B.js"></script>
+    <script src="dist/sidebar_items-F899848A.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -129,9 +129,29 @@ the ids to a tensor, use <a href="#get_u32_ids/1"><code class="inline">get_u32_i
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#t:padding_opts/0" translate="no">padding_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Padding configuration.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#t:t/0" translate="no">t()</a>
 
       </div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#t:truncation_opts/0" translate="no">truncation_opts()</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Truncation configuration.</p></div>
 
     </div>
 
@@ -373,6 +393,17 @@ the ids to a tensor, use <a href="#get_u32_ids/1"><code class="inline">get_u32_i
 
     <div class="summary-row">
       <div class="summary-signature">
+        <a href="#transform/2" translate="no">transform(encoding, transformations)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Performs set of transformations to given encoding, creating a new one.
+Transformations are applied in order they are given.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
         <a href="#truncate/3" translate="no">truncate(encoding, max_length, opts \\ [])</a>
 
       </div>
@@ -416,6 +447,41 @@ Types
       </a>
     </h1>
     <div class="types-list">
+<section class="detail" id="t:padding_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:padding_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">padding_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L197" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> padding_opts() :: [
+  pad_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  pad_type_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
+  pad_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
+  direction: :left | :right
+]</pre>
+
+      </div>
+
+<p>Padding configuration.</p><ul><li><p><code class="inline">:direction</code> - the padding direction. Defaults to <code class="inline">:right</code></p></li><li><p><code class="inline">:pad_id</code> - the id corresponding to the padding token. Defaults
+to <code class="inline">0</code></p></li><li><p><code class="inline">:pad_type_id</code> - the type ID corresponding to the padding token.
+Defaults to <code class="inline">0</code></p></li><li><p><code class="inline">:pad_token</code> - the padding token to use. Defaults to <code class="inline">&quot;[PAD]&quot;</code></p></li></ul>
+  </section>
+</section>
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
@@ -442,6 +508,35 @@ Types
       </div>
 
 
+  </section>
+</section>
+<section class="detail" id="t:truncation_opts/0">
+
+  <div class="detail-header">
+    <a href="#t:truncation_opts/0" class="detail-link" title="Link to this type">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature" translate="no">truncation_opts()</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L223" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@type</span> truncation_opts() :: [stride: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), direction: :left | :right]</pre>
+
+      </div>
+
+<p>Truncation configuration.</p><ul><li><p><code class="inline">:stride</code> - the length of previous content to be included in each
+overflowing piece. Defaults to <code class="inline">0</code></p></li><li><p><code class="inline">:direction</code> - the truncation direction. Defaults to <code class="inline">:right</code></p></li></ul>
   </section>
 </section>
 
@@ -943,7 +1038,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">n_tokens(encoding)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L231" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L239" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -973,7 +1068,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">pad(encoding, target_length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L206" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L210" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -985,25 +1080,11 @@ Functions
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> pad(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), opts) :: <a href="#t:t/0">t</a>()
-when opts: [
-       pad_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
-       pad_type_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(),
-       pad_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(),
-       direction: :left | :right
-     ]</pre>
+          <pre translate="no"><span class="attribute">@spec</span> pad(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), opts :: <a href="#t:padding_opts/0">padding_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Pad the encoding to the given length.</p><h2 id="pad/3-options" class="section-heading">
-  <a href="#pad/3-options">
-    <i class="ri-link-m" aria-hidden="true"></i>
-    Options
-  </a>
-</h2>
-<ul><li><p><code class="inline">direction</code> (default <code class="inline">:right</code>) - the padding direction</p></li><li><p><code class="inline">pad_id</code> (default <code class="inline">0</code>) - the id corresponding to the padding
-token</p></li><li><p><code class="inline">pad_type_id</code> (default <code class="inline">0</code>) - the type ID corresponding to the
-padding token</p></li><li><p><code class="inline">pad_token</code> (default <code class="inline">[PAD]</code>) - the padding token to use</p></li></ul>
+<p>Pad the encoding to the given length.</p><p>For available options see <a href="#t:padding_opts/0"><code class="inline">padding_opts/0</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="set_sequence_id/2">
@@ -1120,6 +1201,33 @@ padding token</p></li><li><p><code class="inline">pad_token</code> (default <cod
 <p>Returns the word that contains the token at the given index.</p>
   </section>
 </section>
+<section class="detail" id="transform/2">
+
+  <div class="detail-header">
+    <a href="#transform/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">transform(encoding, transformations)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L253" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Performs set of transformations to given encoding, creating a new one.
+Transformations are applied in order they are given.</p><p>While all these transformations can be done one by one, this function
+is more efficient as it avoids multiple allocations and Garbage Collection
+for intermediate encodings.</p><p>Check the module <a href="Tokenizers.Encoding.Transformation.html"><code class="inline">Tokenizers.Encoding.Transformation</code></a> for handy functions,
+that can be used to build the transformations list.
+Also, you can build this list manually, as long as it follows the format.</p>
+  </section>
+</section>
 <section class="detail" id="truncate/3">
 
     <span id="truncate/2"></span>
@@ -1131,7 +1239,7 @@ padding token</p></li><li><p><code class="inline">pad_token</code> (default <cod
     </a>
     <h1 class="signature" translate="no">truncate(encoding, max_length, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L223" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0-dev/lib/tokenizers/encoding.ex#L231" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -1143,19 +1251,11 @@ padding token</p></li><li><p><code class="inline">pad_token</code> (default <cod
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> truncate(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), opts) :: <a href="#t:t/0">t</a>()
-when opts: [stride: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), direction: :left | :right]</pre>
+          <pre translate="no"><span class="attribute">@spec</span> truncate(<a href="#t:t/0">t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), opts :: <a href="#t:truncation_opts/0">truncation_opts</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Truncate the encoding to the given length.</p><h2 id="truncate/3-options" class="section-heading">
-  <a href="#truncate/3-options">
-    <i class="ri-link-m" aria-hidden="true"></i>
-    Options
-  </a>
-</h2>
-<ul><li><p><code class="inline">stride</code> (default <code class="inline">0</code>) - the length of previous content to be
-included in each overflowing piece</p></li><li><p><code class="inline">direction</code> (default <code class="inline">:right</code>) - the truncation direction</p></li></ul>
+<p>Truncate the encoding to the given length.</p><p>For available options see <a href="#t:truncation_opts/0"><code class="inline">truncation_opts/0</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="word_to_chars/3">
