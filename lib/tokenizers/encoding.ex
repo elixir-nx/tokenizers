@@ -180,6 +180,20 @@ defmodule Tokenizers.Encoding do
     to: Tokenizers.Native,
     as: :encoding_char_to_word
 
+  @typedoc """
+  Options for padding. All options can be ommited.
+  * `direction` (default `:right`) - The padding direction.
+  * `pad_id` (default `0`) - The id corresponding to the padding token.
+  * `pad_type_id` (default `0`) - The type ID corresponding to the padding token.
+  * `pad_token` (default `[PAD]`) - The padding token to use.
+  """
+  @type padding_opts :: [
+          pad_id: non_neg_integer(),
+          pad_type_id: non_neg_integer(),
+          pad_token: String.t(),
+          direction: :left | :right
+        ]
+
   @doc """
   Pad the encoding to the given length.
 
@@ -196,16 +210,17 @@ defmodule Tokenizers.Encoding do
     * `pad_token` (default `[PAD]`) - the padding token to use
 
   """
-  @spec pad(t(), non_neg_integer(), opts) :: t()
-        when opts: [
-               pad_id: non_neg_integer(),
-               pad_type_id: non_neg_integer(),
-               pad_token: String.t(),
-               direction: :left | :right
-             ]
+  @spec pad(t(), non_neg_integer(), opts :: padding_opts()) :: t()
   defdelegate pad(encoding, target_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_pad
+
+  @typedoc """
+  Options for truncation. All options can be ommited.
+  * `stride` (default `0`) - The length of previous content to be included in each overflowing piece.
+  * `direction` (default `:right`) - The truncation direction.
+  """
+  @type truncation_opts :: [stride: non_neg_integer(), direction: :left | :right]
 
   @doc """
   Truncate the encoding to the given length.
@@ -218,8 +233,7 @@ defmodule Tokenizers.Encoding do
     * `direction` (default `:right`) - the truncation direction
 
   """
-  @spec truncate(t(), non_neg_integer(), opts) :: t()
-        when opts: [stride: non_neg_integer(), direction: :left | :right]
+  @spec truncate(t(), non_neg_integer(), opts :: truncation_opts()) :: t()
   defdelegate truncate(encoding, max_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_truncate
