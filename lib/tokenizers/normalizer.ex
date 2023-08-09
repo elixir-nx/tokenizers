@@ -83,7 +83,7 @@ defmodule Tokenizers.Normalizer do
 
     * `:left` - whether to strip left side. Defaults to `true`
 
-    * `:right` - whether to strip right side. Defaults to `true
+    * `:right` - whether to strip right side. Defaults to `true`
 
   """
   @spec strip(keyword()) :: t()
