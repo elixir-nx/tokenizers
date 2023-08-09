@@ -180,46 +180,54 @@ defmodule Tokenizers.Encoding do
     to: Tokenizers.Native,
     as: :encoding_char_to_word
 
+  @typedoc """
+  Padding configuration.
+
+    * `:direction` - the padding direction. Defaults to `:right`
+
+    * `:pad_id` - the id corresponding to the padding token. Defaults
+      to `0`
+
+    * `:pad_type_id` - the type ID corresponding to the padding token.
+      Defaults to `0`
+
+    * `:pad_token` - the padding token to use. Defaults to `"[PAD]"`
+
+  """
+  @type padding_opts :: [
+          pad_id: non_neg_integer(),
+          pad_type_id: non_neg_integer(),
+          pad_token: String.t(),
+          direction: :left | :right
+        ]
+
   @doc """
   Pad the encoding to the given length.
 
-  ## Options
-
-    * `direction` (default `:right`) - the padding direction
-
-    * `pad_id` (default `0`) - the id corresponding to the padding
-      token
-
-    * `pad_type_id` (default `0`) - the type ID corresponding to the
-      padding token
-
-    * `pad_token` (default `[PAD]`) - the padding token to use
-
+  For available options see `t:padding_opts/0`.
   """
-  @spec pad(t(), non_neg_integer(), opts) :: t()
-        when opts: [
-               pad_id: non_neg_integer(),
-               pad_type_id: non_neg_integer(),
-               pad_token: String.t(),
-               direction: :left | :right
-             ]
+  @spec pad(t(), non_neg_integer(), opts :: padding_opts()) :: t()
   defdelegate pad(encoding, target_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_pad
 
+  @typedoc """
+  Truncation configuration.
+
+    * `:stride` - the length of previous content to be included in each
+      overflowing piece. Defaults to `0`
+
+    * `:direction` - the truncation direction. Defaults to `:right`
+
+  """
+  @type truncation_opts :: [stride: non_neg_integer(), direction: :left | :right]
+
   @doc """
   Truncate the encoding to the given length.
 
-  ## Options
-
-    * `stride` (default `0`) - the length of previous content to be
-      included in each overflowing piece
-
-    * `direction` (default `:right`) - the truncation direction
-
+  For available options see `t:truncation_opts/0`.
   """
-  @spec truncate(t(), non_neg_integer(), opts) :: t()
-        when opts: [stride: non_neg_integer(), direction: :left | :right]
+  @spec truncate(t(), non_neg_integer(), opts :: truncation_opts()) :: t()
   defdelegate truncate(encoding, max_length, opts \\ []),
     to: Tokenizers.Native,
     as: :encoding_truncate
@@ -229,6 +237,20 @@ defmodule Tokenizers.Encoding do
   """
   @spec n_tokens(encoding :: t()) :: non_neg_integer()
   defdelegate n_tokens(encoding), to: Tokenizers.Native, as: :encoding_get_length
+
+  @doc """
+  Performs set of transformations to given encoding, creating a new one.
+  Transformations are applied in order they are given.
+
+  While all these transformations can be done one by one, this function
+  is more efficient as it avoids multiple allocations and Garbage Collection
+  for intermediate encodings.
+
+  Check the module `Tokenizers.Encoding.Transformation` for handy functions,
+  that can be used to build the transformations list.
+  Also, you can build this list manually, as long as it follows the format.
+  """
+  defdelegate transform(encoding, transformations), to: Tokenizers.Native, as: :encoding_transform
 end
 
 defimpl Inspect, for: Tokenizers.Encoding do

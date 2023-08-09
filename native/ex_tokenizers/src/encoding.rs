@@ -187,33 +187,38 @@ pub enum PadOption {
     Direction(Direction),
 }
 
-#[rustler::nif]
-pub fn encoding_pad(
-    encoding: ExTokenizersEncoding,
-    target_length: usize,
-    opts: Vec<PadOption>,
-) -> ExTokenizersEncoding {
-    struct Padding {
-        pad_id: u32,
-        pad_type_id: u32,
-        pad_token: String,
-        direction: Direction,
-    }
+struct Padding {
+    pad_id: u32,
+    pad_type_id: u32,
+    pad_token: String,
+    direction: Direction,
+}
+
+fn parse_pad_options(opts: &Vec<PadOption>) -> Padding {
     let mut default = Padding {
         pad_id: 0,
         pad_type_id: 0,
         pad_token: "[PAD]".to_string(),
         direction: Direction::Right,
     };
-
     for opt in opts {
         match opt {
-            PadOption::PadId(id) => default.pad_id = id,
-            PadOption::PadTypeId(id) => default.pad_type_id = id,
-            PadOption::PadToken(token) => default.pad_token = token,
-            PadOption::Direction(direction) => default.direction = direction,
+            PadOption::PadId(id) => default.pad_id = *id,
+            PadOption::PadTypeId(id) => default.pad_type_id = *id,
+            PadOption::PadToken(token) => default.pad_token = token.clone(),
+            PadOption::Direction(direction) => default.direction = direction.clone(),
         }
     }
+    default
+}
+
+#[rustler::nif]
+pub fn encoding_pad(
+    encoding: ExTokenizersEncoding,
+    target_length: usize,
+    opts: Vec<PadOption>,
+) -> ExTokenizersEncoding {
+    let default = parse_pad_options(&opts);
 
     let mut encoding = encoding.resource.0.clone();
     encoding.pad(
@@ -232,16 +237,12 @@ pub enum TruncationOption {
     Direction(Direction),
 }
 
-#[rustler::nif]
-pub fn encoding_truncate(
-    encoding: ExTokenizersEncoding,
-    max_len: usize,
-    opts: Vec<TruncationOption>,
-) -> ExTokenizersEncoding {
-    struct Truncation {
-        stride: usize,
-        direction: Direction,
-    }
+struct Truncation {
+    stride: usize,
+    direction: Direction,
+}
+
+fn parse_truncation_options(opts: &Vec<TruncationOption>) -> Truncation {
     let mut default = Truncation {
         stride: 0,
         direction: Direction::Right,
@@ -249,10 +250,20 @@ pub fn encoding_truncate(
 
     for opt in opts {
         match opt {
-            TruncationOption::Stride(stride) => default.stride = stride,
-            TruncationOption::Direction(direction) => default.direction = direction,
+            TruncationOption::Stride(stride) => default.stride = *stride,
+            TruncationOption::Direction(direction) => default.direction = direction.clone(),
         }
     }
+    default
+}
+
+#[rustler::nif]
+pub fn encoding_truncate(
+    encoding: ExTokenizersEncoding,
+    max_len: usize,
+    opts: Vec<TruncationOption>,
+) -> ExTokenizersEncoding {
+    let default = parse_truncation_options(&opts);
 
     let mut encoding = encoding.resource.0.clone();
 
@@ -262,4 +273,51 @@ pub fn encoding_truncate(
 
 fn slice_u32_to_u8(slice: &[u32]) -> &[u8] {
     unsafe { std::slice::from_raw_parts(slice.as_ptr() as *const u8, slice.len() * 4) }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/// Encoding transformations
+///////////////////////////////////////////////////////////////////////////////
+
+#[derive(NifTaggedEnum)]
+pub enum TransformationElement {
+    Pad((usize, Vec<PadOption>)), // {:pad, {target_length, opts}}
+    Truncate((usize, Vec<TruncationOption>)), // {:truncate, {max_len, opts}}
+    SetSequenceId(usize),         // {:set_sequence_id, seq_id}
+}
+
+#[rustler::nif]
+pub fn encoding_transform(
+    encoding: ExTokenizersEncoding,
+    transformations: Vec<TransformationElement>,
+) -> ExTokenizersEncoding {
+    let mut encoding = encoding.resource.0.clone();
+    apply_transformations(&mut encoding, &transformations);
+    encoding.into()
+}
+
+pub fn apply_transformations(
+    encoding: &mut Encoding,
+    transformations: &Vec<TransformationElement>,
+) {
+    for transformation in transformations {
+        match transformation {
+            TransformationElement::Pad((target_length, opts)) => {
+                let default = parse_pad_options(opts);
+
+                encoding.pad(
+                    *target_length,
+                    default.pad_id,
+                    default.pad_type_id,
+                    &default.pad_token,
+                    default.direction.into(),
+                )
+            }
+            TransformationElement::Truncate((max_len, opts)) => {
+                let default = parse_truncation_options(opts);
+                encoding.truncate(*max_len, default.stride, default.direction.into())
+            }
+            TransformationElement::SetSequenceId(seq_id) => encoding.set_sequence_id(*seq_id),
+        }
+    }
 }

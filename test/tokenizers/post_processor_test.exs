@@ -19,8 +19,7 @@ defmodule Tokenizers.PostProcessorTest do
           Tokenizers.PostProcessor.bert({"[SEP]", 0}, {"[CLS]", 1})
         )
 
-      {:ok, output} =
-        Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
+      {:ok, output} = Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
 
       assert Tokenizers.Encoding.get_tokens(output) == [
                "[CLS]",
@@ -52,8 +51,7 @@ defmodule Tokenizers.PostProcessorTest do
           Tokenizers.PostProcessor.roberta({"</s>", 1}, {"<s>", 0})
         )
 
-      {:ok, output} =
-        Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
+      {:ok, output} = Tokenizers.Tokenizer.encode(tokenizer, {"my name", "pair"})
 
       assert Tokenizers.Encoding.get_tokens(output) == [
                "<s>",
