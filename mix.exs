@@ -46,6 +46,7 @@ defmodule Tokenizers.MixProject do
         Tokenization: [
           Tokenizers.Tokenizer,
           Tokenizers.Encoding,
+          Tokenizers.Encoding.Transformation,
           Tokenizers.Decoder
         ],
         Pipeline: [
