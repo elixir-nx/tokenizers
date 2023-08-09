@@ -5,7 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [v0.4.0] - 2023-08-09
+
+### Added
+
+- Support for training a tokenizer from scratch. See `Tokenizers.Tokenizer.train_from_files/3`
+  and `Tokenizers.Model` for available models.
+
+- Support for changing tokenizer configuration, such as `Tokenizers.Tokenizer.set_padding/2`
+  and `Tokenizers.Tokenizer.set_truncation/2`. See the "Configuration" functions group in
+  `Tokenizers.Tokenizer`.
+
+- Support for apply multiple encoding transformations without additional data copies,
+  see `Tokenizers.Encoding.Transformation`. Transformations can be passed to
+  `Tokenizers.Tokenizer.encode/3` via `:encoding_transformations` or applied via
+  `Tokenizers.Encoding.transform/2`.
+
+### Changed
+
+- **(Breaking)** `Tokenizers.Tokenizer.encode/3` no longer accepts a batch of inputs,
+  to encode a batch use `Tokenizers.Tokenizer.encode_batch/3` instead
+
+- **(Breaking)** `Tokenizers.Tokenizer.decode/3` no longer accepts a batch of inputs,
+  to encode a batch use `Tokenizers.Tokenizer.decode_batch/3` instead
 
 ## [v0.3.2] - 2023-04-19
 
@@ -61,7 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First release.
 
-[Unreleased]: https://github.com/elixir-nx/tokenizers/compare/v0.3.2...HEAD
+[v0.4.0]: https://github.com/elixir-nx/tokenizers/compare/v0.3.2...v0.4.0
 [v0.3.2]: https://github.com/elixir-nx/tokenizers/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/elixir-nx/tokenizers/compare/v0.3.0...v0.3.1
 [v0.3.0]: https://github.com/elixir-nx/tokenizers/compare/v0.2.0...v0.3.0
