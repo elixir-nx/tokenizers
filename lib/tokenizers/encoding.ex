@@ -181,11 +181,18 @@ defmodule Tokenizers.Encoding do
     as: :encoding_char_to_word
 
   @typedoc """
-  Options for padding. All options can be ommited.
-  * `direction` (default `:right`) - The padding direction.
-  * `pad_id` (default `0`) - The id corresponding to the padding token.
-  * `pad_type_id` (default `0`) - The type ID corresponding to the padding token.
-  * `pad_token` (default `[PAD]`) - The padding token to use.
+  Padding configuration.
+
+    * `:direction` - the padding direction. Defaults to `:right`
+
+    * `:pad_id` - the id corresponding to the padding token. Defaults
+      to `0`
+
+    * `:pad_type_id` - the type ID corresponding to the padding token.
+      Defaults to `0`
+
+    * `:pad_token` - the padding token to use. Defaults to `"[PAD]"`
+
   """
   @type padding_opts :: [
           pad_id: non_neg_integer(),
@@ -197,18 +204,7 @@ defmodule Tokenizers.Encoding do
   @doc """
   Pad the encoding to the given length.
 
-  ## Options
-
-    * `direction` (default `:right`) - the padding direction
-
-    * `pad_id` (default `0`) - the id corresponding to the padding
-      token
-
-    * `pad_type_id` (default `0`) - the type ID corresponding to the
-      padding token
-
-    * `pad_token` (default `[PAD]`) - the padding token to use
-
+  For available options see `t:padding_opts/0`.
   """
   @spec pad(t(), non_neg_integer(), opts :: padding_opts()) :: t()
   defdelegate pad(encoding, target_length, opts \\ []),
@@ -216,22 +212,20 @@ defmodule Tokenizers.Encoding do
     as: :encoding_pad
 
   @typedoc """
-  Options for truncation. All options can be ommited.
-  * `stride` (default `0`) - The length of previous content to be included in each overflowing piece.
-  * `direction` (default `:right`) - The truncation direction.
+  Truncation configuration.
+
+    * `:stride` - the length of previous content to be included in each
+      overflowing piece. Defaults to `0`
+
+    * `:direction` - the truncation direction. Defaults to `:right`
+
   """
   @type truncation_opts :: [stride: non_neg_integer(), direction: :left | :right]
 
   @doc """
   Truncate the encoding to the given length.
 
-  ## Options
-
-    * `stride` (default `0`) - the length of previous content to be
-      included in each overflowing piece
-
-    * `direction` (default `:right`) - the truncation direction
-
+  For available options see `t:truncation_opts/0`.
   """
   @spec truncate(t(), non_neg_integer(), opts :: truncation_opts()) :: t()
   defdelegate truncate(encoding, max_length, opts \\ []),
