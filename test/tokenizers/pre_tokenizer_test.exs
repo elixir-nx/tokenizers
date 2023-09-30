@@ -22,6 +22,11 @@ defmodule Tokenizers.PreTokenizerTest do
       assert %Tokenizers.PreTokenizer{} =
                Tokenizers.PreTokenizer.split(" ", :removed, invert: true)
     end
+
+    test "accepts regular expressions" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.split(~r/.*/, :removed)
+    end
   end
 
   describe "WhitespaceSplit pretokenizer" do
