@@ -3,6 +3,7 @@ use crate::{new_info, ExTokenizersError};
 use rustler::NifTaggedEnum;
 use serde::{Deserialize, Serialize};
 use tokenizers::PreTokenizer;
+use tokenizers::pre_tokenizers::split::SplitPattern;
 use tokenizers::{processors::byte_level::ByteLevel, PreTokenizedString, PreTokenizerWrapper};
 
 pub struct ExTokenizersPreTokenizerRef(pub PreTokenizerWrapper);
@@ -239,6 +240,7 @@ impl From<SplitDelimiterBehavior> for tokenizers::SplitDelimiterBehavior {
 #[derive(NifTaggedEnum)]
 pub enum SplitOption {
     Invert(bool),
+    UseRegex(bool)
 }
 
 #[rustler::nif]
@@ -251,14 +253,17 @@ pub fn pre_tokenizers_split(
         invert: bool,
     }
     let mut opts = Opts { invert: false };
+    let mut final_pattern = SplitPattern::String(String::from(""));
     for option in options {
         match option {
             SplitOption::Invert(invert) => opts.invert = invert,
+            SplitOption::UseRegex(true) => final_pattern = SplitPattern::Regex(pattern.to_owned()),
+            SplitOption::UseRegex(false) => final_pattern = SplitPattern::String(pattern.to_owned()),
         }
     }
 
     Ok(ExTokenizersPreTokenizer::new(
-        tokenizers::pre_tokenizers::split::Split::new(pattern, behavior.into(), opts.invert)
+        tokenizers::pre_tokenizers::split::Split::new(final_pattern, behavior.into(), opts.invert)
             .map_err(|_| rustler::Error::BadArg)?,
     ))
 }
