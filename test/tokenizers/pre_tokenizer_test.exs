@@ -15,17 +15,21 @@ defmodule Tokenizers.PreTokenizerTest do
 
   describe "Split pretokenizer" do
     test "accepts no parameters" do
+      assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.split({:string, " "}, :removed)
+    end
+
+    test "accepts regular expressions" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.split({:regex, ~S/.*/}, :removed)
+    end
+
+    test "accepts binaries" do
       assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.split(" ", :removed)
     end
 
     test "accepts options" do
       assert %Tokenizers.PreTokenizer{} =
                Tokenizers.PreTokenizer.split(" ", :removed, invert: true)
-    end
-
-    test "accepts regular expressions" do
-      assert %Tokenizers.PreTokenizer{} =
-               Tokenizers.PreTokenizer.split(~r/.*/, :removed)
     end
   end
 

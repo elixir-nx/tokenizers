@@ -137,23 +137,26 @@ defmodule Tokenizers.PreTokenizer do
   Creates a Split pre-tokenizer.
 
   Versatile pre-tokenizer that splits on provided pattern and according
-  to provided behavior. The pattern can be a string or a regular expression.
-  The pattern can be inverted if necessary.
+  to provided behavior. The pattern should be in the form of a tuple
+  `{:string, pattern}` or `{:regex, pattern}` depending on whether the tuple is
+  a regular expression or not. For convenience, a simple binary is accepted
+  as well in which case the pattern is converted to the tuple
+  `{:string, pattern}`.
 
   ## Options
 
     * `:invert` - whether to invert the split or not. Defaults to `false`
 
   """
-  @spec split(String.t() | Regex.t(), split_delimiter_behaviour(), keyword()) :: t()
+  @spec split(String.t() | {:string, String.t()}| {:regex, String.t()} , split_delimiter_behaviour(), keyword()) :: t()
   def split(pattern, behavior, opts \\ [])
 
   def split(pattern, behavior, opts) when is_binary(pattern) do
-    Tokenizers.Native.pre_tokenizers_split(pattern, behavior, opts)
+    split({:string, pattern}, behavior, opts)
   end
 
-  def split(%Regex{} = pattern, behavior, opts) do
-    split(Regex.source(pattern), behavior, Keyword.put(opts, :use_regex, true))
+  def split(pattern, behavior, opts) do
+    Tokenizers.Native.pre_tokenizers_split(pattern, behavior, opts)
   end
 
 

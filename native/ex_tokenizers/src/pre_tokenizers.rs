@@ -240,12 +240,17 @@ impl From<SplitDelimiterBehavior> for tokenizers::SplitDelimiterBehavior {
 #[derive(NifTaggedEnum)]
 pub enum SplitOption {
     Invert(bool),
-    UseRegex(bool)
+}
+
+#[derive(NifTaggedEnum)]
+pub enum LocalSplitPattern {
+    String(String),
+    Regex(String)
 }
 
 #[rustler::nif]
 pub fn pre_tokenizers_split(
-    pattern: String,
+    pattern: LocalSplitPattern,
     behavior: SplitDelimiterBehavior,
     options: Vec<SplitOption>,
 ) -> Result<ExTokenizersPreTokenizer, rustler::Error> {
@@ -253,12 +258,14 @@ pub fn pre_tokenizers_split(
         invert: bool,
     }
     let mut opts = Opts { invert: false };
-    let mut final_pattern = SplitPattern::String(String::from(""));
+    let final_pattern = match pattern {
+        LocalSplitPattern::String(pattern) => SplitPattern::String(pattern),
+        LocalSplitPattern::Regex(pattern) => SplitPattern::Regex(pattern),
+    };
+
     for option in options {
         match option {
             SplitOption::Invert(invert) => opts.invert = invert,
-            SplitOption::UseRegex(true) => final_pattern = SplitPattern::Regex(pattern.to_owned()),
-            SplitOption::UseRegex(false) => final_pattern = SplitPattern::String(pattern.to_owned()),
         }
     }
 
