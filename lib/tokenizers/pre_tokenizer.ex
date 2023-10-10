@@ -134,10 +134,10 @@ defmodule Tokenizers.PreTokenizer do
           | :contiguous
 
   @doc """
-  Creates a Split pre-tokenizer.
+  Creates a Split pre-tokenizer using a string as split pattern.
 
   Versatile pre-tokenizer that splits on provided pattern and according
-  to provided behavior. The pattern can be inverted if necessary.
+  to provided behavior.
 
   ## Options
 
@@ -145,9 +145,33 @@ defmodule Tokenizers.PreTokenizer do
 
   """
   @spec split(String.t(), split_delimiter_behaviour(), keyword()) :: t()
-  defdelegate split(pattern, behavior, opts \\ []),
-    to: Tokenizers.Native,
-    as: :pre_tokenizers_split
+  def split(pattern, behavior, opts \\ []) when is_binary(pattern) do
+    Tokenizers.Native.pre_tokenizers_split({:string, pattern}, behavior, opts)
+  end
+
+  @doc ~S"""
+  Creates a Split pre-tokenizer using a regular expression as split pattern.
+
+  Versatile pre-tokenizer that splits on provided regex pattern and according
+  to provided behavior.
+
+  The `pattern` should be a string representing a regular expression
+  according to the [Oniguruma Regex Engine](https://github.com/kkos/oniguruma).
+
+  ## Options
+
+    * `:invert` - whether to invert the split or not. Defaults to `false`
+
+  ## Example
+
+      iex> Tokenizers.PreTokenizer.split_regex(~S(\?\d{2}\?), :removed)
+      #Tokenizers.PreTokenizer<[pre_tokenizer_type: "Split"]>
+
+  """
+  @spec split_regex(String.t(), split_delimiter_behaviour(), keyword()) :: t()
+  def split_regex(pattern, behavior, opts \\ []) when is_binary(pattern) do
+    Tokenizers.Native.pre_tokenizers_split({:regex, pattern}, behavior, opts)
+  end
 
   @doc """
   Creates a Punctuation pre-tokenizer.

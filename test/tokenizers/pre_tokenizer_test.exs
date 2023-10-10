@@ -24,6 +24,18 @@ defmodule Tokenizers.PreTokenizerTest do
     end
   end
 
+  describe "Regex split pretokenizer" do
+    test "accepts regular expressions" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.split_regex(".*", :removed)
+    end
+
+    test "accepts options" do
+      assert %Tokenizers.PreTokenizer{} =
+               Tokenizers.PreTokenizer.split_regex(".*", :removed, invert: true)
+    end
+  end
+
   describe "WhitespaceSplit pretokenizer" do
     test "accepts no parameters" do
       assert %Tokenizers.PreTokenizer{} = Tokenizers.PreTokenizer.whitespace_split()
