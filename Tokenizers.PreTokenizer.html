@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-F899848A.js"></script>
+    <script src="dist/sidebar_items-2418C722.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -251,7 +251,17 @@ algorithms that require to split before normalizing (e.g. ByteLevel).</p>
 
       </div>
 
-        <div class="summary-synopsis"><p>Creates a Split pre-tokenizer.</p></div>
+        <div class="summary-synopsis"><p>Creates a Split pre-tokenizer using a string as split pattern.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#split_regex/3" translate="no">split_regex(pattern, behavior, opts \\ [])</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Creates a Split pre-tokenizer using a regular expression as split pattern.</p></div>
 
     </div>
 
@@ -501,7 +511,7 @@ multiple consecutive spaces.</p>
     </a>
     <h1 class="signature" translate="no">digits(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L181" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L205" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -603,7 +613,7 @@ like say hello. Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">punctuation(behaviour)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L158" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L182" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -631,7 +641,7 @@ like say hello. Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">sequence(pre_tokenizers)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L167" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L191" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -678,14 +688,59 @@ given order.</p>
 
       </div>
 
-<p>Creates a Split pre-tokenizer.</p><p>Versatile pre-tokenizer that splits on provided pattern and according
-to provided behavior. The pattern can be inverted if necessary.</p><h2 id="split/3-options" class="section-heading">
+<p>Creates a Split pre-tokenizer using a string as split pattern.</p><p>Versatile pre-tokenizer that splits on provided pattern and according
+to provided behavior.</p><h2 id="split/3-options" class="section-heading">
   <a href="#split/3-options">
     <i class="ri-link-m" aria-hidden="true"></i>
     Options
   </a>
 </h2>
 <ul><li><code class="inline">:invert</code> - whether to invert the split or not. Defaults to <code class="inline">false</code></li></ul>
+  </section>
+</section>
+<section class="detail" id="split_regex/3">
+
+    <span id="split_regex/2"></span>
+
+  <div class="detail-header">
+    <a href="#split_regex/3" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">split_regex(pattern, behavior, opts \\ [])</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/pre_tokenizer.ex#L172" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> split_regex(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="#t:split_delimiter_behaviour/0">split_delimiter_behaviour</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Creates a Split pre-tokenizer using a regular expression as split pattern.</p><p>Versatile pre-tokenizer that splits on provided regex pattern and according
+to provided behavior.</p><p>The <code class="inline">pattern</code> should be a string representing a regular expression
+according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Engine</a>.</p><h2 id="split_regex/3-options" class="section-heading">
+  <a href="#split_regex/3-options">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Options
+  </a>
+</h2>
+<ul><li><code class="inline">:invert</code> - whether to invert the split or not. Defaults to <code class="inline">false</code></li></ul><h2 id="split_regex/3-example" class="section-heading">
+  <a href="#split_regex/3-example">
+    <i class="ri-link-m" aria-hidden="true"></i>
+    Example
+  </a>
+</h2>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Tokenizers.PreTokenizer</span><span class="o">.</span><span class="n">split_regex</span><span class="p" data-group-id="4837173795-1">(</span><span class="s">~S(\?\d{2}\?)</span><span class="p">,</span><span class="w"> </span><span class="ss">:removed</span><span class="p" data-group-id="4837173795-1">)</span><span class="w">
+</span><span class="p" data-group-id="4837173795-2">#</span><span class="nc" data-group-id="4837173795-2">Tokenizers.PreTokenizer</span><span class="p" data-group-id="4837173795-2">&lt;</span><span class="p" data-group-id="4837173795-3">[</span><span class="ss">pre_tokenizer_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Split&quot;</span><span class="p" data-group-id="4837173795-3">]</span><span class="p" data-group-id="4837173795-2">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="whitespace/0">
