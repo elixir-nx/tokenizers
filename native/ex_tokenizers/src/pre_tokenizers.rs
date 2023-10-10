@@ -2,8 +2,8 @@ use crate::util::Info;
 use crate::{new_info, ExTokenizersError};
 use rustler::NifTaggedEnum;
 use serde::{Deserialize, Serialize};
-use tokenizers::PreTokenizer;
 use tokenizers::pre_tokenizers::split::SplitPattern;
+use tokenizers::PreTokenizer;
 use tokenizers::{processors::byte_level::ByteLevel, PreTokenizedString, PreTokenizerWrapper};
 
 pub struct ExTokenizersPreTokenizerRef(pub PreTokenizerWrapper);
@@ -245,7 +245,7 @@ pub enum SplitOption {
 #[derive(NifTaggedEnum)]
 pub enum LocalSplitPattern {
     String(String),
-    Regex(String)
+    Regex(String),
 }
 
 #[rustler::nif]
