@@ -378,7 +378,7 @@ pub fn models_unigram_init(
     };
 
     Ok(ExTokenizersModel::new(
-        tokenizers::models::unigram::Unigram::from(vocab, unk_id)?,
+        tokenizers::models::unigram::Unigram::from(vocab, unk_id, false)?,
     ))
 }
 
