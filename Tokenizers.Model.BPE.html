@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.30.4">
-    <meta name="project" content="Tokenizers v0.4.0">
+    <meta name="project" content="Tokenizers v0.5.0-dev">
 
-    <title>Tokenizers.Model.BPE — Tokenizers v0.4.0</title>
+    <title>Tokenizers.Model.BPE — Tokenizers v0.5.0-dev</title>
     <link rel="stylesheet" href="dist/html-elixir-HFL3S4U6.css" />
 
 
@@ -68,7 +68,7 @@
 Tokenizers
       </a>
       <div class="sidebar-projectVersion" translate="no">
-        v0.4.0
+        v0.5.0-dev
       </div>
     </div>
     <ul class="sidebar-listNav">
@@ -96,13 +96,13 @@ Tokenizers
 </button>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/model/bpe.ex#L1" title="View Source" class="icon-action" rel="help">
+    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L1" title="View Source" class="icon-action" rel="help">
       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
       <span class="sr-only">View Source</span>
     </a>
 
   <span translate="no">Tokenizers.Model.BPE</span> 
-  <small class="app-vsn" translate="no">(Tokenizers v0.4.0)</small>
+  <small class="app-vsn" translate="no">(Tokenizers v0.5.0-dev)</small>
 
 </h1>
 
@@ -188,7 +188,7 @@ Types
     </a>
     <h1 class="signature" translate="no">options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/model/bpe.ex#L22" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L24" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -212,7 +212,7 @@ Types
 
       </div>
 
-<p>Options for model initialisation.</p><ul><li><p><code class="inline">:cache_capacity</code> - the number of words that the BPE cache can
+<p>Options for model initialisation.</p><ul><li><p><code class="inline">:byte_fallback</code>- whether to use the byte fallback trick</p></li><li><p><code class="inline">:cache_capacity</code> - the number of words that the BPE cache can
 contain. The cache allows to speed-up the process by keeping
 the result of the merge operations for a number of words.
 Defaults to <code class="inline">10_000</code></p></li><li><p><code class="inline">:dropout</code> - The BPE dropout to use. Must be an float between
@@ -242,7 +242,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">empty()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/model/bpe.ex#L46" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L48" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -272,7 +272,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">from_file(vocab_path, merges_path, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/model/bpe.ex#L52" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L54" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -302,7 +302,7 @@ Functions
     </a>
     <h1 class="signature" translate="no">init(vocab, merges, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.4.0/lib/tokenizers/model/bpe.ex#L40" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L42" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -333,11 +333,11 @@ Functions
         <p>
 
             <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.4.0" class="footer-hex-package">Hex Package</a>
+              <a href="https://hex.pm/packages/tokenizers/0.5.0-dev" class="footer-hex-package">Hex Package</a>
 
-              <a href="https://preview.hex.pm/preview/tokenizers/0.4.0">Hex Preview</a>
+              <a href="https://preview.hex.pm/preview/tokenizers/0.5.0-dev">Hex Preview</a>
 
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.4.0/show/lib/tokenizers/model/bpe.ex">current file</a>)
+                (<a href="https://preview.hex.pm/preview/tokenizers/0.5.0-dev/show/lib/tokenizers/model/bpe.ex">current file</a>)
 
             </span>
 
