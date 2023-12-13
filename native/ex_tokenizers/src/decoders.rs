@@ -75,7 +75,7 @@ fn decoders_decode(
         .resource
         .0
         .decode(tokens)
-        .map_err(|e| ExTokenizersError::Tokenizer(e))
+        .map_err(ExTokenizersError::Tokenizer)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
