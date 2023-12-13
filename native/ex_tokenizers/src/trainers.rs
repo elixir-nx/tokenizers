@@ -137,16 +137,13 @@ fn populate_bpe_options_to_builder(
 ) -> Result<BpeTrainerBuilder, ExTokenizersError> {
     options
         .iter()
-        .fold(Ok(builder), |builder, option| match option {
-            BPEOption::VocabSize(size) => builder.map(|builder| builder.vocab_size(*size)),
-            BPEOption::MinFrequency(frequency) => {
-                builder.map(|builder| builder.min_frequency(*frequency))
+        .try_fold(builder, |builder, option| match option {
+            BPEOption::VocabSize(size) => Ok(builder.vocab_size(*size)),
+            BPEOption::MinFrequency(frequency) => Ok(builder.min_frequency(*frequency)),
+            BPEOption::SpecialTokens(tokens) => {
+                Ok(builder.special_tokens(tokens.iter().map(|s| s.into()).collect()))
             }
-            BPEOption::SpecialTokens(tokens) => builder
-                .map(|builder| builder.special_tokens(tokens.iter().map(|s| s.into()).collect())),
-            BPEOption::LimitAlphabet(limit) => {
-                builder.map(|builder| builder.limit_alphabet(*limit))
-            }
+            BPEOption::LimitAlphabet(limit) => Ok(builder.limit_alphabet(*limit)),
             BPEOption::InitialAlphabet(alphabet) => {
                 let alphabet: Vec<char> = alphabet
                     .iter()
@@ -154,15 +151,13 @@ fn populate_bpe_options_to_builder(
                     .collect::<Result<Vec<char>, ExTokenizersError>>()?;
                 let alphabet: HashSet<char> = HashSet::from_iter(alphabet);
 
-                builder.map(|builder| builder.initial_alphabet(alphabet))
+                Ok(builder.initial_alphabet(alphabet))
             }
-            BPEOption::ShowProgress(show) => builder.map(|builder| builder.show_progress(*show)),
+            BPEOption::ShowProgress(show) => Ok(builder.show_progress(*show)),
             BPEOption::ContinuingSubwordPrefix(prefix) => {
-                builder.map(|builder| builder.continuing_subword_prefix(prefix.clone()))
+                Ok(builder.continuing_subword_prefix(prefix.clone()))
             }
-            BPEOption::EndOfWordSuffix(prefix) => {
-                builder.map(|builder| builder.end_of_word_suffix(prefix.clone()))
-            }
+            BPEOption::EndOfWordSuffix(prefix) => Ok(builder.end_of_word_suffix(prefix.clone())),
         })
 }
 
@@ -198,17 +193,14 @@ fn populate_wordpiece_options_to_builder(
 ) -> Result<WordPieceTrainerBuilder, ExTokenizersError> {
     options
         .iter()
-        .fold(Ok(builder), |builder, option| match option {
-            WordPieceOption::VocabSize(size) => builder.map(|builder| builder.vocab_size(*size)),
-            WordPieceOption::MinFrequency(frequency) => {
-                builder.map(|builder| builder.min_frequency(*frequency))
+        .try_fold(builder, |builder, option| match option {
+            WordPieceOption::VocabSize(size) => Ok(builder.vocab_size(*size)),
+            WordPieceOption::MinFrequency(frequency) => Ok(builder.min_frequency(*frequency)),
+            WordPieceOption::SpecialTokens(tokens) => {
+                Ok(builder
+                    .special_tokens(tokens.iter().map(|s| AddedToken::from(s, true)).collect()))
             }
-            WordPieceOption::SpecialTokens(tokens) => builder.map(|builder| {
-                builder.special_tokens(tokens.iter().map(|s| AddedToken::from(s, true)).collect())
-            }),
-            WordPieceOption::LimitAlphabet(limit) => {
-                builder.map(|builder| builder.limit_alphabet(*limit))
-            }
+            WordPieceOption::LimitAlphabet(limit) => Ok(builder.limit_alphabet(*limit)),
             WordPieceOption::InitialAlphabet(alphabet) => {
                 let alphabet: Vec<char> = alphabet
                     .iter()
@@ -216,16 +208,14 @@ fn populate_wordpiece_options_to_builder(
                     .collect::<Result<Vec<char>, ExTokenizersError>>()?;
                 let alphabet: HashSet<char> = HashSet::from_iter(alphabet);
 
-                builder.map(|builder| builder.initial_alphabet(alphabet))
+                Ok(builder.initial_alphabet(alphabet))
             }
-            WordPieceOption::ShowProgress(show) => {
-                builder.map(|builder| builder.show_progress(*show))
-            }
+            WordPieceOption::ShowProgress(show) => Ok(builder.show_progress(*show)),
             WordPieceOption::ContinuingSubwordPrefix(prefix) => {
-                builder.map(|builder| builder.continuing_subword_prefix(prefix.clone()))
+                Ok(builder.continuing_subword_prefix(prefix.clone()))
             }
             WordPieceOption::EndOfWordSuffix(prefix) => {
-                builder.map(|builder| builder.end_of_word_suffix(prefix.clone()))
+                Ok(builder.end_of_word_suffix(prefix.clone()))
             }
         })
 }

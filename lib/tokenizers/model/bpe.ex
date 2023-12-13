@@ -2,6 +2,8 @@ defmodule Tokenizers.Model.BPE do
   @typedoc """
   Options for model initialisation.
 
+    * `:byte_fallback`- whether to use the byte fallback trick
+
     * `:cache_capacity` - the number of words that the BPE cache can
       contain. The cache allows to speed-up the process by keeping
       the result of the merge operations for a number of words.

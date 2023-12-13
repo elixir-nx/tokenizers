@@ -168,7 +168,8 @@ pub fn models_info(model: ExTokenizersModel) -> Info {
         },
         ModelWrapper::Unigram(model) => new_info! {
             model_type: "unigram",
-            min_score: model.min_score
+            min_score: model.min_score,
+            byte_fallback: model.byte_fallback()
         },
     }
 }
@@ -362,6 +363,7 @@ pub fn models_wordlevel_from_file(
 #[derive(NifTaggedEnum)]
 pub enum UnigramOption {
     UnkId(usize),
+    ByteFallback(bool),
 }
 
 #[rustler::nif]
@@ -369,16 +371,26 @@ pub fn models_unigram_init(
     vocab: Vec<(String, f64)>,
     options: Vec<UnigramOption>,
 ) -> Result<ExTokenizersModel, ExTokenizersError> {
-    let unk_id = if !options.is_empty() {
-        match options[0] {
-            UnigramOption::UnkId(unk_id) => Some(unk_id),
-        }
-    } else {
-        None
+    let unk_id = match options
+        .iter()
+        .find(|opt| matches!(opt, UnigramOption::UnkId(_)))
+        .unwrap()
+    {
+        UnigramOption::UnkId(unk_id) => Some(*unk_id),
+        _ => None,
+    };
+
+    let byte_fallback = match options
+        .iter()
+        .find(|opt| matches!(opt, UnigramOption::ByteFallback(_)))
+        .unwrap()
+    {
+        UnigramOption::ByteFallback(byte_fallback) => *byte_fallback,
+        _ => false,
     };
 
     Ok(ExTokenizersModel::new(
-        tokenizers::models::unigram::Unigram::from(vocab, unk_id)?,
+        tokenizers::models::unigram::Unigram::from(vocab, unk_id, byte_fallback)?,
     ))
 }
 

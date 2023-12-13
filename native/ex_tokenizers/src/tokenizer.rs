@@ -125,7 +125,7 @@ fn apply_load_options(mut tokenizer: ExTokenizerImpl, options: Vec<LoadOption>) 
     }
 
     if opts.disable_truncation {
-        tokenizer.with_truncation(None);
+        tokenizer.with_truncation(None).unwrap();
     }
 
     tokenizer
@@ -335,14 +335,14 @@ pub fn tokenizer_set_truncation(
         TruncationOption::Direction(direction) => truncation.direction = direction.into(),
     });
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_truncation(Some(truncation));
+    new_tokenizer.with_truncation(Some(truncation)).unwrap();
     new_tokenizer.into()
 }
 
 #[rustler::nif]
 pub fn tokenizer_disable_truncation(tokenizer: ExTokenizersTokenizer) -> ExTokenizersTokenizer {
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_truncation(None);
+    new_tokenizer.with_truncation(None).unwrap();
     new_tokenizer.into()
 }
 
@@ -530,7 +530,10 @@ pub fn tokenizer_decode(
         }
     });
 
-    Ok(tokenizer.resource.0.decode(ids, opts.skip_special_tokens)?)
+    Ok(tokenizer
+        .resource
+        .0
+        .decode(&ids, opts.skip_special_tokens)?)
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -551,10 +554,14 @@ pub fn tokenizer_decode_batch(
         }
     });
 
-    Ok(tokenizer
-        .resource
-        .0
-        .decode_batch(sentences, opts.skip_special_tokens)?)
+    Ok(tokenizer.resource.0.decode_batch(
+        sentences
+            .iter()
+            .map(Vec::as_slice)
+            .collect::<Vec<&[u32]>>()
+            .as_slice(),
+        opts.skip_special_tokens,
+    )?)
 }
 
 #[rustler::nif]

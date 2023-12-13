@@ -2,10 +2,12 @@ defmodule Tokenizers.Model.Unigram do
   @typedoc """
   Options for model initialisation.
 
+    * `:byte_fallback`- whether to use the byte fallback trick
     * `:unk_id`- the unknown token id to be used by the model
 
   """
   @type options() :: [
+          byte_fallback: boolean(),
           unk_id: float()
         ]
 
