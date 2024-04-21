@@ -1,7 +1,9 @@
 use crate::{new_info, util::Info, ExTokenizersError};
 use rustler::NifTaggedEnum;
 use serde::{Deserialize, Serialize};
-use tokenizers::{NormalizedString, Normalizer, NormalizerWrapper};
+use tokenizers::{
+    normalizers::replace::ReplacePattern, NormalizedString, Normalizer, NormalizerWrapper,
+};
 
 pub struct ExTokenizersNormalizerRef(pub NormalizerWrapper);
 
@@ -241,13 +243,24 @@ pub fn normalizers_lowercase() -> ExTokenizersNormalizer {
     ExTokenizersNormalizer::new(tokenizers::normalizers::utils::Lowercase)
 }
 
+#[derive(NifTaggedEnum)]
+pub enum LocalReplacePattern {
+    String(String),
+    Regex(String),
+}
+
 #[rustler::nif]
 pub fn normalizers_replace(
-    pattern: String,
+    pattern: LocalReplacePattern,
     content: String,
 ) -> Result<ExTokenizersNormalizer, rustler::Error> {
+    let final_pattern = match pattern {
+        LocalReplacePattern::String(pattern) => ReplacePattern::String(pattern),
+        LocalReplacePattern::Regex(pattern) => ReplacePattern::Regex(pattern),
+    };
+
     Ok(ExTokenizersNormalizer::new(
-        tokenizers::normalizers::replace::Replace::new(pattern, content)
+        tokenizers::normalizers::replace::Replace::new(final_pattern, content)
             .map_err(|_| rustler::Error::BadArg)?,
     ))
 }

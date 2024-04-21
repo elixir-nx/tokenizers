@@ -117,12 +117,23 @@ defmodule Tokenizers.Normalizer do
   defdelegate lowercase(), to: Tokenizers.Native, as: :normalizers_lowercase
 
   @doc """
-  Replaces a custom string or regexp and changes it with given content.
+  Replaces a custom `search` string with the given `content`.
   """
   @spec replace(String.t(), String.t()) :: t()
-  defdelegate replace(pattern, content),
-    to: Tokenizers.Native,
-    as: :normalizers_replace
+  def replace(search, content) do
+    Tokenizers.Native.normalizers_replace({:string, search}, content)
+  end
+
+  @doc """
+  Replaces occurrences of a custom regexp `pattern` with the given `content`.
+
+  The `pattern` should be a string representing a regular expression
+  according to the [Oniguruma Regex Engine](https://github.com/kkos/oniguruma).
+  """
+  @spec replace_regex(String.t(), String.t()) :: t()
+  def replace_regex(pattern, content) do
+    Tokenizers.Native.normalizers_replace({:regex, pattern}, content)
+  end
 
   @doc """
   Creates a Nmt normalizer.

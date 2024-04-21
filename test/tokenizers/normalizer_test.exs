@@ -90,4 +90,28 @@ defmodule Tokenizers.NormalizerTest do
                {:ok, "▁Hello"}
     end
   end
+
+  describe "Replace" do
+    test "can be initialized" do
+      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.replace("find", "replace")
+    end
+
+    test "can normalize strings" do
+      assert Tokenizers.Normalizer.replace("Hello", "World")
+             |> Tokenizers.Normalizer.normalize("Hello") ==
+               {:ok, "World"}
+    end
+  end
+
+  describe "Replace Regex" do
+    test "can be initialized" do
+      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.replace_regex("\\d*", "")
+    end
+
+    test "can normalize strings" do
+      assert Tokenizers.Normalizer.replace_regex("\\d*", "")
+             |> Tokenizers.Normalizer.normalize("1Hel2lo3") ==
+               {:ok, "Hello"}
+    end
+  end
 end
