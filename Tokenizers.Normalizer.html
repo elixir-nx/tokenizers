@@ -13,7 +13,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-2418C722.js"></script>
+    <script src="dist/sidebar_items-70B02A1A.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -245,11 +245,21 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#replace/2" translate="no">replace(pattern, content)</a>
+        <a href="#replace/2" translate="no">replace(search, content)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Replaces a custom string or regexp and changes it with given content.</p></div>
+        <div class="summary-synopsis"><p>Replaces a custom <code class="inline">search</code> string with the given <code class="inline">content</code>.</p></div>
+
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-signature">
+        <a href="#replace_regex/2" translate="no">replace_regex(pattern, content)</a>
+
+      </div>
+
+        <div class="summary-synopsis"><p>Replaces occurrences of a custom regexp <code class="inline">pattern</code> with the given <code class="inline">content</code>.</p></div>
 
     </div>
 
@@ -527,7 +537,7 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
     </a>
     <h1 class="signature" translate="no">nmt()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L131" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L142" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -583,7 +593,7 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
     </a>
     <h1 class="signature" translate="no">precompiled(data)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L139" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L150" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -637,7 +647,7 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">replace(pattern, content)</h1>
+    <h1 class="signature" translate="no">replace(search, content)</h1>
 
       <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L123" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
@@ -655,7 +665,36 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 
       </div>
 
-<p>Replaces a custom string or regexp and changes it with given content.</p>
+<p>Replaces a custom <code class="inline">search</code> string with the given <code class="inline">content</code>.</p>
+  </section>
+</section>
+<section class="detail" id="replace_regex/2">
+
+  <div class="detail-header">
+    <a href="#replace_regex/2" class="detail-link" title="Link to this function">
+      <i class="ri-link-m" aria-hidden="true"></i>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature" translate="no">replace_regex(pattern, content)</h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L134" class="icon-action" rel="help" title="View Source">
+       <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+       <span class="sr-only">View Source</span>
+     </a>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <div class="specs">
+
+          <pre translate="no"><span class="attribute">@spec</span> replace_regex(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>(), <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+
+      </div>
+
+<p>Replaces occurrences of a custom regexp <code class="inline">pattern</code> with the given <code class="inline">content</code>.</p><p>The <code class="inline">pattern</code> should be a string representing a regular expression
+according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Engine</a>.</p>
   </section>
 </section>
 <section class="detail" id="sequence/1">
