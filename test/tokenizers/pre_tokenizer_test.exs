@@ -55,7 +55,7 @@ defmodule Tokenizers.PreTokenizerTest do
 
     test "accepts options" do
       assert %Tokenizers.PreTokenizer{} =
-               Tokenizers.PreTokenizer.metaspace(replacement: ?_, add_prefix_space: false)
+               Tokenizers.PreTokenizer.metaspace(replacement: ?_, prepend_scheme: :never)
     end
   end
 
