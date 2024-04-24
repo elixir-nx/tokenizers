@@ -102,7 +102,11 @@ fn decoders_info(decoder: ExTokenizersDecoder) -> Info {
         },
         tokenizers::DecoderWrapper::Metaspace(decoder) => new_info! {
             decoder_type: "Metaspace",
-            add_prefix_space: decoder.add_prefix_space
+            prepend_scheme: match decoder.prepend_scheme {
+                tokenizers::pre_tokenizers::metaspace::PrependScheme::First => "first",
+                tokenizers::pre_tokenizers::metaspace::PrependScheme::Never => "never",
+                tokenizers::pre_tokenizers::metaspace::PrependScheme::Always => "always",
+            }
         },
         tokenizers::DecoderWrapper::CTC(decoder) => new_info! {
             decoder_type: "CTC",
@@ -204,7 +208,14 @@ fn decoders_strip(
 #[derive(NifTaggedEnum)]
 pub enum MetaspaceOption {
     Replacement(u32),
-    AddPrefixSpace(bool),
+    PrependScheme(PrependScheme),
+}
+
+#[derive(NifTaggedEnum)]
+pub enum PrependScheme {
+    First,
+    Never,
+    Always,
 }
 
 #[rustler::nif]
@@ -213,24 +224,38 @@ fn decoders_metaspace(
 ) -> Result<ExTokenizersDecoder, rustler::Error> {
     struct Opts {
         replacement: char,
-        add_prefix_space: bool,
+        prepend_scheme: tokenizers::decoders::metaspace::PrependScheme,
     }
     let mut opts = Opts {
         replacement: '▁',
-        add_prefix_space: true,
+        prepend_scheme: tokenizers::decoders::metaspace::PrependScheme::Always,
     };
     for opt in options {
         match opt {
             MetaspaceOption::Replacement(replacement) => {
                 opts.replacement = std::char::from_u32(replacement).ok_or(rustler::Error::BadArg)?
             }
-            MetaspaceOption::AddPrefixSpace(add_prefix_space) => {
-                opts.add_prefix_space = add_prefix_space
+            MetaspaceOption::PrependScheme(prepend_scheme) => {
+                opts.prepend_scheme = match prepend_scheme {
+                    PrependScheme::First => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::First
+                    }
+                    PrependScheme::Never => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::Never
+                    }
+                    PrependScheme::Always => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::Always
+                    }
+                }
             }
         }
     }
     Ok(ExTokenizersDecoder::new(
-        tokenizers::decoders::metaspace::Metaspace::new(opts.replacement, opts.add_prefix_space),
+        tokenizers::decoders::metaspace::Metaspace::new(
+            opts.replacement,
+            opts.prepend_scheme,
+            true,
+        ),
     ))
 }
 

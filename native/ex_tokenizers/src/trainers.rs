@@ -122,7 +122,7 @@ pub fn trainers_info(trainer: ExTokenizersTrainer) -> Info {
 #[derive(NifTaggedEnum)]
 pub enum BPEOption {
     VocabSize(usize),
-    MinFrequency(u32),
+    MinFrequency(u64),
     SpecialTokens(Vec<AddedTokenInput>),
     LimitAlphabet(usize),
     InitialAlphabet(Vec<u32>),
@@ -178,7 +178,7 @@ pub fn trainers_bpe_trainer(
 #[derive(NifTaggedEnum)]
 pub enum WordPieceOption {
     VocabSize(usize),
-    MinFrequency(u32),
+    MinFrequency(u64),
     SpecialTokens(Vec<String>),
     LimitAlphabet(usize),
     InitialAlphabet(Vec<u32>),
@@ -239,7 +239,7 @@ pub fn trainers_wordpiece_trainer(
 #[derive(NifTaggedEnum)]
 pub enum WordLevelOption {
     VocabSize(usize),
-    MinFrequency(u32),
+    MinFrequency(u64),
     SpecialTokens(Vec<String>),
     ShowProgress(bool),
 }

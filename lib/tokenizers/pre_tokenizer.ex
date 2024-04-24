@@ -103,9 +103,11 @@ defmodule Tokenizers.PreTokenizer do
 
     * `:replacement` - the replacement character to use. Defaults to `"▁"`
 
-    * `:add_prefix_space` - whether to add a space to the first word
-      if there isn’t already one. This lets us treat hello exactly
-      like say hello. Defaults to `true`
+    * `:prepend_scheme` - whether to add a space to the first word if there
+      isn't already one. This lets us treat "hello" exactly like "say hello".
+      Either of `:always`, `:never`, `:first`. `:first` means the space is
+      only added on the first token (relevant when special tokens are used
+      or other pre_tokenizer are used). Defaults to `:always`
 
   """
   @spec metaspace(keyword()) :: t()

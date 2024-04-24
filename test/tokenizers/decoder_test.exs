@@ -87,7 +87,7 @@ defmodule Tokenizers.DecoderTest do
 
     test "accepts all params" do
       assert %Tokenizers.Decoder{} =
-               Tokenizers.Decoder.metaspace(replacement: ?t, add_prefix_space: true)
+               Tokenizers.Decoder.metaspace(replacement: ?t, prepend_scheme: :always)
     end
   end
 

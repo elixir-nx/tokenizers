@@ -181,7 +181,14 @@ pub fn pre_tokenizers_bert() -> ExTokenizersPreTokenizer {
 #[derive(NifTaggedEnum)]
 pub enum MetaspaceOption {
     Replacement(u32),
-    AddPrefixSpace(bool),
+    PrependScheme(PrependScheme),
+}
+
+#[derive(NifTaggedEnum)]
+pub enum PrependScheme {
+    First,
+    Never,
+    Always,
 }
 
 #[rustler::nif]
@@ -193,8 +200,18 @@ pub fn pre_tokenizers_metaspace(
         match option {
             MetaspaceOption::Replacement(replacement) => metaspace
                 .set_replacement(std::char::from_u32(replacement).ok_or(rustler::Error::BadArg)?),
-            MetaspaceOption::AddPrefixSpace(add_prefix_space) => {
-                metaspace.add_prefix_space = add_prefix_space
+            MetaspaceOption::PrependScheme(prepend_scheme) => {
+                metaspace.prepend_scheme = match prepend_scheme {
+                    PrependScheme::First => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::First
+                    }
+                    PrependScheme::Never => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::Never
+                    }
+                    PrependScheme::Always => {
+                        tokenizers::pre_tokenizers::metaspace::PrependScheme::Always
+                    }
+                }
             }
         }
     }
