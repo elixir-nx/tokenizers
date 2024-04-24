@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for regular expressions to split pre-tokenizer. See
   `Tokenizers.PreTokenizer.split_regex/3`.
 
+### Removed
+
+- **(Breaking)** `:add_prefix_space` option in favour of `:prepend_scheme` for metaspace
+  decoder and pre-tokenizer
+
 ## [v0.4.0] - 2023-08-09
 
 ### Added
