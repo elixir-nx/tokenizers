@@ -307,7 +307,7 @@ Types
     </a>
     <h1 class="signature" translate="no">split_delimiter_behaviour()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L129" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L131" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -479,7 +479,7 @@ Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">char_delimiter_split(delimiter)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L122" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L124" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -511,7 +511,7 @@ multiple consecutive spaces.</p>
     </a>
     <h1 class="signature" translate="no">digits(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L205" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L207" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -548,7 +548,7 @@ Defaults to <code class="inline">false</code></li></ul>
     </a>
     <h1 class="signature" translate="no">metaspace(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L112" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L114" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -571,9 +571,11 @@ Defaults to <code class="inline">false</code></li></ul>
     Options
   </a>
 </h2>
-<ul><li><p><code class="inline">:replacement</code> - the replacement character to use. Defaults to <code class="inline">&quot;▁&quot;</code></p></li><li><p><code class="inline">:add_prefix_space</code> - whether to add a space to the first word
-if there isn’t already one. This lets us treat hello exactly
-like say hello. Defaults to <code class="inline">true</code></p></li></ul>
+<ul><li><p><code class="inline">:replacement</code> - the replacement character to use. Defaults to <code class="inline">&quot;▁&quot;</code></p></li><li><p><code class="inline">:prepend_scheme</code> - whether to add a space to the first word if there
+isn't already one. This lets us treat &quot;hello&quot; exactly like &quot;say hello&quot;.
+Either of <code class="inline">:always</code>, <code class="inline">:never</code>, <code class="inline">:first</code>. <code class="inline">:first</code> means the space is
+only added on the first token (relevant when special tokens are used
+or other pre_tokenizer are used). Defaults to <code class="inline">:always</code></p></li></ul>
   </section>
 </section>
 <section class="detail" id="pre_tokenize/2">
@@ -613,7 +615,7 @@ like say hello. Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">punctuation(behaviour)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L182" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L184" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -641,7 +643,7 @@ like say hello. Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">sequence(pre_tokenizers)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L191" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L193" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -672,7 +674,7 @@ given order.</p>
     </a>
     <h1 class="signature" translate="no">split(pattern, behavior, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L148" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L150" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -709,7 +711,7 @@ to provided behavior.</p><h2 id="split/3-options" class="section-heading">
     </a>
     <h1 class="signature" translate="no">split_regex(pattern, behavior, opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L172" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/pre_tokenizer.ex#L174" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -739,8 +741,8 @@ according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Eng
     Example
   </a>
 </h2>
-<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Tokenizers.PreTokenizer</span><span class="o">.</span><span class="n">split_regex</span><span class="p" data-group-id="2385525216-1">(</span><span class="s">~S(\?\d{2}\?)</span><span class="p">,</span><span class="w"> </span><span class="ss">:removed</span><span class="p" data-group-id="2385525216-1">)</span><span class="w">
-</span><span class="p" data-group-id="2385525216-2">#</span><span class="nc" data-group-id="2385525216-2">Tokenizers.PreTokenizer</span><span class="p" data-group-id="2385525216-2">&lt;</span><span class="p" data-group-id="2385525216-3">[</span><span class="ss">pre_tokenizer_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Split&quot;</span><span class="p" data-group-id="2385525216-3">]</span><span class="p" data-group-id="2385525216-2">&gt;</span></code></pre>
+<pre><code class="makeup elixir" translate="no"><span class="gp unselectable">iex&gt; </span><span class="nc">Tokenizers.PreTokenizer</span><span class="o">.</span><span class="n">split_regex</span><span class="p" data-group-id="2615288414-1">(</span><span class="s">~S(\?\d{2}\?)</span><span class="p">,</span><span class="w"> </span><span class="ss">:removed</span><span class="p" data-group-id="2615288414-1">)</span><span class="w">
+</span><span class="p" data-group-id="2615288414-2">#</span><span class="nc" data-group-id="2615288414-2">Tokenizers.PreTokenizer</span><span class="p" data-group-id="2615288414-2">&lt;</span><span class="p" data-group-id="2615288414-3">[</span><span class="ss">pre_tokenizer_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Split&quot;</span><span class="p" data-group-id="2615288414-3">]</span><span class="p" data-group-id="2615288414-2">&gt;</span></code></pre>
   </section>
 </section>
 <section class="detail" id="whitespace/0">

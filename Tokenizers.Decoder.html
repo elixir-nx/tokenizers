@@ -501,7 +501,7 @@ to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">metaspace(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L82" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L85" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -524,8 +524,11 @@ to <code class="inline">true</code></p></li></ul>
   </a>
 </h2>
 <ul><li><p><code class="inline">replacement</code> - the replacement character. Defaults to <code class="inline">▁</code>
-(as char)</p></li><li><p><code class="inline">add_prefix_space</code> - whether to add a space to the first word.
-Defaults to <code class="inline">true</code></p></li></ul>
+(as char)</p></li><li><p><code class="inline">:prepend_scheme</code> - whether to add a space to the first word if there
+isn't already one. This lets us treat &quot;hello&quot; exactly like &quot;say hello&quot;.
+Either of <code class="inline">:always</code>, <code class="inline">:never</code>, <code class="inline">:first</code>. <code class="inline">:first</code> means the space is
+only added on the first token (relevant when special tokens are used
+or other pre_tokenizer are used). Defaults to <code class="inline">:always</code></p></li></ul>
   </section>
 </section>
 <section class="detail" id="replace/2">
@@ -537,7 +540,7 @@ Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">replace(pattern, content)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L90" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L93" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -565,7 +568,7 @@ Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">sequence(decoders)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L96" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L99" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -593,7 +596,7 @@ Defaults to <code class="inline">true</code></p></li></ul>
     </a>
     <h1 class="signature" translate="no">strip(content, left, right)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L105" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L108" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -624,7 +627,7 @@ character on <code class="inline">left</code> and <code class="inline">right</co
     </a>
     <h1 class="signature" translate="no">word_piece(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L119" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/decoder.ex#L122" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
