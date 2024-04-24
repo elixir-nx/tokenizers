@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [v0.5.0] - 2024-04-24
 
 ### Added
 
@@ -16,8 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- **(Breaking)** `:add_prefix_space` option in favour of `:prepend_scheme` for metaspace
-  decoder and pre-tokenizer
+- **(Breaking)** Removed `:add_prefix_space` option in favour of `:prepend_scheme`
+  for metaspace decoder and pre-tokenizer
 
 ## [v0.4.0] - 2023-08-09
 
@@ -97,6 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First release.
 
+[v0.5.0]: https://github.com/elixir-nx/tokenizers/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/elixir-nx/tokenizers/compare/v0.3.2...v0.4.0
 [v0.3.2]: https://github.com/elixir-nx/tokenizers/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/elixir-nx/tokenizers/compare/v0.3.0...v0.3.1
