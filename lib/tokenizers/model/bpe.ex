@@ -9,7 +9,7 @@ defmodule Tokenizers.Model.BPE do
       the result of the merge operations for a number of words.
       Defaults to `10_000`
 
-    * `:dropout` - The BPE dropout to use. Must be an float between
+    * `:dropout` - The BPE dropout to use. Must be a float between
       0 and 1
 
     * `:unk_token` - The unknown token to be used by the model

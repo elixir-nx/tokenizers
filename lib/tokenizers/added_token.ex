@@ -65,6 +65,6 @@ defimpl Inspect, for: Tokenizers.AddedToken do
       |> Tokenizers.Native.added_token_info()
       |> Keyword.new(fn {k, v} -> {String.to_atom(k), v} end)
 
-    concat(["#Tokenizers.PreTokenizer<", to_doc(attrs, opts), ">"])
+    concat(["#Tokenizers.AddedToken<", to_doc(attrs, opts), ">"])
   end
 end

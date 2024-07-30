@@ -22,7 +22,7 @@ defmodule Tokenizers.PostProcessor do
 
   ## Options
 
-    * `:trim_offest` - whether to trim the whitespaces in the produced
+    * `:trim_offsets` - whether to trim the whitespaces in the produced
       offsets. Defaults to `true`
 
     * `:add_prefix_space` - whether add_prefix_space was ON during the
@@ -47,7 +47,7 @@ defmodule Tokenizers.PostProcessor do
   @doc """
   Creates a Template post-processor.
 
-  Let’s you easily template the post processing, adding special tokens
+  Lets you easily template the post processing, adding special tokens
   and specifying the type id for each sequence/special token. The
   template is given two strings representing the single sequence and
   the pair of sequences, as well as a set of special tokens to use.
