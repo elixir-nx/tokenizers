@@ -67,7 +67,7 @@ defmodule Tokenizers.DecoderTest do
       assert %Tokenizers.Decoder{} = Tokenizers.Decoder.strip(?_, 0, 0)
     end
 
-    test "cant be initialized with invalid char" do
+    test "can't be initialized with invalid char" do
       assert_raise ArgumentError, fn ->
         Tokenizers.Decoder.strip(61_126_999, 0, 0)
       end

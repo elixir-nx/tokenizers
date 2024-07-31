@@ -25,7 +25,7 @@ defmodule Tokenizers.Model.BPETest do
   end
 
   describe "loaded from file" do
-    test "Good initialized with valid pathes" do
+    test "Good initialization with valid paths" do
       assert {:ok, %Tokenizers.Model{}} =
                Tokenizers.Model.BPE.from_file(
                  "test/fixtures/vocab.json",
@@ -33,7 +33,7 @@ defmodule Tokenizers.Model.BPETest do
                )
     end
 
-    test "bad initialized with invalid pathes" do
+    test "bad initialization with invalid paths" do
       assert {:error, _} =
                Tokenizers.Model.BPE.from_file(
                  "test/fixtures/not_found_vocab.json",
@@ -41,7 +41,7 @@ defmodule Tokenizers.Model.BPETest do
                )
     end
 
-    test "bad initialized with good pathes but invalid data" do
+    test "bad initialization with good paths but invalid data" do
       assert {:error, _} =
                Tokenizers.Model.BPE.from_file(
                  "test/fixtures/vocab.txt",

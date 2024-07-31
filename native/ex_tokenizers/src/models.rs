@@ -133,7 +133,7 @@ pub fn models_save(
         .iter()
         .map(|path| {
             path.to_str()
-                // Unwraping here, because we are sure that pathes are valid
+                // Unwraping here, because we are sure that paths are valid
                 .unwrap()
                 .to_owned()
         })

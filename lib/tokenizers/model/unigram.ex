@@ -8,7 +8,7 @@ defmodule Tokenizers.Model.Unigram do
   """
   @type options() :: [
           byte_fallback: boolean(),
-          unk_id: float()
+          unk_id: integer()
         ]
 
   @doc """

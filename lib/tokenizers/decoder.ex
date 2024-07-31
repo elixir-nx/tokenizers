@@ -24,7 +24,7 @@ defmodule Tokenizers.Decoder do
 
   ## Options
 
-    * `suffix` - the suffix to add to the end of each word. Defaults
+    * `:suffix` - the suffix to add to the end of each word. Defaults
       to `</w>`
 
   """
@@ -48,12 +48,12 @@ defmodule Tokenizers.Decoder do
 
   ## Options
 
-    * `pad_token` - the token used for padding. Defaults to `<pad>`
+    * `:pad_token` - the token used for padding. Defaults to `<pad>`
 
-    * `word_delimiter_token` - the token used for word delimiter.
+    * `:word_delimiter_token` - the token used for word delimiter.
       Defaults to `|`
 
-    * `cleanup` - whether to cleanup tokenization artifacts, defaults
+    * `:cleanup` - whether to cleanup tokenization artifacts, defaults
       to `true`
 
   """
@@ -71,7 +71,7 @@ defmodule Tokenizers.Decoder do
 
   ## Options
 
-    * `replacement` - the replacement character. Defaults to `▁`
+    * `:replacement` - the replacement character. Defaults to `▁`
       (as char)
 
     * `:prepend_scheme` - whether to add a space to the first word if there
@@ -112,9 +112,9 @@ defmodule Tokenizers.Decoder do
 
   ## Options
 
-    * `prefix` - The prefix to use for subwords. Defaults to `##`
+    * `:prefix` - The prefix to use for subwords. Defaults to `##`
 
-    * `cleanup` - Whether to cleanup tokenization artifacts. Defaults
+    * `:cleanup` - Whether to cleanup tokenization artifacts. Defaults
       to `true`
 
   """

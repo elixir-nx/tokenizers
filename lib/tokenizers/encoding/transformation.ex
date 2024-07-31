@@ -2,7 +2,7 @@ defmodule Tokenizers.Encoding.Transformation do
   @moduledoc """
   Module containing handy functions to build the transformations list.
 
-  This list is aplied to an encoding using `Tokenizers.Encoding.transform/2`.
+  This list is applied to an encoding using `Tokenizers.Encoding.transform/2`.
   """
 
   @type t :: [

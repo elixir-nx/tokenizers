@@ -88,7 +88,7 @@ defmodule Tokenizers.PreTokenizer do
   @doc """
   Creates a BertPreTokenizer pre-tokenizer.
 
-  Splits for use in Bert models.
+  Splits for use in BERT models.
   """
   @spec bert_pre_tokenizer() :: t()
   defdelegate bert_pre_tokenizer(), to: Tokenizers.Native, as: :pre_tokenizers_bert

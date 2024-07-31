@@ -1,6 +1,6 @@
 defmodule Tokenizers.NormalizerTest do
   use ExUnit.Case, async: true
-  doctest Tokenizers.Decoder
+  doctest Tokenizers.Normalizer
 
   describe "Bert" do
     test "accepts no parameters" do

@@ -23,9 +23,9 @@ defmodule Tokenizers.Normalizer do
   defdelegate normalize(normalizer, input), to: Tokenizers.Native, as: :normalizers_normalize
 
   @doc """
-  Takes care of normalizing raw text before giving it to a Bert model.
+  Takes care of normalizing raw text before giving it to a BERT model.
 
-  This includes cleaning the text, handling accents, chinese chars and
+  This includes cleaning the text, handling accents, Chinese chars and
   lowercasing.
 
   ## Options
