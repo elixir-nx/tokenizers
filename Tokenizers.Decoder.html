@@ -336,7 +336,7 @@ Functions
     Options
   </a>
 </h2>
-<ul><li><code class="inline">suffix</code> - the suffix to add to the end of each word. Defaults
+<ul><li><code class="inline">:suffix</code> - the suffix to add to the end of each word. Defaults
 to <code class="inline">&lt;/w&gt;</code></li></ul>
   </section>
 </section>
@@ -429,8 +429,8 @@ to <code class="inline">&lt;/w&gt;</code></li></ul>
     Options
   </a>
 </h2>
-<ul><li><p><code class="inline">pad_token</code> - the token used for padding. Defaults to <code class="inline">&lt;pad&gt;</code></p></li><li><p><code class="inline">word_delimiter_token</code> - the token used for word delimiter.
-Defaults to <code class="inline">|</code></p></li><li><p><code class="inline">cleanup</code> - whether to cleanup tokenization artifacts, defaults
+<ul><li><p><code class="inline">:pad_token</code> - the token used for padding. Defaults to <code class="inline">&lt;pad&gt;</code></p></li><li><p><code class="inline">:word_delimiter_token</code> - the token used for word delimiter.
+Defaults to <code class="inline">|</code></p></li><li><p><code class="inline">:cleanup</code> - whether to cleanup tokenization artifacts, defaults
 to <code class="inline">true</code></p></li></ul>
   </section>
 </section>
@@ -523,7 +523,7 @@ to <code class="inline">true</code></p></li></ul>
     Options
   </a>
 </h2>
-<ul><li><p><code class="inline">replacement</code> - the replacement character. Defaults to <code class="inline">▁</code>
+<ul><li><p><code class="inline">:replacement</code> - the replacement character. Defaults to <code class="inline">▁</code>
 (as char)</p></li><li><p><code class="inline">:prepend_scheme</code> - whether to add a space to the first word if there
 isn't already one. This lets us treat &quot;hello&quot; exactly like &quot;say hello&quot;.
 Either of <code class="inline">:always</code>, <code class="inline">:never</code>, <code class="inline">:first</code>. <code class="inline">:first</code> means the space is
@@ -649,7 +649,7 @@ character on <code class="inline">left</code> and <code class="inline">right</co
     Options
   </a>
 </h2>
-<ul><li><p><code class="inline">prefix</code> - The prefix to use for subwords. Defaults to <code class="inline">##</code></p></li><li><p><code class="inline">cleanup</code> - Whether to cleanup tokenization artifacts. Defaults
+<ul><li><p><code class="inline">:prefix</code> - The prefix to use for subwords. Defaults to <code class="inline">##</code></p></li><li><p><code class="inline">:cleanup</code> - Whether to cleanup tokenization artifacts. Defaults
 to <code class="inline">true</code></p></li></ul>
   </section>
 </section>
