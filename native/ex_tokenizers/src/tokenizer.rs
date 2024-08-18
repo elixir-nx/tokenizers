@@ -413,10 +413,10 @@ pub fn tokenizer_disable_padding(tokenizer: ExTokenizersTokenizer) -> ExTokenize
 // / Inference
 // /////////////////////////////////////////////////////////////////////////////
 
-fn term_to_encode_input<'a>(term: &'a Term) -> Result<EncodeInput<'a>, ExTokenizersError> {
-    if let Ok(seq) = term.decode::<String>() {
+fn term_to_encode_input<'a, 'b>(term: &'a Term<'b>) -> Result<EncodeInput<'b>, ExTokenizersError> {
+    if let Ok(seq) = term.decode::<&'b str>() {
         Ok(EncodeInput::Single(seq.into()))
-    } else if let Ok((seq1, seq2)) = term.decode::<(String, String)>() {
+    } else if let Ok((seq1, seq2)) = term.decode::<(&'b str, &'b str)>() {
         Ok(EncodeInput::Dual(seq1.into(), seq2.into()))
     } else {
         Err(ExTokenizersError::Other(String::from(
