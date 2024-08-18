@@ -4,21 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.30.4">
-    <meta name="project" content="Tokenizers v0.5.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Tokenizers v0.5.0-dev">
 
-    <title>Tokenizers.Normalizer — Tokenizers v0.5.0</title>
-    <link rel="stylesheet" href="dist/html-elixir-HFL3S4U6.css" />
+
+    <title>Tokenizers.Normalizer — Tokenizers v0.5.0-dev</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
-    <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-70B02A1A.js"></script>
-
-      <script src="docs_config.js"></script>
-
-    <script async src="dist/html-B3DGGEY7.js"></script>
-
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-62B22A92.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -36,93 +34,112 @@
       } catch (error) { }
     </script>
 
-<div class="main">
+<div class="body-wrapper">
 
-<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
   <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
-<section class="sidebar">
-  <form class="sidebar-search" action="search.html">
-    <button type="submit" class="search-button" aria-label="Submit Search">
-      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
-    </button>
-    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
-    </button>
-    <label class="search-label">
-      <p class="sr-only">Search</p>
-      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </label>
-  </form>
-
-  <div class="autocomplete">
-    <div class="autocomplete-results">
-    </div>
-  </div>
+<nav id="sidebar" class="sidebar">
 
   <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
 
-    <div class="sidebar-projectDetails">
-      <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
+      <div>
+        <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
 Tokenizers
-      </a>
-      <div class="sidebar-projectVersion" translate="no">
-        v0.5.0
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.5.0-dev
+        </div>
       </div>
     </div>
-    <ul class="sidebar-listNav">
-      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
 
-        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
 
 
     </ul>
   </div>
 
-  <div class="gradient"></div>
-  <ul id="full-list"></ul>
-</section>
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
 
-<section class="content">
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
   <output role="status" id="toast"></output>
-  <div class="content-outer">
-    <div id="content" class="content-inner">
 
-<h1>
-<button class="icon-action display-settings">
-  <i class="ri-settings-3-line"></i>
-  <span class="sr-only">Settings</span>
-</button>
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Tokenizers</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Tokenizers.Normalizer</span> 
+    <small class="app-vsn" translate="no">(Tokenizers v0.5.0-dev)</small>
+
+  </h1>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L1" title="View Source" class="icon-action" rel="help">
-      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-      <span class="sr-only">View Source</span>
-    </a>
-
-  <span translate="no">Tokenizers.Normalizer</span> 
-  <small class="app-vsn" translate="no">(Tokenizers v0.5.0)</small>
-
-</h1>
-
-
-  <section id="moduledoc">
+    <section id="moduledoc">
 <p>Normalizers and normalization functions.</p><p>A normalizer is in charge of pre-processing the input string in
 order to normalize it as relevant for the given use case.</p><p>Some common examples of normalization are the Unicode normalization
 algorithms (NFD, NFKD, NFC &amp; NFKC) or lowercasing. The specificity
 of tokenizers is that we keep track of the alignment while
 normalizing. This is essential to allow mapping from the generated
 tokens back to the input text.</p>
-  </section>
+    </section>
 
+</div>
 
   <section id="summary" class="details-list">
     <h1 class="section-heading">
       <a class="hover-link" href="#summary">
         <i class="ri-link-m" aria-hidden="true"></i>
-        Summary
       </a>
+      <span class="text">Summary</span>
     </h1>
 <div class="summary-types summary">
   <h2>
@@ -131,7 +148,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:t/0" translate="no">t()</a>
+        <a href="#t:t/0" data-no-tooltip translate="no">t()</a>
 
       </div>
 
@@ -145,7 +162,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#bert_normalizer/1" translate="no">bert_normalizer(opts \\ [])</a>
+        <a href="#bert_normalizer/1" data-no-tooltip translate="no">bert_normalizer(opts \\ [])</a>
 
       </div>
 
@@ -155,7 +172,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#lowercase/0" translate="no">lowercase()</a>
+        <a href="#lowercase/0" data-no-tooltip translate="no">lowercase()</a>
 
       </div>
 
@@ -165,7 +182,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#nfc/0" translate="no">nfc()</a>
+        <a href="#nfc/0" data-no-tooltip translate="no">nfc()</a>
 
       </div>
 
@@ -175,7 +192,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#nfd/0" translate="no">nfd()</a>
+        <a href="#nfd/0" data-no-tooltip translate="no">nfd()</a>
 
       </div>
 
@@ -185,7 +202,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#nfkc/0" translate="no">nfkc()</a>
+        <a href="#nfkc/0" data-no-tooltip translate="no">nfkc()</a>
 
       </div>
 
@@ -195,7 +212,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#nfkd/0" translate="no">nfkd()</a>
+        <a href="#nfkd/0" data-no-tooltip translate="no">nfkd()</a>
 
       </div>
 
@@ -205,7 +222,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#nmt/0" translate="no">nmt()</a>
+        <a href="#nmt/0" data-no-tooltip translate="no">nmt()</a>
 
       </div>
 
@@ -215,7 +232,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#normalize/2" translate="no">normalize(normalizer, input)</a>
+        <a href="#normalize/2" data-no-tooltip translate="no">normalize(normalizer, input)</a>
 
       </div>
 
@@ -225,7 +242,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#precompiled/1" translate="no">precompiled(data)</a>
+        <a href="#precompiled/1" data-no-tooltip translate="no">precompiled(data)</a>
 
       </div>
 
@@ -235,7 +252,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#prepend/1" translate="no">prepend(prepend)</a>
+        <a href="#prepend/1" data-no-tooltip translate="no">prepend(prepend)</a>
 
       </div>
 
@@ -245,7 +262,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#replace/2" translate="no">replace(search, content)</a>
+        <a href="#replace/2" data-no-tooltip translate="no">replace(search, content)</a>
 
       </div>
 
@@ -255,7 +272,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#replace_regex/2" translate="no">replace_regex(pattern, content)</a>
+        <a href="#replace_regex/2" data-no-tooltip translate="no">replace_regex(pattern, content)</a>
 
       </div>
 
@@ -265,7 +282,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#sequence/1" translate="no">sequence(normalizers)</a>
+        <a href="#sequence/1" data-no-tooltip translate="no">sequence(normalizers)</a>
 
       </div>
 
@@ -275,7 +292,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#strip/1" translate="no">strip(opts \\ [])</a>
+        <a href="#strip/1" data-no-tooltip translate="no">strip(opts \\ [])</a>
 
       </div>
 
@@ -285,7 +302,7 @@ tokens back to the input text.</p>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#strip_accents/0" translate="no">strip_accents()</a>
+        <a href="#strip_accents/0" data-no-tooltip translate="no">strip_accents()</a>
 
       </div>
 
@@ -302,20 +319,20 @@ tokens back to the input text.</p>
     <h1 class="section-heading">
       <a class="hover-link" href="#types">
         <i class="ri-link-m" aria-hidden="true"></i>
-Types
       </a>
+      <span class="text">Types</span>
     </h1>
     <div class="types-list">
 <section class="detail" id="t:t/0">
 
   <div class="detail-header">
-    <a href="#t:t/0" class="detail-link" title="Link to this type">
+    <a href="#t:t/0" class="detail-link" data-no-tooltip title="Link to this type">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this type</span>
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L17" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L17" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -342,8 +359,8 @@ Types
     <h1 class="section-heading">
       <a class="hover-link" href="#functions">
         <i class="ri-link-m" aria-hidden="true"></i>
-Functions
       </a>
+      <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
 <section class="detail" id="bert_normalizer/1">
@@ -351,13 +368,13 @@ Functions
     <span id="bert_normalizer/0"></span>
 
   <div class="detail-header">
-    <a href="#bert_normalizer/1" class="detail-link" title="Link to this function">
+    <a href="#bert_normalizer/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">bert_normalizer(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L48" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L48" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -375,10 +392,10 @@ Functions
 
 <p>Takes care of normalizing raw text before giving it to a BERT model.</p><p>This includes cleaning the text, handling accents, Chinese chars and
 lowercasing.</p><h2 id="bert_normalizer/1-options" class="section-heading">
-  <a href="#bert_normalizer/1-options">
+  <a href="#bert_normalizer/1-options" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
-    Options
   </a>
+  <span class="text">Options</span>
 </h2>
 <ul><li><p><code class="inline">:clean_text</code> - whether to clean the text, by removing any
 control characters and replacing all whitespaces by the classic
@@ -391,13 +408,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="lowercase/0">
 
   <div class="detail-header">
-    <a href="#lowercase/0" class="detail-link" title="Link to this function">
+    <a href="#lowercase/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">lowercase()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L117" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L117" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -419,13 +436,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="nfc/0">
 
   <div class="detail-header">
-    <a href="#nfc/0" class="detail-link" title="Link to this function">
+    <a href="#nfc/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">nfc()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L68" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L68" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -447,13 +464,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="nfd/0">
 
   <div class="detail-header">
-    <a href="#nfd/0" class="detail-link" title="Link to this function">
+    <a href="#nfd/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">nfd()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L56" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L56" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -475,13 +492,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="nfkc/0">
 
   <div class="detail-header">
-    <a href="#nfkc/0" class="detail-link" title="Link to this function">
+    <a href="#nfkc/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">nfkc()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L74" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L74" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -503,13 +520,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="nfkd/0">
 
   <div class="detail-header">
-    <a href="#nfkd/0" class="detail-link" title="Link to this function">
+    <a href="#nfkd/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">nfkd()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L62" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L62" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -531,13 +548,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="nmt/0">
 
   <div class="detail-header">
-    <a href="#nmt/0" class="detail-link" title="Link to this function">
+    <a href="#nmt/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">nmt()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L142" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L142" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -559,13 +576,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="normalize/2">
 
   <div class="detail-header">
-    <a href="#normalize/2" class="detail-link" title="Link to this function">
+    <a href="#normalize/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">normalize(normalizer, input)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L23" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L23" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -587,13 +604,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="precompiled/1">
 
   <div class="detail-header">
-    <a href="#precompiled/1" class="detail-link" title="Link to this function">
+    <a href="#precompiled/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">precompiled(data)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L150" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L150" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -615,13 +632,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="prepend/1">
 
   <div class="detail-header">
-    <a href="#prepend/1" class="detail-link" title="Link to this function">
+    <a href="#prepend/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">prepend(prepend)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L96" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L96" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -643,13 +660,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="replace/2">
 
   <div class="detail-header">
-    <a href="#replace/2" class="detail-link" title="Link to this function">
+    <a href="#replace/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">replace(search, content)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L123" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L123" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -671,13 +688,13 @@ lowercase (as in the original Bert)</p></li><li><p><code class="inline">:lowerca
 <section class="detail" id="replace_regex/2">
 
   <div class="detail-header">
-    <a href="#replace_regex/2" class="detail-link" title="Link to this function">
+    <a href="#replace_regex/2" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">replace_regex(pattern, content)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L134" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L134" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -700,13 +717,13 @@ according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Eng
 <section class="detail" id="sequence/1">
 
   <div class="detail-header">
-    <a href="#sequence/1" class="detail-link" title="Link to this function">
+    <a href="#sequence/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">sequence(normalizers)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L111" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L111" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -730,13 +747,13 @@ according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Eng
     <span id="strip/0"></span>
 
   <div class="detail-header">
-    <a href="#strip/1" class="detail-link" title="Link to this function">
+    <a href="#strip/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">strip(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L90" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L90" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -754,10 +771,10 @@ according to the <a href="https://github.com/kkos/oniguruma">Oniguruma Regex Eng
 
 <p>Creates a Strip normalizer.</p><p>Removes all whitespace characters on the specified sides (left,
 right or both) of the input</p><h2 id="strip/1-options" class="section-heading">
-  <a href="#strip/1-options">
+  <a href="#strip/1-options" class="hover-link">
     <i class="ri-link-m" aria-hidden="true"></i>
-    Options
   </a>
+  <span class="text">Options</span>
 </h2>
 <ul><li><p><code class="inline">:left</code> - whether to strip left side. Defaults to <code class="inline">true</code></p></li><li><p><code class="inline">:right</code> - whether to strip right side. Defaults to <code class="inline">true</code></p></li></ul>
   </section>
@@ -765,13 +782,13 @@ right or both) of the input</p><h2 id="strip/1-options" class="section-heading">
 <section class="detail" id="strip_accents/0">
 
   <div class="detail-header">
-    <a href="#strip_accents/0" class="detail-link" title="Link to this function">
+    <a href="#strip_accents/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">strip_accents()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/normalizer.ex#L105" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/normalizer.ex#L105" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -795,43 +812,40 @@ consistency).</p>
     </div>
   </section>
 
-      <footer class="footer">
-        <p>
-
-            <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.5.0" class="footer-hex-package">Hex Package</a>
-
-              <a href="https://preview.hex.pm/preview/tokenizers/0.5.0">Hex Preview</a>
-
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.5.0/show/lib/tokenizers/normalizer.ex">current file</a>)
-
-            </span>
+    <footer class="footer">
+      <p>
 
           <span class="line">
-            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-              Search HexDocs
-            </button>
+            <a href="https://hex.pm/packages/tokenizers/0.5.0-dev" class="footer-hex-package">Hex Package</a>
 
-              <a href="Tokenizers.epub" title="ePub version">
-                Download ePub version
-              </a>
+            <a href="https://preview.hex.pm/preview/tokenizers/0.5.0-dev">Hex Preview</a>
 
           </span>
-        </p>
 
-        <p class="built-using">
-          Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.30.4) for the
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
 
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+            <a href="Tokenizers.epub" title="ePub version">
+              Download ePub version
+            </a>
 
-        </p>
-      </footer>
-    </div>
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
   </div>
-</section>
+</main>
 </div>
-
 
   </body>
 </html>

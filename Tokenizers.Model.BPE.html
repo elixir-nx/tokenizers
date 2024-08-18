@@ -4,21 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.30.4">
-    <meta name="project" content="Tokenizers v0.5.0">
+    <meta name="generator" content="ExDoc v0.34.2">
+    <meta name="project" content="Tokenizers v0.5.0-dev">
 
-    <title>Tokenizers.Model.BPE — Tokenizers v0.5.0</title>
-    <link rel="stylesheet" href="dist/html-elixir-HFL3S4U6.css" />
+
+    <title>Tokenizers.Model.BPE — Tokenizers v0.5.0-dev</title>
+    <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
-    <script src="dist/handlebars.templates-NBND3S2D.js"></script>
-    <script src="dist/sidebar_items-70B02A1A.js"></script>
-
-      <script src="docs_config.js"></script>
-
-    <script async src="dist/html-B3DGGEY7.js"></script>
-
+    <script src="dist/handlebars.templates-K7URE6B4.js"></script>
+    <script src="dist/sidebar_items-62B22A92.js"></script>
+    <script src="docs_config.js"></script>
+    <script async src="dist/html-YIPIRHGU.js"></script>
 
   </head>
   <body data-type="modules" class="page-module">
@@ -36,84 +34,103 @@
       } catch (error) { }
     </script>
 
-<div class="main">
+<div class="body-wrapper">
 
-<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+<button id="sidebar-menu" class="sidebar-button sidebar-toggle" aria-label="toggle sidebar" aria-controls="sidebar">
   <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
-<section class="sidebar">
-  <form class="sidebar-search" action="search.html">
-    <button type="submit" class="search-button" aria-label="Submit Search">
-      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
-    </button>
-    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
-    </button>
-    <label class="search-label">
-      <p class="sr-only">Search</p>
-      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-    </label>
-  </form>
-
-  <div class="autocomplete">
-    <div class="autocomplete-results">
-    </div>
-  </div>
+<nav id="sidebar" class="sidebar">
 
   <div class="sidebar-header">
+    <div class="sidebar-projectInfo">
 
-    <div class="sidebar-projectDetails">
-      <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
+      <div>
+        <a href="Tokenizers.html" class="sidebar-projectName" translate="no">
 Tokenizers
-      </a>
-      <div class="sidebar-projectVersion" translate="no">
-        v0.5.0
+        </a>
+        <div class="sidebar-projectVersion" translate="no">
+          v0.5.0-dev
+        </div>
       </div>
     </div>
-    <ul class="sidebar-listNav">
-      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+    <ul id="sidebar-listNav" class="sidebar-listNav" role="tablist">
+      <li>
+        <button id="extras-list-tab-button" role="tab" data-type="extras" aria-controls="extras-tab-panel" aria-selected="true" tabindex="0">
+Pages
+        </button>
+      </li>
 
-        <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+        <li>
+          <button id="modules-list-tab-button" role="tab" data-type="modules" aria-controls="modules-tab-panel" aria-selected="false" tabindex="-1">
+            Modules
+          </button>
+        </li>
 
 
     </ul>
   </div>
 
-  <div class="gradient"></div>
-  <ul id="full-list"></ul>
-</section>
+  <div id="extras-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="extras-list-tab-button">
+    <ul id="extras-full-list" class="full-list"></ul>
+  </div>
 
-<section class="content">
+    <div id="modules-tab-panel" class="sidebar-tabpanel" role="tabpanel" aria-labelledby="modules-list-tab-button" hidden>
+      <ul id="modules-full-list" class="full-list"></ul>
+    </div>
+
+
+</nav>
+
+<main class="content">
   <output role="status" id="toast"></output>
-  <div class="content-outer">
-    <div id="content" class="content-inner">
 
-<h1>
-<button class="icon-action display-settings">
-  <i class="ri-settings-3-line"></i>
-  <span class="sr-only">Settings</span>
-</button>
+  <div id="content" class="content-inner">
+    <div class="top-search">
+      <div class="search-settings">
+        <form class="search-bar" action="search.html">
+          <label class="search-label">
+            <span class="sr-only">Search documentation of Tokenizers</span>
+            <input name="q" type="text" class="search-input" placeholder="Press / to search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          </label>
+          <button type="submit" class="search-button" aria-label="Submit Search">
+            <i class="ri-search-2-line ri-lg" aria-hidden="true" title="Submit search"></i>
+          </button>
+          <button type="button" tabindex="-1" class="search-close-button" aria-hidden="true">
+            <i class="ri-close-line ri-lg" title="Cancel search"></i>
+          </button>
+        </form>
+        <div class="autocomplete">
+        </div>
+        <button class="icon-settings display-settings">
+          <i class="ri-settings-3-line"></i>
+          <span class="sr-only">Settings</span>
+        </button>
+      </div>
+    </div>
+
+<div id="top-content">
+  <h1>
+
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L1" title="View Source" class="icon-action" rel="help">
+        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+        <span class="sr-only">View Source</span>
+      </a>
+
+    <span translate="no">Tokenizers.Model.BPE</span> 
+    <small class="app-vsn" translate="no">(Tokenizers v0.5.0-dev)</small>
+
+  </h1>
 
 
-    <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/model/bpe.ex#L1" title="View Source" class="icon-action" rel="help">
-      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-      <span class="sr-only">View Source</span>
-    </a>
-
-  <span translate="no">Tokenizers.Model.BPE</span> 
-  <small class="app-vsn" translate="no">(Tokenizers v0.5.0)</small>
-
-</h1>
-
-
+</div>
 
   <section id="summary" class="details-list">
     <h1 class="section-heading">
       <a class="hover-link" href="#summary">
         <i class="ri-link-m" aria-hidden="true"></i>
-        Summary
       </a>
+      <span class="text">Summary</span>
     </h1>
 <div class="summary-types summary">
   <h2>
@@ -122,7 +139,7 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#t:options/0" translate="no">options()</a>
+        <a href="#t:options/0" data-no-tooltip translate="no">options()</a>
 
       </div>
 
@@ -138,7 +155,7 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#empty/0" translate="no">empty()</a>
+        <a href="#empty/0" data-no-tooltip translate="no">empty()</a>
 
       </div>
 
@@ -148,7 +165,7 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#from_file/3" translate="no">from_file(vocab_path, merges_path, options \\ [])</a>
+        <a href="#from_file/3" data-no-tooltip translate="no">from_file(vocab_path, merges_path, options \\ [])</a>
 
       </div>
 
@@ -158,7 +175,7 @@ Tokenizers
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#init/3" translate="no">init(vocab, merges, options \\ [])</a>
+        <a href="#init/3" data-no-tooltip translate="no">init(vocab, merges, options \\ [])</a>
 
       </div>
 
@@ -175,20 +192,20 @@ Tokenizers
     <h1 class="section-heading">
       <a class="hover-link" href="#types">
         <i class="ri-link-m" aria-hidden="true"></i>
-Types
       </a>
+      <span class="text">Types</span>
     </h1>
     <div class="types-list">
 <section class="detail" id="t:options/0">
 
   <div class="detail-header">
-    <a href="#t:options/0" class="detail-link" title="Link to this type">
+    <a href="#t:options/0" class="detail-link" data-no-tooltip title="Link to this type">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this type</span>
     </a>
     <h1 class="signature" translate="no">options()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/model/bpe.ex#L24" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L24" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -229,20 +246,20 @@ that represent an end of word</p></li></ul>
     <h1 class="section-heading">
       <a class="hover-link" href="#functions">
         <i class="ri-link-m" aria-hidden="true"></i>
-Functions
       </a>
+      <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
 <section class="detail" id="empty/0">
 
   <div class="detail-header">
-    <a href="#empty/0" class="detail-link" title="Link to this function">
+    <a href="#empty/0" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">empty()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/model/bpe.ex#L48" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L48" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -266,13 +283,13 @@ Functions
     <span id="from_file/2"></span>
 
   <div class="detail-header">
-    <a href="#from_file/3" class="detail-link" title="Link to this function">
+    <a href="#from_file/3" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">from_file(vocab_path, merges_path, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/model/bpe.ex#L54" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L54" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -296,13 +313,13 @@ Functions
     <span id="init/2"></span>
 
   <div class="detail-header">
-    <a href="#init/3" class="detail-link" title="Link to this function">
+    <a href="#init/3" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
     <h1 class="signature" translate="no">init(vocab, merges, options \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0/lib/tokenizers/model/bpe.ex#L42" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.5.0-dev/lib/tokenizers/model/bpe.ex#L42" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -329,43 +346,40 @@ Functions
     </div>
   </section>
 
-      <footer class="footer">
-        <p>
-
-            <span class="line">
-              <a href="https://hex.pm/packages/tokenizers/0.5.0" class="footer-hex-package">Hex Package</a>
-
-              <a href="https://preview.hex.pm/preview/tokenizers/0.5.0">Hex Preview</a>
-
-                (<a href="https://preview.hex.pm/preview/tokenizers/0.5.0/show/lib/tokenizers/model/bpe.ex">current file</a>)
-
-            </span>
+    <footer class="footer">
+      <p>
 
           <span class="line">
-            <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
-              Search HexDocs
-            </button>
+            <a href="https://hex.pm/packages/tokenizers/0.5.0-dev" class="footer-hex-package">Hex Package</a>
 
-              <a href="Tokenizers.epub" title="ePub version">
-                Download ePub version
-              </a>
+            <a href="https://preview.hex.pm/preview/tokenizers/0.5.0-dev">Hex Preview</a>
 
           </span>
-        </p>
 
-        <p class="built-using">
-          Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.30.4) for the
+        <span class="line">
+          <button class="a-main footer-button display-quick-switch" title="Search HexDocs packages">
+            Search HexDocs
+          </button>
 
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+            <a href="Tokenizers.epub" title="ePub version">
+              Download ePub version
+            </a>
 
-        </p>
-      </footer>
-    </div>
+        </span>
+      </p>
+
+      <p class="built-using">
+        Built using
+        <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.34.2) for the
+
+          <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
+      </p>
+
+    </footer>
   </div>
-</section>
+</main>
 </div>
-
 
   </body>
 </html>
