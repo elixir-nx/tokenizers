@@ -9,7 +9,7 @@ pub struct ExTokenizersPostProcessorRef(pub PostProcessorWrapper);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.PostProcessor"]
 pub struct ExTokenizersPostProcessor {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersPostProcessorRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersPostProcessorRef>,
 }
 
 impl ExTokenizersPostProcessorRef {
@@ -27,7 +27,7 @@ impl ExTokenizersPostProcessor {
         T: Into<PostProcessorWrapper>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersPostProcessorRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersPostProcessorRef::new(data)),
         }
     }
 }

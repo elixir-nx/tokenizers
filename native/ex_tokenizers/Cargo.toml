@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 anyhow = "1"
-rustler = "0.29.1"
+rustler = "0.34.0"
 thiserror = "1"
 tokenizers = { version = "0.19.1", default-features = false, features = ["onig", "esaxx_fast"]}
 serde = { version = "1.0", features = [ "rc", "derive" ] }

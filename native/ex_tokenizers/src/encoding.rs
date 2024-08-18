@@ -1,4 +1,4 @@
-use rustler::{resource::ResourceArc, Binary, Env, NifTaggedEnum};
+use rustler::{Binary, Env, NifTaggedEnum, ResourceArc};
 use tokenizers::Encoding;
 
 use crate::util::Direction;

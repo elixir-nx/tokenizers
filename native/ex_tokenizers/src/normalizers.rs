@@ -10,7 +10,7 @@ pub struct ExTokenizersNormalizerRef(pub NormalizerWrapper);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Normalizer"]
 pub struct ExTokenizersNormalizer {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersNormalizerRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersNormalizerRef>,
 }
 
 impl Serialize for ExTokenizersNormalizer {
@@ -56,7 +56,7 @@ impl ExTokenizersNormalizer {
         T: Into<NormalizerWrapper>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersNormalizerRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersNormalizerRef::new(data)),
         }
     }
 }

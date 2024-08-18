@@ -2,8 +2,8 @@ use std::collections::HashSet;
 use std::ops::Deref;
 use std::sync::RwLock;
 
-use rustler::resource::ResourceArc;
 use rustler::NifTaggedEnum;
+use rustler::ResourceArc;
 use tokenizers::models::bpe::BpeTrainerBuilder;
 use tokenizers::models::unigram::UnigramTrainerBuilder;
 use tokenizers::models::wordlevel::WordLevelTrainerBuilder;

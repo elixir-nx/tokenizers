@@ -11,7 +11,7 @@ pub struct ExTokenizersPreTokenizerRef(pub PreTokenizerWrapper);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.PreTokenizer"]
 pub struct ExTokenizersPreTokenizer {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersPreTokenizerRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersPreTokenizerRef>,
 }
 
 impl Serialize for ExTokenizersPreTokenizer {
@@ -63,7 +63,7 @@ impl ExTokenizersPreTokenizer {
         T: Into<PreTokenizerWrapper>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersPreTokenizerRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersPreTokenizerRef::new(data)),
         }
     }
 }

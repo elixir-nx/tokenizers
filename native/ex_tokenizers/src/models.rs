@@ -19,7 +19,7 @@ pub struct ExTokenizersModelRef(pub RwLock<ModelWrapper>);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Model"]
 pub struct ExTokenizersModel {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersModelRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersModelRef>,
 }
 
 impl Serialize for ExTokenizersModel {
@@ -97,7 +97,7 @@ impl ExTokenizersModel {
         T: Into<ModelWrapper>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersModelRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersModelRef::new(data)),
         }
     }
 }

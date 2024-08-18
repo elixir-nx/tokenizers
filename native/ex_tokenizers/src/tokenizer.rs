@@ -34,13 +34,13 @@ pub struct ExTokenizersTokenizerRef(ExTokenizerImpl);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Tokenizer"]
 pub struct ExTokenizersTokenizer {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersTokenizerRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersTokenizerRef>,
 }
 
 impl From<ExTokenizerImpl> for ExTokenizersTokenizer {
     fn from(data: ExTokenizerImpl) -> Self {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersTokenizerRef(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersTokenizerRef(data)),
         }
     }
 }

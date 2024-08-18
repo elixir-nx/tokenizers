@@ -8,7 +8,7 @@ pub struct ExTokenizersAddedTokenRef(pub AddedToken);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.AddedToken"]
 pub struct ExTokenizersAddedToken {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersAddedTokenRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersAddedTokenRef>,
 }
 
 impl Serialize for ExTokenizersAddedToken {
@@ -46,7 +46,7 @@ impl ExTokenizersAddedToken {
         T: Into<AddedToken>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersAddedTokenRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersAddedTokenRef::new(data)),
         }
     }
 }

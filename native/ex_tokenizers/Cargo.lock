@@ -194,15 +194,21 @@ dependencies = [
 
 [[package]]
 name = "heck"
-version = "0.4.1"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
+checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
 name = "ident_case"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
+
+[[package]]
+name = "inventory"
+version = "0.3.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f958d3d68f4167080a18141e10381e7634563984a537f2a49a30fd8e53ac5767"
 
 [[package]]
 name = "itertools"
@@ -470,22 +476,23 @@ checksum = "adad44e29e4c806119491a7f06f03de4d1af22c3a680dd47f1e6e179439d1f56"
 
 [[package]]
 name = "rustler"
-version = "0.29.1"
+version = "0.34.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0884cb623b9f43d3e2c51f9071c5e96a5acf3e6e6007866812884ff0cb983f1e"
+checksum = "e94bdfa68c0388cbd725f1ca54e975956482c262599e5cced04a903eec918b7f"
 dependencies = [
- "lazy_static",
+ "inventory",
  "rustler_codegen",
  "rustler_sys",
 ]
 
 [[package]]
 name = "rustler_codegen"
-version = "0.29.1"
+version = "0.34.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50e277af754f2560cf4c4ebedb68c1a735292fb354505c6133e47ec406e699cf"
+checksum = "996dc019acb78b91b4e0c1bd6fa2cd509a835d309de762dc15213b97eac399da"
 dependencies = [
  "heck",
+ "inventory",
  "proc-macro2",
  "quote",
  "syn",
@@ -493,9 +500,9 @@ dependencies = [
 
 [[package]]
 name = "rustler_sys"
-version = "2.3.1"
+version = "2.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a7c0740e5322b64e2b952d8f0edce5f90fcf6f6fe74cca3f6e78eb3de5ea858"
+checksum = "ddd0e2c955cfc86ea4680067e1d5e711427b43f7befcb6e23c7807cf3dd90e97"
 dependencies = [
  "regex",
  "unreachable",

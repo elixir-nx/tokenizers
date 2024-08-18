@@ -9,7 +9,7 @@ pub struct ExTokenizersDecoderRef(pub DecoderWrapper);
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Decoder"]
 pub struct ExTokenizersDecoder {
-    pub resource: rustler::resource::ResourceArc<ExTokenizersDecoderRef>,
+    pub resource: rustler::ResourceArc<ExTokenizersDecoderRef>,
 }
 
 impl Serialize for ExTokenizersDecoder {
@@ -55,7 +55,7 @@ impl ExTokenizersDecoder {
         T: Into<DecoderWrapper>,
     {
         Self {
-            resource: rustler::resource::ResourceArc::new(ExTokenizersDecoderRef::new(data)),
+            resource: rustler::ResourceArc::new(ExTokenizersDecoderRef::new(data)),
         }
     }
 }
