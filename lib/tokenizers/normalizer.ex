@@ -156,6 +156,11 @@ defmodule Tokenizers.Normalizer do
   """
   @spec byte_level :: t()
   defdelegate byte_level(), to: Tokenizers.Native, as: :normalizers_byte_level
+
+  @doc """
+  Gets ByteLevel normalizer's alphabet.
+  """
+  defdelegate byte_level_alphabet(), to: Tokenizers.Native, as: :normalizers_byte_level_alphabet
 end
 
 defimpl Inspect, for: Tokenizers.Normalizer do
@@ -169,11 +174,4 @@ defimpl Inspect, for: Tokenizers.Normalizer do
 
     concat(["#Tokenizers.Normalizer<", to_doc(attrs, opts), ">"])
   end
-end
-
-defmodule Tokenizers.Normalizer.ByteLevel do
-  @doc """
-  Gets ByteLevel normalizer's alphabet.
-  """
-  defdelegate alphabet(), to: Tokenizers.Native, as: :normalizers_byte_level_alphabet
 end
