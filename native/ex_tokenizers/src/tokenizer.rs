@@ -31,6 +31,9 @@ type ExTokenizerImpl = TokenizerImpl<
 
 pub struct ExTokenizersTokenizerRef(ExTokenizerImpl);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersTokenizerRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Tokenizer"]
 pub struct ExTokenizersTokenizer {
@@ -194,7 +197,7 @@ pub fn tokenizer_set_normalizer(
     normalizer: ExTokenizersNormalizer,
 ) -> ExTokenizersTokenizer {
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_normalizer(normalizer);
+    new_tokenizer.with_normalizer(Some(normalizer));
     new_tokenizer.into()
 }
 
@@ -213,7 +216,7 @@ pub fn tokenizer_set_pre_tokenizer(
     pre_tokenizer: ExTokenizersPreTokenizer,
 ) -> ExTokenizersTokenizer {
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_pre_tokenizer(pre_tokenizer);
+    new_tokenizer.with_pre_tokenizer(Some(pre_tokenizer));
     new_tokenizer.into()
 }
 
@@ -232,7 +235,7 @@ pub fn tokenizer_set_post_processor(
     post_processor: ExTokenizersPostProcessor,
 ) -> ExTokenizersTokenizer {
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_post_processor(post_processor);
+    new_tokenizer.with_post_processor(Some(post_processor));
     new_tokenizer.into()
 }
 
@@ -248,7 +251,7 @@ pub fn tokenizer_set_decoder(
     decoder: ExTokenizersDecoder,
 ) -> ExTokenizersTokenizer {
     let mut new_tokenizer = tokenizer.resource.0.clone();
-    new_tokenizer.with_decoder(decoder);
+    new_tokenizer.with_decoder(Some(decoder));
     new_tokenizer.into()
 }
 

@@ -8,6 +8,9 @@ use tokenizers::{processors::byte_level::ByteLevel, PreTokenizedString, PreToken
 
 pub struct ExTokenizersPreTokenizerRef(pub PreTokenizerWrapper);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersPreTokenizerRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.PreTokenizer"]
 pub struct ExTokenizersPreTokenizer {

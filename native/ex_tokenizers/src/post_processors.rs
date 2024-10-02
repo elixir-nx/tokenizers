@@ -6,6 +6,9 @@ use crate::{new_info, util::Info};
 
 pub struct ExTokenizersPostProcessorRef(pub PostProcessorWrapper);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersPostProcessorRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.PostProcessor"]
 pub struct ExTokenizersPostProcessor {

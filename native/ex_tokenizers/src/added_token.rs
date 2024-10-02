@@ -1,9 +1,12 @@
 use crate::{new_info, util::Info};
-use rustler::{NifTaggedEnum, NifUntaggedEnum};
+use rustler::{NifTaggedEnum, NifUntaggedEnum, Resource};
 use serde::{Deserialize, Serialize};
 use tokenizers::AddedToken;
 
 pub struct ExTokenizersAddedTokenRef(pub AddedToken);
+
+#[rustler::resource_impl]
+impl Resource for ExTokenizersAddedTokenRef {}
 
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.AddedToken"]

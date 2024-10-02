@@ -114,4 +114,21 @@ defmodule Tokenizers.NormalizerTest do
                {:ok, "Hello"}
     end
   end
+
+  describe "ByteLevel" do
+    test "can be initialized" do
+      assert %Tokenizers.Normalizer{} = Tokenizers.Normalizer.byte_level()
+    end
+
+    test "can normalize strings" do
+      # Test is taken directly from original Rust implementation
+      assert Tokenizers.Normalizer.byte_level()
+             |> Tokenizers.Normalizer.normalize("Hello 我今天能为你做什么") ==
+               {:ok, "HelloĠæĪĳä»Ĭå¤©èĥ½ä¸ºä½łåģļä»Ģä¹Ī"}
+    end
+
+    test "returns alphabet" do
+      assert length(Tokenizers.Normalizer.byte_level_alphabet()) != 0
+    end
+  end
 end

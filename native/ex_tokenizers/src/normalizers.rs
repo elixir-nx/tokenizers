@@ -2,10 +2,14 @@ use crate::{new_info, util::Info, ExTokenizersError};
 use rustler::NifTaggedEnum;
 use serde::{Deserialize, Serialize};
 use tokenizers::{
-    normalizers::replace::ReplacePattern, NormalizedString, Normalizer, NormalizerWrapper,
+    normalizers::{replace::ReplacePattern, ByteLevel},
+    NormalizedString, Normalizer, NormalizerWrapper,
 };
 
 pub struct ExTokenizersNormalizerRef(pub NormalizerWrapper);
+
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersNormalizerRef {}
 
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Normalizer"]
@@ -122,6 +126,9 @@ fn normalizers_info(normalizer: ExTokenizersNormalizer) -> Info {
         ),
         NormalizerWrapper::Prepend(_) => new_info!(
             normalizer_type: "Prepend"
+        ),
+        NormalizerWrapper::ByteLevel(_) => new_info!(
+            normalizer_type: "ByteLevel"
         ),
     }
 }
@@ -276,4 +283,19 @@ pub fn normalizers_precompiled(data: Vec<u8>) -> Result<ExTokenizersNormalizer, 
         tokenizers::normalizers::precompiled::Precompiled::from(&data)
             .map_err(anyhow::Error::from)?,
     ))
+}
+
+// ByteLevel part
+
+#[rustler::nif]
+pub fn normalizers_byte_level() -> ExTokenizersNormalizer {
+    ExTokenizersNormalizer::new(tokenizers::normalizers::byte_level::ByteLevel)
+}
+
+#[rustler::nif]
+pub fn normalizers_byte_level_alphabet() -> Vec<String> {
+    ByteLevel::alphabet()
+        .iter()
+        .map(|c| String::from(*c))
+        .collect()
 }

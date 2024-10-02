@@ -6,6 +6,9 @@ use crate::{new_info, util::Info, ExTokenizersError};
 
 pub struct ExTokenizersDecoderRef(pub DecoderWrapper);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersDecoderRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Decoder"]
 pub struct ExTokenizersDecoder {
