@@ -142,6 +142,13 @@ defmodule Tokenizers.TokenizerTest do
   describe "encode/decode" do
     test "can encode a single string", %{tokenizer: tokenizer} do
       assert {:ok, %Tokenizers.Encoding{}} = Tokenizer.encode(tokenizer, "This is a test")
+
+      assert {:ok, %Tokenizers.Encoding{}} =
+               Tokenizer.encode(tokenizer, "This is a test", skip_utf8_validation: true)
+    end
+
+    test "errors when encoding a binary", %{tokenizer: tokenizer} do
+      assert {:error, _} = Tokenizer.encode(tokenizer, <<0xFF>>)
     end
 
     test "can apply transformations to encoding", %{tokenizer: tokenizer} do
