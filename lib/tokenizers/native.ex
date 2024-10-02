@@ -100,6 +100,8 @@ defmodule Tokenizers.Native do
   def normalizers_replace(_pattern, _content), do: err()
   def normalizers_nmt(), do: err()
   def normalizers_precompiled(_data), do: err()
+  def normalizers_byte_level(), do: err()
+  def normalizers_byte_level_alphabet(), do: err()
 
   # PreTokenizers
   def pre_tokenizers_pre_tokenize(_pre_tokenizer, _input), do: err()

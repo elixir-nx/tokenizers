@@ -22,6 +22,8 @@ defmodule Tokenizers.Normalizer do
   @spec normalize(t(), String.t()) :: {:ok, String.t()}
   defdelegate normalize(normalizer, input), to: Tokenizers.Native, as: :normalizers_normalize
 
+  # Normalizer entities. Following the order in https://docs.rs/tokenizers/0.20.0/src/tokenizers/normalizers/mod.rs.html#24
+
   @doc """
   Takes care of normalizing raw text before giving it to a BERT model.
 
@@ -50,30 +52,6 @@ defmodule Tokenizers.Normalizer do
     as: :normalizers_bert_normalizer
 
   @doc """
-  Creates a NFD Unicode normalizer.
-  """
-  @spec nfd :: t()
-  defdelegate nfd(), to: Tokenizers.Native, as: :normalizers_nfd
-
-  @doc """
-  Creates a NFKD Unicode normalizer.
-  """
-  @spec nfkd :: t()
-  defdelegate nfkd(), to: Tokenizers.Native, as: :normalizers_nfkd
-
-  @doc """
-  Creates a NFC Unicode normalizer.
-  """
-  @spec nfc :: t()
-  defdelegate nfc(), to: Tokenizers.Native, as: :normalizers_nfc
-
-  @doc """
-  Creates a NFKC Unicode normalizer.
-  """
-  @spec nfkc :: t()
-  defdelegate nfkc(), to: Tokenizers.Native, as: :normalizers_nfkc
-
-  @doc """
   Creates a Strip normalizer.
 
   Removes all whitespace characters on the specified sides (left,
@@ -90,12 +68,6 @@ defmodule Tokenizers.Normalizer do
   defdelegate strip(opts \\ []), to: Tokenizers.Native, as: :normalizers_strip
 
   @doc """
-  Creates a Prepend normalizer.
-  """
-  @spec prepend(prepend :: String.t()) :: t()
-  defdelegate prepend(prepend), to: Tokenizers.Native, as: :normalizers_prepend
-
-  @doc """
   Creates a Strip Accent normalizer.
 
   Removes all accent symbols in unicode (to be used with NFD for
@@ -103,6 +75,30 @@ defmodule Tokenizers.Normalizer do
   """
   @spec strip_accents :: t()
   defdelegate strip_accents(), to: Tokenizers.Native, as: :normalizers_strip_accents
+
+  @doc """
+  Creates a NFC Unicode normalizer.
+  """
+  @spec nfc :: t()
+  defdelegate nfc(), to: Tokenizers.Native, as: :normalizers_nfc
+
+  @doc """
+  Creates a NFD Unicode normalizer.
+  """
+  @spec nfd :: t()
+  defdelegate nfd(), to: Tokenizers.Native, as: :normalizers_nfd
+
+  @doc """
+  Creates a NFKC Unicode normalizer.
+  """
+  @spec nfkc :: t()
+  defdelegate nfkc(), to: Tokenizers.Native, as: :normalizers_nfkc
+
+  @doc """
+  Creates a NFKD Unicode normalizer.
+  """
+  @spec nfkd :: t()
+  defdelegate nfkd(), to: Tokenizers.Native, as: :normalizers_nfkd
 
   @doc """
   Composes multiple normalizers that will run in the provided order.
@@ -115,6 +111,20 @@ defmodule Tokenizers.Normalizer do
   """
   @spec lowercase :: t()
   defdelegate lowercase(), to: Tokenizers.Native, as: :normalizers_lowercase
+
+  @doc """
+  Creates a Nmt normalizer.
+  """
+  @spec nmt :: t()
+  defdelegate nmt(), to: Tokenizers.Native, as: :normalizers_nmt
+
+  @doc """
+  Precompiled normalizer.
+
+  Don’t use manually it is used for compatibility with SentencePiece.
+  """
+  @spec precompiled(binary()) :: {:ok, t()} | {:error, any()}
+  defdelegate precompiled(data), to: Tokenizers.Native, as: :normalizers_precompiled
 
   @doc """
   Replaces a custom `search` string with the given `content`.
@@ -136,18 +146,16 @@ defmodule Tokenizers.Normalizer do
   end
 
   @doc """
-  Creates a Nmt normalizer.
+  Creates a Prepend normalizer.
   """
-  @spec nmt :: t()
-  defdelegate nmt(), to: Tokenizers.Native, as: :normalizers_nmt
+  @spec prepend(prepend :: String.t()) :: t()
+  defdelegate prepend(prepend), to: Tokenizers.Native, as: :normalizers_prepend
 
   @doc """
-  Precompiled normalizer.
-
-  Don’t use manually it is used for compatibility with SentencePiece.
+  Created ByteLevel normalizer.
   """
-  @spec precompiled(binary()) :: {:ok, t()} | {:error, any()}
-  defdelegate precompiled(data), to: Tokenizers.Native, as: :normalizers_precompiled
+  @spec byte_level :: t()
+  defdelegate byte_level(), to: Tokenizers.Native, as: :normalizers_byte_level
 end
 
 defimpl Inspect, for: Tokenizers.Normalizer do
@@ -161,4 +169,11 @@ defimpl Inspect, for: Tokenizers.Normalizer do
 
     concat(["#Tokenizers.Normalizer<", to_doc(attrs, opts), ">"])
   end
+end
+
+defmodule Tokenizers.Normalizer.ByteLevel do
+  @doc """
+  Gets ByteLevel normalizer's alphabet.
+  """
+  defdelegate alphabet(), to: Tokenizers.Native, as: :normalizers_byte_level_alphabet
 end

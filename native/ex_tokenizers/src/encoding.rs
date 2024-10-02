@@ -5,6 +5,9 @@ use crate::util::Direction;
 
 pub struct ExTokenizersEncodingRef(pub Encoding);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersEncodingRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Encoding"]
 pub struct ExTokenizersEncoding {

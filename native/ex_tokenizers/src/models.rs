@@ -16,6 +16,9 @@ use crate::{new_info, util::Info};
 
 pub struct ExTokenizersModelRef(pub RwLock<ModelWrapper>);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersModelRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Model"]
 pub struct ExTokenizersModel {

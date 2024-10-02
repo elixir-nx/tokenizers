@@ -19,6 +19,9 @@ use crate::util::Info;
 
 pub struct ExTokenizersTrainerRef(pub RwLock<TrainerWrapper>);
 
+#[rustler::resource_impl]
+impl rustler::Resource for ExTokenizersTrainerRef {}
+
 #[derive(rustler::NifStruct)]
 #[module = "Tokenizers.Trainer"]
 pub struct ExTokenizersTrainer {
