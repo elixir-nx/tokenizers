@@ -128,7 +128,7 @@ defmodule Tokenizers.NormalizerTest do
     end
 
     test "returns alphabet" do
-      assert length(Tokenizers.Normalizer.ByteLevel.alphabet()) != 0
+      assert length(Tokenizers.Normalizer.byte_level_alphabet()) != 0
     end
   end
 end
