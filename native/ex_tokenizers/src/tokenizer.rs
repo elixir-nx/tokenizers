@@ -29,7 +29,7 @@ type ExTokenizerImpl = TokenizerImpl<
     ExTokenizersDecoder,
 >;
 
-pub struct ExTokenizersTokenizerRef(ExTokenizerImpl);
+pub struct ExTokenizersTokenizerRef(pub ExTokenizerImpl);
 
 #[rustler::resource_impl]
 impl rustler::Resource for ExTokenizersTokenizerRef {}

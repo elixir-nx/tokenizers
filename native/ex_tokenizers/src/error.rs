@@ -1,5 +1,5 @@
 use rustler::{Encoder, Env, Term};
-use std::io;
+use std::{io, panic::RefUnwindSafe};
 use thiserror::Error;
 
 rustler::atoms! {
@@ -28,3 +28,5 @@ impl Encoder for ExTokenizersError {
         format!("{self:?}").encode(env)
     }
 }
+
+impl RefUnwindSafe for ExTokenizersError {}
