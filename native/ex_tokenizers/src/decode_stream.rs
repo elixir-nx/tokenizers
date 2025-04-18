@@ -101,9 +101,7 @@ fn decoder_stream_step(
 }
 
 #[rustler::nif]
-fn decoder_stream_new(
-    skip_special_tokens: bool,
-) -> ExTokenizersDecodeStream {
+fn decoder_stream_new(skip_special_tokens: bool) -> ExTokenizersDecodeStream {
     let ds = ExTokenizersDecodeStreamRef {
         skip_special_tokens,
         ids: vec![],

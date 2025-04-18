@@ -1,6 +1,6 @@
 mod added_token;
-mod decoders;
 mod decode_stream;
+mod decoders;
 mod encoding;
 mod error;
 mod models;
