@@ -97,7 +97,7 @@ fn decoder_stream_step(
     let tk = tokenizer.resource.0.clone();
     let mut ds = decode_stream.resource.inner.write().unwrap();
 
-    return Result::Ok(ds.step(&tk, id).map_err(ExTokenizersError::Tokenizer)?);
+    ds.step(&tk, id).map_err(ExTokenizersError::Tokenizer)
 }
 
 #[rustler::nif]
@@ -110,7 +110,7 @@ fn decoder_stream_new(skip_special_tokens: bool) -> ExTokenizersDecodeStream {
         read_index: 0,
     };
 
-    return ExTokenizersDecodeStream::new(ds);
+    ExTokenizersDecodeStream::new(ds)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ fn decoder_stream_new(skip_special_tokens: bool) -> ExTokenizersDecodeStream {
 fn decoder_stream_info(decode_stream: ExTokenizersDecodeStream) -> Info {
     let ds = decode_stream.resource.inner.read().unwrap();
 
-    return new_info! {
+    new_info! {
         skip_special_tokens: ds.skip_special_tokens
-    };
+    }
 }
