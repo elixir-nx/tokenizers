@@ -10,7 +10,6 @@ defmodule Tokenizers.DecodeStream do
           resource: reference()
         }
 
-
   @doc """
   Creates a new decode stream.
 
@@ -21,7 +20,6 @@ defmodule Tokenizers.DecodeStream do
   def new(skip_special_tokens \\ false) do
     Tokenizers.Native.decoder_stream_new(skip_special_tokens)
   end
-
 
   @doc """
   Steps through the decode stream with the given tokenizer and token ID.

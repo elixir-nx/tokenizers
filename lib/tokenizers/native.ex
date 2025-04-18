@@ -40,7 +40,6 @@ defmodule Tokenizers.Native do
   #
   def decoder_stream_new(_skip_special_tokens), do: err()
 
-
   # Encoding
   def encoding_get_length(_encoding), do: err()
   def encoding_get_n_sequences(_encoding), do: err()
