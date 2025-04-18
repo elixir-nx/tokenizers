@@ -34,6 +34,14 @@ defmodule Tokenizers.Native do
   def decoders_ctc(_options), do: err()
   def decoders_sequence(_decoders), do: err()
 
+  # DecoderStream
+  def decoder_stream_step(_decoder_stream, _tokenizer, _id), do: err()
+  #
+  def decoder_stream_info(_decoder_stream), do: err()
+  #
+  def decoder_stream_new(_skip_special_tokens), do: err()
+
+
   # Encoding
   def encoding_get_length(_encoding), do: err()
   def encoding_get_n_sequences(_encoding), do: err()

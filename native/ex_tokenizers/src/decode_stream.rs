@@ -100,12 +100,27 @@ fn decoder_stream_step(
     return Result::Ok(ds.step(&tk, id).map_err(ExTokenizersError::Tokenizer)?);
 }
 
+#[rustler::nif]
+fn decoder_stream_new(
+    skip_special_tokens: bool,
+) -> ExTokenizersDecodeStream {
+    let ds = ExTokenizersDecodeStreamRef {
+        skip_special_tokens,
+        ids: vec![],
+        prefix: "".to_string(),
+        prefix_index: 0,
+        read_index: 0,
+    };
+
+    return ExTokenizersDecodeStream::new(ds);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Inspection
 ///////////////////////////////////////////////////////////////////////////////
 
 #[rustler::nif]
-fn decoders_info(decode_stream: ExTokenizersDecodeStream) -> Info {
+fn decoder_stream_info(decode_stream: ExTokenizersDecodeStream) -> Info {
     let ds = decode_stream.resource.inner.read().unwrap();
 
     return new_info! {
