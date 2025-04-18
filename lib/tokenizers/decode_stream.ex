@@ -1,11 +1,27 @@
 defmodule Tokenizers.DecodeStream do
   @moduledoc """
   Implements streaming decoding functionality for tokenizers.
-  This module corresponds to the Rust implementation in native/ex_tokenizers/src/decode_stream.rs.
   """
 
   @enforce_keys [:resource]
   defstruct [:resource]
+
+  @type t :: %__MODULE__{
+          resource: reference()
+        }
+
+
+  @doc """
+  Creates a new decode stream.
+
+  The `skip_special_tokens` option determines whether special tokens should be skipped during decoding.
+  By default, it is set to `false`.
+  """
+  @spec new(boolean()) :: t()
+  def new(skip_special_tokens \\ false) do
+    Tokenizers.Native.decoder_stream_new(skip_special_tokens)
+  end
+
 
   @doc """
   Steps through the decode stream with the given tokenizer and token ID.

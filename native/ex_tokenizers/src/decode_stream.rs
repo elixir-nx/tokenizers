@@ -124,10 +124,6 @@ fn decoder_stream_info(decode_stream: ExTokenizersDecodeStream) -> Info {
     let ds = decode_stream.resource.inner.read().unwrap();
 
     return new_info! {
-        skip_special_tokens: ds.skip_special_tokens,
-        ids: ds.ids.clone(),
-        prefix: ds.prefix.clone(),
-        prefix_index: ds.prefix_index,
-        read_index: ds.read_index
+        skip_special_tokens: ds.skip_special_tokens
     };
 }
