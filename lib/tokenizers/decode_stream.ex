@@ -24,11 +24,20 @@ defmodule Tokenizers.DecodeStream do
   @doc """
   Steps through the decode stream with the given tokenizer and token ID.
 
-  Returns `{:ok, string}` if there's a decoded string, or `{:ok, nil}` if there's nothing more to decode.
+  Returns `{:ok, String.t()}` if there's a decoded string, or `{:ok, :out_ofr_range}` if the token ID is out of range.
   Returns `{:error, reason}` if an error occurs during decoding.
   """
   def step(%__MODULE__{} = decode_stream, tokenizer, id) when is_integer(id) do
-    Tokenizers.Native.decoder_stream_step(decode_stream, tokenizer, id)
+    case Tokenizers.Native.decoder_stream_step(decode_stream, tokenizer, id) do
+      {:ok, decoded} when is_binary(decoded) ->
+        {:ok, decoded}
+
+      {:ok, nil} ->
+        {:ok, :out_of_range}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
 
   @doc """

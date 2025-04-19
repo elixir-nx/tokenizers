@@ -41,7 +41,7 @@ defmodule Tokenizers.DecodeStreamTest do
       ds = Tokenizers.DecodeStream.new(false)
 
       {:ok, " "} = Tokenizers.DecodeStream.step(ds, tk, 1)
-      {:ok, nil} = Tokenizers.DecodeStream.step(ds, tk, 2)
+      {:ok, :out_of_range} = Tokenizers.DecodeStream.step(ds, tk, 2)
       {:ok, "é"} = Tokenizers.DecodeStream.step(ds, tk, 3)
     end
 
