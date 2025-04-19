@@ -64,4 +64,24 @@ defmodule Tokenizers.DecodeStreamTest do
       {:ok, " This"} = Tokenizers.DecodeStream.step(ds, tk, 1)
     end
   end
+
+  describe "DecodeStream info" do
+    test "skip_special_tokens false" do
+      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new(false)) == %{
+               "skip_special_tokens" => false
+             }
+    end
+
+    test "skip_special_tokens true" do
+      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new(true)) == %{
+               "skip_special_tokens" => true
+             }
+    end
+
+    test "default DecodeStream" do
+      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new()) == %{
+               "skip_special_tokens" => false
+             }
+    end
+  end
 end

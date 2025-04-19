@@ -10,7 +10,8 @@ defmodule Tokenizers.Native do
     crate: "ex_tokenizers",
     version: version,
     base_url: "#{github_url}/releases/download/v#{version}",
-    force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"]
+    # force_build: System.get_env("TOKENIZERS_BUILD") in ["1", "true"]
+    force_build: true
 
   # Added tokens
   def added_token_new(_token, _opts), do: err()
