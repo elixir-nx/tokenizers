@@ -13,12 +13,16 @@ defmodule Tokenizers.DecodeStream do
   @doc """
   Creates a new decode stream.
 
-  The `skip_special_tokens` option determines whether special tokens should be skipped during decoding.
-  By default, it is set to `false`.
+  ## Options
+
+    * `:skip_special_tokens` - determines whether special tokens should be
+      skipped during decoding. By default, it is set to `false`.
+
   """
-  @spec new(boolean()) :: t()
-  def new(skip_special_tokens \\ false) do
-    Tokenizers.Native.decoder_stream_new(skip_special_tokens)
+  @spec new(keyword()) :: t()
+  def new(opts \\ []) when is_list(opts) do
+    opts = Keyword.validate!(opts, skip_special_tokens: false)
+    Tokenizers.Native.decoder_stream_new(opts[:skip_special_tokens])
   end
 
   @doc """

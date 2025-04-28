@@ -12,20 +12,13 @@ pub struct ExTokenizersDecodeStreamRef {
 }
 
 impl ExTokenizersDecodeStreamRef {
-    pub fn step<M, N, PT, PP, D>(
+    pub fn step(
         &mut self,
-        tokenizer: &tokenizers::TokenizerImpl<M, N, PT, PP, D>,
+        tokenizer: ExTokenizersTokenizer,
         id: u32,
-    ) -> tokenizers::tokenizer::Result<Option<String>>
-    where
-        M: tokenizers::Model,
-        N: tokenizers::Normalizer,
-        PT: tokenizers::PreTokenizer,
-        PP: tokenizers::PostProcessor,
-        D: tokenizers::Decoder,
-    {
+    ) -> tokenizers::tokenizer::Result<Option<String>> {
         tokenizers::step_decode_stream(
-            tokenizer,
+            &tokenizer.resource.0,
             id,
             self.skip_special_tokens,
             &mut self.ids,
@@ -94,10 +87,13 @@ fn decoder_stream_step(
     tokenizer: ExTokenizersTokenizer,
     id: u32,
 ) -> Result<Option<String>, ExTokenizersError> {
-    let tk = tokenizer.resource.0.clone();
-    let mut ds = decode_stream.resource.inner.write().unwrap();
-
-    ds.step(&tk, id).map_err(ExTokenizersError::Tokenizer)
+    decode_stream
+        .resource
+        .inner
+        .write()
+        .unwrap()
+        .step(tokenizer, id)
+        .map_err(ExTokenizersError::Tokenizer)
 }
 
 #[rustler::nif]

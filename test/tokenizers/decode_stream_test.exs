@@ -38,7 +38,7 @@ defmodule Tokenizers.DecodeStreamTest do
         tk
         |> Tokenizers.Tokenizer.set_decoder(Tokenizers.Decoder.byte_fallback())
 
-      ds = Tokenizers.DecodeStream.new(false)
+      ds = Tokenizers.DecodeStream.new()
 
       {:ok, " "} = Tokenizers.DecodeStream.step(ds, tk, 1)
       {:ok, :out_of_range} = Tokenizers.DecodeStream.step(ds, tk, 2)
@@ -58,7 +58,7 @@ defmodule Tokenizers.DecodeStreamTest do
         tk
         |> Tokenizers.Tokenizer.set_decoder(Tokenizers.Decoder.metaspace())
 
-      ds = Tokenizers.DecodeStream.new(false)
+      ds = Tokenizers.DecodeStream.new()
 
       {:ok, "This"} = Tokenizers.DecodeStream.step(ds, tk, 1)
       {:ok, " This"} = Tokenizers.DecodeStream.step(ds, tk, 1)
@@ -67,15 +67,16 @@ defmodule Tokenizers.DecodeStreamTest do
 
   describe "DecodeStream info" do
     test "skip_special_tokens false" do
-      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new(false)) == %{
+      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new()) == %{
                "skip_special_tokens" => false
              }
     end
 
     test "skip_special_tokens true" do
-      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new(true)) == %{
-               "skip_special_tokens" => true
-             }
+      assert Tokenizers.DecodeStream.info(Tokenizers.DecodeStream.new(skip_special_tokens: true)) ==
+               %{
+                 "skip_special_tokens" => true
+               }
     end
 
     test "default DecodeStream" do
