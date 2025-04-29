@@ -1,4 +1,5 @@
 mod added_token;
+mod decode_stream;
 mod decoders;
 mod encoding;
 mod error;

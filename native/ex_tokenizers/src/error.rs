@@ -1,5 +1,5 @@
 use rustler::{Encoder, Env, Term};
-use std::io;
+use std::{io, panic::RefUnwindSafe};
 use thiserror::Error;
 
 rustler::atoms! {
@@ -12,7 +12,7 @@ pub enum ExTokenizersError {
     #[error("Invalid Char")]
     InvalidChar,
     #[error("Tokenizer Error")]
-    Tokenizer(#[from] Box<dyn std::error::Error + Send + Sync>),
+    Tokenizer(#[from] tokenizers::Error),
     #[error("IO Error")]
     Io(#[from] io::Error),
     #[error("Internal Error: {0}")]
@@ -28,3 +28,5 @@ impl Encoder for ExTokenizersError {
         format!("{self:?}").encode(env)
     }
 }
+
+impl RefUnwindSafe for ExTokenizersError {}

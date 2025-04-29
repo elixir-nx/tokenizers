@@ -1,3 +1,5 @@
+use std::panic::RefUnwindSafe;
+
 use rustler::Encoder;
 use tokenizers::{PaddingDirection, TruncationDirection};
 
@@ -10,6 +12,7 @@ macro_rules! new_info {
 }
 
 pub struct Info(pub Vec<(Box<dyn Encoder>, Box<dyn Encoder>)>);
+impl RefUnwindSafe for Info {}
 
 impl rustler::Encoder for Info {
     fn encode<'a>(&self, env: rustler::Env<'a>) -> rustler::Term<'a> {
