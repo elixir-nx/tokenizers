@@ -16,11 +16,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir_version: 1.15.4
-            otp_version: 26.0.2
+          - elixir_version: 1.18.3
+            otp_version: 27.3.3
             lint: true
-          - elixir_version: 1.13
-            otp_version: 24.2
+          - elixir_version: 1.13.4
+            otp_version: 24.3.4
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
