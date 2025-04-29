@@ -14,7 +14,7 @@
 
     <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
     <script src="dist/handlebars.templates-K7URE6B4.js"></script>
-    <script src="dist/sidebar_items-55B44D76.js"></script>
+    <script src="dist/sidebar_items-A42F5809.js"></script>
     <script src="docs_config.js"></script>
     <script async src="dist/html-YIPIRHGU.js"></script>
 
@@ -681,11 +681,8 @@ it uses <a href="https://www.erlang.org/doc/apps/stdlib/filename.html#basedir/3"
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> decode(
-  <a href="#t:t/0">t</a>(),
-  [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()],
-  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
-) :: {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> decode(<a href="#t:t/0">t</a>(), [<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()], <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -722,11 +719,8 @@ the decoded string. Defaults to <code class="inline">true</code></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> decode_batch(
-  <a href="#t:t/0">t</a>(),
-  [[<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()]],
-  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
-) :: {:ok, [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> decode_batch(<a href="#t:t/0">t</a>(), [[<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()]], <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -796,11 +790,8 @@ for more information. Defaults to <code class="inline">[]</code></p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> encode_batch(
-  <a href="#t:t/0">t</a>(),
-  [<a href="#t:encode_input/0">encode_input</a>()],
-  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
-) :: {:ok, [<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> encode_batch(<a href="#t:t/0">t</a>(), [<a href="#t:encode_input/0">encode_input</a>()], <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) ::
+  {:ok, [<a href="Tokenizers.Encoding.html#t:t/0">Tokenizers.Encoding.t</a>()]} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 
@@ -1503,11 +1494,7 @@ overflowing the model's input</p></li></ul>
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> train_from_files(
-  <a href="#t:t/0">t</a>(),
-  [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()],
-  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()
-) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> train_from_files(<a href="#t:t/0">t</a>(), [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>()], <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: {:ok, <a href="#t:t/0">t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">term</a>()}</pre>
 
       </div>
 

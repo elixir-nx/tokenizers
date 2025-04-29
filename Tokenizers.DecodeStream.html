@@ -8,7 +8,7 @@
     <meta name="project" content="Tokenizers v0.6.0-dev">
 
 
-    <title>Tokenizers.Encoding.Transformation — Tokenizers v0.6.0-dev</title>
+    <title>Tokenizers.DecodeStream — Tokenizers v0.6.0-dev</title>
     <link rel="stylesheet" href="dist/html-elixir-F2VRIOKR.css" />
 
 
@@ -112,19 +112,19 @@ Pages
 <div id="top-content">
   <h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/encoding/transformation.ex#L1" title="View Source" class="icon-action" rel="help">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/decode_stream.ex#L1" title="View Source" class="icon-action" rel="help">
         <i class="ri-code-s-slash-line" aria-hidden="true"></i>
         <span class="sr-only">View Source</span>
       </a>
 
-    <span translate="no">Tokenizers.Encoding.Transformation</span> 
+    <span translate="no">Tokenizers.DecodeStream</span> 
     <small class="app-vsn" translate="no">(Tokenizers v0.6.0-dev)</small>
 
   </h1>
 
 
     <section id="moduledoc">
-<p>Module containing handy functions to build the transformations list.</p><p>This list is applied to an encoding using <a href="Tokenizers.Encoding.html#transform/2"><code class="inline">Tokenizers.Encoding.transform/2</code></a>.</p>
+<p>Implements streaming decoding functionality for tokenizers.</p>
     </section>
 
 </div>
@@ -157,31 +157,31 @@ Pages
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#pad/2" data-no-tooltip translate="no">pad(target_length, opts \\ [])</a>
+        <a href="#info/1" data-no-tooltip translate="no">info(decode_stream)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Generates the padding transformation.</p></div>
+        <div class="summary-synopsis"><p>Returns information about the decode stream state.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#set_sequence_id/1" data-no-tooltip translate="no">set_sequence_id(id)</a>
+        <a href="#new/1" data-no-tooltip translate="no">new(opts \\ [])</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Generates the set_sequence_id transformation.</p></div>
+        <div class="summary-synopsis"><p>Creates a new decode stream.</p></div>
 
     </div>
 
     <div class="summary-row">
       <div class="summary-signature">
-        <a href="#truncate/2" data-no-tooltip translate="no">truncate(max_length, opts \\ [])</a>
+        <a href="#step/3" data-no-tooltip translate="no">step(decode_stream, tokenizer, id)</a>
 
       </div>
 
-        <div class="summary-synopsis"><p>Generates the truncation transformation.</p></div>
+        <div class="summary-synopsis"><p>Steps through the decode stream with the given tokenizer and token ID.</p></div>
 
     </div>
 
@@ -207,7 +207,7 @@ Pages
     </a>
     <h1 class="signature" translate="no">t()</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/encoding/transformation.ex#L8" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/decode_stream.ex#L9" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -219,11 +219,7 @@ Pages
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@type</span> t() :: [
-  pad: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()},
-  truncate: {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()},
-  set_sequence_id: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()
-]</pre>
+          <pre translate="no"><span class="attribute">@type</span> t() :: %Tokenizers.DecodeStream{resource: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">reference</a>()}</pre>
 
       </div>
 
@@ -242,18 +238,16 @@ Pages
       <span class="text">Functions</span>
     </h1>
     <div class="functions-list">
-<section class="detail" id="pad/2">
-
-    <span id="pad/1"></span>
+<section class="detail" id="info/1">
 
   <div class="detail-header">
-    <a href="#pad/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#info/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">pad(target_length, opts \\ [])</h1>
+    <h1 class="signature" translate="no">info(decode_stream)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/encoding/transformation.ex#L21" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/decode_stream.ex#L50" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -263,26 +257,21 @@ Pages
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> pad(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()) ::
-  {:pad, {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:padding_opts/0">Tokenizers.Encoding.padding_opts</a>()}}</pre>
-
-      </div>
-
-<p>Generates the padding transformation.</p><p>Check <a href="Tokenizers.Encoding.html#pad/3"><code class="inline">Tokenizers.Encoding.pad/3</code></a> for more information.</p>
+<p>Returns information about the decode stream state.</p>
   </section>
 </section>
-<section class="detail" id="set_sequence_id/1">
+<section class="detail" id="new/1">
+
+    <span id="new/0"></span>
 
   <div class="detail-header">
-    <a href="#set_sequence_id/1" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#new/1" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">set_sequence_id(id)</h1>
+    <h1 class="signature" translate="no">new(opts \\ [])</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/encoding/transformation.ex#L43" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/decode_stream.ex#L23" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -294,25 +283,30 @@ Pages
 
       <div class="specs">
 
-          <pre translate="no"><span class="attribute">@spec</span> set_sequence_id(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()) :: {:set_sequence_id, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>()}</pre>
+          <pre translate="no"><span class="attribute">@spec</span> new(<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">keyword</a>()) :: <a href="#t:t/0">t</a>()</pre>
 
       </div>
 
-<p>Generates the set_sequence_id transformation.</p><p>Check <a href="Tokenizers.Encoding.html#set_sequence_id/2"><code class="inline">Tokenizers.Encoding.set_sequence_id/2</code></a> for more information.</p>
+<p>Creates a new decode stream.</p><h2 id="new/1-options" class="section-heading">
+  <a href="#new/1-options" class="hover-link">
+    <i class="ri-link-m" aria-hidden="true"></i>
+  </a>
+  <span class="text">Options</span>
+</h2>
+<ul><li><code class="inline">:skip_special_tokens</code> - determines whether special tokens should be
+skipped during decoding. By default, it is set to <code class="inline">false</code>.</li></ul>
   </section>
 </section>
-<section class="detail" id="truncate/2">
-
-    <span id="truncate/1"></span>
+<section class="detail" id="step/3">
 
   <div class="detail-header">
-    <a href="#truncate/2" class="detail-link" data-no-tooltip title="Link to this function">
+    <a href="#step/3" class="detail-link" data-no-tooltip title="Link to this function">
       <i class="ri-link-m" aria-hidden="true"></i>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature" translate="no">truncate(max_length, opts \\ [])</h1>
+    <h1 class="signature" translate="no">step(decode_stream, tokenizer, id)</h1>
 
-      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/encoding/transformation.ex#L32" class="icon-action" rel="help" title="View Source">
+      <a href="https://github.com/elixir-nx/tokenizers/blob/v0.6.0-dev/lib/tokenizers/decode_stream.ex#L34" class="icon-action" rel="help" title="View Source">
        <i class="ri-code-s-slash-line" aria-hidden="true"></i>
        <span class="sr-only">View Source</span>
      </a>
@@ -322,14 +316,8 @@ Pages
 
   <section class="docstring">
 
-      <div class="specs">
-
-          <pre translate="no"><span class="attribute">@spec</span> truncate(<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()) ::
-  {:truncate, {<a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">non_neg_integer</a>(), <a href="Tokenizers.Encoding.html#t:truncation_opts/0">Tokenizers.Encoding.truncation_opts</a>()}}</pre>
-
-      </div>
-
-<p>Generates the truncation transformation.</p><p>Check <a href="Tokenizers.Encoding.html#truncate/3"><code class="inline">Tokenizers.Encoding.truncate/3</code></a> for more information.</p>
+<p>Steps through the decode stream with the given tokenizer and token ID.</p><p>Returns <code class="inline">{:ok, String.t()}</code> if there's a decoded string, or <code class="inline">{:ok, :out_ofr_range}</code> if the token ID is out of range.
+Returns <code class="inline">{:error, reason}</code> if an error occurs during decoding.</p>
   </section>
 </section>
 
