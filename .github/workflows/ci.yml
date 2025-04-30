@@ -22,8 +22,8 @@ jobs:
           - elixir_version: 1.13.4
             otp_version: 24.3.4
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
         with:
           path: |
             deps
@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-mix-${{ matrix.elixir_version }}-${{matrix.otp_version}}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-${{ matrix.elixir_version }}-${{matrix.otp_version}}-
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/

@@ -21,16 +21,16 @@ jobs:
       matrix:
         nif: ["2.15", "2.16"]
         job:
-          - { target: aarch64-apple-darwin, os: macos-12 }
-          - { target: aarch64-unknown-linux-gnu, os: ubuntu-20.04, use-cross: true }
-          - { target: aarch64-unknown-linux-musl, os: ubuntu-20.04, use-cross: true }
-          - { target: arm-unknown-linux-gnueabihf, os: ubuntu-20.04, use-cross: true }
-          - { target: riscv64gc-unknown-linux-gnu, os: ubuntu-20.04, use-cross: true }
-          - { target: x86_64-apple-darwin, os: macos-12 }
+          - { target: aarch64-apple-darwin, os: macos-13 }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-22.04, use-cross: true }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-22.04, use-cross: true }
+          - { target: arm-unknown-linux-gnueabihf, os: ubuntu-22.04, use-cross: true }
+          - { target: riscv64gc-unknown-linux-gnu, os: ubuntu-22.04, use-cross: true }
+          - { target: x86_64-apple-darwin, os: macos-13 }
           - { target: x86_64-pc-windows-gnu, os: windows-2019 }
           - { target: x86_64-pc-windows-msvc, os: windows-2019 }
-          - { target: x86_64-unknown-linux-gnu, os: ubuntu-20.04 }
-          - { target: x86_64-unknown-linux-musl, os: ubuntu-20.04, use-cross: true }
+          - { target: x86_64-unknown-linux-gnu, os: ubuntu-22.04 }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-22.04, use-cross: true }
 
     steps:
       - name: Checkout source code
@@ -59,7 +59,7 @@ jobs:
           use-cross: ${{ matrix.job.use-cross }}
 
       - name: Artifact upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.build-crate.outputs.file-name }}
           path: ${{ steps.build-crate.outputs.file-path }}
