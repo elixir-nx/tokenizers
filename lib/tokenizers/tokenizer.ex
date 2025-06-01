@@ -452,6 +452,10 @@ defmodule Tokenizers.Tokenizer do
     * `:add_special_tokens` - whether to add special tokens to the
       sequence. Defaults to `true`
 
+    * `:skip_utf8_validation` - whether to skip utf8 validation.
+      Defaults to `false`. Disabling this and passing invalid strings
+      may lead to errors (including segmentation fault)
+
     * `:encoding_transformations` - a list of `t:Tokenizers.Encoding.Transformation.t/0`
       to apply to the encoding. Check `Tokenizers.Encoding.transform/2`
       for more information. Defaults to `[]`

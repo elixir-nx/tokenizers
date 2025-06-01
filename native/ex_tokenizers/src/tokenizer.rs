@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::ops::Deref;
 use std::panic;
 
-use rustler::{NifTaggedEnum, Term};
+use rustler::{Binary, NifTaggedEnum, Term};
 
 use tokenizers::models::wordpiece::WordPieceTrainerBuilder;
 use tokenizers::models::TrainerWrapper;
@@ -428,10 +428,63 @@ fn term_to_encode_input<'a, 'b>(term: &'a Term<'b>) -> Result<EncodeInput<'b>, E
     }
 }
 
+fn unsafe_term_to_encode_input<'a, 'b>(
+    term: &'a Term<'b>,
+) -> Result<EncodeInput<'b>, ExTokenizersError> {
+    if let Ok(bin) = term.decode::<Binary>() {
+        let slice: &'b [u8] = bin.as_slice();
+        let string = unsafe { std::str::from_utf8_unchecked(slice) };
+        Ok(EncodeInput::Single(string.into()))
+    } else if let Ok((bin1, bin2)) = term.decode::<(Binary, Binary)>() {
+        let slice1: &'b [u8] = bin1.as_slice();
+        let string1 = unsafe { std::str::from_utf8_unchecked(slice1) };
+        let slice2: &'b [u8] = bin2.as_slice();
+        let string2 = unsafe { std::str::from_utf8_unchecked(slice2) };
+        Ok(EncodeInput::Dual(string1.into(), string2.into()))
+    } else {
+        Err(ExTokenizersError::Other(String::from(
+            "input must be either a string (valid UTF-8 encoded) or a tuple",
+        )))
+    }
+}
+
 #[derive(NifTaggedEnum)]
 pub enum EncodeOption {
+    SkipUTF8Validation(bool),
     AddSpecialTokens(bool),
     EncodingTransformations(Vec<TransformationElement>),
+}
+
+struct EncodeConfig {
+    skip_utf8_validation: bool,
+    add_special_tokens: bool,
+    encoding_transformations: Vec<TransformationElement>,
+}
+
+impl From<Vec<EncodeOption>> for EncodeConfig {
+    fn from(options: Vec<EncodeOption>) -> Self {
+        let mut config = EncodeConfig {
+            skip_utf8_validation: false,
+            add_special_tokens: true,
+            encoding_transformations: Vec::new(),
+        };
+
+        for option in options {
+            match option {
+                EncodeOption::SkipUTF8Validation(val) => {
+                    config.skip_utf8_validation = val;
+                }
+                EncodeOption::AddSpecialTokens(val) => {
+                    config.add_special_tokens = val;
+                }
+                EncodeOption::EncodingTransformations(transformations) => {
+                    config.encoding_transformations = transformations;
+                }
+            }
+        }
+
+        config
+    }
 }
 
 #[rustler::nif(schedule = "DirtyCpu")]
@@ -440,24 +493,14 @@ pub fn tokenizer_encode(
     input: Term,
     options: Vec<EncodeOption>,
 ) -> Result<ExTokenizersEncoding, ExTokenizersError> {
-    struct Opts {
-        add_special_tokens: bool,
-        encoding_transformations: Vec<TransformationElement>,
-    }
-    let mut opts = Opts {
-        add_special_tokens: true,
-        encoding_transformations: Vec::new(),
-    };
-    options.into_iter().for_each(|option| match option {
-        EncodeOption::AddSpecialTokens(add_special_tokens) => {
-            opts.add_special_tokens = add_special_tokens
-        }
-        EncodeOption::EncodingTransformations(encoding_transformations) => {
-            opts.encoding_transformations = encoding_transformations
-        }
-    });
+    let opts: EncodeConfig = options.into();
 
-    let input = term_to_encode_input(&input)?;
+    let input = if opts.skip_utf8_validation {
+        unsafe_term_to_encode_input(&input)?
+    } else {
+        term_to_encode_input(&input)?
+    };
+
     let mut encoding = tokenizer
         .resource
         .0
@@ -473,25 +516,15 @@ pub fn tokenizer_encode_batch(
     options: Vec<EncodeOption>,
     // add_special_tokens: bool,
 ) -> Result<Vec<ExTokenizersEncoding>, ExTokenizersError> {
-    struct Opts {
-        add_special_tokens: bool,
-        encoding_transformations: Vec<TransformationElement>,
-    }
-    let mut opts = Opts {
-        add_special_tokens: true,
-        encoding_transformations: Vec::new(),
+    let opts: EncodeConfig = options.into();
+    let callback = if opts.skip_utf8_validation {
+        unsafe_term_to_encode_input
+    } else {
+        term_to_encode_input
     };
-    options.into_iter().for_each(|option| match option {
-        EncodeOption::AddSpecialTokens(add_special_tokens) => {
-            opts.add_special_tokens = add_special_tokens
-        }
-        EncodeOption::EncodingTransformations(encoding_transformations) => {
-            opts.encoding_transformations = encoding_transformations
-        }
-    });
     let inputs = inputs
         .iter()
-        .map(term_to_encode_input)
+        .map(callback)
         .collect::<Result<Vec<EncodeInput>, ExTokenizersError>>()?;
     let mut encodings = tokenizer
         .resource
