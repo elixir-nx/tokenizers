@@ -2,7 +2,7 @@ defmodule Tokenizers.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/elixir-nx/tokenizers"
-  @version "0.5.2"
+  @version "0.5.3-dev"
 
   def project do
     [
