@@ -58,7 +58,7 @@ defmodule Tokenizers.HTTPClient do
       ]
     ]
 
-    options = [body_format: :binary]
+    options = [body_format: :binary, max_header_size: 32_768]
 
     case :httpc.request(opts[:method], {url, headers}, http_options, options) do
       {:ok, {{_, status, _}, headers, body}} ->
